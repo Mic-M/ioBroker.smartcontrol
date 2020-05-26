@@ -1,0 +1,85 @@
+{
+    "common": {
+        "name": "smartcontrol",
+        "version": "0.0.1",
+        "news": {
+            "0.0.1": {
+                "en": "initial release",
+                "de": "Erstveröffentlichung",
+                "ru": "Начальная версия",
+                "pt": "lançamento inicial",
+                "nl": "Eerste uitgave",
+                "fr": "Première version",
+                "it": "Versione iniziale",
+                "es": "Versión inicial",
+                "pl": "Pierwsze wydanie",
+                "zh-cn": "首次出版"
+            }
+        },
+        "title": "Smart Control",
+        "titleLang": {
+            "en": "Smart Control",
+            "de": "Intelligente Steuerung",
+            "ru": "Smart Control",
+            "pt": "Controle Inteligente",
+            "nl": "Slimme bediening",
+            "fr": "Contrôle intelligent",
+            "it": "Controllo intelligente",
+            "es": "Control inteligente",
+            "pl": "Inteligentna kontrola",
+            "zh-cn": "智能控制"
+        },
+        "desc": {
+            "en": "Control devices smarter: by grouping, including triggers like motion, opening window, etc. and set target devices accordingly",
+            "de": "Intelligentere Steuergeräte: durch Gruppieren, einschließlich Auslöser wie Bewegung, Öffnen des Fensters usw., und Festlegen der Zielgeräte entsprechend",
+            "ru": "Умнее управляйте устройствами: группируя, включая триггеры, такие как движение, открывание окна и т. Д., И соответственно устанавливайте целевые устройства",
+            "pt": "Dispositivos de controle mais inteligentes: agrupando, incluindo gatilhos como movimento, abrindo a janela etc. e defina os dispositivos de destino de acordo",
+            "nl": "Bedien apparaten slimmer: door te groeperen, inclusief triggers zoals beweging, raam openen, enz. En dienovereenkomstig doelapparaten in te stellen",
+            "fr": "Contrôlez les appareils plus intelligemment: en groupant, y compris les déclencheurs comme le mouvement, l'ouverture de la fenêtre, etc. et définissez les appareils cibles en conséquence",
+            "it": "Controlla i dispositivi in ​​modo più intelligente: raggruppando, inclusi trigger come movimento, apertura della finestra, ecc. E imposta i dispositivi di destinazione di conseguenza",
+            "es": "Controle los dispositivos de manera más inteligente: agrupando, incluidos los desencadenantes como el movimiento, la ventana de apertura, etc.",
+            "pl": "Inteligentniejsze sterowanie urządzeniami: przez grupowanie, w tym wyzwalaczy, takich jak ruch, otwieranie okna itp. I odpowiednie ustawianie urządzeń docelowych",
+            "zh-cn": "控制设备更智能：通过分组（包括动作，打开窗口等）进行分组，并相应地设置目标设备"
+        },
+        "authors": [
+            "Mic-M <iob.micm@gmail.com>"
+        ],
+        "keywords": [
+            "smart",
+            "control",
+            "rooms",
+            "groups",
+            "motion sensors",
+            "devices",
+            "switches",
+            "lights",
+            "trigger",
+            "schedule"
+        ],
+        "license": "MIT",
+        "platform": "Javascript/Node.js",
+        "main": "main.js",
+        "icon": "smartcontrol.png",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/Mic-M/ioBroker.smartcontrol/master/admin/smartcontrol.png",
+        "readme": "https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/README.md",
+        "loglevel": "info",
+        "mode": "daemon",
+        "type": "logic",
+        "compact": true,
+        "connectionType": "local",
+        "dataSource": "poll",
+        "materialize": true,
+        "dependencies": [
+            {
+                "js-controller": ">=1.4.2"
+            }
+        ]
+    },
+    "native": {
+        "option1": true,
+        "option2": "42"
+    },
+    "objects": [],
+    "instanceObjects": []
+}
