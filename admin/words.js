@@ -2,17 +2,17 @@
 'use strict';
 
 systemDictionary = {
-    'smartcontrol adapter settings': {
-        'en': 'Adapter settings for smartcontrol',
-        'de': 'Adaptereinstellungen für smartcontrol',
-        'ru': 'Настройки адаптера для smartcontrol',
-        'pt': 'Configurações do adaptador para smartcontrol',
-        'nl': 'Adapterinstellingen voor smartcontrol',
-        'fr': "Paramètres d'adaptateur pour smartcontrol",
-        'it': "Impostazioni dell'adattatore per smartcontrol",
-        'es': 'Ajustes del adaptador para smartcontrol',
-        'pl': 'Ustawienia adaptera dla smartcontrol',
-        'zh-cn': 'smartcontrol的适配器设置'
+    'my-smart-control adapter settings': {
+        'en': 'Adapter settings for my-smart-control',
+        'de': 'Adaptereinstellungen für my-smart-control',
+        'ru': 'Настройки адаптера для my-smart-control',
+        'pt': 'Configurações do adaptador para my-smart-control',
+        'nl': 'Adapterinstellingen voor my-smart-control',
+        'fr': "Paramètres d'adaptateur pour my-smart-control",
+        'it': "Impostazioni dell'adattatore per my-smart-control",
+        'es': 'Ajustes del adaptador para my-smart-control',
+        'pl': 'Ustawienia adaptera dla my-smart-control',
+        'zh-cn': 'my-smart-control的适配器设置'
     },
     'option1': {
         'en': 'option1',

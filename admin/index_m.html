@@ -11,7 +11,7 @@
 
     <script type="text/javascript" src="../../js/translate.js"></script>
     <script type="text/javascript" src="../../lib/js/materialize.js"></script>
-    <script type="text/javascript" src="../../js/adapter-settings.js"></script>
+    <script type="text/javascript" src="../../js/adapter-settings.js"></script> <!-- iobroker/node_modules/iobroker.admin/www/js/ -->
 
     <!-- Load our own files -->
     <link rel="stylesheet" type="text/css" href="style.css" />
@@ -19,6 +19,14 @@
 
     <script type="text/javascript">
         // This will be called by the admin adapter when the settings page loads
+        // ++++++ Define variables for option tables ++++++
+        let tableTriggerMotion = [];
+        let tableTriggerDevices = [];
+        let tableTargetDevices = [];
+        let tableRooms = [];
+        let tableConditions = [];
+        let tableSchedules = [];
+        let views;
         function load(settings, onChange) {
             // example: select elements with id=key and class=value and insert value
             if (!settings) return;
@@ -38,7 +46,86 @@
                         ;
                 }
             });
+            // ++++++ For option tables ++++++
+            tableTriggerMotion = settings.tableTriggerMotion || [];
+            tableTriggerDevices = settings.tableTriggerDevices || [];
+            tableTargetDevices = settings.tableTargetDevices || [];
+            tableRooms = settings.tableRooms || [];
+            tableConditions = settings.tableConditions || [];
+            tableSchedules = settings.tableSchedules || [];
+
             onChange(false);
+
+            // ++++++ For option tables ++++++
+            values2table('tableTriggerMotion', tableTriggerMotion, onChange); // see iobroker/node_modules/iobroker.admin/www/js/adapter-settings.js
+            values2table('tableTriggerDevices', tableTriggerDevices, onChange);
+            values2table('tableTargetDevices', tableTargetDevices, onChange);
+            values2table('tableRooms', tableRooms, onChange);
+            values2table('tableConditions', tableConditions, onChange);
+            values2table('tableSchedules', tableSchedules, onChange);
+
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            
+
+            //Enhance Tabs with onShow-Function. Source: iqontrol Adapter
+
+            // -- Added 13-Jun-2020. If these tabs were not opened in admin settings and options saved, caused empty fields.
+            onTabShow('#tabRooms');
+            onTabShow('#tabSchedules');
+            // --
+
+            $('ul.tabs li a').on('click', function() { 
+                onTabShow($(this).attr('href'));
+            });
+            function onTabShow(tabId){
+                switch(tabId){
+
+                    case "#tabRooms":
+                    populateTable(['tableTriggerMotion', 'tableTriggerDevices'], ['name', 'name'], 'tableRooms', tableRooms, 'triggers');
+                    populateTable('tableTargetDevices', 'deviceName', 'tableRooms', tableRooms, 'targets');
+                    break;
+
+                    case "#tabSchedules":
+                    populateTable('tableRooms', 'roomName', 'tableSchedules', tableSchedules, 'roomName');
+                    populateTable('tableConditions', 'conditionName', 'tableSchedules', tableSchedules, 'additionalConditions');
+                    populateTable('tableConditions', 'conditionName', 'tableSchedules', tableSchedules, 'never');
+                    break;
+
+
+                }
+            }        
+
+            /**
+             * Populate select field
+             * @param {*}  sourceTableIds   Id of input table, like "tableTriggerMotion". String or array of strings for multiple tables
+             * @param {*}  sourceFieldIds   Id of table line field, from which to get content, like "name". . String or array of strings for multiple fields
+             * @param {string}  targetTableId   Target table id, like "tableRooms"
+             * @param {array}   targetTableArr  Target table array, like tableRooms variable
+             * @param {string}  targetFieldId   Target table line field, like 'Test'
+             * @param {string}  [addFirstItem]    Optional string to add as first item of drop-down.
+             */
+            function populateTable(sourceTableIds, sourceFieldIds, targetTableId, targetTableArr, targetFieldId, addFirstItem = '') {
+                if(!Array.isArray(sourceTableIds)) sourceTableIds = [sourceTableIds]; // wrap into array
+                if(!Array.isArray(sourceFieldIds)) sourceFieldIds = [sourceFieldIds]; // wrap into array
+                let result = [];
+                if (addFirstItem) result.push(addFirstItem);
+                for (let i = 0; i < sourceTableIds.length; i++) {
+                    const configTbl = settings[sourceTableIds[i]] || [];
+                    for (let lpElement of configTbl) {
+                        if (lpElement['active'] == true) { // check for checkbox "active"
+                            result.push(lpElement[sourceFieldIds[i]]); 
+                        }
+                    }
+                }
+                // Create dropdown menu
+                $('*[data-name="' + targetFieldId + '"]').data('options', result.join(';'));
+                // Fill table
+                values2table(targetTableId, targetTableArr, onChange);
+            }
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            
+
             // reinitialize all the Materialize labels on the page if you are dynamically adding inputs:
             if (M) M.updateTextFields();
         }
@@ -55,37 +142,323 @@
                     obj[$this.attr('id')] = $this.val();
                 }
             });
+            // ++++++ For option tables ++++++
+            obj.tableTriggerMotion = table2values('tableTriggerMotion');
+            obj.tableTriggerDevices = table2values('tableTriggerDevices');
+            obj.tableTargetDevices = table2values('tableTargetDevices');
+            obj.tableRooms = table2values('tableRooms');
+            obj.tableConditions = table2values('tableConditions');
+            obj.tableSchedules = table2values('tableSchedules');
+
             callback(obj);
         }
+
     </script>
+
+    <style>
+        /* Required to avoid y-scrollbar. */
+        .modal { max-height:85% !important; }
+        .m .page {height: auto !important; min-height:75% !important; }
+
+        /* Tabs menu */
+            /* .m .tabs {border-radius: .3em;} */
+        .m .tabs .tab a { color: rgba(13, 134, 231, 0.7); }
+        .m .tabs .active { border-bottom: 2px solid #0d47a1; font-weight: bold;}
+        .m .tabs .tab a.active, .m .tabs .tab a:hover { color:#0d47a1; }
+        .m .tabs .tab a:hover { border-bottom: 2px solid #46a0e9 !important; }
+
+        /* Table header */
+        table.table-values th.header { background-color:#64BfF6; font-size:90%; text-align:center; line-height: 1em; padding:6px 2px;}
+
+        /* format second column of option tables */
+        table.table-values tr td:nth-child(2) input { font-weight:bold; }
+
+        /* to be able to adjust column width accordingly */
+        table.table-values { table-layout:fixed; }
+
+        /* add space at top */
+        .spaceTop3em {margin-top: 3em; }
+        
+        /* Introduction section */
+        .intro {font-size: 18px;}
+        ol li {font-size: .9em;}
+        .intro h5 {font-size: 1.5em;}
+
+    </style>
 
 </head>
 
 <body>
 
     <div class="m adapter-container">
-
-        <div class="row">
-            <div class="col s12 m4 l2">
-                <img src="smartcontrol.png" class="logo">
+        <!-- ============= HEADER WITH LOGO AND BUTTONS ============= -->
+        <div class="row" style="margin-top: 5px; margin-bottom: 1px; background-color:#174475; ">
+            <div class="col s6">
+                <img style="float:left; margin-right: 10px;" src="my-smart-control.png" class="logo">
+                <p style="font-size: 2em; color:white; line-height: normal !important; padding: 8px; margin: 0; line-height: 50px;"  class="translate">
+                    Smart Control</br>
+                    <span style="font-size: .55em; font-style: italic;" class="translate">controlling ioBroker easier and smarter</span>
+                </p>
             </div>
         </div>
 
-        <!-- Put your content here -->
-
-        <!-- For example columns with settings: -->
+        <!-- ============= MAIN SECTION ============= -->
         <div class="row">
-            <div class="col s6 input-field">
-                <input type="checkbox" class="value" id="option1" />
-                <label for="option1" class="translate">option1</label>
+
+            <!-- +++++++++++++ DEFINE TABS MENU +++++++++++++ -->
+            <div class="col s12" style="padding-left:0;padding-right:0; margin-top: 0px; margin-bottom: 1px; background-color:#174475; box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);">
+                <ul class="tabs blue lighten-4">
+                    <!-- see description: https://materializecss.com/grid.html -->
+                    <li class="tab col s5 l2"><a href="#tabMain" class="translate">Start</a></li>
+                    <li class="tab col s5 l2"><a href="#tabTriggers" class="translate">Triggers</a></li>
+                    <li class="tab col s5 l2"><a href="#tabDevices" class="translate">Target Devices</a></li>
+                    <li class="tab col s5 l2"><a href="#tabRooms" class="translate">Rooms / Areas</a></li>
+                    <li class="tab col s5 l2"><a href="#tabConditions" class="translate">Conditions</a></li>
+                    <li class="tab col s5 l2"><a href="#tabSchedules" class="translate">Schedules</a></li>
+                </ul>
             </div>
 
-            <div class="col s6 input-field">
-                <input type="text" class="value" id="option2" />
-                <label for="option2" class="translate">option2</label>
+
+
+            <!-- +++++++++++++ TAB: MAIN +++++++++++++ -->
+
+            <div id="tabMain" class="col s12 page">
+                <!-- Section "Introduction" -->
+
+                <div class="row spaceTop3em">
+                    <div class="col s12 intro">
+                        <h5 class="translate">How to configure this adapter instance</h5>
+                        <p>
+                            <span class="translate">Adapter Instructions</span>: 
+                            <a href="#" target="_blank"><span class="translate">English</span></a>
+                            | <a href="#" target="_blank"><span class="translate">German</span></a>
+                        </p>
+                        <p class="spaceTop3em">
+                            <span class="translate" style="font-weight:bold;">Configuration Steps</span>:
+                            <ol>
+                                <li class="translate">Lorem ipsum dolor sit amet</li>
+                                <li class="translate">Consectetuer leo id tellus Nam</li>
+                                <li class="translate">Wisi massa aliquam Vestibulum Sed</li>
+                            </ol>                            
+                        </p>
+                    </div>
+                </div>            
+
+                <!-- Section "Exceed Midnight" -->                
+                <div class="row">
+                    <div class="col s12">
+                        <p class="translate title" style="background-color:#174475;">Exceed Midnight</p>
+                        <p class="translate info">Schedules table: if you have a start time of 22:00 and an end time of 02:00, then this is considered as not valid, since it would exceed midnight. By activating this option, the period is being exceeded over midnight.</p>
+                        <div class="input-field col s12 m6">
+                            <input type="checkbox" class="value" id="exceedMidnight" />
+                            <label for="exceedMidnight" class="translate">Exceed Midnight</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section "Extended Info Log" -->                
+                <div class="row">
+                    <div class="col s12">
+                        <p class="translate title" style="background-color:#174475;">Extended Info Log</p>
+                        <p class="translate info">If activated, the info log will be showing way more information. If deactivated, it will be in debug log level.</p>
+                        <div class="input-field col s12 m6">
+                            <input type="checkbox" class="value" id="extendedInfoLog" />
+                            <label for="extendedInfoLog" class="translate">Extended Info Log</label>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
+
+            <!-- +++++++++++++ TAB: TRIGGERS +++++++++++++ -->
+
+            <div id="tabTriggers" class="col s12 page">
+            
+                <div class="row spaceTop3em">
+                    <div class="col s12">
+                        <h5 class="translate">Motion Sensors</h5>
+                        <p class="translate info">Enter your motion sensors. You can optionally add a brightness state and threshold value.</p>
+                        <!-- Start Options Table -->
+                        <div class="col s12" id="tableTriggerMotion">
+                            <p><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></p>
+                            <div class="table-values-div">
+                                <table class="table-values">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 50px" class="header translate" data-name="active" data-type="checkbox">Active</th>
+                                            <th class="header translate" data-name="name">Motion Sensor Name</th>
+                                            <th class="header translate" data-name="stateId">Motion Sensor State Path</th>
+                                            <th style="width: 120px" class="header translate" data-name="stateVal">State Value</th>
+                                            <th style="width: 120px" class="header translate" data-name="duration" data-type="number">Duration [sec]</th>
+                                            <th class="header translate" data-name="briStateId">Brightness State Path</th>
+                                            <th style="width: 120px" class="header translate" data-name="briThreshold" data-type="number">Bri Threshold</th>
+                                            <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>                        
+                        <!-- End Options Table -->
+                    </div>
+                </div>            
+            
+            
+                <div class="row spaceTop3em">
+                    <div class="col s12">
+                        <h5 class="translate">Other devices</h5>
+                        <p class="translate info">Enter other triggers like wall switches, someone entering your home, etc. These defined items trigger the room/area (turning on).</p>
+                        <!-- Start Options Table -->
+                        <div class="col s12" id="tableTriggerDevices">
+                            <p><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></p>
+                            <div class="table-values-div">
+                                <table class="table-values">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 50px" class="header translate" data-name="active" data-type="checkbox">Active</th>
+                                            <th class="header translate" data-name="name">Device Name</th>
+                                            <th class="header translate" data-name="stateId">Device State Path</th>
+                                            <th class="header translate" data-name="stateVal">State Value</th>
+                                            <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>                        
+                        <!-- End Options Table -->
+                    </div>
+                </div>                        
+            </div>           
+
+            <!-- +++++++++++++ TAB: TARGET DEVICES +++++++++++++ -->
+            <div id="tabDevices" class="col s12 page">
+                <div class="row spaceTop3em">
+                    <div class="col s12">
+                        <h5 class="translate">Target Devices (like light bulbs, play music, etc.)</h5>
+                        <p class="translate info">Target Devices (like light bulbs, play music, etc.)</p>
+                        <p class="translate info">Diesen Use Case hinzufügen: https://forum.iobroker.net/post/433884 (Script: https://forum.iobroker.net/topic/21226/vorlage-automatisches-licht) - 
+                            als Option (true/false): "Lichter die über einen Schalter vor Bewegungserkennung eingeschaltet wurden, werden nicht erfasst und somit auch nicht automatisch ausgeschalten."
+                        <!-- Start Options Table -->
+                        <div class="col s12" id="tableTargetDevices">
+                            <p><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></p>
+                            <div class="table-values-div">
+                                <table class="table-values">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 50px" class="header translate" data-name="active" data-type="checkbox">Active</th>
+                                            <th class="header translate" data-name="deviceName">Device Name</th>
+                                            <th class="header translate" data-name="onState">State Path to turn on</th>
+                                            <th class="header translate" data-name="onValue">Value: on</th>
+                                            <th class="header translate" data-name="offState">State Path to turn off</th>
+                                            <th class="header translate" data-name="offValue">Value: off</th>
+                                            <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>                        
+                        <!-- End Options Table -->
+                    </div>
+                </div>            
+            </div>
+
+            <!-- +++++++++++++ TAB: Rooms +++++++++++++ -->
+            <div id="tabRooms" class="col s12 page">
+                <div class="row spaceTop3em">
+                    <div class="col s12">
+                        <p class="translate info">Rooms and associated triggers and target devices</p>
+                        <!-- Start Options Table -->
+                        <div class="col s12" id="tableRooms">
+                            <p><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></p>
+                            <div class="table-values-div">
+                                <table class="table-values">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 50px" class="header translate" data-name="active" data-type="checkbox">Active</th>
+                                            <th class="header translate" data-name="roomName">Room/Area Name</th>
+                                            <th class="header translate" data-name="triggers" data-type="select multiple">Triggers (Motion Sensors and other Devices)</th>
+                                            <th class="header translate" data-name="targets" data-type="select multiple">Target Devices</th>
+                                            <th class="header translate" data-name="offAfter" data-type="number">Always off after x secs</th>
+                                            <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>                        
+                        <!-- End Options Table -->
+                    </div>
+                </div>            
+            </div>
+
+            <!-- +++++++++++++ TAB: CONDITIONS +++++++++++++ -->
+            <div id="tabConditions" class="col s12 page">
+                <div class="row spaceTop3em">
+                    <div class="col s12">
+                        <h5 class="translate">Conditions</h5>
+                        <p class="translate info">Conditions</p>
+                        <!-- Start Options Table -->
+                        <div class="col s12" id="tableConditions">
+                            <p><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></p>
+                            <div class="table-values-div">
+                                <table class="table-values">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 50px" class="header translate" data-name="active" data-type="checkbox">Active</th>
+                                            <th class="header translate" data-name="conditionName">Condition Name</th>
+                                            <th class="header translate" data-name="conditionState">State Path to Condition</th>
+                                            <th class="header translate" data-name="conditionValue">State Value</th>
+                                            <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>                        
+                        <!-- End Options Table -->
+                    </div>
+                </div>            
+            </div>
+
+
+            <!-- +++++++++++++ TAB: SCHEDULES +++++++++++++ -->
+            <div id="tabSchedules" class="col s12 page">
+                <div class="row spaceTop3em">
+                    <div class="col s12">
+                        <h5 class="translate">Schedule</h5>
+                        <p class="translate info">Schedule. To Do: Astrozeiten, sowie auch mit Offset (z.B. "sunrise" oder "sunrise:-10" für 10 Minuten vor Sunrise)</p>
+                        <!-- Start Options Table -->
+                        <div class="col s12" id="tableSchedules">
+                            <p><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></p>
+                            <div class="table-values-div">
+                                <table class="table-values">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 50px" class="header translate" data-name="active" data-type="checkbox">Active</th>
+                                            <th class="header translate" data-name="roomName" data-type="select">Room/Area</th>
+                                            <th class="header translate" data-name="start">Start</th>
+                                            <th class="header translate" data-name="end">End</th>
+                                            <th style="width: 35px" class="header translate" data-name="mon" data-type="checkbox">Mon</th>
+                                            <th style="width: 35px" class="header translate" data-name="tue" data-type="checkbox">Tue</th>
+                                            <th style="width: 35px" class="header translate" data-name="wed" data-type="checkbox">Wed</th>
+                                            <th style="width: 35px" class="header translate" data-name="thu" data-type="checkbox">Thu</th>
+                                            <th style="width: 35px" class="header translate" data-name="fri" data-type="checkbox">Fri</th>
+                                            <th style="width: 35px" class="header translate" data-name="sat" data-type="checkbox">Sat</th>
+                                            <th style="width: 35px" class="header translate" data-name="sun" data-type="checkbox">Sun</th>
+                                            <th class="header translate" data-name="additionalConditions" data-type="select multiple">Additional Conditions</th>
+                                            <th class="header translate" data-name="never" data-type="select multiple">Never if</th>
+                                            <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>                        
+                        <!-- End Options Table -->
+                    </div>
+                </div> 
+            </div>  
+
+       
+
         </div>
-
     </div>
 
 </body>

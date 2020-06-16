@@ -19,19 +19,19 @@
         "title": "Smart Control",
         "titleLang": {
             "en": "Smart Control",
-            "de": "Intelligente Steuerung",
+            "de": "Smart Control",
             "ru": "Smart Control",
-            "pt": "Controle Inteligente",
-            "nl": "Slimme bediening",
-            "fr": "Contrôle intelligent",
-            "it": "Controllo intelligente",
-            "es": "Control inteligente",
-            "pl": "Inteligentna kontrola",
-            "zh-cn": "智能控制"
+            "pt": "Smart Control",
+            "nl": "Smart Control",
+            "fr": "Smart Control",
+            "it": "Smart Control",
+            "es": "Smart Control",
+            "pl": "Smart Control",
+            "zh-cn": "Smart Control"
         },
         "desc": {
             "en": "Control devices smarter: by grouping, including triggers like motion, opening window, etc. and set target devices accordingly",
-            "de": "Intelligentere Steuergeräte: durch Gruppieren, einschließlich Auslöser wie Bewegung, Öffnen des Fensters usw., und Festlegen der Zielgeräte entsprechend",
+            "de": "Steuere deine Geräte smarter: durch Gruppieren, Einbindung von Auslösern wie Bewegungsmelder, Öffnen des Fensters usw., und entsprechendes Setzen der Zielgeräte",
             "ru": "Умнее управляйте устройствами: группируя, включая триггеры, такие как движение, открывание окна и т. Д., И соответственно устанавливайте целевые устройства",
             "pt": "Dispositivos de controle mais inteligentes: agrupando, incluindo gatilhos como movimento, abrindo a janela etc. e defina os dispositivos de destino de acordo",
             "nl": "Bedien apparaten slimmer: door te groeperen, inclusief triggers zoals beweging, raam openen, enz. En dienovereenkomstig doelapparaten in te stellen",
@@ -76,10 +76,213 @@
             }
         ]
     },
+
     "native": {
-        "option1": true,
-        "option2": "42"
-    },
+      "exceedMidnight": true,
+      "extendedInfoLog": true,
+      "tableTriggerMotion": [
+          {
+            "active": true,
+            "name": "Motion Bathroom",
+            "stateId": "mihome.0.devices.sensor_motion_aq2_123456.state",
+            "stateVal": "true",
+            "duration": "240",
+            "briStateId": "mihome.0.devices.sensor_motion_aq2_123456.state",
+            "briThreshold": "100"
+          },
+          {
+            "active": true,
+            "name": "Motion Hallway Sensor #1",
+            "stateId": "mihome.0.devices.sensor_motion_aq2_123456.state",
+            "stateVal": "true",
+            "duration": "120",
+            "briStateId": "mihome.0.devices.sensor_motion_aq2_123456.state",
+            "briThreshold": "70"
+          },
+          {
+            "active": true,
+            "name": "Motion Hallway Sensor #2",
+            "stateId": "mihome.0.devices.sensor_motion_aq2_123456.state",
+            "stateVal": "true",
+            "duration": "120",
+            "briStateId": "mihome.0.devices.sensor_motion_aq2_123456.state",
+            "briThreshold": "60"
+          }
+        ],
+        "tableTriggerDevices": [
+          {
+            "active": true,
+            "name": "Wall Switch Bathroom",
+            "stateId": "shelly.0.SHSW-1#123456#1.Relay0.Switch",
+            "stateVal": "true"
+          },
+          {
+            "active": true,
+            "name": "Wall Switch Hallway #1",
+            "stateId": "shelly.0.SHSW-1#123456#1.Relay0.Switch",
+            "stateVal": "true"
+          },
+          {
+            "active": true,
+            "name": "Wall Switch Hallway #2",
+            "stateId": "shelly.0.SHSW-1#123456#1.Relay0.Switch",
+            "stateVal": "true"
+          },
+          {
+            "active": true,
+            "name": "Relax Area Person Sits Indicator",
+            "stateId": "mihome.0.devices.magnet_123456abcdef.state",
+            "stateVal": "true"
+          }
+        ],
+        "tableTargetDevices": [
+          {
+            "active": true,
+            "deviceName": "Bathroom Light",
+            "onState": "shelly.0.SHSW-1#123456#1.Relay0.Switch",
+            "onValue": "true",
+            "offState": "shelly.0.SHSW-1#123456#1.Relay0.Switch",
+            "offValue": "false"
+          },
+          {
+            "active": true,
+            "deviceName": "Bathroom Radio",
+            "onState": "javascript.0.Alexa.RaumA.Radio",
+            "onValue": "Radio Chillout",
+            "offState": "sonos.0.root.10_10_1_2.pause",
+            "offValue": "true"
+          },
+          {
+            "active": true,
+            "deviceName": "Hallway Light",
+            "onState": "javascript.0.Licht.FlurEG.Decke",
+            "onValue": "true",
+            "offState": "javascript.0.Licht.FlurEG.Decke",
+            "offValue": "false"
+          },
+          {
+            "active": true,
+            "deviceName": "Relax Area Ceiling Light",
+            "onState": "javascript.0.Licht.Lesen.Decke",
+            "onValue": "true",
+            "offState": "javascript.0.Licht.Lesen.Decke",
+            "offValue": "false"
+          },
+          {
+            "active": true,
+            "deviceName": "Relax Area Wall Light",
+            "onState": "javascript.0.Licht.Lesen.Wandlicht",
+            "onValue": "true",
+            "offState": "javascript.0.Licht.Lesen.Wandlicht",
+            "offValue": "false"
+          }
+        ],
+        "tableRooms": [
+          {
+            "active": true,
+            "roomName": "Hallway",
+            "triggers": [],
+            "targets": [],
+            "offAfter": "300"
+          },
+          {
+            "active": true,
+            "roomName": "Relax Area",
+            "triggers": [],
+            "targets": [],
+            "offAfter": "7200"
+          },
+          {
+            "active": true,
+            "roomName": "Bathroom Ground Floor",
+            "triggers": [],
+            "targets": [],
+            "offAfter": "3600"
+          }
+        ],
+        "tableConditions": [
+          {
+            "active": true,
+            "conditionName": "Public Holiday",
+            "conditionState": "feiertage.0.today.boolean",
+            "conditionValue": "true"
+          },
+          {
+            "active": true,
+            "conditionName": "No one is present",
+            "conditionState": "0_userdata.0.Anwesenheit.Status.anyonePresent",
+            "conditionValue": "false"
+          },
+          {
+            "active": true,
+            "conditionName": "One or more are present",
+            "conditionState": "0_userdata.0.Anwesenheit.Status.anyonePresent",
+            "conditionValue": "true"
+          }
+        ],
+        "tableSchedules": [
+          {
+            "active": true,
+            "roomName": "",
+            "start": "0:00",
+            "end": "24:00",
+            "mon": true,
+            "tue": true,
+            "wed": true,
+            "thu": true,
+            "fri": true,
+            "sat": true,
+            "sun": true,
+            "additionalConditions": [],
+            "never": []
+          },
+          {
+            "active": true,
+            "roomName": "",
+            "start": "sunset-10",
+            "end": "22:30",
+            "mon": true,
+            "tue": true,
+            "wed": true,
+            "thu": true,
+            "fri": true,
+            "sat": true,
+            "sun": true,
+            "additionalConditions": [],
+            "never": []
+          },
+          {
+            "active": true,
+            "roomName": "",
+            "start": "06:00",
+            "end": "08:00",
+            "mon": true,
+            "tue": true,
+            "wed": true,
+            "thu": true,
+            "fri": true,
+            "sat": false,
+            "sun": false,
+            "additionalConditions": [],
+            "never": []
+          },
+          {
+            "active": true,
+            "roomName": "",
+            "start": "08:00",
+            "end": "10:00",
+            "mon": false,
+            "tue": false,
+            "wed": false,
+            "thu": false,
+            "fri": false,
+            "sat": true,
+            "sun": true,
+            "additionalConditions": [],
+            "never": []
+          }
+        ]
+    },    
     "objects": [],
     "instanceObjects": []
 }
