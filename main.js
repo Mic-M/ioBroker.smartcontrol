@@ -116,20 +116,14 @@ class SmartControl extends utils.Adapter {
         lib.logInfo('Subscribing to all trigger states...');
 
         // We subscribe to triggers: Motion
-        for (const lpRow of this.config.tableTriggerMotion) {
+        
+        // @ts-ignore -- https://github.com/microsoft/TypeScript/issues/36769
+        for (const lpRow of this.config.tableTriggerMotion.concat(this.config.tableTriggerDevices)) {
             if (lpRow.active) {
                 const statePath = lpRow.stateId; // like '0_userdata.0.motion-sensor.Bathroom.motion' 
                 this.subscribeForeignStates(statePath); // we validated in asyncVerifyConfig() if state exists
             }
         }
-
-        // We subscribe to triggers: Other devices
-        for (const lpRow of this.config.tableTriggerDevices) {
-            if (lpRow.active) {
-                const statePath = lpRow.stateId; // like '0_userdata.0.motion-sensor.Bathroom.motion' 
-                this.subscribeForeignStates(statePath); // we validated in asyncVerifyConfig() if state exists
-            }
-        } 
 
     }
 
