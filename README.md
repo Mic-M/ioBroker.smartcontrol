@@ -19,16 +19,9 @@ Control devices smarter: by grouping, including triggers like motion, opening wi
 Icon made by [freepik](https://www.flaticon.com/authors/freepik) from [flaticon.com](https://www.flaticon.com/).
 
 
-### Getting started
+## WARNING
 
-You are almost done, only a few steps left:
-1. Create a new repository on GitHub with the name `ioBroker.smartcontrol`
-
-1. Push all files to the GitHub repo. The creator has already set up the local repository for you:  
-    ```bash
-    git push origin master
-    ```
-1. Head over to [main.js](main.js) and start programming!
+**Please do not use this adapter yet** — It is in an early development stage. It is just published for testing purposes, ref [ioBroker Admin Adapter issue #590](https://github.com/ioBroker/ioBroker.admin/issues/590).
 
 
 ## Changelog
