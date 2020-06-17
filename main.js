@@ -8,6 +8,7 @@
 // The adapter-core module gives you access to the core ioBroker functions you need to create an adapter
 const utils = require('@iobroker/adapter-core');
 
+
 // More global variables
 const g_SunCalc = require('suncalc2');                    // SunCalc
 const g_Library = require(__dirname + '/lib/library.js'); // Library Class
