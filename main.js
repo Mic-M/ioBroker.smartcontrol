@@ -1,22 +1,26 @@
 'use strict';
+/**
+ * ioBroker Smart Control Adapter
+ *
+ * @github  https://github.com/Mic-M/ioBroker.smartcontrol
+ * @forum   https://forum.iobroker.net/topic/33691/planung-neuer-adapter-licht-raumsteuerung-und-mehr/14
+ * @author  Mic-M <iob.micm@gmail.com>
+ * @license MIT
+ * 
+ */
 
-// https://forum.iobroker.net/topic/33691/planung-neuer-adapter-licht-raumsteuerung-und-mehr/14
+/**
+ * Globals
+ */
+const utils     = require('@iobroker/adapter-core');            // Adapter core module
+const g_SunCalc = require('suncalc2');                          // SunCalc
+const g_Library = require(__dirname + '/lib/smartcontrol.js');  // SmartControl Library Class
+const g_Timer   = require(__dirname + '/lib/timer.js');         // Timer Class
+let   lib       = null;                                         // the Library class instance (being assigned later)
 
-// !! ISSUE Adapter Admin Config: https://github.com/ioBroker/ioBroker.admin/issues/590
-
-
-// The adapter-core module gives you access to the core ioBroker functions you need to create an adapter
-const utils = require('@iobroker/adapter-core');
-
-
-// More global variables
-const g_SunCalc = require('suncalc2');                    // SunCalc
-const g_Library = require(__dirname + '/lib/library.js'); // Library Class
-const g_Timer   = require(__dirname + '/lib/timer.js');     // MyTimer Class
-let   lib       = null;                                   // the library class
-
-
-// Adapter Configuration Input Validation of Tables
+/**
+ * Adapter Configuration Input Validation of Tables
+ */
 const g_tableValidation = [
     {
         tableName: 'Triggers: Motion Sensors',   // Name of table, just for logging purposes
@@ -67,138 +71,176 @@ const g_tableValidation = [
 class SmartControl extends utils.Adapter {
 
     /**
-     * Basic Adapter constructor stuff
-     * @param {Partial<utils.AdapterOptions>} [options={}]
+     * Constructor
+     * 
+     * @param {Partial<utils.AdapterOptions>} [options={}]  Adapter Options
+     * 
      */
     constructor(options) {
-        super({    // to access the object's parent
-            ...options,
-            name: 'smartcontrol',
-        });
-        this.on('ready', this.onReady.bind(this));
-        this.on('objectChange', this.onObjectChange.bind(this));
-        this.on('stateChange', this.onStateChange.bind(this));
-        this.on('unload', this.onUnload.bind(this));
+        super( {...options, name: 'smartcontrol'} ); // to access the object's parent
+        this.on('ready',        this._asyncOnReady.bind(this));
+        this.on('stateChange',  this._asyncOnStateChange.bind(this));
+        this.on('unload',       this._onUnload.bind(this));
     }
 
     /**
      * Called once ioBroker databases are connected and adapter received configuration.
      */
-    async onReady() {
+    async _asyncOnReady() {
 
-        // Add our libs
-        lib = new g_Library(this, g_SunCalc, g_Timer);
+        try {
 
-        // Get latitude/longitude from ioBroker admin main configuration.
-        lib.latitude = await lib.asyncGetSystemConfig('latitude');
-        lib.longitude = await lib.asyncGetSystemConfig('longitude');
-        if (!lib.latitude || !lib.longitude) {
-            this.log.warn('Latitude/Longitude is not defined in ioBroker main configuration, so you will not be able to use Astro functionality for schedules.');
-        }
+            /**
+             * Add Smart Control lib
+             */
+            lib = await new g_Library(this, g_SunCalc, g_Timer);
 
-        // Validate Adapter Admin Configuration
-        if (await lib.asyncVerifyConfig(g_tableValidation) == false) return;
+            /**
+             * For adapter testers: create test states under 0_userdata.0.test_smartControl
+             */
+            if (this.config.createAdapterTestStates) {
 
-        // Subscribe to Trigger States
-        this.subscribeToTriggerStates();
-
-        // Initialize Timers
-        lib.initializeMotionSensorTimers();
-
-
-
-    }
-
-    /**
-     * Subscribing to all Trigger states (both motion sensors and other devices tables)
-     */
-    async subscribeToTriggerStates() {
-
-        lib.logInfo('Subscribing to all trigger states...');
-
-        // We subscribe to triggers: Motion
-        
-        // @ts-ignore -- https://github.com/microsoft/TypeScript/issues/36769
-        for (const lpRow of this.config.tableTriggerMotion.concat(this.config.tableTriggerDevices)) {
-            if (lpRow.active) {
-                const statePath = lpRow.stateId; // like '0_userdata.0.motion-sensor.Bathroom.motion' 
-                this.subscribeForeignStates(statePath); // we validated in asyncVerifyConfig() if state exists
+                const where = '0_userdata.0._TestSC.';
+                const statesToCreate = [
+                    {statePath:where+'trigger.Bathroom_motion',         commonObject:{name:'Bathroom Motion', type:'boolean', read:true, write:true, role:'state', def:false} },
+                    {statePath:where+'trigger.Bathroom_wall-switch',    commonObject:{name:'Bathroom Wall Switch', type:'boolean', read:true, write:true, role:'state', def:false} },
+                    {statePath:where+'trigger.Hallway1_motion',         commonObject:{name:'Hallway Motion', type:'boolean', read:true, write:true, role:'state', def:false} },
+                    {statePath:where+'trigger.Hallway2_motion',         commonObject:{name:'HallwayMotion', type:'boolean', read:true, write:true, role:'state', def:false} },
+                    {statePath:where+'trigger.Hallway1_wall-switch',    commonObject:{name:'Hallway Wall Switch', type:'boolean', read:true, write:true, role:'state', def:false} },
+                    {statePath:where+'trigger.Hallway2_wall-switch',    commonObject:{name:'Hallway Wall Switch', type:'boolean', read:true, write:true, role:'state', def:false} },
+                    {statePath:where+'trigger.RelaxPersonSitting',      commonObject:{name:'Relax Area: Someone sitting on sofa', type:'boolean', read:true, write:true, role:'state', def:false} },
+                    {statePath:where+'brightness.Bathroom_bri',         commonObject:{name:'Bathroom Brightness', type:'number', read:true, write:true, role:'state', def:0} },
+                    {statePath:where+'brightness.Hallway1_bri',         commonObject:{name:'Hallway Brightness 1', type:'number', read:true, write:true, role:'state', def:0} },
+                    {statePath:where+'brightness.Hallway2_bri',         commonObject:{name:'Hallway Brightness 2', type:'number', read:true, write:true, role:'state', def:0} },
+                    {statePath:where+'light.Bathroom',                  commonObject:{name:'Bathroom Light', type:'boolean', read:true, write:true, role:'state', def:false} },
+                    {statePath:where+'light.Hallway',                   commonObject:{name:'Hallway Light', type:'boolean', read:true, write:true, role:'state', def:false} },
+                    {statePath:where+'light.RelaxAreaCeiling',          commonObject:{name:'Relax Area Light', type:'boolean', read:true, write:true, role:'state', def:false} },
+                    {statePath:where+'light.RelaxAreaWall',             commonObject:{name:'Relax Area Light', type:'boolean', read:true, write:true, role:'state', def:false} },
+                    {statePath:where+'radio.Bathroom',                  commonObject:{name:'Bath Radio Station (String)', type:'string', read:true, write:true, role:'state', def:''} },
+                    {statePath:where+'radio.Bathroom_pause',            commonObject:{name:'Bath Radio Pause', type:'boolean', read:true, write:true, role:'button', def:false} },
+                    {statePath:where+'condition.isHolidayToday',        commonObject:{name:'Condition: is Holiday Today?', type:'boolean', read:true, write:true, role:'state', def:false} },
+                    {statePath:where+'condition.isAnyonePresent',       commonObject:{name:'Condition: is Anyone Present?', type:'boolean', read:true, write:true, role:'state', def:false} },
+                    {statePath:where+'condition.isFrontDoorLocked',     commonObject:{name:'Condition: is Front Door locked?', type:'boolean', read:true, write:true, role:'state', def:false} },
+                ];           
+                await lib.asyncCreateStates(statesToCreate, true);
             }
+
+         
+
+
+            /**
+             * Get latitude/longitude from ioBroker admin main configuration.
+             */
+            lib.latitude = await lib.asyncGetSystemConfig('latitude');
+            lib.longitude = await lib.asyncGetSystemConfig('longitude');
+            if (!lib.latitude || !lib.longitude) {
+                this.log.warn('Latitude/Longitude is not defined in ioBroker main configuration, so you will not be able to use Astro functionality for schedules.');
+            }
+
+            /**
+             * Validate Adapter Admin Configuration
+             */
+            if (await lib.asyncVerifyConfig(g_tableValidation)) {
+                lib.logInfo('Adapter admin configuration validation is successful.');
+            } else {
+                this.log.error('Adapter admin configuration validation failed --> Please check your configuration. You will not be able to use this adapter without fixing the issues.');
+                return;
+            }
+
+            /**
+             * Subscribe to Trigger States
+             */
+            lib.logInfo('Subscribing to all trigger states...');
+            // @ts-ignore -> https://github.com/microsoft/TypeScript/issues/36769
+            for (const lpRow of this.config.tableTriggerMotion.concat(this.config.tableTriggerDevices)) {
+                if (lpRow.active) {
+                    const statePath = lpRow.stateId; // like '0_userdata.0.motion-sensor.Bathroom.motion' 
+                    await this.subscribeForeignStatesAsync(statePath); // Info: we already validated in asyncVerifyConfig() if state exists
+                }
+            }
+
+            /**
+             * Initialize timers
+             */
+            lib.initializeMotionSensorTimers();
+
+
+        } catch (error) {
+            this.log.error(`[onReady()] ${error.message}, stack: ${error.stack}`);
         }
 
     }
 
 
     /**
-     * Called thru onStateChange() once a subscribed state changes.
-     * ---------------------------------------------------------------------------
-     * !! -> https://forum.iobroker.net/topic/34019/frage-zu-subscribeforeignstates-ack
+     * Initialized by Class constructor and called once a subscribed state changes
      * 
-     * @param {string} statePath   State Path
+     * @param {string}                            statePath       State Path
+     * @param {ioBroker.State | null | undefined} stateObject     State object
      */
-    async myOnStateChange(statePath) {
+    async _asyncOnStateChange(statePath, stateObject) {
 
-        // For an activated trigger, get the according rows of schedule table.
-        const scheduleRows = await lib.getSchedulesOfTriggerDevice(statePath);
-        if(lib.isLikeEmpty(scheduleRows)) return;
+        try {
 
-        // Verify if schedule conditions are met
-        if (! await lib.verifyIfScheduleConditionsTrue(scheduleRows)) return;
+            if (stateObject) {
 
-        // Schedule conditions met, so let's switch devices and set timers accordingly.
-        if (! await lib.asyncSwitchTargetDevices(scheduleRows, statePath)) return;
+                // State was changed
 
-        
+                /**
+                 * Some log
+                 */
+                this.log.debug(`state ${statePath} changed: ${stateObject.val} (ack = ${stateObject.ack})`);
+
+                /**
+                 * TRIGGER STATES
+                 * Check if the subscribed state is a trigger state.
+                 */
+
+                // For an activated trigger, get the according rows of schedule table.
+                const scheduleRows = await lib.getSchedulesOfTriggerDevice(statePath);
+                if (! lib.isLikeEmpty(scheduleRows) ) {
+
+                    if (await lib.asyncSwitchTargetDevices(scheduleRows, statePath)) {
+                        this.log.debug(`[asyncSwitchTargetDevices()] successfully executed for trigger '${statePath}'.`);
+                        return;
+                    } else {
+                        this.log.error(`Trigger '${statePath}' activated, but no schedule in adapter options for this trigger found.`);
+                    }
+
+                } else {
+
+                    /**
+                     * OTHER SUBSCRIBED STATES
+                     */
+                    // No other states we subscribed to at this time...
+
+                }
+
+            } else {
+                /**
+                 * The state was deleted
+                 */
+                // this.log.debug(`state ${id} was deleted.`);
+            }
+
+        } catch (error) {
+            this.log.error(`[asyncOnStateChange()] ${error.message}, stack: ${error.stack}`);
+        }
+
     }
 
-
-
-    // ================================================================================================================================
-    // ================================================ GENERIC ADAPTER STUFF PROVIDED BY ADAPTER CREATOR =============================
-    // ================================================================================================================================
-
     /**
-     * Is called when adapter shuts down - callback has to be called under any circumstances!
+     * Initialized by Class constructor and called once adapter shuts down.
+     * Callback must be called under any circumstances!
      * @param {() => void} callback
      */
-    onUnload(callback) {
+    _onUnload(callback) {
         lib.stopAllTimers();
         try {
-            this.log.info('Stopping adapter instance successfully proceeded.');
+            this.log.info('Stopping adapter instance successfully proceeded...');
             callback();
         } catch (e) {
             callback();
-        }
-    }
-
-    /**
-     * Is called if a subscribed object changes
-     * @param {string} id
-     * @param {ioBroker.Object | null | undefined} obj
-     */
-    onObjectChange(id, obj) {
-        if (obj) {
-            // The object was changed
-            this.log.info(`object ${id} changed: ${JSON.stringify(obj)}`);
-        } else {
-            // The object was deleted
-            this.log.info(`object ${id} deleted`);
-        }
-    }
-
-    /**
-     * Is called if a subscribed state changes
-     * @param {string} id
-     * @param {ioBroker.State | null | undefined} state
-     */
-    onStateChange(id, state) {
-        if (state) {
-            // The state was changed
-            this.myOnStateChange(id); // Added by Mic-M
-            this.log.debug(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
-        } else {
-            // The state was deleted
-            this.log.debug(`state ${id} was deleted.`);
         }
     }
 
