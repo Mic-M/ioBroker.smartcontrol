@@ -12,11 +12,12 @@
 /**
  * Globals
  */
-const utils     = require('@iobroker/adapter-core');            // Adapter core module
-const g_SunCalc = require('suncalc2');                          // SunCalc
-const g_Library = require(__dirname + '/lib/smartcontrol.js');  // SmartControl Library Class
-const g_Timer   = require(__dirname + '/lib/timer.js');         // Timer Class
-let   lib       = null;                                         // the Library class instance (being assigned later)
+const utils      = require('@iobroker/adapter-core');            // Adapter core module
+const g_Schedule = require('node-schedule');                     // https://github.com/node-schedule/node-schedule
+const g_SunCalc  = require('suncalc2');                          // SunCalc
+const g_Library  = require(__dirname + '/lib/smartcontrol.js');  // SmartControl Library Class
+const g_Timer    = require(__dirname + '/lib/timer.js');         // Timer Class
+let   lib        = null;                                         // the Library class instance (being assigned later)
 
 /**
  * Adapter Configuration Input Validation of Tables
@@ -25,41 +26,62 @@ const g_tableValidation = [
     {
         tableName: 'Triggers: Motion Sensors',   // Name of table, just for logging purposes
         tableId: 'tableTriggerMotion',
-        check_1: {id: 'stateId', type:'statePath', deactivateIfError:true },
-        check_2: {id: 'stateVal', type:'stateValue', stateValueStatePath:'stateId', deactivateIfError:true },
-        check_3: {id: 'duration', type:'number', numberLowerLimit: 2, deactivateIfError:true },
+        tableMustHaveActiveRows: false,
+        isTriggerTable: true,
+        check_1: {id: 'name', type:'notEmpty', deactivateIfError:true },
+        check_2: {id: 'stateId', type:'statePath', deactivateIfError:true },
+        check_3: {id: 'stateVal', type:'stateValue', stateValueStatePath:'stateId', deactivateIfError:true },
+        check_4: {id: 'duration', type:'number', numberLowerLimit: 2, deactivateIfError:true },
         check_5: {id: 'briStateId', type:'statePath', deactivateIfError:true },
-        check_4: {id: 'briThreshold', type:'number', deactivateIfError:true },
+        check_6: {id: 'briThreshold', type:'number', deactivateIfError:true },
     },
     {
         tableName: 'Triggers: Other Devices',
         tableId: 'tableTriggerDevices',
-        check_1: {id: 'stateId', type:'statePath', deactivateIfError:true },
-        check_2: {id: 'stateVal', type:'stateValue', stateValueStatePath:'stateId', deactivateIfError:true },
+        tableMustHaveActiveRows: false,
+        isTriggerTable: true,
+        check_1: {id: 'name', type:'notEmpty', deactivateIfError:true },
+        check_2: {id: 'stateId', type:'statePath', deactivateIfError:true },
+        check_3: {id: 'stateVal', type:'stateValue', stateValueStatePath:'stateId', deactivateIfError:true },
+    },
+    {
+        tableName: 'Triggers: Times',
+        tableId: 'tableTriggerTimes',
+        tableMustHaveActiveRows: false,
+        isTriggerTable: true,
+        check_1: {id: 'name', type:'notEmpty', deactivateIfError:true },
+        check_2: {id: 'time', type:'timeCron', deactivateIfError:true },
     },
     {
         tableName: 'Target Devices',
         tableId: 'tableTargetDevices',
-        check_1: {id: 'onState', type:'statePath', deactivateIfError:true },
-        check_2: {id: 'onValue', type:'stateValue', stateValueStatePath:'onState', deactivateIfError:true },
-        check_3: {id: 'offState', type:'statePath', deactivateIfError:true },
-        check_4: {id: 'offValue', type:'stateValue', stateValueStatePath:'offState', deactivateIfError:true },
+        tableMustHaveActiveRows: true,
+        check_1: {id: 'deviceName', type:'notEmpty', deactivateIfError:true },
+        check_2: {id: 'onState', type:'statePath', deactivateIfError:true },
+        check_3: {id: 'onValue', type:'stateValue', stateValueStatePath:'onState', deactivateIfError:true },
+        check_4: {id: 'offState', type:'statePath', deactivateIfError:true },
+        check_5: {id: 'offValue', type:'stateValue', stateValueStatePath:'offState', deactivateIfError:true },
     },    
     {
-        tableName: 'Rooms',
+        tableName: 'Rooms/Areas',
         tableId: 'tableRooms',
-        check_1: {id: 'triggers', type:'notEmpty', deactivateIfError:true },
-        check_2: {id: 'targets', type:'notEmpty', deactivateIfError:true },
+        tableMustHaveActiveRows: true,
+        check_1: {id: 'roomName', type:'notEmpty', deactivateIfError:true },
+        check_2: {id: 'triggers', type:'notEmpty', deactivateIfError:true },
+        check_3: {id: 'targets', type:'notEmpty', deactivateIfError:true },
     },    
     {
         tableName: 'Conditions',
         tableId: 'tableConditions',
-        check_1: {id: 'conditionState', type:'statePath', deactivateIfError:true },
-        check_2: {id: 'conditionValue', type:'stateValue', stateValueStatePath:'conditionState', deactivateIfError:true },
+        tableMustHaveActiveRows: false,
+        check_1: {id: 'conditionName', type:'notEmpty', deactivateIfError:true },
+        check_2: {id: 'conditionState', type:'statePath', deactivateIfError:true },
+        check_3: {id: 'conditionValue', type:'stateValue', stateValueStatePath:'conditionState', deactivateIfError:true },
     },
     {
         tableName: 'Schedules',
         tableId: 'tableSchedules',
+        tableMustHaveActiveRows: true,
         check_1: {id: 'roomName', type:'notEmpty', deactivateIfError:true },
         check_2: {id: 'start', type:'time', deactivateIfError:true },
         check_3: {id: 'end', type:'time', deactivateIfError:true },
@@ -93,39 +115,34 @@ class SmartControl extends utils.Adapter {
             /**
              * Add Smart Control lib
              */
-            lib = await new g_Library(this, g_SunCalc, g_Timer);
+            lib = await new g_Library(this, g_SunCalc, g_Schedule, g_Timer);
 
             /**
-             * For adapter testers: create test states under 0_userdata.0.test_smartControl
+             * For adapter testers: create test states
              */
-            if (this.config.createAdapterTestStates) {
-
-                const where = '0_userdata.0._TestSC.';
-                const statesToCreate = [
-                    {statePath:where+'trigger.Bathroom_motion',         commonObject:{name:'Bathroom Motion', type:'boolean', read:true, write:true, role:'state', def:false} },
-                    {statePath:where+'trigger.Bathroom_wall-switch',    commonObject:{name:'Bathroom Wall Switch', type:'boolean', read:true, write:true, role:'state', def:false} },
-                    {statePath:where+'trigger.Hallway1_motion',         commonObject:{name:'Hallway Motion', type:'boolean', read:true, write:true, role:'state', def:false} },
-                    {statePath:where+'trigger.Hallway2_motion',         commonObject:{name:'HallwayMotion', type:'boolean', read:true, write:true, role:'state', def:false} },
-                    {statePath:where+'trigger.Hallway1_wall-switch',    commonObject:{name:'Hallway Wall Switch', type:'boolean', read:true, write:true, role:'state', def:false} },
-                    {statePath:where+'trigger.Hallway2_wall-switch',    commonObject:{name:'Hallway Wall Switch', type:'boolean', read:true, write:true, role:'state', def:false} },
-                    {statePath:where+'trigger.RelaxPersonSitting',      commonObject:{name:'Relax Area: Someone sitting on sofa', type:'boolean', read:true, write:true, role:'state', def:false} },
-                    {statePath:where+'brightness.Bathroom_bri',         commonObject:{name:'Bathroom Brightness', type:'number', read:true, write:true, role:'state', def:0} },
-                    {statePath:where+'brightness.Hallway1_bri',         commonObject:{name:'Hallway Brightness 1', type:'number', read:true, write:true, role:'state', def:0} },
-                    {statePath:where+'brightness.Hallway2_bri',         commonObject:{name:'Hallway Brightness 2', type:'number', read:true, write:true, role:'state', def:0} },
-                    {statePath:where+'light.Bathroom',                  commonObject:{name:'Bathroom Light', type:'boolean', read:true, write:true, role:'state', def:false} },
-                    {statePath:where+'light.Hallway',                   commonObject:{name:'Hallway Light', type:'boolean', read:true, write:true, role:'state', def:false} },
-                    {statePath:where+'light.RelaxAreaCeiling',          commonObject:{name:'Relax Area Light', type:'boolean', read:true, write:true, role:'state', def:false} },
-                    {statePath:where+'light.RelaxAreaWall',             commonObject:{name:'Relax Area Light', type:'boolean', read:true, write:true, role:'state', def:false} },
-                    {statePath:where+'radio.Bathroom',                  commonObject:{name:'Bath Radio Station (String)', type:'string', read:true, write:true, role:'state', def:''} },
-                    {statePath:where+'radio.Bathroom_pause',            commonObject:{name:'Bath Radio Pause', type:'boolean', read:true, write:true, role:'button', def:false} },
-                    {statePath:where+'condition.isHolidayToday',        commonObject:{name:'Condition: is Holiday Today?', type:'boolean', read:true, write:true, role:'state', def:false} },
-                    {statePath:where+'condition.isAnyonePresent',       commonObject:{name:'Condition: is Anyone Present?', type:'boolean', read:true, write:true, role:'state', def:false} },
-                    {statePath:where+'condition.isFrontDoorLocked',     commonObject:{name:'Condition: is Front Door locked?', type:'boolean', read:true, write:true, role:'state', def:false} },
-                ];           
-                await lib.asyncCreateStates(statesToCreate, true);
-            }
-
-         
+            const where = 'Test.';
+            const statesToCreate = [
+                {statePath:where+'trigger.Bathroom_motion',         commonObject:{name:'Bathroom Motion', type:'boolean', read:true, write:true, role:'state', def:false} },
+                {statePath:where+'trigger.Bathroom_wall-switch',    commonObject:{name:'Bathroom Wall Switch', type:'boolean', read:true, write:true, role:'state', def:false} },
+                {statePath:where+'trigger.Hallway1_motion',         commonObject:{name:'Hallway Motion', type:'boolean', read:true, write:true, role:'state', def:false} },
+                {statePath:where+'trigger.Hallway2_motion',         commonObject:{name:'HallwayMotion', type:'boolean', read:true, write:true, role:'state', def:false} },
+                {statePath:where+'trigger.Hallway1_wall-switch',    commonObject:{name:'Hallway Wall Switch', type:'boolean', read:true, write:true, role:'state', def:false} },
+                {statePath:where+'trigger.Hallway2_wall-switch',    commonObject:{name:'Hallway Wall Switch', type:'boolean', read:true, write:true, role:'state', def:false} },
+                {statePath:where+'trigger.RelaxPersonSitting',      commonObject:{name:'Relax Area: Someone sitting on sofa', type:'boolean', read:true, write:true, role:'state', def:false} },
+                {statePath:where+'brightness.Bathroom_bri',         commonObject:{name:'Bathroom Brightness', type:'number', read:true, write:true, role:'state', def:0} },
+                {statePath:where+'brightness.Hallway1_bri',         commonObject:{name:'Hallway Brightness 1', type:'number', read:true, write:true, role:'state', def:0} },
+                {statePath:where+'brightness.Hallway2_bri',         commonObject:{name:'Hallway Brightness 2', type:'number', read:true, write:true, role:'state', def:0} },
+                {statePath:where+'light.Bathroom',                  commonObject:{name:'Bathroom Light', type:'boolean', read:true, write:true, role:'state', def:false} },
+                {statePath:where+'light.Hallway',                   commonObject:{name:'Hallway Light', type:'boolean', read:true, write:true, role:'state', def:false} },
+                {statePath:where+'light.RelaxAreaCeiling',          commonObject:{name:'Relax Area Light', type:'boolean', read:true, write:true, role:'state', def:false} },
+                {statePath:where+'light.RelaxAreaWall',             commonObject:{name:'Relax Area Light', type:'boolean', read:true, write:true, role:'state', def:false} },
+                {statePath:where+'radio.Bathroom',                  commonObject:{name:'Bath Radio Station (String)', type:'string', read:true, write:true, role:'state', def:''} },
+                {statePath:where+'radio.Bathroom_pause',            commonObject:{name:'Bath Radio Pause', type:'boolean', read:true, write:true, role:'button', def:false} },
+                {statePath:where+'condition.isHolidayToday',        commonObject:{name:'Condition: is Holiday Today?', type:'boolean', read:true, write:true, role:'state', def:false} },
+                {statePath:where+'condition.isAnyonePresent',       commonObject:{name:'Condition: is Anyone Present?', type:'boolean', read:true, write:true, role:'state', def:false} },
+                {statePath:where+'condition.isFrontDoorLocked',     commonObject:{name:'Condition: is Front Door locked?', type:'boolean', read:true, write:true, role:'state', def:false} },
+            ];           
+            await lib.asyncCreateStates(statesToCreate);
 
 
             /**
@@ -141,14 +158,14 @@ class SmartControl extends utils.Adapter {
              * Validate Adapter Admin Configuration
              */
             if (await lib.asyncVerifyConfig(g_tableValidation)) {
-                lib.logInfo('Adapter admin configuration validation is successful.');
+                lib.logInfo('Adapter admin configuration successfully validated...');
             } else {
                 this.log.error('Adapter admin configuration validation failed --> Please check your configuration. You will not be able to use this adapter without fixing the issues.');
                 return;
             }
 
             /**
-             * Subscribe to Trigger States
+             * Subscribe to all trigger states
              */
             lib.logInfo('Subscribing to all trigger states...');
             // @ts-ignore -> https://github.com/microsoft/TypeScript/issues/36769
@@ -160,13 +177,19 @@ class SmartControl extends utils.Adapter {
             }
 
             /**
+             * Schedule all trigger times
+             */
+            lib.scheduleTriggerTimes();
+
+
+            /**
              * Initialize timers
              */
             lib.initializeMotionSensorTimers();
 
 
         } catch (error) {
-            this.log.error(`[onReady()] ${error.message}, stack: ${error.stack}`);
+            this.log.error(`[_asyncOnReady] ${error}`);
         }
 
     }
@@ -185,36 +208,21 @@ class SmartControl extends utils.Adapter {
             if (stateObject) {
 
                 // State was changed
-
-                /**
-                 * Some log
-                 */
                 this.log.debug(`state ${statePath} changed: ${stateObject.val} (ack = ${stateObject.ack})`);
 
-                /**
-                 * TRIGGER STATES
-                 * Check if the subscribed state is a trigger state.
-                 */
-
-                // For an activated trigger, get the according rows of schedule table.
-                const scheduleRows = await lib.getSchedulesOfTriggerDevice(statePath);
-                if (! lib.isLikeEmpty(scheduleRows) ) {
-
-                    if (await lib.asyncSwitchTargetDevices(scheduleRows, statePath)) {
-                        this.log.debug(`[asyncSwitchTargetDevices()] successfully executed for trigger '${statePath}'.`);
-                        return;
-                    } else {
-                        this.log.error(`Trigger '${statePath}' activated, but no schedule in adapter options for this trigger found.`);
-                    }
-
+                let wantedAck = false;
+                if ( (statePath.match(/^((javascript\.([1-9][0-9]|[0-9]))$|0_userdata\.0$)/) == null) ) {
+                    // For states under javascript.x and 0_userdata.0, we accept ack = false.
+                    wantedAck = false;
                 } else {
-
-                    /**
-                     * OTHER SUBSCRIBED STATES
-                     */
-                    // No other states we subscribed to at this time...
-
+                    // For any adapter states we want ack = true
+                    wantedAck = true;
                 }
+                
+                if (stateObject.ack == wantedAck) {
+                    await lib.targetDeviceTriggered(statePath, stateObject);
+                }
+
 
             } else {
                 /**
@@ -224,7 +232,7 @@ class SmartControl extends utils.Adapter {
             }
 
         } catch (error) {
-            this.log.error(`[asyncOnStateChange()] ${error.message}, stack: ${error.stack}`);
+            this.log.error(`[_asyncOnStateChange] ${error}`);
         }
 
     }
@@ -235,11 +243,13 @@ class SmartControl extends utils.Adapter {
      * @param {() => void} callback
      */
     _onUnload(callback) {
-        lib.stopAllTimers();
         try {
+            lib.stopAllTimers();
+            lib.stopAllSchedules();
             this.log.info('Stopping adapter instance successfully proceeded...');
             callback();
-        } catch (e) {
+        } catch (error) {
+            this.log.error(`Error while stopping adapter: ${error}`);
             callback();
         }
     }

@@ -10,7 +10,7 @@
     <script type="text/javascript" src="../../socket.io/socket.io.js"></script>
 
     <script type="text/javascript" src="../../js/translate.js"></script>
-    <script type="text/javascript" src="../../lib/js/materialize.js"></script>
+    <script type="text/javascript" src="../../lib/js/materialize.js"></script>  <!-- iobroker/node_modules/iobroker.admin/www/lib/js/ -->
     <script type="text/javascript" src="../../js/adapter-settings.js"></script> <!-- iobroker/node_modules/iobroker.admin/www/js/ -->
 
     <!-- Load our own files -->
@@ -22,6 +22,7 @@
         // ++++++ Define variables for option tables ++++++
         let tableTriggerMotion = [];
         let tableTriggerDevices = [];
+        let tableTriggerTimes = [];
         let tableTargetDevices = [];
         let tableRooms = [];
         let tableConditions = [];
@@ -49,6 +50,7 @@
             // ++++++ For option tables ++++++
             tableTriggerMotion = settings.tableTriggerMotion || [];
             tableTriggerDevices = settings.tableTriggerDevices || [];
+            tableTriggerTimes = settings.tableTriggerTimes || [];
             tableTargetDevices = settings.tableTargetDevices || [];
             tableRooms = settings.tableRooms || [];
             tableConditions = settings.tableConditions || [];
@@ -59,6 +61,7 @@
             // ++++++ For option tables ++++++
             values2table('tableTriggerMotion', tableTriggerMotion, onChange); // see iobroker/node_modules/iobroker.admin/www/js/adapter-settings.js
             values2table('tableTriggerDevices', tableTriggerDevices, onChange);
+            values2table('tableTriggerTimes', tableTriggerTimes, onChange);
             values2table('tableTargetDevices', tableTargetDevices, onChange);
             values2table('tableRooms', tableRooms, onChange);
             values2table('tableConditions', tableConditions, onChange);
@@ -81,7 +84,7 @@
                 switch(tabId){
 
                     case "#tabRooms":
-                    populateTable(['tableTriggerMotion', 'tableTriggerDevices'], ['name', 'name'], 'tableRooms', tableRooms, 'triggers');
+                    populateTable(['tableTriggerMotion', 'tableTriggerDevices', 'tableTriggerTimes'], ['name', 'name', 'name'], 'tableRooms', tableRooms, 'triggers');
                     populateTable('tableTargetDevices', 'deviceName', 'tableRooms', tableRooms, 'targets');
                     break;
 
@@ -145,6 +148,7 @@
             // ++++++ For option tables ++++++
             obj.tableTriggerMotion = table2values('tableTriggerMotion');
             obj.tableTriggerDevices = table2values('tableTriggerDevices');
+            obj.tableTriggerTimes = table2values('tableTriggerTimes');
             obj.tableTargetDevices = table2values('tableTargetDevices');
             obj.tableRooms = table2values('tableRooms');
             obj.tableConditions = table2values('tableConditions');
@@ -244,20 +248,6 @@
                     </div>
                 </div>            
 
-                <!-- Section "Adapter Tester" -->                
-                <div class="row">
-                    <div class="col s12">
-                        <p class="translate title" style="background-color:#174475;">Für alle Adapter Tester :-)</p>
-                        <p class="translate info">Sobald diese Option aktiviert wird, werden Datenpunkte unterhalb [<code>0_userdata.0._TestSC.</code>] angelegt. Bewusst werden die Test-Datenpunkte nicht unterhalb der Adapter-Instanz angelegt für realistischen Test außerhalb der Adapter-Instanz.</p>
-                        <p class="translate info">Diese Datenpunkte haben ansonsten keinerlei Funktion und dienen ausschließlich dem Testen dieses Adapters. Da diese außerhalb der Adapter-Instanz angelegt werden, werden diese bewusst nicht durch diesen Adapter gelöscht. Zum Löschen: diese Funktion deaktivieren und dann in den Objekten <code>0_userdata.0._TestSC</code> manuell löschen.</p>
-                        <div class="input-field col s12 m6">
-                            <input type="checkbox" class="value" id="createAdapterTestStates" />
-                            <label for="createAdapterTestStates" class="translate">Create Test States under '0_userdata.0._TestSC'</label>
-                        </div>
-                    </div>
-                </div>
-
-
                 <!-- Section "Exceed Midnight" -->                
                 <div class="row">
                     <div class="col s12">
@@ -270,7 +260,40 @@
                     </div>
                 </div>
 
-                <!-- Section "Extended Info Log" -->                
+                <!-- Section "Acknowledge" -->                
+                <div class="row">
+                    <div class="col s12">
+                        <p class="translate title" style="background-color:#174475;">Acknowledgement for javascript.x/0_userdata.0 states</p>
+                        <p class="translate info">Änderungen von Datenpunkten, die unterhalb von Adapter-Instanzen sind, werden nur getriggert, wenn acknowledge (ack) = true (also States gültig/bestätigt sind). Für user-eigene Datenpunkte unterhalb javascript.x/0_userdata.0 kann man das hier ändern:</p>
+                        <div class="input-field col s3 select">
+                            <select class="value" value="true" id="triggerStatesAck">
+                                <option class="translate" value="true" selected>false</option>
+                                <option class="translate" value="false">true</option>
+                                <option class="translate" value="any">any</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Section "Do not switch more often than x seconds" -->  
+                <div class="row">
+                    <div class="col s12">
+                        <p class="translate title" style="background-color:#174475;">Do not switch more often than x seconds</p>
+                        <p class="translate info">For stability reasons, trigger state changes will be ignored if triggered again in less than this amount of seconds.</p>
+                        <div class="input-field col s12 m6">
+                            <input class="value validate" placeholder="10" id="limitTriggerInterval" type="number" min="2" max="10000">
+                            <label for="limitTriggerInterval" class="translate">2 or more seconds are required</label>
+                            <span class="helper-text translate">Seconds</span>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <!-- Section "Extended Info Log" -->  
                 <div class="row">
                     <div class="col s12">
                         <p class="translate title" style="background-color:#174475;">Extended Info Log</p>
@@ -281,6 +304,7 @@
                         </div>
                     </div>
                 </div>
+
 
 
             </div>
@@ -342,8 +366,41 @@
                         <!-- End Options Table -->
                     </div>
                 </div>                        
+
+                <div class="row spaceTop3em">
+                    <div class="col s12">
+                        <h5 class="translate">Time Specific Triggers</h5>
+                        <p class="translate info">Enter triggers which activate at specific times.</p>
+                        <p class="translate info">You can enter an hour/minute string like '23:30', or a astro name and you can include offset in minutes, so like 'goldenHourEnd' or 'goldenHourEnd+30'. Also you can use Cron, like '5 4 * * *'</p>
+                        <p class="translate info">If you enter hour/minute or an astro time, execution will be every day. Configure further in "Schedules" tables to limit to weekdays, add conditions, etc. accordingly.</p>
+                        <p><span class="translate info">For Cron syntax, see for example: </span>: <a href="https://crontab.guru/" target="_blank">Crontab.guru</a></p>
+
+
+                        <!-- Start Options Table -->
+                        <div class="col s12" id="tableTriggerTimes">
+                            <p><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></p>
+                            <div class="table-values-div">
+                                <table class="table-values">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 50px" class="header translate" data-name="active" data-type="checkbox">Active</th>
+                                            <th class="header translate" data-name="name">Name of Time Trigger</th>
+                                            <th class="header translate" data-name="time">Time</th>
+                                            <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>                        
+                        <!-- End Options Table -->
+                    </div>
+                </div>                        
+
+
             </div>           
 
+
+            
             <!-- +++++++++++++ TAB: TARGET DEVICES +++++++++++++ -->
             <div id="tabDevices" class="col s12 page">
                 <div class="row spaceTop3em">
@@ -390,9 +447,9 @@
                                         <tr>
                                             <th style="width: 50px" class="header translate" data-name="active" data-type="checkbox">Active</th>
                                             <th class="header translate" data-name="roomName">Room/Area Name</th>
-                                            <th class="header translate" data-name="triggers" data-type="select multiple">Triggers (Motion Sensors and other Devices)</th>
+                                            <th class="header translate" data-name="triggers" data-type="select multiple">Triggers</th>
                                             <th class="header translate" data-name="targets" data-type="select multiple">Target Devices</th>
-                                            <th class="header translate" data-name="offAfter" data-type="number">Always off after x secs</th>
+                                            <!-- <th class="header translate" data-name="offAfter" data-type="number">Always off after x secs</th> -->
                                             <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
                                         </tr>
                                     </thead>

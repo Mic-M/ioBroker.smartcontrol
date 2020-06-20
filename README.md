@@ -26,8 +26,8 @@ Icon made by [freepik](https://www.flaticon.com/authors/freepik) from [flaticon.
 
 ## Changelog
 
-### 0.0.1
-* (Mic-M) xxx
+### 0.0.2
+* (Mic-M) release for very early testers
 
 ## License
 MIT License
