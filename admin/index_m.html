@@ -73,6 +73,7 @@
             //Enhance Tabs with onShow-Function. Source: iqontrol Adapter
 
             // -- Added 13-Jun-2020. If these tabs were not opened in admin settings and options saved, caused empty fields.
+            onTabShow('#tabTriggers');
             onTabShow('#tabRooms');
             onTabShow('#tabSchedules');
             // --
@@ -82,6 +83,11 @@
             });
             function onTabShow(tabId){
                 switch(tabId){
+
+                    case "#tabTriggers":
+                    populateTable('tableConditions', 'conditionName', 'tableTriggerTimes', tableTriggerTimes, 'additionalConditions');
+                    populateTable('tableConditions', 'conditionName', 'tableTriggerTimes', tableTriggerTimes, 'never');
+                    break;
 
                     case "#tabRooms":
                     populateTable(['tableTriggerMotion', 'tableTriggerDevices', 'tableTriggerTimes'], ['name', 'name', 'name'], 'tableRooms', tableRooms, 'triggers');
@@ -93,7 +99,6 @@
                     populateTable('tableConditions', 'conditionName', 'tableSchedules', tableSchedules, 'additionalConditions');
                     populateTable('tableConditions', 'conditionName', 'tableSchedules', tableSchedules, 'never');
                     break;
-
 
                 }
             }        
@@ -374,8 +379,6 @@
                         <p class="translate info">You can enter an hour/minute string like '23:30', or a astro name and you can include offset in minutes, so like 'goldenHourEnd' or 'goldenHourEnd+30'. Also you can use Cron, like '5 4 * * *'</p>
                         <p class="translate info">If you enter hour/minute or an astro time, execution will be every day. Configure further in "Schedules" tables to limit to weekdays, add conditions, etc. accordingly.</p>
                         <p><span class="translate info">For Cron syntax, see for example: </span>: <a href="https://crontab.guru/" target="_blank">Crontab.guru</a></p>
-
-
                         <!-- Start Options Table -->
                         <div class="col s12" id="tableTriggerTimes">
                             <p><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></p>
@@ -386,6 +389,8 @@
                                             <th style="width: 50px" class="header translate" data-name="active" data-type="checkbox">Active</th>
                                             <th class="header translate" data-name="name">Name of Time Trigger</th>
                                             <th class="header translate" data-name="time">Time</th>
+                                            <th class="header translate" data-name="additionalConditions" data-type="select multiple">Additional Conditions</th>
+                                            <th class="header translate" data-name="never" data-type="select multiple">Never if</th>
                                             <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
                                         </tr>
                                     </thead>

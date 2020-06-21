@@ -17,6 +17,7 @@ const g_Schedule = require('node-schedule');                     // https://gith
 const g_SunCalc  = require('suncalc2');                          // SunCalc
 const g_Library  = require(__dirname + '/lib/smartcontrol.js');  // SmartControl Library Class
 const g_Timer    = require(__dirname + '/lib/timer.js');         // Timer Class
+let   g_midnightSchedule = null;                                 // Schedule for every midnight
 let   lib        = null;                                         // the Library class instance (being assigned later)
 
 /**
@@ -181,6 +182,15 @@ class SmartControl extends utils.Adapter {
              */
             lib.scheduleTriggerTimes();
 
+            /**
+             * Re-schedule all trigger times every midnight.
+             * This is required since we are supporting astro times (suncalc)
+             */            
+            g_midnightSchedule = g_Schedule.scheduleJob('0 0 * * *', () => {
+                lib.scheduleTriggerTimes();
+                this.log.info(`Re-scheduling time triggers for updating astro times.`);
+            });
+
 
             /**
              * Initialize timers
@@ -233,6 +243,7 @@ class SmartControl extends utils.Adapter {
         try {
             lib.stopAllTimers();
             lib.stopAllSchedules();
+            g_midnightSchedule.cancel();
             this.log.info('Stopping adapter instance successfully proceeded...');
             callback();
         } catch (error) {

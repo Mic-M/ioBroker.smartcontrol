@@ -132,22 +132,30 @@
       {
         "active": true,
         "name": "Every hour at minute 42",
-        "time": "42 * * * *"
+        "time": "42 * * * *",
+        "additionalConditions": [],
+        "never": []
       },
       {
         "active": true,
         "name": "At 22:00 on every day-of-week from Monday through Friday",
-        "time": "0 22 * * 1-5"
+        "time": "0 22 * * 1-5",
+        "additionalConditions": [],
+        "never": []
       },
       {
         "active": true,
         "name": "At 04:05 on Sunday",
-        "time": "5 4 * * sun"
+        "time": "5 4 * * sun",
+        "additionalConditions": [],
+        "never": []
       },
       {
         "active": true,
         "name": "30 Minutes after Sunset",
-        "time": "sunset+30"
+        "time": "sunset+30",
+        "additionalConditions": [],
+        "never": []
       }
     ],
     "tableTargetDevices": [
