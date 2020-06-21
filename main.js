@@ -208,21 +208,8 @@ class SmartControl extends utils.Adapter {
             if (stateObject) {
 
                 // State was changed
-                this.log.debug(`state ${statePath} changed: ${stateObject.val} (ack = ${stateObject.ack})`);
 
-                let wantedAck = false;
-                if ( (statePath.match(/^((javascript\.([1-9][0-9]|[0-9]))$|0_userdata\.0$)/) == null) ) {
-                    // For states under javascript.x and 0_userdata.0, we accept ack = false.
-                    wantedAck = false;
-                } else {
-                    // For any adapter states we want ack = true
-                    wantedAck = true;
-                }
-                
-                if (stateObject.ack == wantedAck) {
-                    await lib.targetDeviceTriggered(statePath, stateObject);
-                }
-
+                lib.asyncTargetDeviceTriggered(statePath, stateObject);
 
             } else {
                 /**

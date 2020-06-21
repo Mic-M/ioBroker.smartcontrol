@@ -21,12 +21,12 @@ Icon made by [freepik](https://www.flaticon.com/authors/freepik) from [flaticon.
 
 ## WARNING
 
-**Please do not use this adapter yet** — It is in an early development stage. It is just published for testing purposes, ref [ioBroker Admin Adapter issue #590](https://github.com/ioBroker/ioBroker.admin/issues/590).
+**Please do not use this adapter yet** — It is in an early development stage. It is just published for testing purposes.
 
 
 ## Changelog
 
-### 0.0.2
+### 0.0.3
 * (Mic-M) release for very early testers
 
 ## License
