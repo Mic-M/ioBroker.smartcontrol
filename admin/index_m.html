@@ -24,13 +24,16 @@
         let tableTriggerDevices = [];
         let tableTriggerTimes = [];
         let tableTargetDevices = [];
-        let tableRooms = [];
+        let tableAreas = [];
         let tableConditions = [];
         let tableSchedules = [];
         let views;
+        const adapterNamespace = `smartcontrol.${instance}`;
+
         function load(settings, onChange) {
             // example: select elements with id=key and class=value and insert value
             if (!settings) return;
+
             $('.value').each(function () {
                 var $key = $(this);
                 var id = $key.attr('id');
@@ -47,12 +50,13 @@
                         ;
                 }
             });
+            
             // ++++++ For option tables ++++++
             tableTriggerMotion = settings.tableTriggerMotion || [];
             tableTriggerDevices = settings.tableTriggerDevices || [];
             tableTriggerTimes = settings.tableTriggerTimes || [];
             tableTargetDevices = settings.tableTargetDevices || [];
-            tableRooms = settings.tableRooms || [];
+            tableAreas = settings.tableAreas || [];
             tableConditions = settings.tableConditions || [];
             tableSchedules = settings.tableSchedules || [];
 
@@ -63,16 +67,19 @@
             values2table('tableTriggerDevices', tableTriggerDevices, onChange);
             values2table('tableTriggerTimes', tableTriggerTimes, onChange);
             values2table('tableTargetDevices', tableTargetDevices, onChange);
-            values2table('tableRooms', tableRooms, onChange);
+            values2table('tableAreas', tableAreas, onChange);
             values2table('tableConditions', tableConditions, onChange);
             values2table('tableSchedules', tableSchedules, onChange);
 
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             
 
-            //Enhance Tabs with onShow-Function. Source: iqontrol Adapter
-
-            // -- Added 13-Jun-2020. If these tabs were not opened in admin settings and options saved, caused empty fields.
+            // Enhance Tabs with onShow-Function. Source: iqontrol Adapter.
+            // This allows using JavaScript to perform certain actions as defined in function onTabShow(), since we have
+            // several tabs in this adapter configuration.
+            onTabShow('#tabMain');
+            onTabShow('#tabDevices');
+            onTabShow('#tabConditions');
             onTabShow('#tabTriggers');
             onTabShow('#tabRooms');
             onTabShow('#tabSchedules');
@@ -84,22 +91,37 @@
             function onTabShow(tabId){
                 switch(tabId){
 
+                    case "#tabMain":
+                        $('.collapsible').collapsible(); // https://materializecss.com/collapsible.html
+                    break;
+
+                    case "#tabDevices":
+                        $('.collapsible').collapsible(); // https://materializecss.com/collapsible.html
+                    break;
+
+                    case "#tabConditions":
+                        $('.collapsible').collapsible(); // https://materializecss.com/collapsible.html
+                    break;
+
                     case "#tabTriggers":
-                    populateTable('tableConditions', 'conditionName', 'tableTriggerTimes', tableTriggerTimes, 'additionalConditions');
-                    populateTable('tableConditions', 'conditionName', 'tableTriggerTimes', tableTriggerTimes, 'never');
+                        $('.collapsible').collapsible(); // https://materializecss.com/collapsible.html
+                        populateTable('tableConditions', 'name', 'tableTriggerTimes', tableTriggerTimes, 'additionalConditions');
+                        populateTable('tableConditions', 'name', 'tableTriggerTimes', tableTriggerTimes, 'never');
                     break;
 
                     case "#tabRooms":
-                    populateTable(['tableTriggerMotion', 'tableTriggerDevices', 'tableTriggerTimes'], ['name', 'name', 'name'], 'tableRooms', tableRooms, 'triggers');
-                    populateTable('tableTargetDevices', 'deviceName', 'tableRooms', tableRooms, 'targets');
+                        $('.collapsible').collapsible(); // https://materializecss.com/collapsible.html
+                        populateTable(['tableTriggerMotion', 'tableTriggerDevices', 'tableTriggerTimes'], ['name', 'name', 'name'], 'tableAreas', tableAreas, 'triggers');
+                        populateTable('tableTargetDevices', 'name', 'tableAreas', tableAreas, 'targets');
                     break;
 
                     case "#tabSchedules":
-                    populateTable('tableRooms', 'roomName', 'tableSchedules', tableSchedules, 'roomName');
-                    populateTable('tableConditions', 'conditionName', 'tableSchedules', tableSchedules, 'additionalConditions');
-                    populateTable('tableConditions', 'conditionName', 'tableSchedules', tableSchedules, 'never');
+                        $('.collapsible').collapsible(); // https://materializecss.com/collapsible.html
+                        populateTable('tableAreas', 'name', 'tableSchedules', tableSchedules, 'name');
+                        populateTable('tableConditions', 'name', 'tableSchedules', tableSchedules, 'additionalConditions');
+                        populateTable('tableConditions', 'name', 'tableSchedules', tableSchedules, 'never');
                     break;
-
+                
                 }
             }        
 
@@ -107,8 +129,8 @@
              * Populate select field
              * @param {*}  sourceTableIds   Id of input table, like "tableTriggerMotion". String or array of strings for multiple tables
              * @param {*}  sourceFieldIds   Id of table line field, from which to get content, like "name". . String or array of strings for multiple fields
-             * @param {string}  targetTableId   Target table id, like "tableRooms"
-             * @param {array}   targetTableArr  Target table array, like tableRooms variable
+             * @param {string}  targetTableId   Target table id, like "tableAreas"
+             * @param {array}   targetTableArr  Target table array, like tableAreas variable
              * @param {string}  targetFieldId   Target table line field, like 'Test'
              * @param {string}  [addFirstItem]    Optional string to add as first item of drop-down.
              */
@@ -120,9 +142,9 @@
                 for (let i = 0; i < sourceTableIds.length; i++) {
                     const configTbl = settings[sourceTableIds[i]] || [];
                     for (let lpElement of configTbl) {
-                        if (lpElement['active'] == true) { // check for checkbox "active"
-                            result.push(lpElement[sourceFieldIds[i]]); 
-                        }
+                        //if (lpElement['active'] == true) { // check for checkbox "active"
+                        result.push(lpElement[sourceFieldIds[i]]); 
+                        //}
                     }
                 }
                 // Create dropdown menu
@@ -136,7 +158,10 @@
 
             // reinitialize all the Materialize labels on the page if you are dynamically adding inputs:
             if (M) M.updateTextFields();
-        }
+
+        }                
+
+
 
         // This will be called by the admin adapter when the user presses the save button
         function save(callback) {
@@ -155,7 +180,7 @@
             obj.tableTriggerDevices = table2values('tableTriggerDevices');
             obj.tableTriggerTimes = table2values('tableTriggerTimes');
             obj.tableTargetDevices = table2values('tableTargetDevices');
-            obj.tableRooms = table2values('tableRooms');
+            obj.tableAreas = table2values('tableAreas');
             obj.tableConditions = table2values('tableConditions');
             obj.tableSchedules = table2values('tableSchedules');
 
@@ -170,7 +195,6 @@
         .m .page {height: auto !important; min-height:75% !important; }
 
         /* Tabs menu */
-            /* .m .tabs {border-radius: .3em;} */
         .m .tabs .tab a { color: rgba(13, 134, 231, 0.7); }
         .m .tabs .active { border-bottom: 2px solid #0d47a1; font-weight: bold;}
         .m .tabs .tab a.active, .m .tabs .tab a:hover { color:#0d47a1; }
@@ -179,19 +203,48 @@
         /* Table header */
         table.table-values th.header { background-color:#64BfF6; font-size:90%; text-align:center; line-height: 1em; padding:6px 2px;}
 
+        /* Table header -- Optional column */
+        table.table-values th.mOptional { color:#c9e7fa }
+
         /* format second column of option tables */
         table.table-values tr td:nth-child(2) input { font-weight:bold; }
 
         /* to be able to adjust column width accordingly */
         table.table-values { table-layout:fixed; }
 
-        /* add space at top */
+        /* add space at top/bottom */
         .spaceTop3em {margin-top: 3em; }
+        .spaceBottom3em {margin-top: 3em; }
         
         /* Introduction section */
         .intro {font-size: 18px;}
-        ol li {font-size: .9em;}
         .intro h5 {font-size: 1.5em;}
+        ol.instr li {font-size: .9em;}
+        ol.instr li:not(:last-child) { margin-bottom: .6em; }
+        ol.instr li span {font-size: 1.0em !important;}
+
+        /* Code */
+        code { padding: 2px 4px; font-size: 1.05em !important; color: #2696ef; background-color: rgba(101, 190, 246, 0.05); border-radius: 0; }
+
+        /* Links */
+        .page a:link, .page a:visited { color: #0d47a1;}      /* unvisited link */
+        .page a:visited { color:#616e83; } /* visited link */
+        .page a:hover { color: #2696ef; } /* mouse over link */
+        .page a:active { color: #0d47a1; } /* selected link */
+
+        /* collapsible sections */
+        .collapsible-header { background-color: #c8e4fa69 !important;}
+        .collapsible-header { padding-top:3px !important; padding-bottom:5px !important;}
+        .collapsible-header i { padding-top:3px; }
+        .collapsible-header h5 { font-weight: bold; font-size:1.3em; margin-top:0.7em; }
+        .collapsible-body ol li {font-size: 1.1em;}
+        .collapsible-body ol li:not(:last-child) { margin-bottom: .6em; }
+        .collapsible-body ol li span {font-size: 1.0em !important;}
+        .collapsible-body p { font-size: 1.1em; }
+        .collapsible-body code { font-size: 1.1em !important }
+        .collapsible-body td:nth-child(1) { font-weight:normal; color: #0d47a1; width: 200px; } /* Format first column */
+        .collapsible-body table {font-size: 1.0em;}
+        .collapsible-body th {background-color: #c8e4fa69;}
 
     </style>
 
@@ -218,12 +271,12 @@
             <div class="col s12" style="padding-left:0;padding-right:0; margin-top: 0px; margin-bottom: 1px; background-color:#174475; box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);">
                 <ul class="tabs blue lighten-4">
                     <!-- see description: https://materializecss.com/grid.html -->
-                    <li class="tab col s5 l2"><a href="#tabMain" class="translate">Start</a></li>
-                    <li class="tab col s5 l2"><a href="#tabTriggers" class="translate">Triggers</a></li>
-                    <li class="tab col s5 l2"><a href="#tabDevices" class="translate">Target Devices</a></li>
-                    <li class="tab col s5 l2"><a href="#tabRooms" class="translate">Rooms / Areas</a></li>
-                    <li class="tab col s5 l2"><a href="#tabConditions" class="translate">Conditions</a></li>
-                    <li class="tab col s5 l2"><a href="#tabSchedules" class="translate">Schedules</a></li>
+                    <li class="tab col s5 l2"><a href="#tabMain" class="translate">Smart Control</a></li>
+                    <li class="tab col s5 l2"><a href="#tabDevices" class="translate">1. Target Devices</a></li>
+                    <li class="tab col s5 l2"><a href="#tabConditions" class="translate">2. Additional Conditions</a></li>
+                    <li class="tab col s5 l2"><a href="#tabTriggers" class="translate">3. Triggers</a></li>
+                    <li class="tab col s5 l2"><a href="#tabRooms" class="translate">4. Rooms / Areas</a></li>
+                    <li class="tab col s5 l2"><a href="#tabSchedules" class="translate">5. Schedules</a></li>
                 </ul>
             </div>
 
@@ -232,188 +285,229 @@
             <!-- +++++++++++++ TAB: MAIN +++++++++++++ -->
 
             <div id="tabMain" class="col s12 page">
-                <!-- Section "Introduction" -->
-
+                <!-- Section "How to start?" -->
                 <div class="row spaceTop3em">
-                    <div class="col s12 intro">
-                        <h5 class="translate">How to configure this adapter instance</h5>
-                        <p>
-                            <span class="translate">Adapter Instructions</span>: 
-                            <a href="https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/docs/en/smartcontrol.md" target="_blank"><span class="translate">English</span></a>
-                            | <a href="https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/docs/de/smartcontrol.md" target="_blank"><span class="translate">German</span></a>
-                        </p>
-                        <p class="spaceTop3em">
-                            <span class="translate" style="font-weight:bold;">Configuration Steps</span>:
-                            <ol>
-                                <li class="translate">Lorem ipsum dolor sit amet</li>
-                                <li class="translate">Consectetuer leo id tellus Nam</li>
-                                <li class="translate">Wisi massa aliquam Vestibulum Sed</li>
-                            </ol>                            
-                        </p>
-                    </div>
-                </div>            
-
-                <!-- Section "Exceed Midnight" -->                
-                <div class="row">
                     <div class="col s12">
-                        <p class="translate title" style="background-color:#174475;">Exceed Midnight</p>
-                        <p class="translate info">Schedules table: if you have a start time of 22:00 and an end time of 02:00, then this is considered as not valid, since it would exceed midnight. By activating this option, the period is being exceeded over midnight.</p>
-                        <div class="input-field col s12 m6">
-                            <input type="checkbox" class="value" id="exceedMidnight" />
-                            <label for="exceedMidnight" class="translate">Exceed Midnight</label>
-                        </div>
+                        <h5 class="translate">Please read the following</h5>
+                        <ul class="collapsible">
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">How to start?</h6></div>
+                                <div class="collapsible-body">
+                                    <p style="margin-top:0px" class="translate">
+                                        Go through all options tabs accordingly (see menu above):
+                                    </p>
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th class="translate">Options Tab</th>
+                                            <th class="translate">What to do</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td class="translate">1. TARGET DEVICES</td>
+                                            <td class="translate">Enter all your devices you want to switch on/off, so like light bulbs, radio, etc.</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="translate">2. ADDITIONAL CONDITIONS</td>
+                                            <td class="translate"><i>Optional</i>: Enter additional conditions which also have to apply, or should never apply. Like: one or more are present, today is public holiday, etc.</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="translate">3. TRIGGERS</td>
+                                            <td class="translate">Enter all your triggers, like motion sensors, wall switches, and also time specific triggers (schedules).</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="translate">4. ROOMS / AREAS</td>
+                                            <td class="translate">Define all your rooms/areas (like Bathroom 1st floor, Coffee Corner, etc.) and assign your triggers and devices you defined before.</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="translate">5. SCHEDULES</td>
+                                            <td class="translate">Finally, define under which conditions the target devices should be switched once a trigger was activated.</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">Testing</h6></div>
+                                <div class="collapsible-body">
+                                    <p style="margin-top:0px; line-height: 2.0em;" class="translate">
+                                        This adapter provides test states under <code>smartcontrol.x.Test</code>. These states provide no functions or features and are just for testing of this adapter.
+                                        After first installation of an instance of this adapter, the adapter options are pre-filled with some of these states.
+                                        Start testing for example by activating a trigger state, like setting <code>smartcontrol.0.Test.trigger.Bathroom_motion</code> to <code>true</code> and check if something is triggered (based on the settings in the Schedules table etc.).
+                                        <br>The ioBroker log (ioBroker Admin > Log) provides detailed information. For debugging, please set the log level of the adapter instance to 'debug', then you will get much more information in the log.
+                                    </p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">Need help? Any issues? Feature request?</h6></div>
+                                <div class="collapsible-body">
+                                    <p style="margin-top:0px" class="translate">
+                                        <table>
+                                            <thead>
+                                            <tr>
+                                                <th class="translate">Your issue</th>
+                                                <th class="translate">This is what you can do</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td class="translate">I have a question</td>
+                                                <td class="translate">Go to ioBroker forum and ask, ideally by referencing <code>@Mic</code> so that I get a notification that you are asking. Current thread for this adapter is <a href="https://forum.iobroker.net/topic/33691/planung-neuer-adapter-smart-control" target="_blank">Planung neuer Adapter: Smart Control (in German)</a>. But this link may/will change and new threads will follow based on the progress of the adapter development etc.</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="translate">I have an error/bug</td>
+                                                <td class="translate">No worries :-) This adapter is in an early development stage, so errors are likely.
+                                                    First of all: Make sure you check the ioBroker log and if there any advices or notes, check these accordingly.
+                                                    <br>If you're not sure you've done everything right in the setup, etc., read 'I have a question' above.
+                                                    <br>If you really have an error which is caused by this adapter, please go to <strong><a href="https://github.com/Mic-M/ioBroker.smartcontrol/issues" target="_blank">GitHub: Smart Control Issues</a></strong> and open a new issue. Please be descriptive, explain exactly what you were doing when the error occurred, etc. Also, set the log level of the adapter to "Debug", try again to reproduce the error and post the log within code tags (<code>```</code> log comes here... <code>```</code>). ioBroker sometimes cuts off the log, therefore get the log info directly from the log file (click on "Download Log").
+                                                    <br><br>@German native speakers: write in German, please. That makes communication easier for us, and non-German speaking folks can greatly follow by using Google translate.
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="translate">I want a new feature</td>
+                                                <td class="translate">Again, this adapter is in an early development stage, and many more features to come. Anyway, if you have any suggestions for enhancements, features, etc., please go ahead and post your enhancement request at <a href="https://github.com/Mic-M/ioBroker.smartcontrol/issues" target="_blank">GitHub: Smart Control Issues</a>. 
+                                                    <br><br><strong>Note:</strong> If you are a native German speaker: write in German, please. That makes communication way easier for us, and non-German speaking folks can follow greatly by using Google translate.
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                        </table>
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
+
                 </div>
 
-                <!-- Section "Acknowledge" -->                
-                <div class="row">
-                    <div class="col s12">
-                        <p class="translate title" style="background-color:#174475;">Acknowledgement for javascript.x/0_userdata.0 states</p>
-                        <p class="translate info">Änderungen von Datenpunkten, die unterhalb von Adapter-Instanzen sind, werden nur getriggert, wenn acknowledge (ack) = true (also States gültig/bestätigt sind). Für user-eigene Datenpunkte unterhalb javascript.x/0_userdata.0 kann man das hier ändern:</p>
-                        <div class="input-field col s3 select">
-                            <select class="value" value="true" id="triggerStatesAck">
-                                <option class="translate" value="false" selected>false</option>
-                                <option class="translate" value="true">true</option>
-                                <option class="translate" value="any">any</option>
-                            </select>
+                <!-- Section "Additional Adapter Options" -->
+                <div class="intro">
+                    <h5 class="translate" style="margin-top: 2em;">Additional Adapter Options</h5>
+                    <p style="font-size: 0.9em; line-height: 1.5" class="translate">Besides the options in each tab, you have some additional options as follows. Click to open.</p>
+                </div>        
+                <ul class="collapsible" style="margin-top: 1.5em;">
+                    <!-- +++ Schedule Options +++  -->
+                    <li class="lighten-2">
+                        <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">Schedule Options</h6></div>
+                        <div class="collapsible-body">
+                            <div class="row">
+                                <div class="col s12">
+                                    <h6 class="translate info">Exceed Midnight</h6>
+                                    <p class="translate info">If you have a start time of 22:00 and an end time of 02:00, then this is considered as not valid, since it would exceed midnight. By activating this option, the period is being exceeded over midnight.</p>
+                                    <div class="input-field col s12 m6">
+                                        <input type="checkbox" class="value" id="exceedMidnight" />
+                                        <label for="exceedMidnight" class="translate">Exceed Midnight</label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
-                    </div>
-                </div>
-
-                <!-- Section "Do not switch more often than x seconds" -->  
-                <div class="row">
-                    <div class="col s12">
-                        <p class="translate title" style="background-color:#174475;">Do not switch more often than x seconds</p>
-                        <p class="translate info">For stability reasons, trigger state changes will be ignored if triggered again in less than this amount of seconds.</p>
-                        <div class="input-field col s12 m6">
-                            <input class="value validate" placeholder="10" id="limitTriggerInterval" type="number" min="2" max="10000">
-                            <label for="limitTriggerInterval" class="translate">2 or more seconds are required</label>
-                            <span class="helper-text translate">Seconds</span>
+                    </li>
+                    <!-- +++ Trigger Options +++  -->
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">Trigger Options</h6></div>
+                        <div class="collapsible-body">
+                            <div class="row">
+                                <div class="col s12">
+                                    <h6 class="translate info">Trigger-Datenpunkte unterhalb javascript.x/0_userdata.0</h6>
+                                    <p class="translate info">Änderungen von Datenpunkten, die unterhalb von Adapter-Instanzen sind, werden nur getriggert, wenn acknowledge (ack) = true (also States gültig/bestätigt sind). Für user-eigene Datenpunkte unterhalb javascript.x/0_userdata.0 kann man das hier ändern.</p>
+                                    <div class="input-field col s3 select">
+                                        <select class="value" value="true" id="triggerStatesAck">
+                                            <option class="translate" value="false" selected>ack:false (ignore ack:true)</option>
+                                            <option class="translate" value="true">ack: true (ignore ack:false)</option>
+                                            <option class="translate" value="any">ack: any (true or false)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    <h6 class="translate info">Disregard trigger, if last triggering of same trigger occurred less than x seconds ago</h6>
+                                    <p class="translate info">For stability reasons, trigger state changes will be disregarded if the same trigger triggers again in less than this amount of seconds. You can change the number of seconds accordingly. Less than 2 seconds is not allowed.</p>
+                                    <div class="input-field col s12 m6">
+                                        <input class="value validate" placeholder="10" id="limitTriggerInterval" type="number" min="2" max="10000">
+                                        <label for="limitTriggerInterval" class="translate">2 or more seconds are required</label>
+                                        <span class="helper-text translate">Seconds</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-
-
-
-
-
-                <!-- Section "Extended Info Log" -->  
-                <div class="row">
-                    <div class="col s12">
-                        <p class="translate title" style="background-color:#174475;">Extended Info Log</p>
-                        <p class="translate info">If activated, the info log will be showing way more information. If deactivated, it will be in debug log level.</p>
-                        <div class="input-field col s12 m6">
-                            <input type="checkbox" class="value" id="extendedInfoLog" />
-                            <label for="extendedInfoLog" class="translate">Extended Info Log</label>
+                    </li>
+                    <!-- +++ General Options +++  -->
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">General Options</h6></div>
+                        <div class="collapsible-body">
+                            <div class="row">
+                                <div class="col s12">
+                                    <p class="translate info">If activated, the info log will be showing way more information.</p>
+                                    <div class="input-field col s12 m6">
+                                        <input type="checkbox" class="value" id="extendedInfoLog" />
+                                        <label for="extendedInfoLog" class="translate">Extended Info Log</label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-
-
-
+                    </li>
+                </ul>
             </div>
 
-            <!-- +++++++++++++ TAB: TRIGGERS +++++++++++++ -->
-
-            <div id="tabTriggers" class="col s12 page">
-            
-                <div class="row spaceTop3em">
-                    <div class="col s12">
-                        <h5 class="translate">Motion Sensors</h5>
-                        <p class="translate info">Enter your motion sensors. You can optionally add a brightness state and threshold value.</p>
-                        <!-- Start Options Table -->
-                        <div class="col s12" id="tableTriggerMotion">
-                            <p><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></p>
-                            <div class="table-values-div">
-                                <table class="table-values">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 50px" class="header translate" data-name="active" data-type="checkbox">Active</th>
-                                            <th class="header translate" data-name="name">Motion Sensor Name</th>
-                                            <th class="header translate" data-name="stateId">Motion Sensor State Path</th>
-                                            <th style="width: 120px" class="header translate" data-name="stateVal">State Value</th>
-                                            <th style="width: 120px" class="header translate" data-name="duration" data-type="number">Duration [sec]</th>
-                                            <th class="header translate" data-name="briStateId">Brightness State Path</th>
-                                            <th style="width: 120px" class="header translate" data-name="briThreshold" data-type="number">Bri Threshold</th>
-                                            <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>                        
-                        <!-- End Options Table -->
-                    </div>
-                </div>            
-            
-            
-                <div class="row spaceTop3em">
-                    <div class="col s12">
-                        <h5 class="translate">Other devices</h5>
-                        <p class="translate info">Enter other triggers like wall switches, someone entering your home, etc. These defined items trigger the room/area (turning on).</p>
-                        <!-- Start Options Table -->
-                        <div class="col s12" id="tableTriggerDevices">
-                            <p><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></p>
-                            <div class="table-values-div">
-                                <table class="table-values">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 50px" class="header translate" data-name="active" data-type="checkbox">Active</th>
-                                            <th class="header translate" data-name="name">Device Name</th>
-                                            <th class="header translate" data-name="stateId">Device State Path</th>
-                                            <th class="header translate" data-name="stateVal">State Value</th>
-                                            <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>                        
-                        <!-- End Options Table -->
-                    </div>
-                </div>                        
-
-                <div class="row spaceTop3em">
-                    <div class="col s12">
-                        <h5 class="translate">Time Specific Triggers</h5>
-                        <p class="translate info">Enter triggers which activate at specific times.</p>
-                        <p class="translate info">You can enter an hour/minute string like '23:30', or a astro name and you can include offset in minutes, so like 'goldenHourEnd' or 'goldenHourEnd+30'. Also you can use Cron, like '5 4 * * *'</p>
-                        <p class="translate info">If you enter hour/minute or an astro time, execution will be every day. Configure further in "Schedules" tables to limit to weekdays, add conditions, etc. accordingly.</p>
-                        <p><span class="translate info">For Cron syntax, see for example: </span>: <a href="https://crontab.guru/" target="_blank">Crontab.guru</a></p>
-                        <!-- Start Options Table -->
-                        <div class="col s12" id="tableTriggerTimes">
-                            <p><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></p>
-                            <div class="table-values-div">
-                                <table class="table-values">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 50px" class="header translate" data-name="active" data-type="checkbox">Active</th>
-                                            <th class="header translate" data-name="name">Name of Time Trigger</th>
-                                            <th class="header translate" data-name="time">Time</th>
-                                            <th class="header translate" data-name="additionalConditions" data-type="select multiple">Additional Conditions</th>
-                                            <th class="header translate" data-name="never" data-type="select multiple">Never if</th>
-                                            <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>                        
-                        <!-- End Options Table -->
-                    </div>
-                </div>                        
-
-
-            </div>           
-
-
-            
             <!-- +++++++++++++ TAB: TARGET DEVICES +++++++++++++ -->
             <div id="tabDevices" class="col s12 page">
                 <div class="row spaceTop3em">
                     <div class="col s12">
-                        <h5 class="translate">Target Devices (like light bulbs, play music, etc.)</h5>
-                        <p class="translate info">Target Devices (like light bulbs, play music, etc.)</p>
-                        <p class="translate info">Diesen Use Case hinzufügen: https://forum.iobroker.net/post/433884 (Script: https://forum.iobroker.net/topic/21226/vorlage-automatisches-licht) - 
-                            als Option (true/false): "Lichter die über einen Schalter vor Bewegungserkennung eingeschaltet wurden, werden nicht erfasst und somit auch nicht automatisch ausgeschalten."
+                        <ul class="collapsible">
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">help_outline</i><h5 class="translate">Target Devices</h5></div>
+                                <div class="collapsible-body">
+                                    <p style="margin-top:0px" class="translate">
+                                        Enter all target devices you want to switch once a trigger activates and conditions in Schedules table are met.
+                                    </p>
+                                    <table>
+                                        <thead>
+                                          <tr>
+                                              <th class="translate">Column</th>
+                                              <th class="translate">Required</th>
+                                              <th class="translate">Description</th>
+                                          </tr>
+                                        </thead>
+                                
+                                        <tbody>
+                                          <tr>
+                                            <td class="translate">✓</td>
+                                            <td class="translate">Yes</td>
+                                            <td class="translate">Activate/deactivate this table row. If not activated, this table row will be ignored.</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="translate">Device Name</td>
+                                            <td class="translate">Yes</td>
+                                            <td class="translate">Enter a device name of your choice.</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="translate">State Path to turn on</td>
+                                            <td class="translate">Yes</td>
+                                            <td class="translate">Path of a device state to turn on once a trigger activates and schedules/conditions are met.</td>
+                                        </tr>
+                                          <tr>
+                                            <td class="translate">Value:on</td>
+                                            <td class="translate">Yes</td>
+                                            <td class="translate">State value to be set to 'State Path to turn on'. You can enter <code>true</code>, <code>false</code>, numbers like <code>144</code>, or strings like <code>Turn on radio</code>. Any spaces or quotation marks at beginning or end of this value will be disregarded.</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="translate">State Path to turn off</td>
+                                            <td class="translate">No</td>
+                                            <td class="translate">Path of a device state to turn the device off, if a timeout is reached (like no longer a motion detected for certain number of seconds). If you leave it blank, the device will not be switched off (of course :-).
+                                                <br><i>Why using a different states for turn on and off:</i><br>Typically, these are the same (like state is expecting <code>true</code>/<code>false</code>) for turning on/off, but in certain cases, users need a different state to turn a device off. Example: <code>fully-tablet-control.0.device.tablet_bathroom.commands.screenOn</code> versus <code>fully-tablet-control.0.device.tablet_bathroom.commands.screenOff</code>.</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="translate">Value: off</td>
+                                            <td class="translate">No</td>
+                                            <td class="translate">State value to be set to 'State Path to turn off'. You can enter <code>true</code>, <code>false</code>, numbers like <code>144</code>, or strings like <code>Turn on radio</code>. Any spaces or quotation marks at beginning or end of this value will be disregarded.</td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                </div>
+                            </li>
+                        </ul>
                         <!-- Start Options Table -->
                         <div class="col s12" id="tableTargetDevices">
                             <p><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></p>
@@ -421,40 +515,12 @@
                                 <table class="table-values">
                                     <thead>
                                         <tr>
-                                            <th style="width: 50px" class="header translate" data-name="active" data-type="checkbox">Active</th>
-                                            <th class="header translate" data-name="deviceName">Device Name</th>
+                                            <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
+                                            <th class="header translate" data-name="name">Device Name</th>
                                             <th class="header translate" data-name="onState">State Path to turn on</th>
-                                            <th class="header translate" data-name="onValue">Value: on</th>
-                                            <th class="header translate" data-name="offState">State Path to turn off</th>
-                                            <th class="header translate" data-name="offValue">Value: off</th>
-                                            <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>                        
-                        <!-- End Options Table -->
-                    </div>
-                </div>            
-            </div>
-
-            <!-- +++++++++++++ TAB: Rooms +++++++++++++ -->
-            <div id="tabRooms" class="col s12 page">
-                <div class="row spaceTop3em">
-                    <div class="col s12">
-                        <p class="translate info">Rooms and associated triggers and target devices</p>
-                        <!-- Start Options Table -->
-                        <div class="col s12" id="tableRooms">
-                            <p><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></p>
-                            <div class="table-values-div">
-                                <table class="table-values">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 50px" class="header translate" data-name="active" data-type="checkbox">Active</th>
-                                            <th class="header translate" data-name="roomName">Room/Area Name</th>
-                                            <th class="header translate" data-name="triggers" data-type="select multiple">Triggers</th>
-                                            <th class="header translate" data-name="targets" data-type="select multiple">Target Devices</th>
-                                            <!-- <th class="header translate" data-name="offAfter" data-type="number">Always off after x secs</th> -->
+                                            <th style="width: 120px" class="header translate" data-name="onValue">Value: on</th>
+                                            <th class="mOptional header translate" data-name="offState">State Path to turn off</th>
+                                            <th style="width: 120px" class="mOptional header translate" data-name="offValue">Value: off</th>
                                             <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
                                         </tr>
                                     </thead>
@@ -470,8 +536,48 @@
             <div id="tabConditions" class="col s12 page">
                 <div class="row spaceTop3em">
                     <div class="col s12">
-                        <h5 class="translate">Conditions</h5>
-                        <p class="translate info">Conditions</p>
+                        <ul class="collapsible">
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">help_outline</i><h5 class="translate">Additional Conditions</h5></div>
+                                <div class="collapsible-body">
+                                    <p style="margin-top:0px" class="translate">
+                                        This is optional: Enter additional conditions which also have to apply, or should never apply. Like: one or more are present, today is public holiday, etc.
+                                    </p>
+                                    <table>
+                                        <thead>
+                                          <tr>
+                                              <th class="translate">Column</th>
+                                              <th class="translate">Required</th>
+                                              <th class="translate">Description</th>
+                                          </tr>
+                                        </thead>
+                                
+                                        <tbody>
+                                          <tr>
+                                            <td class="translate">✓</td>
+                                            <td class="translate">Yes</td>
+                                            <td class="translate">Activate/deactivate this table row. If not activated, this table row will be ignored.</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="translate">Condition Name</td>
+                                            <td class="translate">Yes</td>
+                                            <td class="translate">Enter a condition name of your choice.</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="translate">State Path to Condition</td>
+                                            <td class="translate">Yes</td>
+                                            <td class="translate">Path of state for this condition, like 'javascript.0.Holiday.isHolidayToday'.</td>
+                                        </tr>
+                                          <tr>
+                                            <td class="translate">State Value</td>
+                                            <td class="translate">Yes</td>
+                                            <td class="translate">State value for 'State Path to Condition'. You can enter <code>true</code>, <code>false</code>, numbers like <code>144</code>, or strings like <code>Friday</code>. Any spaces or quotation marks at beginning or end of this value will be disregarded.</td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                </div>
+                            </li>
+                        </ul>
                         <!-- Start Options Table -->
                         <div class="col s12" id="tableConditions">
                             <p><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></p>
@@ -479,10 +585,10 @@
                                 <table class="table-values">
                                     <thead>
                                         <tr>
-                                            <th style="width: 50px" class="header translate" data-name="active" data-type="checkbox">Active</th>
-                                            <th class="header translate" data-name="conditionName">Condition Name</th>
+                                            <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
+                                            <th class="header translate" data-name="name">Condition Name</th>
                                             <th class="header translate" data-name="conditionState">State Path to Condition</th>
-                                            <th class="header translate" data-name="conditionValue">State Value</th>
+                                            <th style="width: 120px" class="header translate" data-name="conditionValue">State Value</th>
                                             <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
                                         </tr>
                                     </thead>
@@ -495,12 +601,365 @@
             </div>
 
 
+            <!-- +++++++++++++ TAB: TRIGGERS +++++++++++++ -->
+
+            <div id="tabTriggers" class="col s12 page">
+                <div class="row spaceTop3em">
+                    <div class="col s12">
+                        <ul class="collapsible">
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">help_outline</i><h5 class="translate">Motion Sensors</h5></div>
+                                <div class="collapsible-body">
+                                    <p style="margin-top:0px" class="translate">
+                                        Enter your motion sensors. You can optionally add a brightness state and threshold value.
+                                    </p>
+                                    <table>
+                                        <thead>
+                                          <tr>
+                                              <th class="translate">Column</th>
+                                              <th class="translate">Required</th>
+                                              <th class="translate">Description</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                            <td class="translate">✓</td>
+                                            <td class="translate">Yes</td>
+                                            <td class="translate">Activate/deactivate this table row. If not activated, this table row will be ignored.</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="translate">Motion Sensor Name</td>
+                                            <td class="translate">Yes</td>
+                                            <td class="translate">Enter a motion sensor name of your choice.</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="translate">Motion Sensor State Path</td>
+                                            <td class="translate">Yes</td>
+                                            <td class="translate">Path of the motion sensor state.</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="translate">State Value</td>
+                                            <td class="translate">Yes</td>
+                                            <td class="translate">State value for detected motion (typically this is <strong>true</strong>). You can enter <code>true</code>, <code>false</code>, numbers like <code>144</code>, or strings like <code>Motion now</code>. Any spaces or quotation marks at beginning or end of this value will be disregarded.</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="translate">Sec</td>
+                                            <td class="translate">Yes</td>
+                                            <td class="translate">After this number of seconds without detected motion, target devices will be switched off.</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="translate">Brightness State Path</td>
+                                            <td class="translate">No</td>
+                                            <td class="translate">Optional: Path to a state which indicates the current brightness.</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="translate">Bri</td>
+                                            <td class="translate">No</td>
+                                            <td class="translate">Threshold value for the brightness. If current brightness of 'Brightness State Path' is greater than this number, the motion will be disregarded.</td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- Start Options Table -->
+                        <div class="col s12" id="tableTriggerMotion">
+                            <p><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></p>
+                            <div class="table-values-div">
+                                <table class="table-values">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
+                                            <th class="header translate" data-name="name">Motion Sensor Name</th>
+                                            <th class="header translate" data-name="stateId">Motion Sensor State Path</th>
+                                            <th style="width: 120px" class="header translate" data-name="stateVal">State Value</th>
+                                            <th style="width: 60px" class="header translate" data-name="duration" data-type="number">Sec</th>
+                                            <th class="mOptional header translate" data-name="briStateId">Brightness State Path</th>
+                                            <th style="width: 60px" class="mOptional header translate" data-name="briThreshold" data-type="number">Bri</th>
+                                            <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>                        
+                        <!-- End Options Table -->
+                    </div>
+                </div>            
+            
+            
+                <div class="row spaceTop3em">
+                    <div class="col s12">
+                        <ul class="collapsible">
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">help_outline</i><h5 class="translate">Other Devices</h5></div>
+                                <div class="collapsible-body">
+                                    <p style="margin-top:0px" class="translate">
+                                        Enter other triggers like wall switches, someone entering your home, etc. These defined items trigger the room/area (turning on).
+                                    </p>
+                                    <table>
+                                        <thead>
+                                          <tr>
+                                              <th class="translate">Column</th>
+                                              <th class="translate">Required</th>
+                                              <th class="translate">Description</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                            <td class="translate">✓</td>
+                                            <td class="translate">Yes</td>
+                                            <td class="translate">Activate/deactivate this table row. If not activated, this table row will be ignored.</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="translate">Device Name</td>
+                                            <td class="translate">Yes</td>
+                                            <td class="translate">Enter a device name of your choice.</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="translate">Device State Path</td>
+                                            <td class="translate">Yes</td>
+                                            <td class="translate">Path of the device state.</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="translate">State Value</td>
+                                            <td class="translate">Yes</td>
+                                            <td class="translate">Once the state value of 'Device State Path' is equal to this value, the trigger activates. You can enter <code>true</code>, <code>false</code>, numbers like <code>144</code>, or strings like <code>ABCDEF</code>. Any spaces or quotation marks at beginning or end of this value will be disregarded.</td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- Start Options Table -->
+                        <div class="col s12" id="tableTriggerDevices">
+                            <p><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></p>
+                            <div class="table-values-div">
+                                <table class="table-values">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
+                                            <th class="header translate" data-name="name">Device Name</th>
+                                            <th class="header translate" data-name="stateId">Device State Path</th>
+                                            <th style="width: 120px" class="header translate" data-name="stateVal">State Value</th>
+                                            <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>                        
+                        <!-- End Options Table -->
+                    </div>
+                </div>                        
+
+                <div class="row spaceTop3em">
+                    <div class="col s12">
+                        
+                        <ul class="collapsible">
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">help_outline</i><h5 class="translate">Time Specific Triggers (Schedules)</h5></div>
+                                <div class="collapsible-body">
+                                    <p style="margin-top:0px" class="translate">
+                                        These triggers activate at at the times you specify.
+                                    </p>
+                                    <table>
+                                        <thead>
+                                          <tr>
+                                              <th class="translate">Column</th>
+                                              <th class="translate">Required</th>
+                                              <th class="translate">Description</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                            <td class="translate">✓</td>
+                                            <td class="translate">Yes</td>
+                                            <td class="translate">Activate/deactivate this table row. If not activated, this table row will be ignored.</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="translate">Name of Time Trigger</td>
+                                            <td class="translate">Yes</td>
+                                            <td class="translate">Enter a time specific trigger name of your choice.</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="translate">Time</td>
+                                            <td class="translate">Yes</td>
+                                            <td class="translate">You can enter an hour/minute string like <code>23:30</code>, or a astro name like <code>sunset</code> and you can include offset in minutes, like <code>goldenHourEnd+30</code> or <code>sunset-60</code>.
+                                                                <br>Also, you can use Cron, like <code>5 4 * * *</code>. For Cron syntax, see for example:</span> <a style="text-decoration: underline" href="https://crontab.guru/" target="_blank">Crontab.guru</a>.
+                                                                <br><br>For hour/minute (like <code>23:30</code>) or an astro time (like <code>sunset</code>), execution will be every day. In "Schedules" tables you can limit this to certain weekdays etc.
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td class="translate">Additional Conditions</td>
+                                            <td class="translate">No</td>
+                                            <td class="translate">Select additional conditions, like 'Public Holiday Today' etc. If you leave this empty, no additional conditions will be checked. If you add more than one condition (like 'Public Holiday Today' + 'Bathroom Window is open'), ALL conditions must apply so that this trigger activates.</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="translate">Never if</td>
+                                            <td class="translate">No</td>
+                                            <td class="translate">Select conditions, which should never be true, like 'No one at home, 'Bathroom Temperature below 18°C', etc. If ANY of these 'never if' condition is met, the trigger will not activate.</td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                </div>
+                            </li>
+                        </ul>
+                       
+                        <!-- Start Options Table -->
+                        <div class="col s12" id="tableTriggerTimes">
+                            <p><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></p>
+                            <div class="table-values-div">
+                                <table class="table-values">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
+                                            <th class="header translate" data-name="name">Name of Time Trigger</th>
+                                            <th style="width: 140px" class="header translate" data-name="time">Time</th>
+                                            <th class="mOptional header translate" data-name="additionalConditions" data-type="select multiple">Additional Conditions</th>
+                                            <th class="mOptional header translate" data-name="never" data-type="select multiple">Never if</th>
+                                            <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>                        
+                        <!-- End Options Table -->
+                    </div>
+                </div>                        
+
+
+            </div>           
+
+
+            
+
+            <!-- +++++++++++++ TAB: ROOMS / AREAS +++++++++++++ -->
+            <div id="tabRooms" class="col s12 page">
+                <div class="row spaceTop3em">
+                    <div class="col s12">
+                        <ul class="collapsible">
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">help_outline</i><h5 class="translate">Rooms / Areas</h5></div>
+                                <div class="collapsible-body">
+                                    <p style="margin-top:0px" class="translate">
+                                        Define all your rooms/areas (like Bathroom 1st floor, Coffee Corner, etc.) and assign your triggers and devices you defined before.
+                                    </p>
+                                    <table>
+                                        <thead>
+                                          <tr>
+                                              <th class="translate">Column</th>
+                                              <th class="translate">Required</th>
+                                              <th class="translate">Description</th>
+                                          </tr>
+                                        </thead>
+                                
+                                        <tbody>
+                                          <tr>
+                                            <td class="translate">✓</td>
+                                            <td class="translate">Yes</td>
+                                            <td class="translate">Activate/deactivate this table row. If not activated, this table row will be ignored.</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="translate">Room/Area Name</td>
+                                            <td class="translate">Yes</td>
+                                            <td class="translate">Enter a room/area name of your choice.</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="translate">Triggers</td>
+                                            <td class="translate">Yes</td>
+                                            <td class="translate">Select one ore more triggers to assign to this room/area.</td>
+                                        </tr>
+                                          <tr>
+                                            <td class="translate">Target Devices</td>
+                                            <td class="translate">Yes</td>
+                                            <td class="translate">Select one or more target devices to switch once a trigger activates and schedules and conditions are met.</td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- Start Options Table -->
+                        <div class="col s12" id="tableAreas">
+                            <p><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></p>
+                            <div class="table-values-div">
+                                <table class="table-values">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
+                                            <th class="header translate" data-name="name">Room/Area Name</th>
+                                            <th class="header translate" data-name="triggers" data-type="select multiple">Triggers</th>
+                                            <th class="header translate" data-name="targets" data-type="select multiple">Target Devices</th>
+                                            <!-- <th class="header translate" data-name="offAfter" data-type="number">Always off after x secs</th> -->
+                                            <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>                        
+                        <!-- End Options Table -->
+                    </div>
+                </div>            
+            </div>
+
+
+
             <!-- +++++++++++++ TAB: SCHEDULES +++++++++++++ -->
             <div id="tabSchedules" class="col s12 page">
                 <div class="row spaceTop3em">
                     <div class="col s12">
-                        <h5 class="translate">Schedule</h5>
-                        <p class="translate info">Schedule.</p>
+                        <ul class="collapsible">
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">help_outline</i><h5 class="translate">Schedules</h5></div>
+                                <div class="collapsible-body">
+                                    <p style="margin-top:0px" class="translate">
+                                        Define under which conditions the target devices should be switched once a trigger is activated.
+                                    </p>
+                                    <table>
+                                        <thead>
+                                          <tr>
+                                              <th class="translate">Column</th>
+                                              <th class="translate">Required</th>
+                                              <th class="translate">Description</th>
+                                          </tr>
+                                        </thead>
+                                
+                                        <tbody>
+                                          <tr>
+                                            <td class="translate">✓</td>
+                                            <td class="translate">Yes</td>
+                                            <td class="translate">Activate/deactivate this table row. If not activated, this table row will be ignored.</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="translate">Room/Area</td>
+                                            <td class="translate">Yes</td>
+                                            <td class="translate">Select a room/area. You can add multiple table rows with the same room/area. The adapter will check all rows if any row matches the conditions.</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="translate">Start / End</td>
+                                            <td class="translate">Yes</td>
+                                            <td class="translate">Once a trigger is activated, the current time must be within this period to switch the target devices. You can enter an hour/minute string like <code>23:30</code>, or a astro name like <code>sunset</code> and you can include offset in minutes, like <code>goldenHourEnd+30</code> or <code>sunset-60</code>.<br> A start time of <code>sunset</code> and End time of <code>03:00</code> (so over midnight) is also possible, if you activate "Exceed Midnight" on the Start tab under 'Schedule Options'.</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="translate">Mon-Sun</td>
+                                            <td class="translate">Yes</td>
+                                            <td class="translate">Target will be switched if these weekdays apply.</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="translate">Additional Conditions</td>
+                                            <td class="translate">No</td>
+                                            <td class="translate">Select additional conditions, like 'Public Holiday Today' etc. If you leave this empty, no additional conditions will be checked. If you add more than one condition (like 'Public Holiday Today' + 'Bathroom Window is open'), ALL conditions must apply to switch target device.</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="translate">Never if</td>
+                                            <td class="translate">No</td>
+                                            <td class="translate">Select conditions, which should never be true if an associated trigger is activated, like 'No one at home, 'Bathroom Temperature below 18°C', etc. If ANY of these 'never if' condition is met, no target devices will be switched.</td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                </div>
+                            </li>
+                        </ul>
+
                         <!-- Start Options Table -->
                         <div class="col s12" id="tableSchedules">
                             <p><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></p>
@@ -508,10 +967,10 @@
                                 <table class="table-values">
                                     <thead>
                                         <tr>
-                                            <th style="width: 50px" class="header translate" data-name="active" data-type="checkbox">Active</th>
-                                            <th class="header translate" data-name="roomName" data-type="select">Room/Area</th>
-                                            <th class="header translate" data-name="start">Start</th>
-                                            <th class="header translate" data-name="end">End</th>
+                                            <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
+                                            <th style="width: 240px" class="header translate" data-name="name" data-type="select">Room/Area</th>
+                                            <th style="width: 120px" class="header translate" data-name="start">Start</th>
+                                            <th style="width: 120px" class="header translate" data-name="end">End</th>
                                             <th style="width: 35px" class="header translate" data-name="mon" data-type="checkbox">Mon</th>
                                             <th style="width: 35px" class="header translate" data-name="tue" data-type="checkbox">Tue</th>
                                             <th style="width: 35px" class="header translate" data-name="wed" data-type="checkbox">Wed</th>
@@ -519,8 +978,8 @@
                                             <th style="width: 35px" class="header translate" data-name="fri" data-type="checkbox">Fri</th>
                                             <th style="width: 35px" class="header translate" data-name="sat" data-type="checkbox">Sat</th>
                                             <th style="width: 35px" class="header translate" data-name="sun" data-type="checkbox">Sun</th>
-                                            <th class="header translate" data-name="additionalConditions" data-type="select multiple">Additional Conditions</th>
-                                            <th class="header translate" data-name="never" data-type="select multiple">Never if</th>
+                                            <th class="mOptional header translate" data-name="additionalConditions" data-type="select multiple">Additional Conditions</th>
+                                            <th class="mOptional header translate" data-name="never" data-type="select multiple">Never if</th>
                                             <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
                                         </tr>
                                     </thead>

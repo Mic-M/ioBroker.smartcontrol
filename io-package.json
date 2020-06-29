@@ -1,8 +1,11 @@
 {
   "common": {
     "name": "smartcontrol",
-    "version": "0.0.3",
+    "version": "0.1.0-alpha.1",
     "news": {
+      "0.1.0-alpha.1": {
+        "en": "multiple changes, improvements and enhancements"
+      },
       "0.0.3": {
         "en": "release for very early testers"
       }
@@ -161,7 +164,7 @@
     "tableTargetDevices": [
       {
         "active": true,
-        "deviceName": "Bathroom Light",
+        "name": "Bathroom Light",
         "onState": "smartcontrol.0.Test.light.Bathroom",
         "onValue": "true",
         "offState": "smartcontrol.0.Test.light.Bathroom",
@@ -169,7 +172,7 @@
       },
       {
         "active": true,
-        "deviceName": "Bathroom Radio",
+        "name": "Bathroom Radio",
         "onState": "smartcontrol.0.Test.radio.Bathroom",
         "onValue": "Smooth Jazz",
         "offState": "smartcontrol.0.Test.radio.Bathroom",
@@ -177,7 +180,7 @@
       },
       {
         "active": true,
-        "deviceName": "Hallway Light",
+        "name": "Hallway Light",
         "onState": "smartcontrol.0.Test.light.Hallway",
         "onValue": "true",
         "offState": "smartcontrol.0.Test.light.Hallway",
@@ -185,7 +188,7 @@
       },
       {
         "active": true,
-        "deviceName": "Relax Area Ceiling Light",
+        "name": "Relax Area Ceiling Light",
         "onState": "smartcontrol.0.Test.light.RelaxAreaCeiling",
         "onValue": "true",
         "offState": "smartcontrol.0.Test.light.RelaxAreaCeiling",
@@ -193,17 +196,17 @@
       },
       {
         "active": true,
-        "deviceName": "Relax Area Wall Light",
+        "name": "Relax Area Wall Light",
         "onState": "smartcontrol.0.Test.light.RelaxAreaWall",
         "onValue": "true",
         "offState": "smartcontrol.0.Test.light.RelaxAreaWall",
         "offValue": "false"
       }
     ],
-    "tableRooms": [
+    "tableAreas": [
       {
         "active": true,
-        "roomName": "Hallway",
+        "name": "Hallway",
         "triggers": [
           "Motion Hallway Sensor #1",
           "Motion Hallway Sensor #2",
@@ -217,7 +220,7 @@
       },
       {
         "active": true,
-        "roomName": "Relax Area",
+        "name": "Relax Area",
         "triggers": [
           "Relax Area Person Sits Indicator"
         ],
@@ -229,7 +232,7 @@
       },
       {
         "active": true,
-        "roomName": "Bathroom Ground Floor",
+        "name": "Bathroom Ground Floor",
         "triggers": [
           "Motion Bathroom",
           "Wall Switch Bathroom"
@@ -244,25 +247,25 @@
     "tableConditions": [
       {
         "active": true,
-        "conditionName": "Public Holiday Today",
+        "name": "Public Holiday Today",
         "conditionState": "smartcontrol.0.Test.condition.isHolidayToday",
         "conditionValue": "true"
       },
       {
         "active": true,
-        "conditionName": "Is Front Door Locked?",
+        "name": "Is Front Door Locked?",
         "conditionState": "smartcontrol.0.Test.condition.isFrontDoorLocked",
         "conditionValue": "true"
       },
       {
         "active": true,
-        "conditionName": "No one is present",
+        "name": "No one is present",
         "conditionState": "smartcontrol.0.Test.condition.isAnyonePresent",
         "conditionValue": "false"
       },
       {
         "active": true,
-        "conditionName": "One or more are present",
+        "name": "One or more are present",
         "conditionState": "smartcontrol.0.Test.condition.isAnyonePresent",
         "conditionValue": "true"
       }
@@ -270,7 +273,7 @@
     "tableSchedules": [
       {
         "active": true,
-        "roomName": "Relax Area",
+        "name": "Relax Area",
         "start": "sunset+30",
         "end": "sunrise",
         "mon": true,
@@ -287,7 +290,7 @@
       },
       {
         "active": true,
-        "roomName": "Hallway",
+        "name": "Hallway",
         "start": "sunset-20",
         "end": "22:00",
         "mon": true,
@@ -306,7 +309,7 @@
       },
       {
         "active": true,
-        "roomName": "Hallway",
+        "name": "Hallway",
         "start": "sunset-20",
         "end": "1:00",
         "mon": false,
@@ -323,7 +326,7 @@
       },
       {
         "active": true,
-        "roomName": "Bathroom Ground Floor",
+        "name": "Bathroom Ground Floor",
         "start": "06:00",
         "end": "09:00",
         "mon": true,
@@ -342,7 +345,7 @@
       },
       {
         "active": true,
-        "roomName": "Bathroom Ground Floor",
+        "name": "Bathroom Ground Floor",
         "start": "08:00",
         "end": "11:00",
         "mon": false,

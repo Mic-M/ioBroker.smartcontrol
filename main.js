@@ -25,6 +25,24 @@ let   lib        = null;                                         // the Library 
  */
 const g_tableValidation = [
     {
+        tableName: 'Target Devices',
+        tableId: 'tableTargetDevices',
+        tableMustHaveActiveRows: true,
+        check_1: {id: 'name', type:'notEmpty', deactivateIfError:true },
+        check_2: {id: 'onState', type:'statePath', deactivateIfError:true },
+        check_3: {id: 'onValue', type:'stateValue', stateValueStatePath:'onState', deactivateIfError:true },
+        check_4: {id: 'offState', type:'statePath', deactivateIfError:true, optional:true },
+        check_5: {id: 'offValue', type:'stateValue', stateValueStatePath:'offState', deactivateIfError:true, optional:true },
+    },
+    {
+        tableName: 'Conditions',
+        tableId: 'tableConditions',
+        tableMustHaveActiveRows: false,
+        check_1: {id: 'name', type:'notEmpty', deactivateIfError:true },
+        check_2: {id: 'conditionState', type:'statePath', deactivateIfError:true },
+        check_3: {id: 'conditionValue', type:'stateValue', stateValueStatePath:'conditionState', deactivateIfError:true },
+    },
+    {
         tableName: 'Triggers: Motion Sensors',   // Name of table, just for logging purposes
         tableId: 'tableTriggerMotion',
         tableMustHaveActiveRows: false,
@@ -33,8 +51,8 @@ const g_tableValidation = [
         check_2: {id: 'stateId', type:'statePath', deactivateIfError:true },
         check_3: {id: 'stateVal', type:'stateValue', stateValueStatePath:'stateId', deactivateIfError:true },
         check_4: {id: 'duration', type:'number', numberLowerLimit: 2, deactivateIfError:true },
-        check_5: {id: 'briStateId', type:'statePath', deactivateIfError:true },
-        check_6: {id: 'briThreshold', type:'number', deactivateIfError:true },
+        check_5: {id: 'briStateId', type:'statePath', deactivateIfError:true, optional:true },
+        check_6: {id: 'briThreshold', type:'number', deactivateIfError:true, optional:true },
     },
     {
         tableName: 'Triggers: Other Devices',
@@ -53,37 +71,20 @@ const g_tableValidation = [
         check_1: {id: 'name', type:'notEmpty', deactivateIfError:true },
         check_2: {id: 'time', type:'timeCron', deactivateIfError:true },
     },
-    {
-        tableName: 'Target Devices',
-        tableId: 'tableTargetDevices',
-        tableMustHaveActiveRows: true,
-        check_1: {id: 'deviceName', type:'notEmpty', deactivateIfError:true },
-        check_2: {id: 'onState', type:'statePath', deactivateIfError:true },
-        check_3: {id: 'onValue', type:'stateValue', stateValueStatePath:'onState', deactivateIfError:true },
-        check_4: {id: 'offState', type:'statePath', deactivateIfError:true },
-        check_5: {id: 'offValue', type:'stateValue', stateValueStatePath:'offState', deactivateIfError:true },
-    },    
+
     {
         tableName: 'Rooms/Areas',
-        tableId: 'tableRooms',
+        tableId: 'tableAreas',
         tableMustHaveActiveRows: true,
-        check_1: {id: 'roomName', type:'notEmpty', deactivateIfError:true },
+        check_1: {id: 'name', type:'notEmpty', deactivateIfError:true },
         check_2: {id: 'triggers', type:'notEmpty', deactivateIfError:true },
         check_3: {id: 'targets', type:'notEmpty', deactivateIfError:true },
     },    
     {
-        tableName: 'Conditions',
-        tableId: 'tableConditions',
-        tableMustHaveActiveRows: false,
-        check_1: {id: 'conditionName', type:'notEmpty', deactivateIfError:true },
-        check_2: {id: 'conditionState', type:'statePath', deactivateIfError:true },
-        check_3: {id: 'conditionValue', type:'stateValue', stateValueStatePath:'conditionState', deactivateIfError:true },
-    },
-    {
         tableName: 'Schedules',
         tableId: 'tableSchedules',
         tableMustHaveActiveRows: true,
-        check_1: {id: 'roomName', type:'notEmpty', deactivateIfError:true },
+        check_1: {id: 'name', type:'notEmpty', deactivateIfError:true },
         check_2: {id: 'start', type:'time', deactivateIfError:true },
         check_3: {id: 'end', type:'time', deactivateIfError:true },
     },
@@ -161,12 +162,28 @@ class SmartControl extends utils.Adapter {
             if (await lib.asyncVerifyConfig(g_tableValidation)) {
                 lib.logInfo('Adapter admin configuration successfully validated...');
             } else {
-                this.log.error('Adapter admin configuration validation failed --> Please check your configuration. You will not be able to use this adapter without fixing the issues.');
-                return;
+                throw('Adapter admin configuration validation failed --> Please check your configuration. You will not be able to use this adapter without fixing the issues.');
             }
 
             /**
-             * Subscribe to all trigger states
+             * Create option states if not existing.
+             */
+            if (! await lib.asyncCreateOptionStates()) {
+                throw('We were not able to create option states. Please check your log and configuration. You will not be able to use this adapter without fixing the issues.');
+            }
+
+            /**
+             * Update option states. Required if admin options were changed.
+             */
+            await lib.updateOptionStatesFromConfig();
+
+            /**
+             * Subscribe to all state changes of 'smartcontrol.x.Options.x.x.active'
+             */
+            await this.subscribeStatesAsync('Options.*.active');
+
+            /**
+             * Subscribe to all trigger state changes
              */
             lib.logInfo('Subscribing to all trigger states...');
             // @ts-ignore -> https://github.com/microsoft/TypeScript/issues/36769
@@ -199,7 +216,8 @@ class SmartControl extends utils.Adapter {
 
 
         } catch (error) {
-            this.log.error(`[_asyncOnReady] ${error}`);
+            lib.dumpError('Error', error);
+            return;
         }
 
     }
@@ -219,7 +237,18 @@ class SmartControl extends utils.Adapter {
 
                 // State was changed
 
-                lib.asyncTargetDeviceTriggered(statePath, stateObject);
+                if (statePath.startsWith(`${this.namespace}.Options.`) && statePath.endsWith('.active')) {
+
+                    // We have an options state like 'smartcontrol.0.Options.Areas.Hallway.active'
+                    lib.handleStateChangeOptionsActive(statePath, stateObject);
+
+                } else {
+
+                    // We are having a changed trigger state
+                    lib.asyncTargetDeviceTriggered(statePath, stateObject);
+
+                }
+              
 
             } else {
                 /**
@@ -229,7 +258,7 @@ class SmartControl extends utils.Adapter {
             }
 
         } catch (error) {
-            this.log.error(`[_asyncOnStateChange] ${error}`);
+            lib.dumpError('Error', error);
         }
 
     }
@@ -247,7 +276,7 @@ class SmartControl extends utils.Adapter {
             this.log.info('Stopping adapter instance successfully proceeded...');
             callback();
         } catch (error) {
-            this.log.error(`Error while stopping adapter: ${error}`);
+            lib.dumpError('Error while stopping adapter', error);
             callback();
         }
     }

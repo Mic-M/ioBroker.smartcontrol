@@ -18,13 +18,31 @@ Control devices smarter: by grouping, including triggers like motion, opening wi
 
 Icon made by [freepik](https://www.flaticon.com/authors/freepik) from [flaticon.com](https://www.flaticon.com/).
 
-
 ## WARNING
 
-**Please do not use this adapter yet** — It is in an early development stage. It is just published for testing purposes.
+**Please do not yet use this adapter in a productive environment** — It is in an early development stage and just published for testing purposes.
+
+## Installation
+The adapter is not yet in the "latest repository". So please [Install adapter from own URL](https://github.com/ioBroker/ioBroker.docs/blob/master/docs/en/admin/adapter.md). Then add an adapter instance.
+
+
+## Instructions
+
+We are having a nice term [Medienbruch](https://de.wikipedia.org/wiki/Medienbruch) in the German language, which is an unnecessary requirement to 'break' the current medium and switch to a different medium (like different website, program, etc.) to execute/complete a task. 
+Since this is cumbersome, I am not providing any adapter instructions here, but intuitively right within the adapter configuration.
+
+Therefore, all instructions have been included in the admin settings of this adapter. Click on the according header, and you will get the instructions as needed:
+
+![SmartControl Options](admin/img/smartControl_options1.gif)
+
+![SmartControl Options](admin/img/smartControl_options2.gif)
+
 
 
 ## Changelog
+
+### 0.1.0-alpha.1
+* (Mic-M) multiple changes, improvements and enhancements
 
 ### 0.0.3
 * (Mic-M) release for very early testers
