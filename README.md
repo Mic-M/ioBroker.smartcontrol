@@ -38,8 +38,22 @@ Therefore, all instructions have been included in the admin settings of this ada
 ![SmartControl Options](admin/img/smartControl_options2.gif)
 
 
+## To Do (to be considered for further development and future releases
+* (OstfrieseUnterwegs) - 2020-07-03 - Add option to disregard additional schedule table if a time specific trigger is activated - [ioBroker Forum Link]https://forum.iobroker.net/post/457849)
+* (OstfrieseUnterwegs) - 2020-07-03 - Think about a better name for "Room/Area", which is actually like a complex 'scene'. Maybe "zone"? - [ioBroker Forum Link]https://forum.iobroker.net/post/457849)
+* (OstfrieseUnterwegs) - 2020-07-03 - Cron Wizard - [ioBroker Forum Link](https://forum.iobroker.net/post/457861)
+* (looxer01) - 2020-06-22 - IFTTT etc. - [ioBroker Forum Link](https://forum.iobroker.net/post/453321)
+* (EdgarM) - 2020-06-18 - Several ideas - [ioBroker Forum Link](https://forum.iobroker.net/post/451578)
+* (siggi85) - 2020-05-24 - time depending light control features - [ioBroker Forum Link](https://forum.iobroker.net/post/437887)
+* (klassisch) - 2020-05-24 - several suggestions - [ioBroker Forum Link](https://forum.iobroker.net/post/437877)
+* (Mic-M) - 2020-05-23 - die Möglichkeit, nach x Minuten ausschalten zu lassen (z.B. nach 2 Stunden) falls kein Trigger wie BWM mehr was auslöst, um Fälle abzudecken wie "der User ist eingeschlafen" [ioBroker Forum Link](https://forum.iobroker.net/post/437806)
+* (MartyBr) & (crunship)  - 2020-05-17 - Manuelles schalten soll Bewegungsmelder außer Kraft setzen. [ioBroker Forum Link](https://forum.iobroker.net/post/433871) | [ioBroker Forum Link 2](https://forum.iobroker.net/post/437803) | [Script](https://forum.iobroker.net/topic/21226/vorlage-automatisches-licht)
+
 
 ## Changelog
+
+### 0.1.0-alpha.2
+* (Mic-M) multiple changes, improvements and enhancements
 
 ### 0.1.0-alpha.1
 * (Mic-M) multiple changes, improvements and enhancements

@@ -1,8 +1,11 @@
 {
   "common": {
     "name": "smartcontrol",
-    "version": "0.1.0-alpha.1",
+    "version": "0.1.0-alpha.2",
     "news": {
+      "0.1.0-alpha.2": {
+        "en": "multiple changes, improvements and enhancements"
+      },
       "0.1.0-alpha.1": {
         "en": "multiple changes, improvements and enhancements"
       },
@@ -48,7 +51,8 @@
       "switches",
       "lights",
       "trigger",
-      "schedule"
+      "schedule",
+      "zones"
     ],
     "license": "MIT",
     "platform": "Javascript/Node.js",
@@ -76,6 +80,7 @@
     "extendedInfoLog": true,
     "triggerStatesAck": "false",
     "limitTriggerInterval": 3,
+    "motionNoBriIfTimer": true,
     "tableTriggerMotion": [
       {
         "active": true,
@@ -83,6 +88,7 @@
         "stateId": "smartcontrol.0.Test.trigger.Bathroom_motion",
         "stateVal": "true",
         "duration": "10",
+        "notIfManual": false,
         "briStateId": "smartcontrol.0.Test.brightness.Bathroom_bri",
         "briThreshold": "100"
       },
@@ -92,6 +98,7 @@
         "stateId": "smartcontrol.0.Test.trigger.Hallway1_motion",
         "stateVal": "true",
         "duration": "120",
+        "notIfManual": false,
         "briStateId": "smartcontrol.0.Test.brightness.Hallway1_bri",
         "briThreshold": "70"
       },
@@ -101,6 +108,7 @@
         "stateId": "smartcontrol.0.Test.trigger.Hallway2_motion",
         "stateVal": "true",
         "duration": "120",
+        "notIfManual": false,
         "briStateId": "smartcontrol.0.Test.brightness.Hallway2_bri",
         "briThreshold": "60"
       }
@@ -203,7 +211,7 @@
         "offValue": "false"
       }
     ],
-    "tableAreas": [
+    "tableZones": [
       {
         "active": true,
         "name": "Hallway",

@@ -1,0 +1,6 @@
+We are using selectID.js (iobroker/node_modules/iobroker.admin/www/lib/js/selectID.js).
+
+Per selectID.js: "Important to have "admin/img/big-info.png" in too, because this icon will be loaded if no icon found, elsewise we have endless loop"
+
+--
+Mic-M, 2020-07-05
