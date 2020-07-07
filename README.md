@@ -35,8 +35,6 @@ Therefore, all instructions have been included in the admin settings of this ada
 
 ![SmartControl Options](admin/img/smartControl_options1.gif)
 
-![SmartControl Options](admin/img/smartControl_options2.gif)
-
 
 ## To Do (to be considered for further development and future releases
 * (frostnatt) - 2020-07-05 - Es wäre ein gewisses "misbehaviour-handling" wünschenswert, wenn zum Beispiel der Occupancy-Datenpunkt nicht auf False gesetzt wird. Hier könnte man zwischen "nichts tun" und "in z Minuten ausschalten" wählen. [ioBroker Forum Link](https://forum.iobroker.net/post/458399)
