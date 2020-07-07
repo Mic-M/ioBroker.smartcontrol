@@ -39,8 +39,9 @@ Therefore, all instructions have been included in the admin settings of this ada
 
 
 ## To Do (to be considered for further development and future releases
-* (OstfrieseUnterwegs) - 2020-07-03 - Add option to disregard additional schedule table if a time specific trigger is activated - [ioBroker Forum Link]https://forum.iobroker.net/post/457849)
-* (OstfrieseUnterwegs) - 2020-07-03 - Think about a better name for "Room/Area", which is actually like a complex 'scene'. Maybe "zone"? - [ioBroker Forum Link]https://forum.iobroker.net/post/457849)
+* (frostnatt) - 2020-07-05 - Es wäre ein gewisses "misbehaviour-handling" wünschenswert, wenn zum Beispiel der Occupancy-Datenpunkt nicht auf False gesetzt wird. Hier könnte man zwischen "nichts tun" und "in z Minuten ausschalten" wählen. [ioBroker Forum Link](https://forum.iobroker.net/post/458399)
+* (OstfrieseUnterwegs) - 2020-07-03 - Add option to disregard additional schedule table if a time specific trigger is activated - [ioBroker Forum Link](https://forum.iobroker.net/post/457849)
+* ~~(OstfrieseUnterwegs) - 2020-07-03 - Think about a better name for "Room/Area", which is actually like a complex 'scene'. Maybe "zone"? - [ioBroker Forum Link](https://forum.iobroker.net/post/457849)~~ -> renamed to "Zones"
 * (OstfrieseUnterwegs) - 2020-07-03 - Cron Wizard - [ioBroker Forum Link](https://forum.iobroker.net/post/457861)
 * (looxer01) - 2020-06-22 - IFTTT etc. - [ioBroker Forum Link](https://forum.iobroker.net/post/453321)
 * (EdgarM) - 2020-06-18 - Several ideas - [ioBroker Forum Link](https://forum.iobroker.net/post/451578)
