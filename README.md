@@ -31,12 +31,15 @@ The adapter is not yet in the "latest repository". So please [Install adapter fr
 We are having a nice term [Medienbruch](https://de.wikipedia.org/wiki/Medienbruch) in the German language, which is an unnecessary requirement to 'break' the current medium and switch to a different medium (like different website, program, etc.) to execute/complete a task. 
 Since this is cumbersome, I am not providing any adapter instructions here, but intuitively right within the adapter configuration.
 
-Therefore, all instructions have been included in the admin settings of this adapter. Click on the according header, and you will get the instructions as needed:
+Therefore, I have included all instructions in the admin settings of this adapter. Click on the according header, and you will get the instructions accordingly:
 
 ![SmartControl Options](admin/img/smartControl_options1.gif)
 
 
 ## To Do (to be considered for further development and future releases
+* (frostnatt) - 2020-07-09 - Timing issue for Aquara motion sensors if brightness. [ioBroker Forum Link](https://forum.iobroker.net/post/460130)
+* (Christoph1337) - 2020-09-07 - automatisch eine HTML Tabelle generiert wo alle Schalter mit Zuordnung enthalten sind. Das wäre gerade für den Start für viele einfacher da man sich nicht in vis großartig einarbeiten muss. Am besten sogar responsive für verschiedene Auflösungen. [ioBroker Forum Link](https://forum.iobroker.net/post/460117)
+* (EdgarM) - 2020-07-08 - Taster benutzen -> Licht an, Taster nochmal benutzen -> Licht aus [ioBroker Forum Link](https://forum.iobroker.net/post/459671)
 * (frostnatt) - 2020-07-05 - Es wäre ein gewisses "misbehaviour-handling" wünschenswert, wenn zum Beispiel der Occupancy-Datenpunkt nicht auf False gesetzt wird. Hier könnte man zwischen "nichts tun" und "in z Minuten ausschalten" wählen. [ioBroker Forum Link](https://forum.iobroker.net/post/458399)
 * (OstfrieseUnterwegs) - 2020-07-03 - Add option to disregard additional schedule table if a time specific trigger is activated - [ioBroker Forum Link](https://forum.iobroker.net/post/457849)
 * ~~(OstfrieseUnterwegs) - 2020-07-03 - Think about a better name for "Room/Area", which is actually like a complex 'scene'. Maybe "zone"? - [ioBroker Forum Link](https://forum.iobroker.net/post/457849)~~ -> renamed to "Zones"
@@ -50,6 +53,9 @@ Therefore, all instructions have been included in the admin settings of this ada
 
 
 ## Changelog
+
+### 0.1.0-alpha.3
+* (Mic-M) multiple changes, improvements and enhancements
 
 ### 0.1.0-alpha.2
 * (Mic-M) multiple changes, improvements and enhancements

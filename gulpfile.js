@@ -1,6 +1,9 @@
+/* eslint-disable no-prototype-builtins */
 /*!
  * ioBroker gulpfile
  * Date: 2019-01-28
+ * 
+ * (Mic-M) 2020-Jul-09 -- Some changes but not affecting functionality, new features commented out...
  */
 'use strict';
 
@@ -8,6 +11,7 @@ const gulp = require('gulp');
 const fs = require('fs');
 const pkg = require('./package.json');
 const iopackage = require('./io-package.json');
+//const cheerio = require('cheerio');
 const version = (pkg && pkg.version) ? pkg.version : iopackage.common.version;
 const fileName = 'words.js';
 const EMPTY = '';
@@ -24,6 +28,96 @@ const languages = {
     pl: {},
     'zh-cn': {}
 };
+
+
+/**
+ * Get all html strings for class "translate" from admin/index_m.html
+ * 
+ * @author Mic-M <https://github.com/Mic-M/>
+ * @date 09 July 2020
+ * 
+ * @return {Promise<array>}  Array of all html strings for class "translate", or empty array if nothing found.
+ */
+/*
+ async function getIndexHtmlTranslations() {
+    let index_m;
+    try {
+        if (fs.existsSync('./admin/index_m.html')) {
+            console.log('admin/index_m.html found.');
+        } else {
+            throw('admin/index_m.html not found.');
+        }
+
+        index_m = fs.readFileSync('./admin/index_m.html', 'utf8');        
+
+        const $ = cheerio.load(index_m);
+        const parsedObj = $('.translate');   
+        const resultArray = [];
+        if(parsedObj) {
+            parsedObj.each((i, element) => {
+                if(i == 21) {
+                    resultArray.push($(element).html());
+                }
+                if (i == 21) {
+                    console.log('21: ' + $(element).text());
+                }
+            });
+        } else {
+            throw('No translation classes found in admin/index_m.html.');
+        }
+        await addEnglishTranslations(resultArray);
+        
+        return resultArray;
+
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+}
+*/
+
+/**
+ * 
+ * @param {array} toAdd - array of English translations to add to admin/i18n/en/translations.json
+ */
+/*
+ async function addEnglishTranslations(toAdd) {
+
+    try {
+
+        if (! fs.existsSync('./admin/i18n/en/translations.json')) {
+            throw(`File 'admin/i18n/en/translations.json' is not existing. Please execute 'gulp adminWords2languages' to create all language files under admin/i18n/`)
+        }
+
+        const enTranslations = await require('./admin/i18n/en/translations.json');
+
+        // Add all translations to object
+        for (const lpVal of toAdd) {
+            enTranslations[lpVal] = lpVal;
+        }
+
+        // Write file
+        await fs.writeFile('./admin/i18n/en/translations.json', JSON.stringify(enTranslations, null, '\t'), 'utf-8', ()=> {});
+        
+
+    } catch (error) {
+        console.error(error);
+        return [];        
+    }
+
+
+
+}
+*/
+
+/*
+gulp.task('test123', async function (done) {
+    const res = await getIndexHtmlTranslations();
+    console.log(res.length + ' items found.');
+    done();
+});
+*/
+
 
 function lang2data(lang, isFlat) {
     let str = isFlat ? '' : '{\n';
@@ -294,6 +388,7 @@ function languages2words(src) {
         if (lang === 'flat.txt')
             continue;
         langs[lang] = fs.readFileSync(src + 'i18n/' + lang + '/translations.json').toString();
+        langs[lang] = fs.readFileSync(src + 'i18n/' + lang + '/translations.json').toString();
         langs[lang] = JSON.parse(langs[lang]);
         const words = langs[lang];
         for (const word in words) {
@@ -339,7 +434,7 @@ async function translateNotExisting(obj, baseText, yandex) {
     }
 
     if (t) {
-        for (let l in languages) {
+        for (const l in languages) {
             if (!obj[l]) {
                 const time = new Date().getTime();
                 obj[l] = await translate(t, l, yandex);
@@ -420,7 +515,7 @@ gulp.task('updateReadme', function (done) {
     done();
 });
 
-gulp.task('translate', async function (done) {
+gulp.task('translate', async function () {
 
     let yandex;
     const i = process.argv.indexOf('--yandex');
@@ -431,9 +526,9 @@ gulp.task('translate', async function (done) {
     if (iopackage && iopackage.common) {
         if (iopackage.common.news) {
             console.log('Translate News');
-            for (let k in iopackage.common.news) {
+            for (const k in iopackage.common.news) {
                 console.log('News: ' + k);
-                let nw = iopackage.common.news[k];
+                const nw = iopackage.common.news[k];
                 await translateNotExisting(nw, null, yandex);
             }
         }
@@ -447,14 +542,14 @@ gulp.task('translate', async function (done) {
         }
 
         if (fs.existsSync('./admin/i18n/en/translations.json')) {
-            let enTranslations = require('./admin/i18n/en/translations.json');
-            for (let l in languages) {
+            const enTranslations = require('./admin/i18n/en/translations.json');
+            for (const l in languages) {
                 console.log('Translate Text: ' + l);
                 let existing = {};
                 if (fs.existsSync('./admin/i18n/' + l + '/translations.json')) {
                     existing = require('./admin/i18n/' + l + '/translations.json');
                 }
-                for (let t in enTranslations) {
+                for (const t in enTranslations) {
                     if (!existing[t]) {
                         existing[t] = await translate(enTranslations[t], l, yandex);
                     }
