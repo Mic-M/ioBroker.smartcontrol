@@ -18,10 +18,6 @@ Control devices smarter: by grouping, including triggers like motion, opening wi
 
 Icon made by [freepik](https://www.flaticon.com/authors/freepik) from [flaticon.com](https://www.flaticon.com/).
 
-## WARNING
-
-**Please do not yet use this adapter in a productive environment** — It is in an early development stage and just published for testing purposes.
-
 ## Installation
 The adapter is not yet in the "latest repository". So please [Install adapter from own URL](https://github.com/ioBroker/ioBroker.docs/blob/master/docs/en/admin/adapter.md). Then add an adapter instance.
 
