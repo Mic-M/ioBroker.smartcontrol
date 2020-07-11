@@ -16,7 +16,7 @@
 
 Control devices smarter: by grouping, including triggers like motion, opening window, etc. and set target devices accordingly.
 
-Icon made by [freepik](https://www.flaticon.com/authors/freepik) from [flaticon.com](https://www.flaticon.com/).
+<sub><sup>Adapter icon made by [freepik](https://www.flaticon.com/authors/freepik) from [flaticon.com](https://www.flaticon.com/).</sup></sub>
 
 ## Installation
 The adapter is not yet in the "latest repository". So please [Install adapter from own URL](https://github.com/ioBroker/ioBroker.docs/blob/master/docs/en/admin/adapter.md). Then add an adapter instance.
@@ -49,6 +49,9 @@ Therefore, I have included all instructions in the admin settings of this adapte
 
 
 ## Changelog
+
+### 0.1.0-alpha.4
+* (Mic-M) translations
 
 ### 0.1.0-alpha.3
 * (Mic-M) multiple changes, improvements and enhancements

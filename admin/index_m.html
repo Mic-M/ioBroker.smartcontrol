@@ -434,10 +434,10 @@
                     <div class="col s12">
                         <ul class="collapsible">
                             <li>
-                                <div class="collapsible-header config-section"><h5 class="translate">Other Devices</h5><i class="material-icons">help_outline</i></div>
+                                <div class="collapsible-header config-section"><h5 class="translate">Andere Auslöser</h5><i class="material-icons">help_outline</i></div>
                                 <div class="collapsible-body">
                                     <p style="margin-top:0px" class="translate">
-                                        Enter other triggers like wall switches, someone entering your home, etc. These defined items trigger the zone (turning on).
+                                        Hier erfasst du andere Geräte als Auslöser, wie Wandschalter, das Betreten der Wohnung, Küchenfenster wird geöffnet, usw. 
                                     </p>
                                     <table>
                                         <thead>
@@ -454,19 +454,19 @@
                                             <td class="translate">Aktiviert/deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet.</td>
                                           </tr>
                                           <tr>
-                                            <td class="translate">Device Name</td>
+                                            <td class="translate">Name</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Enter a device name of your choice.</td>
+                                            <td class="translate">Beliebiger Name.</td>
                                           </tr>
                                           <tr>
-                                            <td class="translate">Device State Path</td>
+                                            <td class="translate">Datenpunkt</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Path of the device state.</td>
+                                            <td class="translate">Entsprechender Datenpunkt.</td>
                                           </tr>
                                           <tr>
-                                            <td class="translate">State Value</td>
+                                            <td class="translate">DP-Wert</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Once the state value of 'Device State Path' is equal to this value, the trigger activates. You can enter <code>true</code>, <code>false</code>, numbers like <code>144</code>, or strings like <code>ABCDEF</code>. Any spaces or quotation marks at beginning or end of this value will be disregarded.</td>
+                                            <td class="translate">Sobald der Wert vom Datenpunkt mit diesem Wert übereinstimmt, wird der Auslöser aktiviert. Du kannst <code>true</code>, <code>false</code>, Nummern wie <code>144</code>, or Strings wie <code>ABCDEF</code> verwenden. Sämtliche Leerzeichen und Anführungszeichen (wie <code>"</code>) am Anfang und Ende werden automatisch entfernt.</td>
                                           </tr>
                                         </tbody>
                                       </table>
@@ -481,10 +481,10 @@
                                     <thead>
                                         <tr>
                                             <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
-                                            <th class="header translate" data-name="name">Device Name</th>
+                                            <th class="header translate" data-name="name">Name</th>
                                             <th style="width: 40px;" data-buttons="stateSelectPopupStateId" class="header"></th>
-                                            <th class="header translate" data-name="stateId">Device State Path</th>
-                                            <th style="width: 120px" class="header translate" data-name="stateVal">State Value</th>
+                                            <th class="header translate" data-name="stateId">Datenpunkt</th>
+                                            <th style="width: 120px" class="header translate" data-name="stateVal">DP-Wert</th>
                                             <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
                                         </tr>
                                     </thead>
@@ -500,10 +500,10 @@
                         
                         <ul class="collapsible">
                             <li>
-                                <div class="collapsible-header config-section"><h5 class="translate">Time Specific Triggers (Schedules)</h5><i class="material-icons">help_outline</i></div>
+                                <div class="collapsible-header config-section"><h5 class="translate">Zeitabhängige Auslöser</h5><i class="material-icons">help_outline</i></div>
                                 <div class="collapsible-body">
                                     <p style="margin-top:0px" class="translate">
-                                        These triggers activate at at the times you specify.
+                                        Diese Auslöser aktivieren, sobald die entsprechende Zeit eintritt.
                                     </p>
                                     <table>
                                         <thead>
@@ -520,27 +520,34 @@
                                             <td class="translate">Aktiviert/deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet.</td>
                                           </tr>
                                           <tr>
-                                            <td class="translate">Name of Time Trigger</td>
+                                            <td class="translate">Name des Auslösers</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Enter a time specific trigger name of your choice.</td>
+                                            <td class="translate">Beliebiger Name.</td>
                                           </tr>
                                           <tr>
-                                            <td class="translate">Time</td>
+                                            <td class="translate">Zeit</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">You can enter an hour/minute string like <code>23:30</code>, or a astro name like <code>sunset</code> and you can include offset in minutes, like <code>goldenHourEnd+30</code> or <code>sunset-60</code>.
-                                                                <br>Also, you can use Cron, like <code>5 4 * * *</code>. For Cron syntax, see for example:</span> <a style="text-decoration: underline" href="https://crontab.guru/" target="_blank">Crontab.guru</a>.
-                                                                <br><br>For hour/minute (like <code>23:30</code>) or an astro time (like <code>sunset</code>), execution will be every day. In "Schedules" tables you can limit this to certain weekdays etc.
+                                            <td class="translate">Hier kannst du eine Uhrzeit in Stunde/Minute, wie <code>23:30</code>, eingeben. Außerdem kannst du einen Astro-Namen wie <code>sunset</code> eingeben und dabei einen Versatz ("Offset") in Minuten hinzufügen, z.B. <code>goldenHourEnd+30</code> oder <code>sunset-60</code>.
+                                                <br>Die aktuellen Astrozeiten findest du übrigens als Info-Datenpunkte in diesem Adapter: <code>smartcontrol.x.info.astroTimes</code>.
+                                                <br>Außerdem kannst du hier Cron verwenden, also z.B. <code>5 4 * * *</code>. Zum einfachen Ermittlung der zu verwendeten Cron-Syntax kannst du z.B. folgende Website verwenden: <a style="text-decoration: underline" href="https://crontab.guru/" target="_blank">Crontab.guru</a>.
+                                                <br>
+                                                <br>Für Stunde/Minute (wie <code>23:30</code>) oder Astrozeiten (wie <code>sunset</code>) ist die Ausführung jeden Tag. In der "Zeitpläne"-Tabelle kannst du das dann weiter entsprechend limitieren.
+                                            </td>
+
+                                          </tr>
+                                          <tr>
+                                            <td class="translate">Zusätzlich muss erfüllt sein</td>
+                                            <td class="translate">Nein</td>
+                                            <td class="translate">Hier kannst du zusätzliche Bedingungen eintragen, die zusätzlich zutreffen müssen, z.B.: Jemand ist anwesend, Heute ist Feiertag, Oma schläft, usw.
+                                                                <br>Falls du mehr als eine Bedingung auswählst, müssen all diese Bedingungen zutreffen, damit ausgelöst wird.
                                             </td>
                                           </tr>
                                           <tr>
-                                            <td class="translate">Additional Conditions</td>
+                                            <td class="translate">Nie auslösen wenn...</td>
                                             <td class="translate">Nein</td>
-                                            <td class="translate">Select additional conditions, like 'Public Holiday Today' etc. If you leave this empty, no additional conditions will be checked. If you add more than one condition (like 'Public Holiday Today' + 'Bathroom Window is open'), ALL conditions must apply so that this trigger activates.</td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Never if</td>
-                                            <td class="translate">Nein</td>
-                                            <td class="translate">Select conditions, which should never be true, like 'No one at home, 'Bathroom Temperature below 18°C', etc. If ANY of these 'never if' condition is met, the trigger will not activate.</td>
+                                            <td class="translate">Hier kannst du zusätzliche Bedingungen eintragen, die nie zutreffen dürfen, z.B.: Keiner zu Hause, Radio läuft, usw.
+                                                    <br>Falls du mehr als eine Bedingung auswählst: sobald auch nur eine dieser Bedingungen zutrifft, wird nicht ausgelöst.
+                                            </td>
                                           </tr>
                                         </tbody>
                                       </table>
@@ -556,10 +563,10 @@
                                     <thead>
                                         <tr>
                                             <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
-                                            <th class="header translate" data-name="name">Name of Time Trigger</th>
-                                            <th style="width: 140px" class="header translate" data-name="time">Time</th>
-                                            <th class="mOptional header translate" data-name="additionalConditions" data-type="select multiple">Additional Conditions</th>
-                                            <th class="mOptional header translate" data-name="never" data-type="select multiple">Never if</th>
+                                            <th class="header translate" data-name="name">Name des Auslösers</th>
+                                            <th style="width: 140px" class="header translate" data-name="time">Zeit</th>
+                                            <th class="mOptional header translate" data-name="additionalConditions" data-type="select multiple">Zusätzlich muss erfüllt sein</th>
+                                            <th class="mOptional header translate" data-name="never" data-type="select multiple">Nie auslösen wenn...</th>
                                             <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
                                         </tr>
                                     </thead>
@@ -582,10 +589,10 @@
                     <div class="col s12">
                         <ul class="collapsible">
                             <li>
-                                <div class="collapsible-header config-section"><h5 class="translate">Zones</h5><i class="material-icons">help_outline</i></div>
+                                <div class="collapsible-header config-section"><h5 class="translate">Zonen</h5><i class="material-icons">help_outline</i></div>
                                 <div class="collapsible-body">
                                     <p style="margin-top:0px" class="translate">
-                                        Define all your zones (like Bathroom 1st floor, Coffee Corner, etc.) and assign your triggers and devices you defined before.
+                                        Hier definierst du alle "Zonen" (z.B. Badezimmer 1.OG, Kaffeeecke, usw.) und weist Auslöser und zu schaltende Zielgeräte zu.
                                     </p>
                                     <table>
                                         <thead>
@@ -603,19 +610,19 @@
                                             <td class="translate">Aktiviert/deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet.</td>
                                           </tr>
                                           <tr>
-                                            <td class="translate">Zone Name</td>
+                                            <td class="translate">Name der Zone</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Enter a zone name of your choice.</td>
+                                            <td class="translate">Beliebiger Name für die Zone.</td>
                                           </tr>
                                           <tr>
-                                            <td class="translate">Triggers</td>
+                                            <td class="translate">Auslöser</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Select one ore more triggers to assign to this zone.</td>
+                                            <td class="translate">Wähle hier einen oder mehrere Auslöser aus, um dieser Zone zuzuordnen.</td>
                                         </tr>
                                           <tr>
-                                            <td class="translate">Target Devices</td>
+                                            <td class="translate">Zu schaltende Zielgeräte</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Select one or more target devices to switch once a trigger activates and schedules and conditions are met.</td>
+                                            <td class="translate">Wähle hier ein oder mehrere zu schaltende Zielgeräte aus, die geschalten werden, sobald ein Auslöser auslöst und die Zeitpläne und Bedingungen zutreffen.</td>
                                           </tr>
                                         </tbody>
                                       </table>
@@ -630,9 +637,9 @@
                                     <thead>
                                         <tr>
                                             <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
-                                            <th class="header translate" data-name="name">Zone Name</th>
-                                            <th class="header translate" data-name="triggers" data-type="select multiple">Triggers</th>
-                                            <th class="header translate" data-name="targets" data-type="select multiple">Target Devices</th>
+                                            <th class="header translate" data-name="name">Name der Zone</th>
+                                            <th class="header translate" data-name="triggers" data-type="select multiple">Auslöser</th>
+                                            <th class="header translate" data-name="targets" data-type="select multiple">Zu schaltende Zielgeräte</th>
                                             <!-- <th class="header translate" data-name="offAfter" data-type="number">Always off after x secs</th> -->
                                             <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
                                         </tr>
@@ -651,10 +658,10 @@
                     <div class="col s12">
                         <ul class="collapsible">
                             <li>
-                                <div class="collapsible-header config-section"><h5 class="translate">Schedules</h5><i class="material-icons">help_outline</i></div>
+                                <div class="collapsible-header config-section"><h5 class="translate">Zeitpläne</h5><i class="material-icons">help_outline</i></div>
                                 <div class="collapsible-body">
                                     <p style="margin-top:0px" class="translate">
-                                        Define under which conditions the target devices should be switched once a trigger is activated.
+                                        Hier definierst du, unter welchen Bedingungen die in den Zonen definierten Zielgeräte angeschaltet werden, sobald ein Auslöser aulöst.
                                     </p>
                                     <table>
                                         <thead>
@@ -674,27 +681,37 @@
                                           <tr>
                                             <td class="translate">Zone</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Select a zone. You can add multiple table rows with the same zone. The adapter will check all rows if any row matches the conditions.</td>
+                                            <td class="translate">Hier wählst du die entsprechende Zone aus. Du kannst mehrere Tabellenzeilen mit der selben Zone verwenden, der Adapter wird dann alle Zeilen prüfen, ob Bedingungen zum schalten zutreffen.</td>
                                           </tr>
                                           <tr>
-                                            <td class="translate">Start / End</td>
+                                            <td class="translate">Start / Ende</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Once a trigger is activated, the current time must be within this period to switch the target devices. You can enter an hour/minute string like <code>23:30</code>, or a astro name like <code>sunset</code> and you can include offset in minutes, like <code>goldenHourEnd+30</code> or <code>sunset-60</code>.<br> A start time of <code>sunset</code> and End time of <code>03:00</code> (so over midnight) is also possible, if you activate "Exceed Midnight" on the Start tab under 'Schedule Options'.</td>
+                                            <td class="translate">Sobald ein Auslöser auslöst, muss die aktuelle Uhrzeit innerhalb dieses Zeitraums sein, damit die Zielgeräte geschalten werden.
+                                                <br>Du kannst hier eine Uhrzeit in Stunde/Minute, wie <code>08:25</code> oder <code>23:30</code> eingeben. 
+                                                Außerdem kannst du einen Astro-Namen wie <code>sunset</code> eingeben und dabei einen Versatz ("Offset") in Minuten hinzufügen, z.B. <code>goldenHourEnd+30</code> oder <code>sunset-60</code>.
+                                                <br>Die aktuellen Astrozeiten findest du übrigens als Info-Datenpunkte in diesem Adapter: <code>smartcontrol.x.info.astroTimes</code>.
+                                                <br>Eine Startzeit von z.B. <code>sunset</code> and Endzeit von z.B. <code>03:00</code> (also über Mitternacht hinaus) ist ebenso möglich, hierzu muss in "Weitere Optionen" die Option "Über Mitternacht hinaus" aktiviert sein (ist sie standardmäßig).
+                                                <br>
+                                            </td>
                                           </tr>
                                           <tr>
-                                            <td class="translate">Mon-Sun</td>
+                                            <td class="translate">Mo-So</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Target will be switched if these weekdays apply.</td>
+                                            <td class="translate">Ziele werden geschaltet, wenn diese Wochentage zutreffen.</td>
                                           </tr>
                                           <tr>
-                                            <td class="translate">Additional Conditions</td>
+                                            <td class="translate">Zusätzlich muss erfüllt sein</td>
                                             <td class="translate">Nein</td>
-                                            <td class="translate">Select additional conditions, like 'Public Holiday Today' etc. If you leave this empty, no additional conditions will be checked. If you add more than one condition (like 'Public Holiday Today' + 'Bathroom Window is open'), ALL conditions must apply to switch target device.</td>
+                                            <td class="translate">Hier kannst du zusätzliche Bedingungen eintragen, die zusätzlich zutreffen müssen, z.B.: Jemand ist anwesend, Heute ist Feiertag, usw.
+                                                                  <br>Falls du mehr als eine Bedingung auswählst, müssen all diese Bedingungen zutreffen, damit die Ziele geschaltet werden.
+                                            </td>
                                           </tr>
                                           <tr>
-                                            <td class="translate">Never if</td>
+                                            <td class="translate">Nie schalten wenn...</td>
                                             <td class="translate">Nein</td>
-                                            <td class="translate">Select conditions, which should never be true if an associated trigger is activated, like 'No one at home, 'Bathroom Temperature below 18°C', etc. If ANY of these 'never if' condition is met, no target devices will be switched.</td>
+                                            <td class="translate">Hier kannst du zusätzliche Bedingungen eintragen, die nie zutreffen dürfen, z.B.: Keiner zu Hause, Radio läuft, usw.
+                                                <br>Falls du mehr als eine Bedingung auswählst: sobald auch nur eine dieser Bedingungen zutrifft, wird nicht geschaltet.
+                                            </td>
                                           </tr>
                                         </tbody>
                                       </table>
@@ -712,16 +729,16 @@
                                             <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
                                             <th style="width: 240px" class="header translate" data-name="name" data-type="select">Zone</th>
                                             <th style="width: 120px" class="header translate" data-name="start">Start</th>
-                                            <th style="width: 120px" class="header translate" data-name="end">End</th>
-                                            <th style="width: 35px" class="header translate" data-name="mon" data-type="checkbox">Mon</th>
-                                            <th style="width: 35px" class="header translate" data-name="tue" data-type="checkbox">Tue</th>
-                                            <th style="width: 35px" class="header translate" data-name="wed" data-type="checkbox">Wed</th>
-                                            <th style="width: 35px" class="header translate" data-name="thu" data-type="checkbox">Thu</th>
-                                            <th style="width: 35px" class="header translate" data-name="fri" data-type="checkbox">Fri</th>
-                                            <th style="width: 35px" class="header translate" data-name="sat" data-type="checkbox">Sat</th>
-                                            <th style="width: 35px" class="header translate" data-name="sun" data-type="checkbox">Sun</th>
-                                            <th class="mOptional header translate" data-name="additionalConditions" data-type="select multiple">Additional Conditions</th>
-                                            <th class="mOptional header translate" data-name="never" data-type="select multiple">Never if</th>
+                                            <th style="width: 120px" class="header translate" data-name="end">Ende</th>
+                                            <th style="width: 35px" class="header translate" data-name="mon" data-type="checkbox">Mo</th>
+                                            <th style="width: 35px" class="header translate" data-name="tue" data-type="checkbox">Di</th>
+                                            <th style="width: 35px" class="header translate" data-name="wed" data-type="checkbox">Mi</th>
+                                            <th style="width: 35px" class="header translate" data-name="thu" data-type="checkbox">Do</th>
+                                            <th style="width: 35px" class="header translate" data-name="fri" data-type="checkbox">Fr</th>
+                                            <th style="width: 35px" class="header translate" data-name="sat" data-type="checkbox">Sa</th>
+                                            <th style="width: 35px" class="header translate" data-name="sun" data-type="checkbox">So</th>
+                                            <th class="mOptional header translate" data-name="additionalConditions" data-type="select multiple">Zusätzlich muss erfüllt sein</th>
+                                            <th class="mOptional header translate" data-name="never" data-type="select multiple">Nie schalten wenn...</th>
                                             <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
                                         </tr>
                                     </thead>
@@ -736,21 +753,23 @@
 			<!-- +++++++++++++ TAB: OPTIONS +++++++++++++ -->
             <div id="tabOptions" class="col s12 page">
                 <div class="intro">
-                    <h5 class="translate" style="margin-top: 2em;">Further Adapter Options</h5>
-                    <p style="font-size: 0.9em; line-height: 1.5" class="translate">Besides the options in each tab, you have some additional options as follows. Click to open.</p>
+                    <h5 class="translate" style="margin-top: 2em;">Weitere Adapter-Optionen</h5>
+                    <p style="font-size: 0.9em; line-height: 1.5" class="translate">Hier sind weitere Adapter-Optionen.</p>
                 </div>        
                 <ul class="collapsible" style="margin-top: 1.5em;">
                     <!-- +++ Schedule Options +++  -->
                     <li class="lighten-2">
-                        <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">Schedule Options</h6></div>
+                        <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">Zeitplan-Optionen</h6></div>
                         <div class="collapsible-body">
                             <div class="row">
                                 <div class="col s12">
-                                    <h6 class="translate info">Exceed Midnight</h6>
-                                    <p class="translate info">If you have a start time of 22:00 and an end time of 02:00, then this is considered as not valid, since it would exceed midnight. By activating this option, the period is being exceeded over midnight.</p>
+                                    <h6 class="translate info">Über Mitternacht hinaus</h6>
+                                    <p class="translate info">Wenn du eine Startzeit von '22:00' und eine Endzeit von '02:00' hast, dann wäre das nicht gültig, weil es über Mitternacht hinausgeht.
+                                        Durch Aktivierung dieser Option wird die Periode über Mitternacht hinaus erweitert, womit Zeiträume wie eben 22:00 - 02:00 möglich sind.
+                                    </p>
                                     <div class="input-field col s12 m6">
                                         <input type="checkbox" class="value" id="exceedMidnight" />
-                                        <label for="exceedMidnight" class="translate">Exceed Midnight</label>
+                                        <label for="exceedMidnight" class="translate">Über Mitternacht hinaus</label>
                                     </div>
                                 </div>
                             </div>
@@ -758,60 +777,63 @@
                     </li>
                     <!-- +++ Trigger Options +++  -->
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">Trigger Options</h6></div>
+                        <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">Auslöser-Optionen</h6></div>
                         <div class="collapsible-body">
                             <div class="row">
                                 <div class="col s12">
-                                    <h6 class="translate info">Motion Sensors: Disregard optional brightness level if turn-off timer is still running</h6>
-                                    <p class="translate info">Falls unter '3. TRIGGERS' Bewegungssensoren und zugehörige Helligkeits-Datenpunkte definiert sind, kann man hiermit folgendes optimieren:
+                                    <h6 class="translate info">Bewegungsmelder: Ignoriere die Helligkeit falls der Ausschalt-Timer noch läuft</h6>
+                                    <p class="translate info">Falls unter '3. AUSLÖSER' Bewegungssensoren und zugehörige Helligkeits-Datenpunkte definiert sind, kann man hiermit folgendes optimieren:
                                         <br><br>
-                                        'Bri' ist der oberere Schwellwert der Helligkeit, über dem nicht mehr eingeschaltet wird wenn der Bewegungsmelder agiert. 
+                                        'Grenze' ist der oberere Schwellwert der Helligkeit, über dem nicht mehr eingeschaltet wird wenn der Bewegungsmelder auslöst. 
                                         Dies ist jedoch nicht praxisnah, wenn der Bewegungsmelder z.B. Lichter schaltet, denn dann werden keine wiederkehrenden Bewegungen mehr erkannt, falls Licht an und 'Bri' höchstwahrscheinlich damit überhalb des Schwellwertes ist.
                                         Mit Aktivierung dieser Option wird der Helligkeitsdatenpunkt ignoriert, wenn ein Bewegungsmelder auslöste und der Abschalt-Timer (z.B. 2 Minuten) noch läuft.
                                     </p>
                                     <div class="input-field col s12 m6">
                                         <input type="checkbox" class="value" id="motionNoBriIfTimer" />
-                                        <label for="motionNoBriIfTimer" class="translate">Disregard bri if motion sensor off-timer us running</label>
+                                        <label for="motionNoBriIfTimer" class="translate">Ignoriere Helligkeit falls Ausschalt-Timer des Bewegungsmelders noch läuft</label>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col s12">
-                                    <h6 class="translate info">Trigger-Datenpunkte unterhalb javascript.x/0_userdata.0</h6>
-                                    <p class="translate info">Änderungen von Datenpunkten, die unterhalb von Adapter-Instanzen sind, werden nur getriggert, wenn acknowledge (ack) = true (also States gültig/bestätigt sind). Für user-eigene Datenpunkte unterhalb javascript.x/0_userdata.0 kann man das hier ändern.</p>
+                                    <h6 class="translate info">Auslöser-Datenpunkte unterhalb javascript.x/0_userdata.0</h6>
+                                    <p class="translate info">Änderungen von Datenpunkten, die unterhalb von Adapter-Instanzen sind, werden nur getriggert, wenn acknowledge (ack) = <code>true</code> (also States gültig/bestätigt sind). 
+                                        <br>Für user-eigene Datenpunkte unterhalb javascript.x/0_userdata.0 kann man das hier ändern.
+                                    </p>
                                     <div class="input-field col s3 select">
                                         <select class="value" value="true" id="triggerStatesAck">
-                                            <option class="translate" value="false" selected>ack:false (ignore ack:true)</option>
-                                            <option class="translate" value="true">ack: true (ignore ack:false)</option>
-                                            <option class="translate" value="any">ack: any (true or false)</option>
+                                            <option class="translate" value="false" selected>Nur ack:false (ignoriere ack:true)</option>
+                                            <option class="translate" value="true">Nur ack:true (ignoriere ack:false)</option>
+                                            <option class="translate" value="any">Egal (ack:true oder ack:false)</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col s12">
-                                    <h6 class="translate info">Disregard trigger, if last triggering of same trigger occurred less than x seconds ago</h6>
-                                    <p class="translate info">For stability reasons, trigger state changes will be disregarded if the same trigger triggers again in less than this amount of seconds. You can change the number of seconds accordingly. Less than 2 seconds is not allowed.</p>
-                                    <div class="input-field col s12 m6">
+                                    <h6 class="translate info">Auslöser ignorieren, falls letzes Auslösen desselben Auslösers vor weniger als x Sekunden war</h6>
+                                    <p class="translate info">Aus Stabilitätsgründen werden Auslöser ignoriert, wenn diese bereits vor weniger als x Sekunden ausgelöst haben. Du kannst diese Anzahl Sekunden hier anpassen. Weniger als 2 Sekunden sind nicht erlaubt.</p>
+                                    <!-- <div class="input-field col s12 m6"> -->
+                                    <div class="input-field col s3">
                                         <input class="value validate" placeholder="10" id="limitTriggerInterval" type="number" min="2" max="10000">
-                                        <label for="limitTriggerInterval" class="translate">2 or more seconds are required</label>
-                                        <span class="helper-text translate">Seconds</span>
+                                        <label for="limitTriggerInterval" class="translate">2 oder mehr Sekunden sind erforderlich</label>
+                                        <span class="helper-text translate">Sekunden</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </li>
-                    <!-- +++ General Options +++  -->
+                    <!-- +++ Log Options +++  -->
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">General Options</h6></div>
+                        <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">Log-Ausgaben</h6></div>
                         <div class="collapsible-body">
                             <div class="row">
                                 <div class="col s12">
-                                    <p class="translate info">If activated, the info log will be showing way more information.</p>
+                                    <p class="translate info">Falls aktiviert, werden mehr Informationen ('info') im ioBroker-Log ausgegeben.</p>
                                     <div class="input-field col s12 m6">
                                         <input type="checkbox" class="value" id="extendedInfoLog" />
-                                        <label for="extendedInfoLog" class="translate">Extended Info Log</label>
+                                        <label for="extendedInfoLog" class="translate">Mehr Info-Log-Ausgaben</label>
                                     </div>
                                 </div>
                             </div>

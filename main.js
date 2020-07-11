@@ -17,15 +17,8 @@ const utils      = require('@iobroker/adapter-core');            // Adapter core
 const g_Schedule = require('node-schedule');                     // https://github.com/node-schedule/node-schedule
 const g_SunCalc  = require('suncalc2');                          // SunCalc
 const g_Library  = require(__dirname + '/lib/smartcontrol.js');  // SmartControl Library Class
-//const g_Timer    = require(__dirname + '/lib/timer.js');         // Timer Class
 let   g_midnightSchedule = null;                                 // Schedule for every midnight
 let   lib        = null;                                         // the Library class instance (being assigned later)
-
-
-
-
-// -------------------------------------------------------------
-
 
 
 /**
