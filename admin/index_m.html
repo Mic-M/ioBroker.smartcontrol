@@ -56,7 +56,7 @@
                     <li class="tab col s1.6"><a href="#tabConditions">2. <span class="translate">Zusätzliche Bedingungen</span></a></li>
                     <li class="tab col s1.6"><a href="#tabTriggers">3. <span class="translate">Auslöser</span></a></li>
                     <li class="tab col s1.6"><a href="#tabZones">4. <span class="translate">Zonen</span></a></li>
-                    <li class="tab col s1.6"><a href="#tabSchedules">5. <span class="translate">Zeitpläne</span></a></li>
+                    <li class="tab col s1.6"><a href="#tabSchedules">5. <span class="translate">Ausführung</span></a></li>
                     <li class="tab col s1.6"><a href="#tabOptions" class="translate">– Weitere Optionen</a></li>
                 </ul>
             </div>
@@ -99,7 +99,7 @@
                                             <td class="translate">Hier definierst du alle "Zonen" (z.B. Badezimmer 1.OG, Kaffeeecke, usw.) und weist Auslöser und zu schaltende Zielgeräte zu.</td>
                                         </tr>
                                         <tr>
-                                            <td class="translate">5. ZEITPLÄNE</td>
+                                            <td class="translate">5. AUSFÜHRUNG</td>
                                             <td class="translate">Zum Schluss definierst du hier, unter welchen Bedingungen die Zielgeräte angeschaltet werden, sobald ein Auslöser aulöst.</td>
                                         </tr>
                                     </tbody>
@@ -114,7 +114,7 @@
                                     <p style="margin-top:0px; line-height: 2.0em;" class="translate">
                                         Dieser Adapter bietet Test-Datenpunkte unter <code>smartcontrol.x.Test</code>. Diese Datenpunkte stellen keinerlei Funktionen oder Features zur Verfügung und dienen nur zum Testen dieses Adapters.
                                         Nach der ersten Installation einer Instanz dieses Adapters sind die Adapteroptionen mit einigen dieser Datenpunkte vorbelegt.
-                                        Beginne mit dem Testen, indem du z.B. einen Auslöser-Datenpunkt aktivierst, indem du z.B. <code>smartcontrol.0.Test.trigger.Bathroom_motion</code> auf <code>true</code> setzt. Dann prüfst du, ob etwas ausgelöst wird (basierend auf den Einstellungen in der Tabelle "Zeitpläne" etc.).
+                                        Beginne mit dem Testen, indem du z.B. einen Auslöser-Datenpunkt aktivierst, indem du z.B. <code>smartcontrol.0.Test.trigger.Bathroom_motion</code> auf <code>true</code> setzt. Dann prüfst du, ob etwas ausgelöst wird (basierend auf den Einstellungen in der Tabelle "Ausführung" etc.).
                                         <br>Das ioBroker-Log (ioBroker Admin > Log) liefert detaillierte Informationen. Für das Debugging setzt du bitte den Log-Level der Adapterinstanz auf 'debug', damit du viel mehr Informationen im Log erhältst.
                                     </p>
                                 </div>
@@ -176,7 +176,7 @@
                                 <div class="collapsible-body">
                                     <p style="margin-top:0px" class="translate">
 
-                                        Gib hier alle Zielgeräte ein, die Sie schalten möchtest, sobald ein Auslöser aktiviert wird und die Bedingungen in der Tabelle Zeitpläne erfüllt sind.
+                                        Gib hier alle Zielgeräte ein, die Sie schalten möchtest, sobald ein Auslöser aktiviert wird und die Bedingungen in der Tabelle Ausführung erfüllt sind.
                                         <br>
                                         <br>
                                         <i>Warum sind hier unterschiedliche Datenpunkte für das Ein- und Ausschalten?</i>
@@ -212,7 +212,7 @@
                                           <tr>
                                             <td class="translate">Datenpunkt zum einschalten</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Datenpunkt des Zielgerätes zum Einschalten, sobald ein Auslöser auslöst and Zeitpläne/Bedingungen zutreffen.</td>
+                                            <td class="translate">Datenpunkt des Zielgerätes zum Einschalten, sobald ein Auslöser auslöst and Ausführung/Bedingungen zutreffen.</td>
                                                                                     </tr>
                                           <tr>
                                             <td class="translate">Wert für 'an'</td>
@@ -539,7 +539,7 @@
                                                 <br>Die aktuellen Astrozeiten findest du übrigens als Info-Datenpunkte in diesem Adapter: <code>smartcontrol.x.info.astroTimes</code>.
                                                 <br>Außerdem kannst du hier Cron verwenden, also z.B. <code>5 4 * * *</code>. Zum einfachen Ermittlung der zu verwendeten Cron-Syntax kannst du z.B. folgende Website verwenden: <a style="text-decoration: underline" href="https://crontab.guru/" target="_blank">Crontab.guru</a>.
                                                 <br>
-                                                <br>Für Stunde/Minute (wie <code>23:30</code>) oder Astrozeiten (wie <code>sunset</code>) ist die Ausführung jeden Tag. In der "Zeitpläne"-Tabelle kannst du das dann weiter entsprechend limitieren.
+                                                <br>Für Stunde/Minute (wie <code>23:30</code>) oder Astrozeiten (wie <code>sunset</code>) ist die Ausführung jeden Tag. In der "Ausführung"-Tabelle kannst du das dann weiter entsprechend limitieren.
                                             </td>
 
                                           </tr>
@@ -630,7 +630,7 @@
                                           <tr>
                                             <td class="translate">Zu schaltende Zielgeräte</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Wähle hier ein oder mehrere zu schaltende Zielgeräte aus, die geschalten werden, sobald ein Auslöser auslöst und die Zeitpläne und Bedingungen zutreffen.</td>
+                                            <td class="translate">Wähle hier ein oder mehrere zu schaltende Zielgeräte aus, die geschalten werden, sobald ein Auslöser auslöst und die Ausführung und Bedingungen zutreffen.</td>
                                           </tr>
                                         </tbody>
                                       </table>
@@ -666,10 +666,12 @@
                     <div class="col s12">
                         <ul class="collapsible">
                             <li>
-                                <div class="collapsible-header config-section"><h5 class="translate">Zeitpläne</h5><i class="material-icons">help_outline</i></div>
+                                <div class="collapsible-header config-section"><h5 class="translate">Ausführung</h5><i class="material-icons">help_outline</i></div>
                                 <div class="collapsible-body">
                                     <p style="margin-top:0px" class="translate">
-                                        Hier definierst du, unter welchen Bedingungen die in den Zonen definierten Zielgeräte angeschaltet werden, sobald ein Auslöser aulöst.
+                                        Dies führt nun alles zusammen und setzt die Schaltungen um. 
+                                        Du legst hier fest, unter welchen Bedingungen die in den Zonen definierten Zielgeräte angeschaltet werden, sobald ein Auslöser aulöst.
+                                        <br>Bitte stelle sicher, dass es für jede aktive Zone hier auch eine Tabellenzeile gibt, denn sonst wird die jeweilige Zone nicht ausgeführt.
                                     </p>
                                     <table>
                                         <thead>

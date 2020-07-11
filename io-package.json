@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "0.1.0-alpha.7",
+        "version": "0.1.0-alpha.8",
         "news": {
+            "0.1.0-alpha.8": {
+                "en": "Editorial only: rename '5. ZEITPLÄNE' (SCHEDULES) into '5. AUSFÜHRUNG' (EXECUTION) throughout the code"
+            },
             "0.1.0-alpha.7": {
                 "en": "Extend option 'triggerStatesAck' to include alias and namespaces not from adapters"
             },
