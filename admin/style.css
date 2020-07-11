@@ -100,4 +100,5 @@ code { padding: 2px 4px; font-size: 1.05em !important; color: #2696ef; backgroun
 #dialog-select-member .main-toolbar-table {height: 28px !important;}
 #dialog-select-member .panel-button {height:28px !important; width:28px !important;}
 
-
+/* Line hight for p */
+.collapsible-body p {line-height: 1.6em !important;}

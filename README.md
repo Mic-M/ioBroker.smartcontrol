@@ -50,6 +50,9 @@ Therefore, I have included all instructions in the admin settings of this adapte
 
 ## Changelog
 
+### 0.1.0-alpha.7
+* (Mic-M) Extend option 'triggerStatesAck' to include alias and namespaces not from adapters - https://forum.iobroker.net/post/461221
+
 ### 0.1.0-alpha.6
 * (Mic-M) Remove requirement that trigger states must be unique - https://forum.iobroker.net/post/461115
 

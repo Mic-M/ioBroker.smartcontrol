@@ -805,9 +805,10 @@
 
                             <div class="row">
                                 <div class="col s12">
-                                    <h6 class="translate info">Auslöser-Datenpunkte unterhalb javascript.x/0_userdata.0</h6>
+                                    <h6 class="translate info">Auslöser-Datenpunkte unterhalb von User-Datenpunkten wie javascript.x, 0_userdata.0, Messwerte.0, alias.x</h6>
                                     <p class="translate info">Änderungen von Datenpunkten, die unterhalb von Adapter-Instanzen sind, werden nur getriggert, wenn acknowledge (ack) = <code>true</code> (also States gültig/bestätigt sind). 
-                                        <br>Für user-eigene Datenpunkte unterhalb javascript.x/0_userdata.0 kann man das hier ändern.
+                                        <br>Für <strong>user-eigene Datenpunkte</strong> unterhalb javascript.x, 0_userdata.0, Messwerte.0, alias.0 usw. kann man das hier ändern.
+                                        <br><strong>Achtung: </strong> Falls "Egal (ack:true oder ack:false)" ausgewählt wird, wird ggf. doppelt geschaltet, wenn ack:false und kurz darauf ack:true. Dieser Adapter verhindert das aber mit der Option <i>Auslöser ignorieren, falls letzes Auslösen desselben Auslösers vor weniger als x Sekunden war</i>.
                                     </p>
                                     <div class="input-field col s3 select">
                                         <select class="value" value="true" id="triggerStatesAck">
