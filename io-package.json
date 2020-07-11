@@ -1,7 +1,20 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "0.1.0-alpha.3",
+        "version": "0.1.0-alpha.4",
+        "news": {
+            "0.1.0-alpha.4": {
+                "en": "translations",
+                "de": "Übersetzungen",
+                "ru": "переводы",
+                "pt": "traduções",
+                "nl": "vertalingen",
+                "fr": "traductions",
+                "it": "traduzioni",
+                "es": "traducciones",
+                "pl": "tłumaczenia",
+                "zh-cn": "翻译"
+            },
         "news": {
             "0.1.0-alpha.3": {
                 "en": "multiple changes, improvements and enhancements",
