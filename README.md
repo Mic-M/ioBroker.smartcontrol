@@ -33,6 +33,9 @@ Therefore, I have included all instructions in the admin settings of this adapte
 
 
 ## To Do (to be considered for further development and future releases
+* (MartyBr) - 2020-07-11 - Suncalc findet in Deutschland je nach Lage nicht immer night/nightEnd. [Siehe Forum](https://forum.iobroker.net/post/461159). 
+Idee: Option anbieten, die bei night/nightEnd Fehler einfach eine vorzugebende Uhrzeit setzt, damit zumindest die Funktionalität soweit gegeben ist. Könnte man auch einfach in Abhängigkeit vom Sonnenaufgang grob kalkulieren lassen für den Sommer, also sunrise - x Minuten... - [Siehe Zeiten zur Kalkulation](https://forum.iobroker.net/post/461216)
+
 * (frostnatt) - 2020-07-09 - Timing issue for Aquara motion sensors if brightness. [ioBroker Forum Link](https://forum.iobroker.net/post/460130)
 * (Christoph1337) - 2020-09-07 - automatisch eine HTML Tabelle generiert wo alle Schalter mit Zuordnung enthalten sind. Das wäre gerade für den Start für viele einfacher da man sich nicht in vis großartig einarbeiten muss. Am besten sogar responsive für verschiedene Auflösungen. [ioBroker Forum Link](https://forum.iobroker.net/post/460117)
 * (EdgarM) - 2020-07-08 - Taster benutzen -> Licht an, Taster nochmal benutzen -> Licht aus [ioBroker Forum Link](https://forum.iobroker.net/post/459671)
