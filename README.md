@@ -50,6 +50,9 @@ Therefore, I have included all instructions in the admin settings of this adapte
 
 ## Changelog
 
+### 0.1.0-alpha.5
+* (Mic-M) New feature: allow comparison operators >=, <=, >, < for trigger states
+
 ### 0.1.0-alpha.4
 * (Mic-M) translations
 

@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "0.1.0-alpha.4",
+        "version": "0.1.0-alpha.5",
         "news": {
+            "0.1.0-alpha.5": {
+                "en": "New feature: allow comparison operators >=, <=, >, < for trigger states",
+                "de": "Neue Funktion: Ermögliche Vergleichsoperatoren >=, <=, >, < für Trigger-Datenpunkte",
+                "ru": "Новая функция: разрешить операторы сравнения> =, <=,>, <для состояний триггера",
+                "pt": "Novo recurso: permitir operadores de comparação> =, <=,>, <para estados do acionador",
+                "nl": "Nieuwe functie: laat vergelijkingsoperatoren> =, <=,>, <toe voor triggerstatussen",
+                "fr": "Nouvelle fonctionnalité: autoriser les opérateurs de comparaison> =, <=,>, <pour les états de déclenchement",
+                "it": "Nuova funzione: consenti operatori di confronto> =, <=,>, <per stati trigger",
+                "es": "Nueva función: permitir operadores de comparación> =, <=,>, <para estados de activación",
+                "pl": "Nowa funkcja: zezwól operatorom porównania> =, <=,>, <dla stanów wyzwalających",
+                "zh-cn": "新功能：允许比较运算符> =，<=，>，<用于触发状态"
+
+            },
             "0.1.0-alpha.4": {
                 "en": "translations",
                 "de": "Übersetzungen",
