@@ -66,6 +66,7 @@
             <div id="tabMain" class="col s12 page">
                 <!-- Section "How to start?" -->
                 <div class="row">
+
                     <div class="col s12">
                         <p style="font-size: 1.25em; font-weight: bold; margin-top: 1.5em; margin-bottom: 2.0em; ">For English or any other language: <a target="_blank" href="https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/docs/translations.md"><span class="translate">Please click here</span></a></p>
                         <h5 class="translate">Anleitung</h5>
@@ -476,6 +477,13 @@
                                                 <br>Sämtliche Leerzeichen und Anführungszeichen (wie <code>"</code>) am Anfang und Ende werden automatisch entfernt.
                                             </td>
                                           </tr>
+                                          <tr>
+                                            <td class="translate">Ziel aus?</td>
+                                            <td class="translate">Nein</td>
+                                            <td class="translate">Normalerweise werden die Ziel-Geräte beim Auslösen eingeschaltet (1. ZIELGERÄTE > 'Datenpunkt zum einschalten' / 'Wert für an').
+                                                Wenn du den Haken aktivierst, werden die Ziele nicht ein- sondern ausgeschaltet (1. ZIELGERÄTE > 'Datenpunkt zum ausschalten' / 'Wert für aus').
+                                            </td>
+                                          </tr>
                                         </tbody>
                                       </table>
                                 </div>
@@ -493,6 +501,7 @@
                                             <th style="width: 40px;" data-buttons="stateSelectPopupStateId" class="header"></th>
                                             <th class="header translate" data-name="stateId">Datenpunkt</th>
                                             <th style="width: 120px" class="header translate" data-name="stateVal">DP-Wert</th>
+                                            <th style="width: 50px" class="header translate" data-name="targetOff" data-type="checkbox">Ziel aus?</th>
                                             <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
                                         </tr>
                                     </thead>
@@ -557,6 +566,13 @@
                                                     <br>Falls du mehr als eine Bedingung auswählst: sobald auch nur eine dieser Bedingungen zutrifft, wird nicht ausgelöst.
                                             </td>
                                           </tr>
+                                          <tr>
+                                            <td class="translate">Ziel aus?</td>
+                                            <td class="translate">Nein</td>
+                                            <td class="translate">Normalerweise werden die Ziel-Geräte beim Auslösen eingeschaltet (1. ZIELGERÄTE > 'Datenpunkt zum einschalten' / 'Wert für an').
+                                                Wenn du den Haken aktivierst, werden die Ziele nicht ein- sondern ausgeschaltet (1. ZIELGERÄTE > 'Datenpunkt zum ausschalten' / 'Wert für aus').
+                                            </td>
+                                          </tr>                                          
                                         </tbody>
                                       </table>
                                 </div>
@@ -575,6 +591,7 @@
                                             <th style="width: 140px" class="header translate" data-name="time">Zeit</th>
                                             <th class="mOptional header translate" data-name="additionalConditions" data-type="select multiple">Zusätzlich muss erfüllt sein</th>
                                             <th class="mOptional header translate" data-name="never" data-type="select multiple">Nie auslösen wenn...</th>
+                                            <th style="width: 50px" class="header translate" data-name="targetOff" data-type="checkbox">Ziel aus?</th>
                                             <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
                                         </tr>
                                     </thead>

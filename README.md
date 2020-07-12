@@ -53,6 +53,9 @@ Idee: Option anbieten, die bei night/nightEnd Fehler einfach eine vorzugebende U
 
 ## Changelog
 
+### 0.1.0-alpha.9
+* (Mic-M) New feature: Triggers (Auslöser) - new option to switch target devices off and not on for 'Other Triggers' and 'Time specific Triggers'
+
 ### 0.1.0-alpha.8
 * (Mic-M) Editorial only: rename '5. ZEITPLÄNE' (SCHEDULES) into '5. AUSFÜHRUNG' (EXECUTION) throughout the code - https://forum.iobroker.net/post/461282
 
