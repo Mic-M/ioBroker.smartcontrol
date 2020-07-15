@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "0.1.0-alpha.9",
+        "version": "0.1.0-alpha.10",
         "news": {
+            "0.1.0-alpha.10": {
+                "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
+            },
             "0.1.0-alpha.9": {
                 "en": "New feature: Triggers (Auslöser) - new option to switch target devices off and not on for 'Other Triggers' and 'Time specific Triggers'"
             },
@@ -154,6 +157,7 @@
     "native": {
         "exceedMidnight": true,
         "extendedInfoLog": true,
+        "fixNightNightEnd": true,
         "triggerStatesAck": "false",
         "limitTriggerInterval": 3,
         "motionNoBriIfTimer": true,
@@ -195,28 +199,32 @@
                 "name": "Wall Switch Bathroom",
                 "stateId": "smartcontrol.0.Test.trigger.Bathroom_wall-switch",
                 "stateVal": "true",
-                "targetOff": false
+                "targetOff": false,
+                "isToggle": false
             },
             {
                 "active": true,
                 "name": "Wall Switch Hallway #1",
                 "stateId": "smartcontrol.0.Test.trigger.Hallway1_wall-switch",
                 "stateVal": "true",
-                "targetOff": false
+                "targetOff": false,
+                "isToggle": false
             },
             {
                 "active": true,
                 "name": "Wall Switch Hallway #2",
                 "stateId": "smartcontrol.0.Test.trigger.Hallway2_wall-switch",
                 "stateVal": "true",
-                "targetOff": false
+                "targetOff": false,
+                "isToggle": false
             },
             {
                 "active": true,
                 "name": "Relax Area Person Sits Indicator",
                 "stateId": "smartcontrol.0.Test.trigger.RelaxPersonSitting",
                 "stateVal": "true",
-                "targetOff": false
+                "targetOff": false,
+                "isToggle": false
             }
         ],
         "tableTriggerTimes": [
@@ -308,7 +316,7 @@
                 "targets": [
                     "Hallway Light"
                 ],
-                "offAfter": "70"
+                "offAfter": "500"
             },
             {
                 "active": true,
@@ -320,7 +328,7 @@
                     "Relax Area Ceiling Light",
                     "Relax Area Wall Light"
                 ],
-                "offAfter": "130"
+                "offAfter": "10000"
             },
             {
                 "active": true,

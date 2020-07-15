@@ -482,8 +482,20 @@
                                             <td class="translate">Nein</td>
                                             <td class="translate">Normalerweise werden die Ziel-Geräte beim Auslösen eingeschaltet (1. ZIELGERÄTE > 'Datenpunkt zum einschalten' / 'Wert für an').
                                                 Wenn du den Haken aktivierst, werden die Ziele nicht ein- sondern ausgeschaltet (1. ZIELGERÄTE > 'Datenpunkt zum ausschalten' / 'Wert für aus').
+                                                <br>
+                                                <br>Hinweis: Falls "Toggle?" gesetzt ist, wird diese Option ignoriert.
                                             </td>
                                           </tr>
+                                          <tr>
+                                            <td class="translate">Toggle?</td>
+                                            <td class="translate">Nein</td>
+                                            <td class="translate">Falls aktiviert, ermöglicht dies einen Toggle (Taster) als Auslöser. 
+                                                Wenn die Zielgeräte aus sind, werden sie vom Auslöser eingeschaltet, und umgekehrt (wenn sie ein sind, werden sie ausgeschaltet).
+                                                <br>Der Adapter verwendet zur Ermittlung, ob Gerät bereits an ist, den "Datenpunkt zum einschalten" unter "1. ZIELGERÄTE".
+                                                <br>
+                                                <br>Hinweis: Falls gleichzeitig "Ziel aus?" aktiviert ist, wird die "Ziel aus?"-Option ignoriert, das würde sonst auch keinen Sinn ergeben für einen "Toggle".
+                                            </td>
+                                          </tr>                                          
                                         </tbody>
                                       </table>
                                 </div>
@@ -502,6 +514,7 @@
                                             <th class="header translate" data-name="stateId">Datenpunkt</th>
                                             <th style="width: 120px" class="header translate" data-name="stateVal">DP-Wert</th>
                                             <th style="width: 50px" class="header translate" data-name="targetOff" data-type="checkbox">Ziel aus?</th>
+                                            <th style="width: 50px" class="header translate" data-name="isToggle" data-type="checkbox">Toggle?</th>
                                             <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
                                         </tr>
                                     </thead>
@@ -649,6 +662,16 @@
                                             <td class="translate">Ja</td>
                                             <td class="translate">Wähle hier ein oder mehrere zu schaltende Zielgeräte aus, die geschalten werden, sobald ein Auslöser auslöst und die Ausführung und Bedingungen zutreffen.</td>
                                           </tr>
+                                          <tr>
+                                            <td class="translate">Aus nach x sec</td>
+                                            <td class="translate">Nein</td>
+                                            <td class="translate">
+                                                Normalerweise wird nur durch wieder ausgeschaltet, wenn ein Bewegungsmelder die Zone erfolgreich ausgelöst hat. 
+                                                <br>Wenn hier eine Anzahl Sekunden eingetragen wird, wird jedes Mal ein Timer mit dieser Anzahl Sekunden gestartet, sobald die Zone aktiviert wird. Nach dieser Anzahl an Sekunden wird dann ausgeschaltet, es sei denn es gibt zwischendurch wieder eine Auslösung der Zone.
+                                                <br>Durch leer lassen oder <code>0</code> wird diese Option ignoriert. 
+                                            </td>
+                                          </tr>
+
                                         </tbody>
                                       </table>
                                 </div>
@@ -665,7 +688,7 @@
                                             <th class="header translate" data-name="name">Name der Zone</th>
                                             <th class="header translate" data-name="triggers" data-type="select multiple">Auslöser</th>
                                             <th class="header translate" data-name="targets" data-type="select multiple">Zu schaltende Zielgeräte</th>
-                                            <!-- <th class="header translate" data-name="offAfter" data-type="number">Always off after x secs</th> -->
+                                            <th style="width: 80px" class="mOptional header translate" data-name="offAfter" data-type="number">Aus nach x sec</th>
                                             <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
                                         </tr>
                                     </thead>
@@ -786,7 +809,7 @@
                 <ul class="collapsible" style="margin-top: 1.5em;">
                     <!-- +++ Schedule Options +++  -->
                     <li class="lighten-2">
-                        <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">Zeitplan-Optionen</h6></div>
+                        <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">Zeitplan- und Astro-Optionen</h6></div>
                         <div class="collapsible-body">
                             <div class="row">
                                 <div class="col s12">
@@ -797,6 +820,19 @@
                                     <div class="input-field col s12 m6">
                                         <input type="checkbox" class="value" id="exceedMidnight" />
                                         <label for="exceedMidnight" class="translate">Über Mitternacht hinaus</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    <h6 class="translate info">Astro-Zeiten 'night' und 'nightEnd'</h6>
+                                    <p class="translate info">
+                                        Je nach den geographischen Koordinaten, die in den ioBroker-Admin-Optionen gesetzt sind, gibt es z.B. in Deutschland im Sommer teils kein <code>night</code> und <code>nightEnd</code>.
+                                        Wenn du das hier aktivierst, dann wird in diesem Fall als night = '00:00' gesetzt, und als nightEnd = '02:00'
+                                    </p>
+                                    <div class="input-field col s12 m6">
+                                        <input type="checkbox" class="value" id="fixNightNightEnd" />
+                                        <label for="fixNightNightEnd" class="translate">Setze 0:00/2:00, falls kein night/nightEnd verfügbar</label>
                                     </div>
                                 </div>
                             </div>
