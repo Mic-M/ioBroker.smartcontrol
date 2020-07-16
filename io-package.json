@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "0.1.0-alpha.10",
+        "version": "0.1.0-alpha.11",
         "news": {
+            "0.1.0-alpha.11": {
+                "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
+            },
             "0.1.0-alpha.10": {
                 "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
             },
@@ -155,7 +158,6 @@
         "installedFrom": "https://github.com/Mic-M/ioBroker.smartcontrol/tarball/b0d216dafd813699c0d4fdf411fdc12b03d0b1c0"
     },
     "native": {
-        "exceedMidnight": true,
         "extendedInfoLog": true,
         "fixNightNightEnd": true,
         "triggerStatesAck": "false",

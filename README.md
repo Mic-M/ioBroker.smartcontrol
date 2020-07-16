@@ -33,7 +33,8 @@ Therefore, I have included all instructions in the admin settings of this adapte
 
 
 ## To Do (to be considered for further development and future releases
-
+* (OstfrieseUnterwegs) - 2020-16-07 - Warnung/Fehlermeldung nicht ganz konsistent. [Siehe Forum](https://forum.iobroker.net/user/ostfrieseunterwegs)
+* (Yetiberg) & (crunship) - 2020-07-15 - Zielgerät schalten per Button ohne Überprüfung ob bereits an/aus. [Siehe Forum](https://forum.iobroker.net/post/463068)
 * (crunchip) - 2020-07-13 - ...bisher nur ein paar Lichter integriert hab, füllt sich die Liste der Zielgeräte jedoch recht schnell. Nur so mal in den Raum geworfen, bei intensiver Nutzung, wird diese List doch recht lang und unübersichtlich. Gäbe es da nicht eine Möglichkeit, eine Art Untermenü anzulegen, so alla "Räume" z.b.? [Siehe Forum](https://forum.iobroker.net/post/461764)
 * (Christoph1337) - 2020-07-12 - Wenn Bewegung kurz. Z. B. 3 Minuten. Dann Licht nach 5 Minuten abschalten.
 Wenn Bewegung länger. Z. B. 15 Minuten. Licht für 30 Minuten an lassen. [Siehe Forum](https://forum.iobroker.net/post/461643)
@@ -54,6 +55,9 @@ Wenn Bewegung länger. Z. B. 15 Minuten. Licht für 30 Minuten an lassen. [Siehe
 
 
 ## Changelog
+
+### 0.1.0-alpha.11
+* (Mic-M) Fix: check for 'is time between'
 
 ### 0.1.0-alpha.10
 * (Mic-M) New feature: Provide "Toggle?" option in 'Other Triggers' table to allow toggles: if targets are off -> turn on, and vice versa.

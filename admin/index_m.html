@@ -379,7 +379,7 @@
                                           <tr>
                                             <td class="translate">Sek</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Nach dieser Anzahl an Sekunden (und keinr zwischendurch weiterer erkannter Bewegung) werden die Zielgeräte ausgeschaltet.</td>
+                                            <td class="translate">Nach dieser Anzahl an Sekunden (und keiner zwischendurch weiterer erkannter Bewegung) werden die Zielgeräte ausgeschaltet.</td>
                                           </tr>
                                           <!--
                                           <tr>
@@ -666,8 +666,8 @@
                                             <td class="translate">Aus nach x sec</td>
                                             <td class="translate">Nein</td>
                                             <td class="translate">
-                                                Normalerweise wird nur durch wieder ausgeschaltet, wenn ein Bewegungsmelder die Zone erfolgreich ausgelöst hat. 
-                                                <br>Wenn hier eine Anzahl Sekunden eingetragen wird, wird jedes Mal ein Timer mit dieser Anzahl Sekunden gestartet, sobald die Zone aktiviert wird. Nach dieser Anzahl an Sekunden wird dann ausgeschaltet, es sei denn es gibt zwischendurch wieder eine Auslösung der Zone.
+                                                Normalerweise wird nur wieder automatisch ausgeschaltet, wenn ein Bewegungsmelder die Zone erfolgreich ausgelöst hat. 
+                                                <br>Wenn hier eine Anzahl Sekunden eingetragen ist, wird jedes Mal ein Timer mit dieser Anzahl Sekunden gestartet, sobald die Zone aktiviert wird. Nach dieser Anzahl an Sekunden wird dann ausgeschaltet, es sei denn es gibt zwischendurch wieder eine Auslösung der Zone.
                                                 <br>Durch leer lassen oder <code>0</code> wird diese Option ignoriert. 
                                             </td>
                                           </tr>
@@ -811,18 +811,6 @@
                     <li class="lighten-2">
                         <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">Zeitplan- und Astro-Optionen</h6></div>
                         <div class="collapsible-body">
-                            <div class="row">
-                                <div class="col s12">
-                                    <h6 class="translate info">Über Mitternacht hinaus</h6>
-                                    <p class="translate info">Wenn du eine Startzeit von '22:00' und eine Endzeit von '02:00' hast, dann wäre das nicht gültig, weil es über Mitternacht hinausgeht.
-                                        Durch Aktivierung dieser Option wird die Periode über Mitternacht hinaus erweitert, womit Zeiträume wie eben 22:00 - 02:00 möglich sind.
-                                    </p>
-                                    <div class="input-field col s12 m6">
-                                        <input type="checkbox" class="value" id="exceedMidnight" />
-                                        <label for="exceedMidnight" class="translate">Über Mitternacht hinaus</label>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="col s12">
                                     <h6 class="translate info">Astro-Zeiten 'night' und 'nightEnd'</h6>
