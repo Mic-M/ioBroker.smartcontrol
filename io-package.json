@@ -154,8 +154,7 @@
             {
                 "js-controller": ">=1.4.2"
             }
-        ],
-        "installedFrom": "https://github.com/Mic-M/ioBroker.smartcontrol/tarball/b0d216dafd813699c0d4fdf411fdc12b03d0b1c0"
+        ]
     },
     "native": {
         "extendedInfoLog": true,
