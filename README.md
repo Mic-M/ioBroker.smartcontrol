@@ -33,7 +33,7 @@ Therefore, I have included all instructions in the admin settings of this adapte
 
 
 ## To Do (to be considered for further development and future releases
-* (OstfrieseUnterwegs) - 2020-16-07 - Warnung/Fehlermeldung nicht ganz konsistent. [Siehe Forum](https://forum.iobroker.net/post/463170)
+* ~~(OstfrieseUnterwegs) - 2020-16-07 - Warnung/Fehlermeldung nicht ganz konsistent. [Siehe Forum](https://forum.iobroker.net/post/463170)~~
 * (Yetiberg) & (crunship) - 2020-07-15 - Zielgerät schalten per Button ohne Überprüfung ob bereits an/aus. [Siehe Forum](https://forum.iobroker.net/post/463068)
 * (crunchip) - 2020-07-13 - ...bisher nur ein paar Lichter integriert hab, füllt sich die Liste der Zielgeräte jedoch recht schnell. Nur so mal in den Raum geworfen, bei intensiver Nutzung, wird diese List doch recht lang und unübersichtlich. Gäbe es da nicht eine Möglichkeit, eine Art Untermenü anzulegen, so alla "Räume" z.b.? [Siehe Forum](https://forum.iobroker.net/post/461764)
 * (Christoph1337) - 2020-07-12 - Wenn Bewegung kurz. Z. B. 3 Minuten. Dann Licht nach 5 Minuten abschalten.
@@ -41,7 +41,7 @@ Wenn Bewegung länger. Z. B. 15 Minuten. Licht für 30 Minuten an lassen. [Siehe
 * ~~(MartyBr) - 2020-07-11 - Suncalc findet in Deutschland je nach Lage nicht immer night/nightEnd. [Siehe Forum](https://forum.iobroker.net/post/461159). Idee: Option anbieten, die bei night/nightEnd Fehler einfach eine vorzugebende Uhrzeit setzt, damit zumindest die Funktionalität soweit gegeben ist. - [Siehe Zeiten zur Kalkulation](https://forum.iobroker.net/post/461216)~~ new option 'correct night/nightEnd' in 0.1.0-alpha.10
 * (frostnatt) - 2020-07-09 - Timing issue for Aquara motion sensors if brightness. [ioBroker Forum Link](https://forum.iobroker.net/post/460130)
 * (Christoph1337) - 2020-09-07 - automatisch eine HTML Tabelle generiert wo alle Schalter mit Zuordnung enthalten sind. Das wäre gerade für den Start für viele einfacher da man sich nicht in vis großartig einarbeiten muss. Am besten sogar responsive für verschiedene Auflösungen. [ioBroker Forum Link](https://forum.iobroker.net/post/460117)
-* (EdgarM) - 2020-07-08 - Taster benutzen -> Licht an, Taster nochmal benutzen -> Licht aus [ioBroker Forum Link](https://forum.iobroker.net/post/459671)
+* ~~(EdgarM) - 2020-07-08 - Taster benutzen -> Licht an, Taster nochmal benutzen -> Licht aus [ioBroker Forum Link](https://forum.iobroker.net/post/459671)~~ 0.1.0-alpha.10
 * (frostnatt) - 2020-07-05 - Es wäre ein gewisses "misbehaviour-handling" wünschenswert, wenn zum Beispiel der Occupancy-Datenpunkt nicht auf False gesetzt wird. Hier könnte man zwischen "nichts tun" und "in z Minuten ausschalten" wählen. [ioBroker Forum Link](https://forum.iobroker.net/post/458399)
 * (OstfrieseUnterwegs) - 2020-07-03 - Add option to disregard additional schedule table if a time specific trigger is activated - [ioBroker Forum Link](https://forum.iobroker.net/post/457849)
 * ~~(OstfrieseUnterwegs) - 2020-07-03 - Think about a better name for "Room/Area", which is actually like a complex 'scene'. Maybe "zone"? - [ioBroker Forum Link](https://forum.iobroker.net/post/457849)~~ -> renamed to "Zones"
@@ -55,6 +55,10 @@ Wenn Bewegung länger. Z. B. 15 Minuten. Licht für 30 Minuten an lassen. [Siehe
 
 
 ## Changelog
+
+### 0.1.0-alpha.xx 
+* (Mic-M) Fix: non-consistent logs for verifying config
+
 
 ### 0.1.0-alpha.11
 * (Mic-M) Fix: check for 'is time between'
