@@ -19,8 +19,11 @@ Control devices smarter: by grouping, including triggers like motion, opening wi
 <sub><sup>Adapter icon made by [freepik](https://www.flaticon.com/authors/freepik) from [flaticon.com](https://www.flaticon.com/).</sup></sub>
 
 ## Forum Links
-* **Current Thread:** [Neuen SmartControl-Adapter 0.1.0-alpha.x testen](https://forum.iobroker.net/topic/35096/)
-* [Planung neuer Adapter: Smart Control](https://forum.iobroker.net/topic/33691/)
+* **Current Thread: [Teste Adapter SmartControl 0.1.1-beta.x](https://forum.iobroker.net/topic/35308/)**
+* 10.07. - 19.07.2020 : [Neuen SmartControl-Adapter 0.1.0-alpha.x testen](https://forum.iobroker.net/topic/35096/1)
+* 23.05. - 10.07.2020 : [Planung neuer Adapter: Smart Control](https://forum.iobroker.net/topic/33691/)
+* 25.04.2020 : [Umfrage: Welchen Adapter soll ich als nächstes entwickeln?](https://forum.iobroker.net/topic/32644/)
+
 
 
 ## Installation
