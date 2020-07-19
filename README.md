@@ -42,6 +42,9 @@ Therefore, I have included all instructions in the admin settings of this adapte
 
 ## Changelog
 
+### 0.1.1-beta.2
+* (Mic-M) Fix: Perform configuration validation and correction also for non-active table rows, since these can be switched on thru `smartcontrol.x.options.xxx.xxx.active` states.
+
 ### 0.1.1-beta.1
 * (Mic-M) New feature: New option in motion sensor table: if activated, motion triggers will not set a timeout if target device was turned on previously without a motion trigger ("manually"). [Forum Link](https://forum.iobroker.net/post/433871)
 * (Mic-M) Fix: non-consistent logs for verifying config
