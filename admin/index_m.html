@@ -190,14 +190,14 @@
                                 <div class="collapsible-body">
                                     <p style="margin-top:0px" class="translate">
 
-                                        Gib hier alle Zielgeräte ein, die Sie schalten möchtest, sobald ein Auslöser aktiviert wird und die Bedingungen in der Tabelle Ausführung erfüllt sind.
+                                        Gib hier alle Zielgeräte ein, die Du schalten möchtest, sobald ein Auslöser aktiviert wird und die Bedingungen in der Tabelle Ausführung erfüllt sind.
                                         <br>
                                         <br>
                                         <i>Warum sind hier unterschiedliche Datenpunkte für das Ein- und Ausschalten?</i>
-                                        <br>Normalerweise sind diese gleich (Datenpunkt erwartet <code>true</code>/<code>false</code>) für das Ein-/Ausschalten, aber in bestimmten Fällen benötigen Benutzer einen anderen Datenpunkt und Datenpunkt-Wert, um ein Gerät ein-oder auszuschalten.
+                                        <br>Normalerweise sind diese gleich (Datenpunkt erwartet <code>true</code>/<code>false</code>) für das Ein-/Ausschalten, aber in bestimmten Fällen benötigen Benutzer einen anderen Datenpunkt und Datenpunkt-Wert, um ein Gerät ein- oder auszuschalten.
                                         Beispiel: <code>fully-tablet-control.0.device.tablet_bathroom.commands.screenOn</code> und <code>fully-tablet-control.0.device.tablet_bathroom.commands.screenOff</code>.
                                         <br>
-                                        Du kannst auch Datenpunkte hinzufügen, die nicht boolesch (<code>true</code>/<code>false</code>), sondern String oder Zahl sind.
+                                        Du kannst auch Datenpunkte hinzufügen, die nicht boolean (<code>true</code>/<code>false</code>), sondern String oder Zahl sind.
                                         <br>
                                         <br>
                                         Für jede Tabellenzeile fügt dieser Adapter verknüpfte Datenpunkte zu <code>smartcontrol.x.targetDevices.xxx</code> hinzu. Wenn du diese Datenpunkte änderst, wird der ursprüngliche Ziel-Datenpunkt entsprechend geändert, und umgekehrt.
@@ -216,7 +216,7 @@
                                           <tr>
                                             <td class="translate">✓</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Aktiviert/deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet.</td>
+                                            <td class="translate">Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet.</td>
                                           </tr>
                                           <tr>
                                             <td class="translate">Geräte-Name</td>
@@ -227,7 +227,7 @@
                                             <td class="translate">Datenpunkt zum einschalten</td>
                                             <td class="translate">Ja</td>
                                             <td class="translate">Datenpunkt des Zielgerätes zum Einschalten, sobald ein Auslöser auslöst and Ausführung/Bedingungen zutreffen.</td>
-                                                                                    </tr>
+                                          </tr>
                                           <tr>
                                             <td class="translate">Wert für 'an'</td>
                                             <td class="translate">Ja</td>
@@ -307,7 +307,7 @@
                                           <tr>
                                             <td class="translate">Name der Bedingung</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Hier beliebigen Name deiner Bedingung eintragen, z.B. 'Feiertag Heute'.</td>
+                                            <td class="translate">Hier beliebigen Namen deiner Bedingung eintragen, z.B. 'Feiertag Heute'.</td>
                                           </tr>
                                           <tr>
                                             <td class="translate">Datenpunkt der Bedingung</td>
@@ -349,7 +349,6 @@
 
 
             <!-- +++++++++++++ TAB: TRIGGERS +++++++++++++ -->
-
             <div id="tabTriggers" class="col s12 page">
                 <div class="row spaceTop3em">
                     <div class="col s12">
@@ -372,7 +371,7 @@
                                           <tr>
                                             <td class="translate">✓</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Aktiviert/deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet.</td>
+                                            <td class="translate">Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet.</td>
                                           </tr>
                                           <tr>
                                             <td class="translate">Name für Bewegungsmelder</td>
@@ -392,7 +391,7 @@
                                           <tr>
                                             <td class="translate">Sek</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Nach dieser Anzahl an Sekunden (und keiner zwischendurch weiterer erkannter Bewegung) werden die Zielgeräte ausgeschaltet.</td>
+                                            <td class="translate">Nach dieser Anzahl an Sekunden (und keiner weiteren zwischendurch erkannten Bewegung) werden die Zielgeräte ausgeschaltet.</td>
                                           </tr>
                                           <tr>
                                             <td>✘</td>
@@ -463,7 +462,7 @@
                                           <tr>
                                             <td class="translate">✓</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Aktiviert/deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet.</td>
+                                            <td class="translate">Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet.</td>
                                           </tr>
                                           <tr>
                                             <td class="translate">Name</td>
@@ -500,9 +499,9 @@
                                           <tr>
                                             <td class="translate">Toggle?</td>
                                             <td class="translate">Nein</td>
-                                            <td class="translate">Falls aktiviert, ermöglicht dies einen Toggle (Taster) als Auslöser. 
+                                            <td class="translate">Falls aktiviert, ermöglicht dies einen Taster (Toggle) als Auslöser. 
                                                 Wenn die Zielgeräte aus sind, werden sie vom Auslöser eingeschaltet, und umgekehrt (wenn sie ein sind, werden sie ausgeschaltet).
-                                                <br>Der Adapter verwendet zur Ermittlung, ob Gerät bereits an ist, den "Datenpunkt zum einschalten" unter "1. ZIELGERÄTE".
+                                                <br>Der Adapter verwendet zur Ermittlung, ob das Gerät bereits an ist, den "Datenpunkt zum einschalten" unter "1. ZIELGERÄTE".
                                                 <br>
                                                 <br>Hinweis: Falls gleichzeitig "Ziel aus?" aktiviert ist, wird die "Ziel aus?"-Option ignoriert, das würde sonst auch keinen Sinn ergeben für einen "Toggle".
                                             </td>
@@ -558,7 +557,7 @@
                                           <tr>
                                             <td class="translate">✓</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Aktiviert/deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet.</td>
+                                            <td class="translate">Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet.</td>
                                           </tr>
                                           <tr>
                                             <td class="translate">Name des Auslösers</td>
@@ -580,14 +579,14 @@
                                             <td class="translate">Zusätzlich muss erfüllt sein</td>
                                             <td class="translate">Nein</td>
                                             <td class="translate">Hier kannst du zusätzliche Bedingungen eintragen, die zusätzlich zutreffen müssen, z.B.: Jemand ist anwesend, Heute ist Feiertag, Oma schläft, usw.
-                                                                <br>Falls du mehr als eine Bedingung auswählst, müssen all diese Bedingungen zutreffen, damit ausgelöst wird.
+                                                              <br>Falls du mehr als eine Bedingung auswählst, müssen all diese Bedingungen zutreffen, damit ausgelöst wird.
                                             </td>
                                           </tr>
                                           <tr>
                                             <td class="translate">Nie auslösen wenn...</td>
                                             <td class="translate">Nein</td>
                                             <td class="translate">Hier kannst du zusätzliche Bedingungen eintragen, die nie zutreffen dürfen, z.B.: Keiner zu Hause, Radio läuft, usw.
-                                                    <br>Falls du mehr als eine Bedingung auswählst: sobald auch nur eine dieser Bedingungen zutrifft, wird nicht ausgelöst.
+                                                              <br>Falls du mehr als eine Bedingung auswählst: sobald auch nur eine dieser Bedingungen zutrifft, wird nicht ausgelöst.
                                             </td>
                                           </tr>
                                           <tr>
@@ -626,10 +625,7 @@
                     </div>
                 </div>                        
 
-
             </div>           
-
-
             
 
             <!-- +++++++++++++ TAB: ZONES +++++++++++++ -->
@@ -656,7 +652,7 @@
                                           <tr>
                                             <td class="translate">✓</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Aktiviert/deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet.</td>
+                                            <td class="translate">Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet.</td>
                                           </tr>
                                           <tr>
                                             <td class="translate">Name der Zone</td>
@@ -699,7 +695,7 @@
                                             <th class="header translate" data-name="name">Name der Zone</th>
                                             <th class="header translate" data-name="triggers" data-type="select multiple">Auslöser</th>
                                             <th class="header translate" data-name="targets" data-type="select multiple">Zu schaltende Zielgeräte</th>
-                                            <th style="width: 80px" class="mOptional header translate" data-name="offAfter" data-type="number">Aus nach x sec</th>
+                                            <th style="width: 80px" class="mOptional header translate" data-name="offAfter" data-type="number">Aus nach x sek</th>
                                             <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
                                         </tr>
                                     </thead>
@@ -737,7 +733,7 @@
                                           <tr>
                                             <td class="translate">✓</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Aktiviert/deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet.</td>
+                                            <td class="translate">Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet.</td>
                                           </tr>
                                           <tr>
                                             <td class="translate">Zone</td>
@@ -745,13 +741,13 @@
                                             <td class="translate">Hier wählst du die entsprechende Zone aus. Du kannst mehrere Tabellenzeilen mit der selben Zone verwenden, der Adapter wird dann alle Zeilen prüfen, ob Bedingungen zum schalten zutreffen.</td>
                                           </tr>
                                           <tr>
-                                            <td class="translate">Start / Ende</td>
+                                            <td class="translate">Start/Ende</td>
                                             <td class="translate">Ja</td>
                                             <td class="translate">Sobald ein Auslöser auslöst, muss die aktuelle Uhrzeit innerhalb dieses Zeitraums sein, damit die Zielgeräte geschalten werden.
                                                 <br>Du kannst hier eine Uhrzeit in Stunde/Minute, wie <code>08:25</code> oder <code>23:30</code> eingeben. 
                                                 Außerdem kannst du einen Astro-Namen wie <code>sunset</code> eingeben und dabei einen Versatz ("Offset") in Minuten hinzufügen, z.B. <code>goldenHourEnd+30</code> oder <code>sunset-60</code>.
                                                 <br>Die aktuellen Astrozeiten findest du übrigens als Info-Datenpunkte in diesem Adapter: <code>smartcontrol.x.info.astroTimes</code>.
-                                                <br>Eine Startzeit von z.B. <code>sunset</code> and Endzeit von z.B. <code>03:00</code> (also über Mitternacht hinaus) ist ebenso möglich, hierzu muss in "Weitere Optionen" die Option "Über Mitternacht hinaus" aktiviert sein (ist sie standardmäßig).
+                                                <br>Eine Startzeit von z.B. <code>sunset</code> und eine Endzeit von z.B. <code>03:00</code> (also über Mitternacht hinaus) ist ebenso möglich, hierzu muss in "Weitere Optionen" die Option "Über Mitternacht hinaus" aktiviert sein (ist sie standardmäßig).
                                                 <br>
                                             </td>
                                           </tr>
@@ -771,7 +767,7 @@
                                             <td class="translate">Nie schalten wenn...</td>
                                             <td class="translate">Nein</td>
                                             <td class="translate">Hier kannst du zusätzliche Bedingungen eintragen, die nie zutreffen dürfen, z.B.: Keiner zu Hause, Radio läuft, usw.
-                                                <br>Falls du mehr als eine Bedingung auswählst: sobald auch nur eine dieser Bedingungen zutrifft, wird nicht geschaltet.
+                                                                  <br>Falls du mehr als eine Bedingung auswählst: sobald auch nur eine dieser Bedingungen zutrifft, wird nicht geschaltet.
                                             </td>
                                           </tr>
                                         </tbody>
@@ -811,7 +807,7 @@
                 </div> 
             </div>
             
-			<!-- +++++++++++++ TAB: OPTIONS +++++++++++++ -->
+            <!-- +++++++++++++ TAB: OPTIONS +++++++++++++ -->
             <div id="tabOptions" class="col s12 page">
                 <div class="intro">
                     <h5 class="translate" style="margin-top: 2em;">Weitere Adapter-Optionen</h5>
@@ -862,7 +858,7 @@
                                     <h6 class="translate info">Auslöser-Datenpunkte unterhalb von User-Datenpunkten wie javascript.x, 0_userdata.0, Messwerte.0, alias.x</h6>
                                     <p class="translate info">Änderungen von Datenpunkten, die unterhalb von Adapter-Instanzen sind, werden nur getriggert, wenn acknowledge (ack) = <code>true</code> (also States gültig/bestätigt sind). 
                                         <br>Für <strong>user-eigene Datenpunkte</strong> unterhalb javascript.x, 0_userdata.0, Messwerte.0, alias.0 usw. kann man das hier ändern.
-                                        <br><strong>Achtung: </strong> Falls "Egal (ack:true oder ack:false)" ausgewählt wird, wird ggf. doppelt geschaltet, wenn ack:false und kurz darauf ack:true. Dieser Adapter verhindert das aber mit der Option <i>Auslöser ignorieren, falls letzes Auslösen desselben Auslösers vor weniger als x Sekunden war</i>.
+                                        <br><strong>Achtung: </strong> Falls "Egal (ack:true oder ack:false)" ausgewählt wird, wird ggf. doppelt geschaltet, wenn ack:false und kurz darauf ack:true gesetzt wird. Dieser Adapter verhindert das aber mit der Option <i>Auslöser ignorieren, falls letzes Auslösen desselben Auslösers vor weniger als x Sekunden war</i>.
                                     </p>
                                     <div class="input-field col s3 select">
                                         <select class="value" value="true" id="triggerStatesAck">
@@ -894,7 +890,7 @@
                             <div class="row">
                                 <div class="col s12">
                                     <p class="translate info">
-                                        Wenn deaktiviert, werden im Log (Level 'Info') nur wenige Informationen beim Adapter-Start und Stop/Neustart angezeigt und alle weiteren Informationen im Debug-Log.
+                                        Wenn deaktiviert, werden im Log (Level 'Info') nur wenige Informationen beim Adapter-Start und Stop/Neustart angezeigt und alle weiteren Informationen nur im Debug-Log.
                                         <br> Wenn aktiviert, werden im Log (Level 'Info') erweiterte Informationen ausgegeben (aber weniger, als im Debug-Log).
                                     </p>
                                     <div class="input-field col s12 m6">
@@ -907,7 +903,6 @@
                     </li>
                 </ul>
             </div>            
-
 
         </div>
 
