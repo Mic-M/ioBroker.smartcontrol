@@ -2,32 +2,32 @@
 
 ## How to translate into another language?
 
-Please use 'Google translate' for translation into your language. It works very well, and you can translate into like any language on the fly.
+Please use 'Google translate' for translation to your language. It works very well, and you're able to translate into nearly any language on the fly.
 
-**Chrome users** may like the [Google Translate]( https://chrome.google.com/webstore/detail/google-translate/aapbdbdomjkkjkaonfhkkikfgjllcleb) extension to translate local web pages (so your local ioBroker admin) on the fly. 
+**Chrome users** may prefer the [Google Translate]( https://chrome.google.com/webstore/detail/google-translate/aapbdbdomjkkjkaonfhkkikfgjllcleb) extension to translate web pages (so your local ioBroker admin) on the fly. 
 
-I am certain there are similar plugins available for other browsers like Firefox, etc. to translate local websites. 
+For sure there are similar plugins available for other browsers like Firefox, etc. to translate websites. 
 
-If you have any further tips or hints for client-side translations within the web browser for users easy to use, please let me know by posting a [Github issue](https://github.com/Mic-M/ioBroker.smartcontrol/issues) with your tips.
+If you have any further tips or hints for easy-to-use client-side translations within a web browser, please let me know by posting a [Github issue](https://github.com/Mic-M/ioBroker.smartcontrol/issues) with your tips.
 
 
 ## Reason / Approach
 
 I have decided to no longer maintain translations into multiple languages due to the following reasons:
-* The vast majority of ioBroker users are German speaking. Reference: [ioBroker Statistics](https://www.iobroker.net/#de/statistics)
+* The vast majority of ioBroker users are able to read German. Reference: [ioBroker Statistics](https://www.iobroker.net/#de/statistics)
 
-* Maintaining ioBroker adapter translations is pretty painful, as it takes a huge amount of time for keeping documentation, administration html, etc. up to date, especially for very young adapters when text changes are being done like every other minute.
-* I am doing all my ioBroker contribution in my personal time, and, by the way, get zero (0.00€) profit out of this. Why should I do something such painful and time-consuming in my personal time? No way :-)
+* Maintaining ioBroker adapter translations is quite painful, as it takes a huge amount of time for keeping documentation, administration html, etc. up to date, especially for very young adapters when text changes still happen very often.
+* I am doing all my ioBroker contribution in my private time, and - by the way - earn zero (0.00€) profit out of this. Why should I do something such painful and time-consuming in my private time? No way :-)
 
-*Note:* Gulp certainly helps greatly (see [Gulp: Auto translation](https://forum.iobroker.net/topic/19047/)), but does not cover changes to index_m.html for example which causes major manual copy/paste etc, structuring html text for translations being used in like no line breaks, formatting issues, etc.
-
+*Note:* Certainly Gulp helps greatly in translation (see [Gulp: Auto translation](https://forum.iobroker.net/topic/19047/)), but does not cover changes to e.g. index_m.html - which causes a lot of manual copy/paste operations, structuring html text for translations being used, formatting issues, etc.
 
 
 ## You do not like my translation approach?
 
-This is fine, we all have different opinions ;-) Please go ahead and contribute to the ioBroker community by improving the translation implementation for adapters. [Learn JavaScript](https://javascript.info/), if needed, it's a great programming language :-)  Potential starting points to contribute to translation improvements:
+That's OK, we all have different opinions ;-) Please contribute to the ioBroker community by improving the translation implementation for adapters. [Learn JavaScript](https://javascript.info/) if needed, it's a great programming language :-)
+Potential starting points to contribute to translation improvements:
 * [Gulp: Auto translation](https://forum.iobroker.net/topic/19047/)
 * File `iobroker/node_modules/ioBroker.<adaptername>\gulpfile.js`. 
 
 
-I am more than willing to change this approach once an easier adapter translation implementation is available.
+I would be very pleased to change this approach once an easy adapter translation implementation is available.
