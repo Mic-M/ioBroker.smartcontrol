@@ -43,7 +43,7 @@ const globals = {
             tableName: 'Conditions',
             tableId: 'tableConditions',
             tableMustHaveActiveRows: false,
-            check_1: {id: 'name', type:'name', deactivateIfError:true },
+            check_1: {id: 'name', type:'name', deactivateIfError:true, removeForbidden:true },
             check_2: {id: 'conditionState', type:'statePath', deactivateIfError:true },
             check_3: {id: 'conditionValue', type:'stateValue', stateValueStatePath:'conditionState', deactivateIfError:true },
         },
@@ -52,7 +52,7 @@ const globals = {
             tableId: 'tableTriggerMotion',
             tableMustHaveActiveRows: false,
             isTriggerTable: true,
-            check_1: {id: 'name', type:'name', deactivateIfError:true },
+            check_1: {id: 'name', type:'name', deactivateIfError:true, removeForbidden:true },
             check_2: {id: 'stateId', type:'statePath', deactivateIfError:true },
             check_3: {id: 'stateVal', type:'stateValue', stateValueStatePath:'stateId', deactivateIfError:true },
             check_4: {id: 'duration', type:'number', numberLowerLimit: 2, deactivateIfError:true },
@@ -64,7 +64,7 @@ const globals = {
             tableId: 'tableTriggerDevices',
             tableMustHaveActiveRows: false,
             isTriggerTable: true,
-            check_1: {id: 'name', type:'name', deactivateIfError:true },
+            check_1: {id: 'name', type:'name', deactivateIfError:true, removeForbidden:true },
             check_2: {id: 'stateId', type:'statePath', deactivateIfError:true },
             check_3: {id: 'stateVal', type:'stateValue', stateValueStatePath:'stateId', deactivateIfError:true },
         },
@@ -73,33 +73,40 @@ const globals = {
             tableId: 'tableTriggerTimes',
             tableMustHaveActiveRows: false,
             isTriggerTable: true,
-            check_1: {id: 'name', type:'name', deactivateIfError:true },
+            check_1: {id: 'name', type:'name', deactivateIfError:true, removeForbidden:true },
             check_2: {id: 'time', type:'timeCron', deactivateIfError:true },
+            check_3: {id: 'additionalConditions', type:'name', deactivateIfError:true, removeForbidden:true, optional:true },
+            check_4: {id: 'never', type:'name', deactivateIfError:true, removeForbidden:true, optional:true },
+
+
         },
     
         {
             tableName: 'Zones',
             tableId: 'tableZones',
             tableMustHaveActiveRows: true,
-            check_1: {id: 'name', type:'name', deactivateIfError:true },
-            check_2: {id: 'triggers', type:'name', deactivateIfError:true },
-            check_3: {id: 'targets', type:'name', deactivateIfError:true },
+            check_1: {id: 'name', type:'name', deactivateIfError:true, removeForbidden:true },
+            check_2: {id: 'triggers', type:'name', deactivateIfError:true, removeForbidden:true },
+            check_3: {id: 'targets', type:'name', deactivateIfError:true, removeForbidden:true },
+            check_4: {id: 'offAfter', type:'number', numberLowerLimit: 0, deactivateIfError:true, optional:true },
         },    
         {
             tableName: 'Schedules',
             tableId: 'tableSchedules',
             tableMustHaveActiveRows: true,
-            check_1: {id: 'name', type:'name', deactivateIfError:true },
+            check_1: {id: 'name', type:'name', deactivateIfError:true, removeForbidden:true },
             check_2: {id: 'start', type:'time', deactivateIfError:true },
             check_3: {id: 'end', type:'time', deactivateIfError:true },
-            check_4: {id: 'offAfter', type:'number', numberLowerLimit: 0, deactivateIfError:true, optional:true },
+            check_4: {id: 'additionalConditions', type:'name', deactivateIfError:true, removeForbidden:true, optional:true },
+            check_5: {id: 'never', type:'name', deactivateIfError:true, removeForbidden:true, optional:true },
+
         },
     ],
     testStates: [
-        {statePath:'Test.trigger.Bathroom_motion',         commonObject:{name:'Bathroom Motion', type:'boolean', read:true, write:true, role:'state', def:false} },
+        {statePath:'Test.trigger.Bathroom_motion',         commonObject:{name:'Bathroom Motion', type:'boolean', read:true, write:true, role:'button', def:false} },
         {statePath:'Test.trigger.Bathroom_wall-switch',    commonObject:{name:'Bathroom Wall Switch', type:'boolean', read:true, write:true, role:'state', def:false} },
-        {statePath:'Test.trigger.Hallway1_motion',         commonObject:{name:'Hallway Motion', type:'boolean', read:true, write:true, role:'state', def:false} },
-        {statePath:'Test.trigger.Hallway2_motion',         commonObject:{name:'HallwayMotion', type:'boolean', read:true, write:true, role:'state', def:false} },
+        {statePath:'Test.trigger.Hallway1_motion',         commonObject:{name:'Hallway Motion', type:'boolean', read:true, write:true, role:'button', def:false} },
+        {statePath:'Test.trigger.Hallway2_motion',         commonObject:{name:'HallwayMotion', type:'boolean', read:true, write:true, role:'button', def:false} },
         {statePath:'Test.trigger.Hallway1_wall-switch',    commonObject:{name:'Hallway Wall Switch', type:'boolean', read:true, write:true, role:'state', def:false} },
         {statePath:'Test.trigger.Hallway2_wall-switch',    commonObject:{name:'Hallway Wall Switch', type:'boolean', read:true, write:true, role:'state', def:false} },
         {statePath:'Test.trigger.RelaxPersonSitting',      commonObject:{name:'Relax Area: Someone sitting on sofa', type:'boolean', read:true, write:true, role:'state', def:false} },
@@ -174,9 +181,10 @@ class SmartControl extends utils.Adapter {
              * Validate Adapter Admin Configuration
              */
             if (await sc.asyncVerifyConfig(globals.configTableValidation)) {
-                sc.logExtendedInfo('Adapter admin configuration successfully validated...');
+                this.log.info('Adapter admin configuration successfully validated...');
             } else {
-                throw('Adapter admin configuration validation failed --> Please check your configuration. You will not be able to use this adapter without fixing the issues.');
+                // Error(s) occurred. We already logged error message(s) by the function, so simply go out here.
+                return;
             }
 
             /**
@@ -204,7 +212,6 @@ class SmartControl extends utils.Adapter {
              * 1-Subscribe to all smartcontrol.x.targetDevices states
              * 2-Subscribe to all on/off states of tableTargetDevices
              */
-            sc.logExtendedInfo('Subscribing to all target devices states...');
             // smartcontrol.x.targetDevices states
             await this.subscribeStatesAsync('targetDevices.*');
 
@@ -226,7 +233,6 @@ class SmartControl extends utils.Adapter {
              * == STATE SUBSCRIPTION ==
              * Subscribe to all trigger state changes
              */
-            sc.logExtendedInfo('Subscribing to all trigger states...');
             // @ts-ignore -> https://github.com/microsoft/TypeScript/issues/36769
             for (const lpRow of this.config.tableTriggerMotion.concat(this.config.tableTriggerDevices)) {
                 if (lpRow.active) {
@@ -253,7 +259,7 @@ class SmartControl extends utils.Adapter {
             /**
              * Schedule all trigger times
              */
-            sc.scheduleTriggerTimes();
+            const numTriggers = sc.scheduleTriggerTimes();
 
             /**
              * Re-schedule all trigger times every midnight. Also, refresh astro states.
@@ -262,11 +268,16 @@ class SmartControl extends utils.Adapter {
             g_midnightSchedule = g_Schedule.scheduleJob('0 0 * * *', () => {
                 sc.scheduleTriggerTimes();
                 if (sc.latitude && sc.longitude) sc.refreshAstroStatesAsync();
-                this.log.info(`Re-scheduling time triggers for updating astro times and updating 'info.astroTimes.' states.`);
+                sc.logExtendedInfo(`Re-scheduling time triggers for updating astro times and updating 'info.astroTimes.' states.`);
             });
 
+            /**
+             * Some log
+             */
+            this.log.info(`Subscribing to all target devices and trigger states. ${numTriggers} trigger schedules activated...`);
+
         } catch (error) {
-            sc.dumpError('Error', error);
+            sc.dumpError('[_asyncOnReady()]', error);
             return;
         }
 

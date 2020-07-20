@@ -12,11 +12,19 @@
 
 **Tests:**: [![Travis-CI](http://img.shields.io/travis/Mic-M/ioBroker.smartcontrol/master.svg)](https://travis-ci.org/Mic-M/ioBroker.smartcontrol)
 
-## smartcontrol adapter for ioBroker
+## Smart Control Adapter for ioBroker
 
 Control devices smarter: by grouping, including triggers like motion, opening window, etc. and set target devices accordingly.
 
 <sub><sup>Adapter icon made by [freepik](https://www.flaticon.com/authors/freepik) from [flaticon.com](https://www.flaticon.com/).</sup></sub>
+
+## Forum Links
+* **Current Thread: [Teste Adapter SmartControl 0.1.1-beta.x](https://forum.iobroker.net/topic/35308/)**
+* 10.07. - 19.07.2020 : [Neuen SmartControl-Adapter 0.1.0-alpha.x testen](https://forum.iobroker.net/topic/35096/1)
+* 23.05. - 10.07.2020 : [Planung neuer Adapter: Smart Control](https://forum.iobroker.net/topic/33691/)
+* 25.04.2020 : [Umfrage: Welchen Adapter soll ich als nächstes entwickeln?](https://forum.iobroker.net/topic/32644/)
+
+
 
 ## Installation
 The adapter is not yet in the "latest repository". So please [Install adapter from own URL](https://github.com/ioBroker/ioBroker.docs/blob/master/docs/en/admin/adapter.md). Then add an adapter instance.
@@ -32,33 +40,18 @@ Therefore, I have included all instructions in the admin settings of this adapte
 ![SmartControl Options](admin/img/smartControl_options1.gif)
 
 
-## To Do (to be considered for further development and future releases
-* ~~(OstfrieseUnterwegs) - 2020-16-07 - Warnung/Fehlermeldung nicht ganz konsistent. [Siehe Forum](https://forum.iobroker.net/post/463170)~~
-* (Yetiberg) & (crunship) - 2020-07-15 - Zielgerät schalten per Button ohne Überprüfung ob bereits an/aus. [Siehe Forum](https://forum.iobroker.net/post/463068)
-* (crunchip) - 2020-07-13 - ...bisher nur ein paar Lichter integriert hab, füllt sich die Liste der Zielgeräte jedoch recht schnell. Nur so mal in den Raum geworfen, bei intensiver Nutzung, wird diese List doch recht lang und unübersichtlich. Gäbe es da nicht eine Möglichkeit, eine Art Untermenü anzulegen, so alla "Räume" z.b.? [Siehe Forum](https://forum.iobroker.net/post/461764)
-* (Christoph1337) - 2020-07-12 - Wenn Bewegung kurz. Z. B. 3 Minuten. Dann Licht nach 5 Minuten abschalten.
-Wenn Bewegung länger. Z. B. 15 Minuten. Licht für 30 Minuten an lassen. [Siehe Forum](https://forum.iobroker.net/post/461643)
-* ~~(MartyBr) - 2020-07-11 - Suncalc findet in Deutschland je nach Lage nicht immer night/nightEnd. [Siehe Forum](https://forum.iobroker.net/post/461159). Idee: Option anbieten, die bei night/nightEnd Fehler einfach eine vorzugebende Uhrzeit setzt, damit zumindest die Funktionalität soweit gegeben ist. - [Siehe Zeiten zur Kalkulation](https://forum.iobroker.net/post/461216)~~ new option 'correct night/nightEnd' in 0.1.0-alpha.10
-* (frostnatt) - 2020-07-09 - Timing issue for Aquara motion sensors if brightness. [ioBroker Forum Link](https://forum.iobroker.net/post/460130)
-* (Christoph1337) - 2020-09-07 - automatisch eine HTML Tabelle generiert wo alle Schalter mit Zuordnung enthalten sind. Das wäre gerade für den Start für viele einfacher da man sich nicht in vis großartig einarbeiten muss. Am besten sogar responsive für verschiedene Auflösungen. [ioBroker Forum Link](https://forum.iobroker.net/post/460117)
-* ~~(EdgarM) - 2020-07-08 - Taster benutzen -> Licht an, Taster nochmal benutzen -> Licht aus [ioBroker Forum Link](https://forum.iobroker.net/post/459671)~~ 0.1.0-alpha.10
-* (frostnatt) - 2020-07-05 - Es wäre ein gewisses "misbehaviour-handling" wünschenswert, wenn zum Beispiel der Occupancy-Datenpunkt nicht auf False gesetzt wird. Hier könnte man zwischen "nichts tun" und "in z Minuten ausschalten" wählen. [ioBroker Forum Link](https://forum.iobroker.net/post/458399)
-* (OstfrieseUnterwegs) - 2020-07-03 - Add option to disregard additional schedule table if a time specific trigger is activated - [ioBroker Forum Link](https://forum.iobroker.net/post/457849)
-* ~~(OstfrieseUnterwegs) - 2020-07-03 - Think about a better name for "Room/Area", which is actually like a complex 'scene'. Maybe "zone"? - [ioBroker Forum Link](https://forum.iobroker.net/post/457849)~~ -> renamed to "Zones"
-* (OstfrieseUnterwegs) - 2020-07-03 - Cron Wizard - [ioBroker Forum Link](https://forum.iobroker.net/post/457861)
-* (looxer01) - 2020-06-22 - IFTTT etc. - [ioBroker Forum Link](https://forum.iobroker.net/post/453321)
-* (EdgarM) - 2020-06-18 - Several ideas - [ioBroker Forum Link](https://forum.iobroker.net/post/451578)
-* (siggi85) - 2020-05-24 - time depending light control features - [ioBroker Forum Link](https://forum.iobroker.net/post/437887)
-* (klassisch) - 2020-05-24 - several suggestions - [ioBroker Forum Link](https://forum.iobroker.net/post/437877)
-* (Mic-M) - 2020-05-23 - die Möglichkeit, nach x Minuten ausschalten zu lassen (z.B. nach 2 Stunden) falls kein Trigger wie BWM mehr was auslöst, um Fälle abzudecken wie "der User ist eingeschlafen" [ioBroker Forum Link](https://forum.iobroker.net/post/437806)
-* (MartyBr) & (crunship)  - 2020-05-17 - Manuelles schalten soll Bewegungsmelder außer Kraft setzen. [ioBroker Forum Link](https://forum.iobroker.net/post/433871) | [ioBroker Forum Link 2](https://forum.iobroker.net/post/437803) | [Script](https://forum.iobroker.net/topic/21226/vorlage-automatisches-licht)
-
-
 ## Changelog
 
-### 0.1.0-alpha.xx 
-* (Mic-M) Fix: non-consistent logs for verifying config
+### 0.1.1-beta.2
+* (Mic-M) Fix: Perform configuration validation and correction also for non-active table rows, since these can be switched on thru `smartcontrol.x.options.xxx.xxx.active` states.
 
+### 0.1.1-beta.1
+* (Mic-M) New feature: New option in motion sensor table: if activated, motion triggers will not set a timeout if target device was turned on previously without a motion trigger ("manually"). [Forum Link](https://forum.iobroker.net/post/433871)
+* (Mic-M) Fix: non-consistent logs for verifying config
+* (Mic-M) Change: changed limitTriggerInterval from 2s to 1s - [Issue #3](https://github.com/Mic-M/ioBroker.smartcontrol/issues/3)
+* (Mic-M) Fix: 24:00 as time: now treated as 0:00 but adding 24h to timestamp. 
+* (Mic-M) Fix: If a trigger state path was used multiple times in different triggers and schedules, second schedule stopped. [Forum Link](https://forum.iobroker.net/post/464208)
+* (Mic-M) Improvement: Better info log / extended info log per Option 'Extended Info Log'
 
 ### 0.1.0-alpha.11
 * (Mic-M) Fix: check for 'is time between'
@@ -68,6 +61,7 @@ Wenn Bewegung länger. Z. B. 15 Minuten. Licht für 30 Minuten an lassen. [Siehe
 * (Mic-M) New feature: Allow using same trigger state multiple times. Required significant code changes.
 * (Mic-M) New feature: If you are using multiple motion sensors for a zone: whenever a motion device triggers, the turn off timer is being stopped and a new timer is set per the latest motion sensor.
 * (Mic-M) New feature: In certain northern areas is night/nightEnd not available at least in Summer in Germay. New adapter option added to set midnight to 0:00 and midnightEnd to 2:00 in this case.
+* (Mic-M) New feature 'Always of after x secs' in Zones table.
 * (Mic-M) + a few more features I forgot do mention ;)
 
 ### 0.1.0-alpha.9
