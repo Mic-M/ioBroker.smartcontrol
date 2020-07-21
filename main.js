@@ -336,8 +336,8 @@ class SmartControl extends utils.Adapter {
                     (sc.getOptionTableValue('tableTriggerMotion', 'stateId', statePath, 'name') != undefined)
                     || (sc.getOptionTableValue('tableTriggerDevices', 'stateId', statePath, 'name') != undefined)
                 ) {
-                    this.log.debug(`State '${statePath}' change --> execute asyncTriggerActivated()`);
-                    sc.asyncTriggerActivated(statePath, stateObject);
+                    this.log.debug(`State '${statePath}' change --> execute switchTargetsPrepareAsync()`);
+                    sc.switchTargetsPrepareAsync(statePath, stateObject);
                 }
                 /**
                  * State Change: Everything else

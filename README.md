@@ -42,8 +42,18 @@ Therefore, I have included all instructions in the admin settings of this adapte
 
 ## Changelog
 
+### 0.1.1-beta.3
+* (Mic-M) **Breaking:** I did some breaking code changes under the hood, to fix various issues. I have tested these changes well, but negative side effects are still likely. No changes to options or states, so no worries here. But please use new version with care and report any issues.
+* (Mic-M) Fix: issue https://forum.iobroker.net/post/464466
+* (Mic-M) Extensive code changes and several bug fixes within code
+* (hombach) corrected typos and wordings in admin/index_m.html
+* (hombach) corrected translations in docs/translations.md
+* (hombach) extended Travis tests to include ARM CPUs
+
+
 ### 0.1.1-beta.2
 * (Mic-M) Fix: Perform configuration validation and correction also for non-active table rows, since these can be switched on thru `smartcontrol.x.options.xxx.xxx.active` states.
+
 
 ### 0.1.1-beta.1
 * (Mic-M) New feature: New option in motion sensor table: if activated, motion triggers will not set a timeout if target device was turned on previously without a motion trigger ("manually"). [Forum Link](https://forum.iobroker.net/post/433871)
