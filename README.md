@@ -42,6 +42,9 @@ Therefore, I have included all instructions in the admin settings of this adapte
 
 ## Changelog
 
+### 0.1.1-beta.4
+* (Mic-M) Fixed errors of 0.1.1-beta.3. **Note** You may still experience errors in comparison to 0.1.1-beta.2 due to the major and breaking changes of 0.1.1-beta.3. In case of any issues in productive environments: please go back to 0.1.1-beta.2 and report your issue.
+
 ### 0.1.1-beta.3
 * (Mic-M) **Breaking:** I did some breaking code changes under the hood, to fix various issues. I have tested these changes well, but negative side effects are still likely. No changes to options or states, so no worries here. But please use new version with care and report any issues.
 * (Mic-M) Fix: issue https://forum.iobroker.net/post/464466

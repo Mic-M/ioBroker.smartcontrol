@@ -297,12 +297,14 @@ class SmartControl extends utils.Adapter {
             if (stateObject) {
 
                 // State was changed
-                this.log.debug(`Subscribed state '${statePath}' changed, new value: [${stateObject.val}] (ack: ${stateObject.ack})`);
+                this.log.debug(`Subscribed state '${statePath}' changed, new val: [${stateObject.val}] (ack: ${stateObject.ack}).`);
 
                 // Check acknowledge (ack)
                 if ( ! await sc.isAckPassing(statePath, stateObject)) {
-                    this.log.debug(`Subscribed state '${statePath}' change: ack '${stateObject.ack}' is not meeting conditions per isAckPassing()`);
+                    this.log.debug(`Subscribed state '${statePath}' change: ack '${stateObject.ack}' is *not* meeting isAckPassing() conditions`);
                     return;
+                } else {
+                    this.log.debug(`Subscribed state '${statePath}' change: ack '${stateObject.ack}' *is* meeting isAckPassing() conditions.`);
                 }
 
                 /**
