@@ -11,6 +11,47 @@ let tableConditions = [];
 let tableSchedules = [];
 const adapterNamespace = `smartcontrol.${instance}`;
 
+/*************************************************************
+ * Table Filter
+ * Inspired by: https://github.com/mjansma/LiveSearch/livesearch.js
+ * @param {string} id - like 'tableTargetDevices'
+ *************************************************************/
+$.fn.tableFilter = function(id) {
+    $(this).keyup(function() {
+        let table = $('div#' + id + ' table');
+        //Get all table columns
+        const children = table.find('td');
+        const searchString = $(this).val().toLowerCase();
+        if (searchString.length < 2) {
+            table.find('tr:gt(0)').show(); // show all if search string is too short
+            return;
+        }
+        //Hide all rows except the table header
+        table.find('tr:gt(0)').hide();
+        //Loop through all table columns
+        children.each(function(index, child){
+            //If search string matches table column
+            let checkFor;
+            if (child.firstChild && child.firstChild.firstChild && child.firstChild.firstChild.value) {
+                checkFor = child.firstChild.firstChild.value; // we have a drop down
+            } else if (!checkFor && child.firstChild && child.firstChild.value && child.firstChild.value != '' && child.firstChild.value != 'on') {
+                checkFor = child.firstChild.value;
+            }
+            if (checkFor && checkFor.toLowerCase().indexOf(searchString) != -1) {
+                $(child).closest('tr').show(); //Show table row
+            }
+        });
+    });
+};
+// Actualy apply the liveSearch
+$(document).ready(function(){
+    const tableIds = ['tableTriggerMotion', 'tableTriggerDevices', 'tableTriggerTimes', 'tableTargetDevices', 'tableCombinedDevices', 'tableZones', 'tableConditions', 'tableSchedules'];
+    for (const lpId of tableIds) {
+        $('div#' + lpId + ' .livesearch').tableFilter(lpId);
+    }
+});
+
+
 /************** LOAD ********************************************************
 *** This will be called by the admin adapter when the settings page loads ***
 ****************************************************************************/
@@ -236,6 +277,7 @@ function save(callback) {
 
     callback(obj);
 }
+
 
 /**
  * From: selectID.js (node_modules/iobroker.admin/www/lib/js/)

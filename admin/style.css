@@ -19,10 +19,15 @@
 .m .dialog-config-buttons span { font-size: 0.9em !important }  /* leave span at 0.9em for the save/cancel etc. buttons  */
 
 /* Tabs menu */
-.m .tabs .tab a { color: rgba(13, 134, 231, 0.7); }
+.m .tabs .tab a { color: rgba(13, 134, 231, 0.7); } /* Color */
+.m .tabs .tab a { padding: 0 5px; } /* space of x px at beginning and end of text  */
 .m .tabs .active { border-bottom: 2px solid #0d47a1; font-weight: bold;}
 .m .tabs .tab a.active, .m .tabs .tab a:hover { color:#0d47a1; }
 .m .tabs .tab a:hover { border-bottom: 2px solid #46a0e9 !important; }
+.m .row .col.m1 { width: 14%; } 
+
+
+
 
 /* Table header */
 table.table-values th.header { background-color:#64BfF6; font-size:90%; text-align:center; line-height: 1em; padding:6px 2px;}
@@ -51,7 +56,6 @@ table.table-values { table-layout:fixed; }
 #header-area #header-logo-title p {line-height: normal !important; margin: 0 !important; padding: 8px 0 0 8px;}
 #header-area #header-logo-title p>span.h-title {font-size: 2em !important; color:white; }
 #header-area #header-logo-title p>span.h-sub-title {font-size: 1.1em !important; color:white; font-style: italic; }
-
 
 /* Introduction section */
 .intro {font-size: 18px;}

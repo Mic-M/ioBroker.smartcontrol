@@ -42,6 +42,9 @@ Therefore, I have included all instructions in the admin settings of this adapte
 
 ## Changelog
 
+### 0.1.1-beta.5
+* (Mic-M) New feature: Add filter field to each table in adapter configuration to filter table rows.
+
 ### 0.1.1-beta.4
 * (Mic-M) Fixed errors of 0.1.1-beta.3. **Note** You may still experience errors in comparison to 0.1.1-beta.2 due to the major and breaking changes of 0.1.1-beta.3. In case of any issues in productive environments: please go back to 0.1.1-beta.2 and report your issue.
 

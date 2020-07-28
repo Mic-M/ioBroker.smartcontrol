@@ -51,13 +51,13 @@
             <div class="col s12" style="padding-left:0;padding-right:0; margin-top: 0px; margin-bottom: 1px; background-color:#174475; box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);">
                 <ul class="tabs blue lighten-4">
                     <!-- see description: https://materializecss.com/grid.html -->
-                    <li class="tab col s1.6"><a href="#tabMain">Start</a></li>
-                    <li class="tab col s1.6"><a href="#tabDevices">1. <span class="translate">Zielgeräte</span></a></li>
-                    <li class="tab col s1.6"><a href="#tabConditions">2. <span class="translate">Zusätzliche Bedingungen</span></a></li>
-                    <li class="tab col s1.6"><a href="#tabTriggers">3. <span class="translate">Auslöser</span></a></li>
-                    <li class="tab col s1.6"><a href="#tabZones">4. <span class="translate">Zonen</span></a></li>
-                    <li class="tab col s1.6"><a href="#tabSchedules">5. <span class="translate">Ausführung</span></a></li>
-                    <li class="tab col s1.6"><a href="#tabOptions" class="translate">– Weitere Optionen</a></li>
+                    <li class="tab col m1"><a href="#tabMain">Start</a></li>
+                    <li class="tab col m1"><a href="#tabDevices">1. <span class="translate">Zielgeräte</span></a></li>
+                    <li class="tab col m1"><a href="#tabConditions">2. <span class="translate">Zusätzliche Bedingungen</span></a></li>
+                    <li class="tab col m1"><a href="#tabTriggers">3. <span class="translate">Auslöser</span></a></li>
+                    <li class="tab col m1"><a href="#tabZones">4. <span class="translate">Zonen</span></a></li>
+                    <li class="tab col m1"><a href="#tabSchedules">5. <span class="translate">Ausführung</span></a></li>
+                    <li class="tab col m1"><a href="#tabOptions" class="translate">– Weitere Optionen</a></li>
                 </ul>
             </div>
 
@@ -163,8 +163,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="translate">Ich möchte ein neues Feature vorschlagen</td>
-                                                <td class="translate">Wie gesagt, dieser Adapter ist in einer sehr frühen Entwicklungsphase, und es werden noch einige Features kommen. Bisherige Anfragen habe ich <a href="https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/README.md#to-do-to-be-considered-for-further-development-and-future-releases" target="_blank">hier</a> gesammelt.
-                                                    Falls du weitere Vorschläge hast, kannst du gerne ein neues Github-Issue aufmachen: <a href="https://github.com/Mic-M/ioBroker.smartcontrol/issues" target="_blank"><strong>GitHub: Smart Control Issues</strong></a>. 
+                                                <td class="translate">Bitte mache am besten hier ein neues Github-Issue auf: <a href="https://github.com/Mic-M/ioBroker.smartcontrol/issues" target="_blank"><strong>GitHub: Smart Control Issues</strong></a>. 
                                                     <br><br><strong>Wichtig für Github:</strong> Wenn Deutsch deine Muttersprache ist, dann schreibe auch bitte in Deutsch und nicht Englisch auf Github. Das macht unsere Kommunikation deutlich einfacher und du brauchst dir keinen abbrechen :-) Nicht deutsch sprechende User können das dennoch dank Google Translate super mitlesen und sich einbringen.
                                                 </td>
                                             </tr>
@@ -249,8 +248,14 @@
                             </li>
                         </ul>
                         <!-- Start Options Table -->
-                        <div class="col s12" id="tableTargetDevices">
-                            <p><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></p>
+                         <div class="col s12" id="tableTargetDevices">
+                            <div class="row valign-wrapper" style="margin-bottom:5px">
+                                <div class="col"><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></div>
+                                <div style="width: 200px; margin:0 0 0 20px !important" class="input-field col s12 m6 l4">
+                                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                    <input type="text" class="livesearch" placeholder="Filter"  />
+                                </div>
+                            </div>
                             <div class="table-values-div">
                                 <table class="table-values">
                                     <thead>
@@ -326,7 +331,17 @@
                         </ul>
                         <!-- Start Options Table -->
                         <div class="col s12" id="tableConditions">
-                            <p><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></p>
+
+                            <div class="row valign-wrapper" style="margin-bottom:5px">
+                                <div class="col">
+                                    <a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a>
+                                </div>
+                                <div style="width: 200px; margin:0 0 0 20px !important" class="input-field col s12 m6 l4">
+                                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                    <input type="text" class="livesearch" placeholder="Filter"  />
+                                </div>
+                            </div>
+
                             <div class="table-values-div">
                                 <table class="table-values">
                                     <thead>
@@ -415,7 +430,17 @@
                         </ul>
                         <!-- Start Options Table -->
                         <div class="col s12" id="tableTriggerMotion">
-                            <p><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></p>
+
+                            <div class="row valign-wrapper" style="margin-bottom:5px">
+                                <div class="col">
+                                    <a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a>
+                                </div>
+                                <div style="width: 200px; margin:0 0 0 20px !important" class="input-field col s12 m6 l4">
+                                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                    <input type="text" class="livesearch" placeholder="Filter"  />
+                                </div>
+                            </div>
+
                             <div class="table-values-div">
                                 <table class="table-values">
                                     <thead>
@@ -513,7 +538,17 @@
                         </ul>
                         <!-- Start Options Table -->
                         <div class="col s12" id="tableTriggerDevices">
-                            <p><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></p>
+
+                            <div class="row valign-wrapper" style="margin-bottom:5px">
+                                <div class="col">
+                                    <a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a>
+                                </div>
+                                <div style="width: 200px; margin:0 0 0 20px !important" class="input-field col s12 m6 l4">
+                                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                    <input type="text" class="livesearch" placeholder="Filter"  />
+                                </div>
+                            </div>
+
                             <div class="table-values-div">
                                 <table class="table-values">
                                     <thead>
@@ -604,7 +639,17 @@
                        
                         <!-- Start Options Table -->
                         <div class="col s12" id="tableTriggerTimes">
-                            <p><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></p>
+
+                            <div class="row valign-wrapper" style="margin-bottom:5px">
+                                <div class="col">
+                                    <a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a>
+                                </div>
+                                <div style="width: 200px; margin:0 0 0 20px !important" class="input-field col s12 m6 l4">
+                                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                    <input type="text" class="livesearch" placeholder="Filter"  />
+                                </div>
+                            </div>
+
                             <div class="table-values-div">
                                 <table class="table-values">
                                     <thead>
@@ -686,7 +731,17 @@
                         </ul>
                         <!-- Start Options Table -->
                         <div class="col s12" id="tableZones">
-                            <p><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></p>
+
+                            <div class="row valign-wrapper" style="margin-bottom:5px">
+                                <div class="col">
+                                    <a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a>
+                                </div>
+                                <div style="width: 200px; margin:0 0 0 20px !important" class="input-field col s12 m6 l4">
+                                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                    <input type="text" class="livesearch" placeholder="Filter"  />
+                                </div>
+                            </div>
+
                             <div class="table-values-div">
                                 <table class="table-values">
                                     <thead>
@@ -778,7 +833,17 @@
 
                         <!-- Start Options Table -->
                         <div class="col s12" id="tableSchedules">
-                            <p><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></p>
+
+                            <div class="row valign-wrapper" style="margin-bottom:5px">
+                                <div class="col">
+                                    <a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a>
+                                </div>
+                                <div style="width: 200px; margin:0 0 0 20px !important" class="input-field col s12 m6 l4">
+                                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                    <input type="text" class="livesearch" placeholder="Filter"  />
+                                </div>
+                            </div>
+
                             <div class="table-values-div">
                                 <table class="table-values">
                                     <thead>
