@@ -39,8 +39,18 @@ Therefore, I have included all instructions in the admin settings of this adapte
 
 ![SmartControl Options](admin/img/smartControl_options1.gif)
 
+## Sentry Error Reporting
+
+This adapter is using [Sentry](https://github.com/ioBroker/plugin-sentry) to report **anonymized** information to the ioBroker Sentry server, if the adapter crashes or other code errors occur. No worries: no IP address is included, and also not any other non-anonymous data. See [What is Sentry/Sentry.io?](https://github.com/ioBroker/plugin-sentry#what-is-sentrysentryio) for details.
+<br><br>
+If you want to disable Sentry, see [Disable Sentry Error Reporting](https://github.com/ioBroker/plugin-sentry#what-is-sentrysentryio) for detailed instructions. For example, you can execute `iobroker plugin disable sentry` in the ioBroker console to disable Sentry for all adapters. 
+
+However, I hope you keep it activated. This helps me as developer to identify unexpected errors fast and provide you an adapter  which is really stabile.
 
 ## Changelog
+
+### 0.1.1-beta.6
+* (Mic-M) Added [Sentry](https://github.com/ioBroker/plugin-sentry)
 
 ### 0.1.1-beta.5
 * (Mic-M) New feature: Add filter field to each table in adapter configuration to filter table rows.
