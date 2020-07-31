@@ -41,13 +41,17 @@ Therefore, I have included all instructions in the admin settings of this adapte
 
 ## Sentry Error Reporting
 
-This adapter is using [Sentry](https://github.com/ioBroker/plugin-sentry) to report **anonymized** information to the ioBroker Sentry server, if the adapter crashes or other code errors occur. No worries: no IP address is included, and also not any other non-anonymous data. See [What is Sentry/Sentry.io?](https://github.com/ioBroker/plugin-sentry#what-is-sentrysentryio) for details.
+This adapter is using [Sentry](https://github.com/ioBroker/plugin-sentry) to report **anonymized** information to the ioBroker Sentry server, if the adapter crashes or other code errors occur. 
+No worries: All data sent is anonymized, so **no** IP address or other non-anonymous data is included. See [What is Sentry/Sentry.io?](https://github.com/ioBroker/plugin-sentry#what-is-sentrysentryio) for details.
 <br><br>
-If you want to disable Sentry, see [Disable Sentry Error Reporting](https://github.com/ioBroker/plugin-sentry#what-is-sentrysentryio) for detailed instructions. For example, you can execute `iobroker plugin disable sentry` in the ioBroker console to disable Sentry for all adapters. 
-
-However, I hope you keep it activated. This helps me as developer to identify unexpected errors fast and provide you an adapter  which is really stabile.
+If you want to disable Sentry, see [Disable Sentry Error Reporting](https://github.com/ioBroker/plugin-sentry#what-is-sentrysentryio) for detailed instructions. For example, you can execute `iobroker plugin disable sentry` in the ioBroker console to disable Sentry for all adapters, or `iobroker plugin disable sentry --instance <adapter name>.<instance numer>` for a specific adapter instance.
+<br><br>
+However, we hope you keep Sentry Error Reporting activated. This helps us as developers to identify unexpected errors fast and provide you an adapter as stabile as possible. 
 
 ## Changelog
+
+### 0.1.x - current Github developer version
+* (Mic-M) Improved table filter functionality in adapter configuration
 
 ### 0.1.1-beta.6
 * (Mic-M) Added [Sentry](https://github.com/ioBroker/plugin-sentry)

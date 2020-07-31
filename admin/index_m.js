@@ -41,13 +41,20 @@ $.fn.tableFilter = function(id) {
                 $(child).closest('tr').show(); //Show table row
             }
         });
+
     });
 };
-// Actualy apply the liveSearch
+// Apply the Filter
+const tableIds = ['tableTriggerMotion', 'tableTriggerDevices', 'tableTriggerTimes', 'tableTargetDevices', 'tableCombinedDevices', 'tableZones', 'tableConditions', 'tableSchedules'];
 $(document).ready(function(){
-    const tableIds = ['tableTriggerMotion', 'tableTriggerDevices', 'tableTriggerTimes', 'tableTargetDevices', 'tableCombinedDevices', 'tableZones', 'tableConditions', 'tableSchedules'];
     for (const lpId of tableIds) {
-        $('div#' + lpId + ' .livesearch').tableFilter(lpId);
+        // Apply the filter
+        $(`div#${lpId} .table-filter input`).tableFilter(lpId);
+        // Clear filters on "Clear Filters" button click
+        $(`div#${lpId} .table-filter button`).click(function() {
+            $(`div#${lpId} .table-filter input`).val(''); // empty field
+            $(`div#${lpId} table`).find('tr:gt(0)').show(); // show all rows
+        });
     }
 });
 
