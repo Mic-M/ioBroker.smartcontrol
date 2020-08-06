@@ -1,18 +1,13 @@
 <html>
 
 <!--
-███████ ███    ███  █████  ██████  ████████      ██████  ██████  ███    ██ ████████ ██████   ██████  ██           █████  ██████   █████  ██████  ████████ ███████ ██████  
-██      ████  ████ ██   ██ ██   ██    ██        ██      ██    ██ ████   ██    ██    ██   ██ ██    ██ ██          ██   ██ ██   ██ ██   ██ ██   ██    ██    ██      ██   ██ 
-███████ ██ ████ ██ ███████ ██████     ██        ██      ██    ██ ██ ██  ██    ██    ██████  ██    ██ ██          ███████ ██   ██ ███████ ██████     ██    █████   ██████  
-     ██ ██  ██  ██ ██   ██ ██   ██    ██        ██      ██    ██ ██  ██ ██    ██    ██   ██ ██    ██ ██          ██   ██ ██   ██ ██   ██ ██         ██    ██      ██   ██ 
-███████ ██      ██ ██   ██ ██   ██    ██         ██████  ██████  ██   ████    ██    ██   ██  ██████  ███████     ██   ██ ██████  ██   ██ ██         ██    ███████ ██   ██ 
-
-Text to ASCII: http://patorjk.com/software/taag/#p=display&v=3&f=ANSI%20Regular&t=smart%20control%20adapter
+    We have ASCII blocks here (like TAB MAIN) to make it easier for me identifying sections while using right sidebar in VSCode.
+    Text to ASCII converter I used: http://patorjk.com/software/taag/#p=display&v=3&f=ANSI%20Regular&t=smart%20control%20adapter
 -->
 
 <head>
 
-    <!-- Load ioBroker stuff. Dir '../../' is 'iobroker/node_modules/iobroker.admin/www'  -->
+    <!-- Load ioBroker files. Dir '../../' is 'iobroker/node_modules/iobroker.admin/www'  -->
     <link rel="stylesheet" type="text/css" href="../../css/adapter.css" />
     <script type="text/javascript" src="../../lib/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="../../socket.io/socket.io.js"></script>
@@ -24,8 +19,8 @@ Text to ASCII: http://patorjk.com/software/taag/#p=display&v=3&f=ANSI%20Regular&
 
     <!-- For menu to select states - selectID.js (node_modules/iobroker.admin/www/lib/js/)  -->
     <script type="text/javascript"          src="../../lib/js/jquery-ui.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../../lib/css/fancytree/ui.fancytree.min.css"/>
     <script type="text/javascript"          src="../../lib/js/jquery.fancytree-all.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../lib/css/fancytree/ui.fancytree.min.css"/>
     <script type="text/javascript"          src="../../lib/js/selectID.js"></script>
 
     <!-- Our style.css -->
@@ -34,6 +29,8 @@ Text to ASCII: http://patorjk.com/software/taag/#p=display&v=3&f=ANSI%20Regular&
     <!-- Our index_m.js -->
     <script type="text/javascript" src="index_m.js"></script>
 
+    <!-- FancyTree custom style, must be below standard fancytree style -->
+    <link rel="stylesheet" type="text/css" href="admin/fancytree/skin-lion/ui.fancytree.min.css" />
 
 </head>
 
@@ -79,6 +76,7 @@ Text to ASCII: http://patorjk.com/software/taag/#p=display&v=3&f=ANSI%20Regular&
 
                 <!-- Section "How to start?" -->
                 <div class="row">
+
                     <div class="col s12">
                         <p style="font-size: 1.25em; font-weight: bold; margin-top: 1.5em; margin-bottom: 2.0em; ">For English or any other language: <a target="_blank" href="https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/docs/translations.md"><span class="translate">Please click here</span></a></p>
                         <h5 class="translate">Anleitung</h5>
@@ -679,7 +677,9 @@ Text to ASCII: http://patorjk.com/software/taag/#p=display&v=3&f=ANSI%20Regular&
                                             <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
                                             <th class="header translate" data-name="name">Name des Auslösers</th>
                                             <th style="width: 140px" class="header translate" data-name="time">Zeit</th>
+                                            <th style="width: 40px;" data-buttons="selectAdditionalConditions" class="header"></th>
                                             <th class="mOptional header translate" data-name="additionalConditions" data-type="select multiple">Zusätzlich muss erfüllt sein</th>
+                                            <th style="width: 40px;" data-buttons="selectNever" class="header"></th>
                                             <th class="mOptional header translate" data-name="never" data-type="select multiple">Nie auslösen wenn...</th>
                                             <th style="width: 50px" class="header translate" data-name="targetOff" data-type="checkbox">Ziel aus?</th>
                                             <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
@@ -739,7 +739,12 @@ Text to ASCII: http://patorjk.com/software/taag/#p=display&v=3&f=ANSI%20Regular&
                                           <tr>
                                             <td class="translate">Zu schaltende Zielgeräte</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Wähle hier ein oder mehrere zu schaltende Zielgeräte aus, die geschalten werden, sobald ein Auslöser auslöst und die Ausführung und Bedingungen zutreffen.</td>
+                                            <td class="translate">Wähle hier ein oder mehrere zu schaltende Zielgeräte aus, die geschalten werden, sobald ein Auslöser auslöst und die Ausführung und Bedingungen zutreffen.
+                                                <br><br>Mit dem blauen Button links daneben kannst du bei vielen Zielgeräten deutlich schneller auswählen. Es öffnet sich ein Dialog, 
+                                                in dem du die Zielgeräte leichter finden, filtern und auswählen kannst.
+                                                <br><strong>Pro-Tipp</strong>: Wähle im Reiter "1. ZIELGERÄTE" für die Zielgeräte-Namen Punkte als Trennung und organisere diese z.B. nach Räumen und Geräten, z.B. "Wohnzimmer.Hauptlicht.30%", "Wohnzimmer.Hauptlicht.70%", etc.
+                                                Damit werden dir hier die Zielgeräte dann als Ordner angezeigt: "Wohnzimmer > Hauptlicht > 30%", "Wohnzimmer > Hauptlicht > 70%"
+                                            </td>
                                           </tr>
                                           <tr>
                                             <td class="translate">Aus nach x sec</td>
@@ -756,6 +761,7 @@ Text to ASCII: http://patorjk.com/software/taag/#p=display&v=3&f=ANSI%20Regular&
                                 </div>
                             </li>
                         </ul>
+
                         <!-- Start Options Table -->
                         <div class="col s12" id="tableZones">
 
@@ -773,7 +779,9 @@ Text to ASCII: http://patorjk.com/software/taag/#p=display&v=3&f=ANSI%20Regular&
                                         <tr>
                                             <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
                                             <th class="header translate" data-name="name">Name der Zone</th>
+                                            <th style="width: 40px;" data-buttons="selectTriggers" class="header"></th>
                                             <th class="header translate" data-name="triggers" data-type="select multiple">Auslöser</th>
+                                            <th style="width: 40px;" data-buttons="selectTargetsMenu" class="header"></th>
                                             <th class="header translate" data-name="targets" data-type="select multiple">Zu schaltende Zielgeräte</th>
                                             <th style="width: 80px" class="mOptional header translate" data-name="offAfter" data-type="number">Aus nach x sek</th>
                                             <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
@@ -888,7 +896,9 @@ Text to ASCII: http://patorjk.com/software/taag/#p=display&v=3&f=ANSI%20Regular&
                                             <th style="width: 35px" class="header translate" data-name="fri" data-type="checkbox">Fr</th>
                                             <th style="width: 35px" class="header translate" data-name="sat" data-type="checkbox">Sa</th>
                                             <th style="width: 35px" class="header translate" data-name="sun" data-type="checkbox">So</th>
+                                            <th style="width: 40px;" data-buttons="selectAdditionalConditions" class="header"></th>
                                             <th class="mOptional header translate" data-name="additionalConditions" data-type="select multiple">Zusätzlich muss erfüllt sein</th>
+                                            <th style="width: 40px;" data-buttons="selectNever" class="header"></th>
                                             <th class="mOptional header translate" data-name="never" data-type="select multiple">Nie schalten wenn...</th>
                                             <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
                                         </tr>
@@ -1006,8 +1016,41 @@ Text to ASCII: http://patorjk.com/software/taag/#p=display&v=3&f=ANSI%20Regular&
 
         </div>
 
-        <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+
+        <!--
+        ██████  ██  █████  ██       ██████   ██████  ███████ 
+        ██   ██ ██ ██   ██ ██      ██    ██ ██       ██      
+        ██   ██ ██ ███████ ██      ██    ██ ██   ███ ███████ 
+        ██   ██ ██ ██   ██ ██      ██    ██ ██    ██      ██ 
+        ██████  ██ ██   ██ ███████  ██████   ██████  ███████             
+        -->
         <div class="m material-dialogs">
+
+            <!-- DIALOG: Select Settings (like Triggers or Target Devices) -->
+            <div id="dialog-select-settings" class="modal modal-fixed-footer">
+                <div class="modal-content">
+                    <div class="row">
+                        <div class="col s12">
+                            <h6 class="title"><span class="translate">Placeholder (will be replaced by jQuery)</span> 
+                        </div>
+                    </div>
+                    <div class="row" style="padding-left:12px; padding-right:12">
+                        <p>
+                            <input class="value fancy-filter" name="search" placeholder="Filter..." autocomplete="off">
+                            <button id="btnResetSearch">&times;</button>
+                            <span id="matches"></span>
+                        </p>
+                        <div class="row" id="fancytree-select-settings"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a class="modal-action modal-close waves-effect waves-green btn btn-set"><i class="large material-icons left">check_circle</i><span class="translate">Select</span></a>
+                    <a class="modal-action modal-close waves-effect waves-green btn btn-close"><i class="large material-icons left">cancel</i><span class="translate">Cancel</span></a>
+                </div>
+            </div>
+
+
+            <!-- DIALOG: State Selection (SelectId). #dialog-select-member is a ioBroker ID we are using -->
             <div id="dialog-select-member" class="modal modal-fixed-footer">
                 <div class="modal-content">
                     <div class="row">
@@ -1019,12 +1062,11 @@ Text to ASCII: http://patorjk.com/software/taag/#p=display&v=3&f=ANSI%20Regular&
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a class="modal-action modal-close waves-effect waves-green btn btn-set"><i class="large material-icons left">check</i><span class="translate">Select</span></a>
-                    <a class="modal-action modal-close waves-effect waves-green btn btn-close"><i class="large material-icons left ">close</i><span class="translate">Cancel</span></a>
+                    <a class="modal-action modal-close waves-effect waves-green btn btn-set"><i class="large material-icons left">check_circle</i><span class="translate">Select</span></a>
+                    <a class="modal-action modal-close waves-effect waves-green btn btn-close"><i class="large material-icons left">cancel</i><span class="translate">Cancel</span></a>
                 </div>
             </div>        
         </div>
-        <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
 
 
     </div> <!-- Adapter Container-->

@@ -63,7 +63,7 @@ code { padding: 2px 4px; font-size: 1.05em !important; color: #2696ef; backgroun
 /* Links */
 .page a:link, .page a:visited { color: #0d47a1;}      /* unvisited link */
 .page a:visited { color:#616e83; } /* visited link */
-.page a:visited { color:#2696ef;; } /* visited link */
+.page a:visited { color:#2696ef; } /* visited link */
 .page a:hover { text-decoration: underline; } /* mouse over link */
 .page a:active { color: #0d47a1; } /* selected link */
 
@@ -92,7 +92,7 @@ code { padding: 2px 4px; font-size: 1.05em !important; color: #2696ef; backgroun
 .collapsible-body.instructions td { line-height: 1.7em; }
 
 /* For selectID.js (node_modules/iobroker.admin/www/lib/js/) */
-#dialog-select-member { z-index: 9999 !important; width:  calc(100% - 150px) !important;  }
+#dialog-select-member { z-index: 9999 !important; width:calc(100% - 150px) !important; max-height: 75% !important; }
 #dialog-select-member .modal-footer { width:calc(100% - 20px) !important; }
 #dialog-select-member .modal-content span {font-size:1.0em !important;}
 #dialog-select-member .main-toolbar-table {height: 28px !important;}
@@ -105,3 +105,14 @@ code { padding: 2px 4px; font-size: 1.05em !important; color: #2696ef; backgroun
 .table-filter input    { color:#2696ef !important; padding-left: 5px !important; font-weight:bold; width: 200px !important; margin:0 0 0 20px !important;  height: 2.5rem !important;}
 .table-filter button   { left: -27px; width: 1.6em !important; height: 1.6em !important;}
 .table-filter button i {font-size: .9rem !important; line-height: 1rem !important; }
+
+/* FancyTree for Selecting Target Devices */
+#fancytree-select-settings ul.fancytree-container li { padding-left: 1.3em !important; }
+#fancytree-select-settings ul.fancytree-container>li { padding-left:0px !important; }
+#fancytree-select-settings ul.fancytree-container {padding: 10px 3px 10px 3px !important;}
+#fancytree-select-settings span.fancytree-node {margin-top: 5px; margin-bottom:5px;}
+#fancytree-select-settings span.fancytree-selected span.fancytree-title { background-color: #2696ef !important; color:white; font-style: normal !important; }
+#fancytree-select-settings .fancytree-plain.fancytree-container.fancytree-treefocus span.fancytree-active span.fancytree-title {background-color: #cbe8f6; color:black; font-style: normal;}
+#fancytree-select-settings .fancytree-plain.fancytree-container.fancytree-treefocus span.fancytree-selected span.fancytree-title {background-color: #2696ef; color:white; font-style: normal;}
+input.fancy-filter {width: 200px !important;}
+span.fancytree-title {font-size:16px !important;}

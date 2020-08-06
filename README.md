@@ -50,7 +50,8 @@ However, we hope you keep Sentry Error Reporting activated. This helps us as dev
 
 ## Changelog
 
-### 0.1.x - current Github developer version
+### 0.1.2-beta.1
+* (Mic.M) New feature: Additional dialogs in various tables to easily select items (like target devices) by implementing a modal dialog, FancyTree, etc.
 * (Mic-M) Improved table filter functionality in adapter configuration
 
 ### 0.1.1-beta.6
