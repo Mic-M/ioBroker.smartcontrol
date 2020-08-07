@@ -28,6 +28,24 @@ for (const lpTableId of tableIds) {
  ************************************************************************/
 function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
 
+    // This handles if the save button is clickable or not.
+    // From Adapter Creator.
+    if (!settings) return;
+    $('.value').each(function () {
+        const $key = $(this);
+        const id = $key.attr('id');
+        if ($key.attr('type') === 'checkbox') {
+            // do not call onChange direct, because onChange could expect some arguments
+            $key.prop('checked', settings[id])
+                .on('change', () => onChange());
+        } else {
+            // do not call onChange direct, because onChange could expect some arguments
+            $key.val(settings[id])
+                .on('change', () => onChange())
+                .on('keyup', () => onChange());
+        }
+    });    
+
     // load fancytree for target device selection modal dialog
     fancytreeLoad('fancytree-select-settings');
    
@@ -83,7 +101,7 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
                 break;
             case 'tableSchedules':
                 dialogSelectSettings({tableId:'tableSchedules', triggerDataCmd:'selectAdditionalConditions', targetField:'additionalConditions', dialogTitle:'Wähle zusätzliche Bedingungen' });
-                dialogSelectSettings({tableId:'tableSchedules', triggerDataCmd:'selectNever', targetField:'never', dialogTitle:`Wähle 'Nie auslösen wenn...'` });
+                dialogSelectSettings({tableId:'tableSchedules', triggerDataCmd:'selectNever', targetField:'never', dialogTitle:`Wähle 'Nie schalten wenn...'` });
                 updateTableButtonIcons(tableId, 'pageview');
                 break;       
             default:

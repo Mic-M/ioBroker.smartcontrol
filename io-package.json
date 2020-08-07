@@ -1,119 +1,16 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "0.1.2-beta.1",
+        "version": "0.1.2-beta.2",
         "news": {
+            "0.1.2-beta.2": {
+                "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
+            },
             "0.1.2-beta.1": {
                 "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
             },
             "0.1.1-beta.6": {
                 "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-            },
-            "0.1.1-beta.5": {
-                "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-            },
-            "0.1.1-beta.4": {
-                "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-            },
-            "0.1.1-beta.3": {
-                "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-            },
-            "0.1.1-beta.2": {
-                "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-            },
-            "0.1.1-beta.1": {
-                "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-            },
-            "0.1.0-alpha.11": {
-                "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-            },
-            "0.1.0-alpha.10": {
-                "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-            },
-            "0.1.0-alpha.9": {
-                "en": "New feature: Triggers (Auslöser) - new option to switch target devices off and not on for 'Other Triggers' and 'Time specific Triggers'"
-            },
-            "0.1.0-alpha.8": {
-                "en": "Editorial only: rename '5. ZEITPLÄNE' (SCHEDULES) into '5. AUSFÜHRUNG' (EXECUTION) throughout the code"
-            },
-            "0.1.0-alpha.7": {
-                "en": "Extend option 'triggerStatesAck' to include alias and namespaces not from adapters"
-            },
-            "0.1.0-alpha.6": {
-                "en": "Remove requirement that trigger states must be unique"
-            },
-            "0.1.0-alpha.5": {
-                "en": "New feature: allow comparison operators >=, <=, >, < for trigger states",
-                "de": "Neue Funktion: Ermögliche Vergleichsoperatoren >=, <=, >, < für Trigger-Datenpunkte",
-                "ru": "Новая функция: разрешить операторы сравнения> =, <=,>, <для состояний триггера",
-                "pt": "Novo recurso: permitir operadores de comparação> =, <=,>, <para estados do acionador",
-                "nl": "Nieuwe functie: laat vergelijkingsoperatoren> =, <=,>, <toe voor triggerstatussen",
-                "fr": "Nouvelle fonctionnalité: autoriser les opérateurs de comparaison> =, <=,>, <pour les états de déclenchement",
-                "it": "Nuova funzione: consenti operatori di confronto> =, <=,>, <per stati trigger",
-                "es": "Nueva función: permitir operadores de comparación> =, <=,>, <para estados de activación",
-                "pl": "Nowa funkcja: zezwól operatorom porównania> =, <=,>, <dla stanów wyzwalających",
-                "zh-cn": "新功能：允许比较运算符> =，<=，>，<用于触发状态"
-
-            },
-            "0.1.0-alpha.4": {
-                "en": "translations",
-                "de": "Übersetzungen",
-                "ru": "переводы",
-                "pt": "traduções",
-                "nl": "vertalingen",
-                "fr": "traductions",
-                "it": "traduzioni",
-                "es": "traducciones",
-                "pl": "tłumaczenia",
-                "zh-cn": "翻译"
-            },
-            "0.1.0-alpha.3": {
-                "en": "multiple changes, improvements and enhancements",
-                "de": "mehrfache Änderungen, Verbesserungen und Erweiterungen",
-                "ru": "множественные изменения, улучшения и улучшения",
-                "pt": "várias mudanças, melhorias e aprimoramentos",
-                "nl": "meerdere wijzigingen, verbeteringen en verbeteringen",
-                "fr": "plusieurs changements, améliorations et améliorations",
-                "it": "molteplici modifiche, miglioramenti e miglioramenti",
-                "es": "múltiples cambios, mejoras y mejoras",
-                "pl": "wiele zmian, ulepszeń i ulepszeń",
-                "zh-cn": "多种更改，改进和增强"
-            },
-            "0.1.0-alpha.2": {
-                "en": "multiple changes, improvements and enhancements",
-                "de": "mehrfache Änderungen, Verbesserungen und Erweiterungen",
-                "ru": "множественные изменения, улучшения и улучшения",
-                "pt": "várias mudanças, melhorias e aprimoramentos",
-                "nl": "meerdere wijzigingen, verbeteringen en verbeteringen",
-                "fr": "plusieurs changements, améliorations et améliorations",
-                "it": "molteplici modifiche, miglioramenti e miglioramenti",
-                "es": "múltiples cambios, mejoras y mejoras",
-                "pl": "wiele zmian, ulepszeń i ulepszeń",
-                "zh-cn": "多种更改，改进和增强"
-            },
-            "0.1.0-alpha.1": {
-                "en": "multiple changes, improvements and enhancements",
-                "de": "mehrfache Änderungen, Verbesserungen und Erweiterungen",
-                "ru": "множественные изменения, улучшения и улучшения",
-                "pt": "várias mudanças, melhorias e aprimoramentos",
-                "nl": "meerdere wijzigingen, verbeteringen en verbeteringen",
-                "fr": "plusieurs changements, améliorations et améliorations",
-                "it": "molteplici modifiche, miglioramenti e miglioramenti",
-                "es": "múltiples cambios, mejoras y mejoras",
-                "pl": "wiele zmian, ulepszeń i ulepszeń",
-                "zh-cn": "多种更改，改进和增强"
-            },
-            "0.0.3": {
-                "en": "release for very early testers",
-                "de": "Release für sehr frühe Tester",
-                "ru": "релиз для очень ранних тестеров",
-                "pt": "versão para testadores muito precoces",
-                "nl": "release voor zeer vroege testers",
-                "fr": "sortie pour les premiers testeurs",
-                "it": "rilascio per tester molto precoci",
-                "es": "lanzamiento para probadores muy tempranos",
-                "pl": "wydanie dla bardzo wczesnych testerów",
-                "zh-cn": "发布给非常早期的测试人员"
             }
         },
         "title": "Smart Control",
