@@ -57,7 +57,7 @@ const globals = {
             check_1: {id: 'name', type:'name', deactivateIfError:true, removeForbidden:true },
             check_2: {id: 'stateId', type:'statePath', deactivateIfError:true },
             check_3: {id: 'stateVal', type:'stateValue', stateValueStatePath:'stateId', deactivateIfError:true },
-            check_4: {id: 'duration', type:'number', numberLowerLimit: 2, deactivateIfError:true },
+            check_4: {id: 'duration', type:'number', numberLowerLimit: 2, deactivateIfError:true, optional:true },
             check_5: {id: 'briStateId', type:'statePath', deactivateIfError:true, optional:true },
             check_6: {id: 'briThreshold', type:'number', deactivateIfError:true, optional:true },
         },

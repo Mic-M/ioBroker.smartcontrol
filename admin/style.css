@@ -107,12 +107,23 @@ code { padding: 2px 4px; font-size: 1.05em !important; color: #2696ef; backgroun
 .table-filter button i {font-size: .9rem !important; line-height: 1rem !important; }
 
 /* FancyTree for Selecting Target Devices */
-#fancytree-select-settings ul.fancytree-container li { padding-left: 1.3em !important; }
-#fancytree-select-settings ul.fancytree-container>li { padding-left:0px !important; }
-#fancytree-select-settings ul.fancytree-container {padding: 10px 3px 10px 3px !important;}
-#fancytree-select-settings span.fancytree-node {margin-top: 5px; margin-bottom:5px;}
-#fancytree-select-settings span.fancytree-selected span.fancytree-title { background-color: #2696ef !important; color:white; font-style: normal !important; }
-#fancytree-select-settings .fancytree-plain.fancytree-container.fancytree-treefocus span.fancytree-active span.fancytree-title {background-color: #cbe8f6; color:black; font-style: normal;}
-#fancytree-select-settings .fancytree-plain.fancytree-container.fancytree-treefocus span.fancytree-selected span.fancytree-title {background-color: #2696ef; color:white; font-style: normal;}
-input.fancy-filter {width: 200px !important;}
-span.fancytree-title {font-size:16px !important;}
+
+#dialog-select-settings { overflow-y: hidden !important ;}
+#dialog-select-settings ul.fancytree-container { overflow-y: scroll; height: calc(100% - 250px); } /* prevent vertical scroll */
+#dialog-select-settings input.fancy-filter { color:#2696ef !important; padding-left: 5px !important; width: 200px !important; margin:0 0 0 25px !important;  height: 2.5rem !important;}
+#dialog-select-settings div#matches  { margin-left: -20px !important; display:inline-block !important; }
+#dialog-select-settings button#btnResetSearch { left: 230px; width: 1.6em !important; height: 1.6em !important;}
+#dialog-select-settings button#btnResetSearch i {font-size: .9rem !important; line-height: 1rem !important; }
+#dialog-select-settings a#fancy-collapse-all, #dialog-select-settings a#fancy-expand-all {width: 2em !important; height: 2em !important;}
+#dialog-select-settings a#fancy-collapse-all>i, #dialog-select-settings a#fancy-expand-all>i {font-size: .9rem !important; line-height: 1.8em !important; }
+#dialog-select-settings .modal-content div.row>p {margin:0 !important;}
+#dialog-select-settings ul.fancytree-container li { padding-left: 1.3em !important; }
+#dialog-select-settings ul.fancytree-container>li { padding-left:0px !important; }
+#dialog-select-settings ul.fancytree-container {padding: 10px 3px 10px 3px !important;}
+#dialog-select-settings span.fancytree-node {margin-top: 5px; margin-bottom:5px;}
+#dialog-select-settings span.fancytree-selected span.fancytree-title { background-color: #2696ef !important; color:white; font-style: normal !important; }
+#dialog-select-settings .fancytree-plain.fancytree-container.fancytree-treefocus span.fancytree-active span.fancytree-title {background-color: #cbe8f6; color:black; font-style: normal;}
+#dialog-select-settings .fancytree-plain.fancytree-container.fancytree-treefocus span.fancytree-selected span.fancytree-title {background-color: #2696ef; color:white; font-style: normal;}
+#dialog-select-settings span.fancytree-title {font-size:16px !important;}
+#dialog-select-settings #fancy-explanation {font-size:.9em; font-style: italic; color:#21448f}
+#dialog-select-settings .modal-content {padding-bottom: 0 !important; padding-right: 0 !important; height: calc(100% - 10px)!important }

@@ -22,15 +22,31 @@ for (const lpTableId of tableIds) {
     optionTablesSettings[lpTableId] = [];
 }
 
+/** More Globals, being set once load() is called */
+let g_settings; // To have globally the settings available.
+const g_zonesTargetsOverwrite = {}; // { 'Hallway': {'Hallway.Light':'new val' 'Hallway.Radio':'Radio XYZ'} }, {'Bath Light': '33%'} }
 
 /************************************************************************
  *** This is called by the admin adapter once the settings page loads ***
  ************************************************************************/
 function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
 
+    // Adapter Settings
+    if (!settings) return;
+    g_settings = settings;
+
+    /**
+     * Set tableZones>targetsOverwrite to global variable
+     */
+    for (const lpZonesRow of settings['tableZones']) {
+        const lpZoneName = lpZonesRow.name;
+        if(!isLikeEmpty(lpZonesRow['targetsOverwrite'])) {   
+            g_zonesTargetsOverwrite[lpZoneName] = lpZonesRow['targetsOverwrite'];
+        }    
+    }
+
     // This handles if the save button is clickable or not.
     // From Adapter Creator.
-    if (!settings) return;
     $('.value').each(function () {
         const $key = $(this);
         const id = $key.attr('id');
@@ -227,9 +243,11 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
         queryResult.on('click', function() {
 
             // A few variables
+            let anyChange = false; // true if anything changed, i.e. either checkbox (de-)selected, or overwrite option val changed
             const rowNum = $(this).data('index'); // table row number which was clicked, starting at zero. data-index is also the row number starting at zero
             const dropDownAllOptions = getSelectOptions(`#${tableId} .values-input[data-name="${targetField}"][data-index="${rowNum}"]`, true);
             const dropDownSelectionArray = getSelectOptions(`#${tableId} .values-input[data-name="${targetField}"][data-index="${rowNum}"]`, false);
+            const editTargetVals = (triggerDataCmd == 'selectTargetsMenu') ? true : false;
 
             // Set modal title
             $('#dialog-select-settings>.modal-content>.row>.col>h6.title').text(dialogTitle);
@@ -237,8 +255,13 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
             // Initialize dialog (modal)
             initDialog('dialog-select-settings', dialogOkClose);
             
+            // Hide explanation in dialog if editTargetVals is false
+            if (!editTargetVals) $('#dialog-select-settings #fancy-explanation').hide();
+
             // Set current settings as source into FancyTree
-            $('#fancytree-select-settings').fancytree('option', 'source', convertToFancySource(dropDownAllOptions, dropDownSelectionArray));
+            // If Target Device Selection, we set according zoneName
+            const zoneName = (editTargetVals) ? (g_settings.tableZones[rowNum].name) : undefined; // like "Relax Area"
+            $('#fancytree-select-settings').fancytree('option', 'source', convertToFancySource(dropDownAllOptions, dropDownSelectionArray, zoneName));
 
             /**
              * Sort nodes
@@ -258,24 +281,64 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
             // Called once user clicked "Ok" in the dialog
             function dialogOkClose() {
 
-                const selectedFancyNodes = $.ui.fancytree.getTree('#fancytree-select-settings').getSelectedNodes();
+                const tree = $.ui.fancytree.getTree('#fancytree-select-settings');
+                const allFancyNodes = tree.getRootNode().findAll('');
+                const selectedFancyNodes = tree.getSelectedNodes();
+                const zoneName = g_settings['tableZones'][rowNum]['name']; // Current Zone Name
 
-                // go out if user has not selected any node
-                if (!selectedFancyNodes) return; 
+                for (const lpNode of allFancyNodes) {
+                    if(!lpNode.children) { // We just need end nodes
+                        // If title has {xxx} at the end, we retrieve xxx
+                        const matches = lpNode.title.match(/{(.+)}$/);
+                        if (matches && matches[1] && matches[1].length > 0) {
+                            if (isLikeEmpty(g_zonesTargetsOverwrite) || isLikeEmpty(g_zonesTargetsOverwrite[zoneName])) {
+                                g_zonesTargetsOverwrite[zoneName] = {}; // Add key with empty object
+                            }
+                            // Add to global variable, e.g. '{'Bath.Mirror.Light':'20%'}'
+                            if ( isLikeEmpty(g_zonesTargetsOverwrite[zoneName][lpNode.key])
+                                || ( !isLikeEmpty(g_zonesTargetsOverwrite[zoneName][lpNode.key]) 
+                                     && g_zonesTargetsOverwrite[zoneName][lpNode.key] != matches[1] ) )
+                            {
+                                g_zonesTargetsOverwrite[zoneName][lpNode.key] = matches[1]; 
+                                anyChange = true;
+                            }
 
-                const selectedKeys = [];
-                //const target = `#${tableId} select.values-input[data-name="${targetField}"][data-index="${rowNum}"]`;
-                for (const selectedNode of selectedFancyNodes) {
-                    selectedKeys.push(selectedNode.key);
+                        } else {
+                            // Remove from global variable
+                            if (!isLikeEmpty(g_zonesTargetsOverwrite)
+                                && !isLikeEmpty(g_zonesTargetsOverwrite[zoneName])
+                                && !isLikeEmpty(g_zonesTargetsOverwrite[zoneName][lpNode.key]))
+                            {
+                                delete g_zonesTargetsOverwrite[zoneName][lpNode.key];
+                                anyChange = true;
+                            }
+                        }
+                    }
                 }
 
-                // go out if selected nodes did not change
-                if (arraysEqual(dropDownSelectionArray, selectedKeys)) return;
 
-                // Set to option tables, also to ensure materialize select field is being updated, save button is available, etc.
-                optionTablesSettings[tableId][rowNum][targetField] = selectedKeys;
-                onChange(true);
-                values2table(tableId, optionTablesSettings[tableId], onChange, function(){val2tableOnReady(tableId);});
+                const selectedKeys = [];
+                for (const selectedNode of selectedFancyNodes) {
+                    selectedKeys.push(selectedNode.key);
+
+                }
+
+                // check if selected nodes actually changed
+                if (!arraysEqual(dropDownSelectionArray, selectedKeys)) anyChange = true;
+
+                /**
+                 * Finally: Set to option tables, also to ensure materialize select field is being updated, save button is available, etc.
+                 */
+                if (anyChange) {
+
+                    // Option tables
+                    optionTablesSettings[tableId][rowNum][targetField] = selectedKeys;
+                    values2table(tableId, optionTablesSettings[tableId], onChange, function(){val2tableOnReady(tableId);});
+
+                    // Activate save button
+                    onChange(true);
+
+                }
                 
             }
             
@@ -291,11 +354,12 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
 
 /**
  * Save Options - Called by the admin adapter when the user clicks save
- * @param {function} callback - callback function
+ * @param {function} callback(settingsObject) - callback function containing the settings object to be saved.
  */
 function save(callback) { /*eslint-disable-line no-unused-vars*/
 
-    // example: select elements with class=value and build settings object
+    // Select elements with class=value and build settings object
+    // (from Adapter Creator)
     const obj = {};
     $('.value').each(function () {
         const $this = $(this);
@@ -305,17 +369,30 @@ function save(callback) { /*eslint-disable-line no-unused-vars*/
             obj[$this.attr('id')] = $this.val();
         }
     });
-    // ++++++ For option tables ++++++
+
+    // Set Option Table values
     for (const tableId of tableIds) {
         obj[tableId] = table2values(tableId);      
     }
 
+    // Set g_zonesTargetsOverwrite
+    // ! Must be after setting the Option Table Values
+    for (let i = 0; i < obj['tableZones'].length; i++) {
+
+        // get g_zonesTargetsOverwrite value for zone row
+        const overwriteObject = g_zonesTargetsOverwrite[obj['tableZones'][i]['name']]; // Like {'Hallway.Light':'new val' 'Hallway.Radio':'Radio XYZ'}
+        //if (g_zonesTargetsOverwrite[lpTableRow['name']] && !isLikeEmpty(g_zonesTargetsOverwrite[lpTableRow['name']]) ) {
+        if (overwriteObject && !isLikeEmpty(overwriteObject)) {
+            obj['tableZones'][i]['targetsOverwrite'] = overwriteObject;
+        } else {
+            delete obj['tableZones'][i]['targetsOverwrite'];
+        }
+
+    }
+
+    // Finally, save settings by calling callback function and provide the settings object
     callback(obj);
-
 }
-
-
-
 
 
 
@@ -492,14 +569,14 @@ function initDialog(id, callback) {
 /**
  * To be called in load() function of index_m.html / index_m.js 
  * @param {string} fancytreeId - like 'fancytree-select-settings' for #fancytree-select-settings
+ * @param {boolean}  [editTargetVals=false]  if true, adds an edit functionality to add values
  */
-// eslint-disable-next-line no-unused-vars
 function fancytreeLoad(fancytreeId) {
 
     $(`#${fancytreeId}`).fancytree({
         checkbox: true,
         checkboxAutoHide: undefined, // Display check boxes on hover only
-        extensions: ['filter'],
+        extensions: ['filter', 'edit'],
         quicksearch: true,
         filter: {
             autoApply: true,   // Re-apply last filter if lazy data is loaded
@@ -513,6 +590,54 @@ function fancytreeLoad(fancytreeId) {
             nodata: false,      // Display a 'no data' status node if result is empty
             mode: 'hide'       // 'dimm' to gray out unmatched nodes, 'hide' to remove unmatched node instead)
         },        
+
+        edit: {
+            // Available options with their default:
+            adjustWidthOfs: 4,   // null: don't adjust input size to content
+            inputCss: { minWidth: '3em' },
+            triggerStart: ['f2', 'dblclick', 'shift+click', 'mac+enter'],
+            beforeEdit: function(event, data){
+                if (data.node.children) return false; // Return false to prevent edit mode for folders (i.e. if nodes having children)
+                if (!data.node.data.overwriteTargets) return false; // Go out if we do not want to overwrite / set new target values
+            },
+            edit: function(event, data){        // Editor opened (available as data.input)
+                
+                // Some additional HTML/CSS
+                $('input.fancytree-edit-input').addClass('browser-default');
+                $('input.fancytree-edit-input').before(`<span>${data.node.key.split('.').pop()} - new value: {</span>`);
+                $('input.fancytree-edit-input').after(`<span>}</span>`);
+
+                const newVal = data.input.val();
+                const matches = newVal.match(/{(.+)}$/);
+                if (matches && matches[1] && matches[1].length > 0) {
+                    $('input.fancytree-edit-input').val(matches[1]);
+                } else {
+                    $('input.fancytree-edit-input').val('');
+                }
+            },
+
+            save:  $.noop,
+            beforeClose: $.noop,
+
+            // We handle all in close.
+            close: function(event, data) {
+                const key = data.node.key; // key, like "Bath.Lights.Mirror Light"
+                const nodeTitle = key.split('.').pop(); // like 'Mirror Light'                
+                const newVal = data.node.title; // actually the new value user entered, which is in "close" event this here
+                if (!newVal || newVal.length < 1) {
+                    data.node.setTitle(nodeTitle);
+                } else if (newVal.startsWith(nodeTitle)) {
+                    // to avoid result like Mirror Light {Mirror Light}
+                    data.node.setTitle(nodeTitle);
+                } else {
+                    // Set node title like 'Mirror Light {20%}'
+                    data.node.setTitle(`${nodeTitle} {${newVal}}`);
+                }
+            },
+
+        },
+
+
         selectMode: 2,         // 1:single, 2:multi(limited to actual selected items), 3:multi-hierarchy (will also select parent items)
         source: [], // We set this later
       
@@ -525,36 +650,31 @@ function fancytreeLoad(fancytreeId) {
             //loadError: 'Load error!',
             //moreData: 'More&#8230;',
             noData: 'Keine Treffer',
-        },
-
-        select: function(event, data) {
-
-            $('#statusLine').text(
-                event.type + ': ' + data.node.isSelected() + ' ' + data.node
-            );
-
-            // Get a list of all selected nodes, and convert to a key array:
-            const selKeys = $.map(data.tree.getSelectedNodes(), function(node){
-                return node.key;
-            });
-            $('#echoSelection3').text(selKeys.join(', '));
-    
-            // Get a list of all selected TOP nodes
-            const selRootNodes = data.tree.getSelectedNodes(true);
-            // ... and convert to a key array:
-            const selRootKeys = $.map(selRootNodes, function(node){
-                return node.key;
-            });
-            $('#echoSelectionRootKeys3').text(selRootKeys.join(', '));
-            $('#echoSelectionRoots3').text(selRootNodes.join(', '));
-        },
+        }
 
     });
 
+    
+
+    /**********************
+     * Event handlers
+     **********************/
     const tree = $.ui.fancytree.getTree(`#${fancytreeId}`);
 
+    //https://wwwendt.de/tech/fancytree/doc/jsdoc/jquery.fancytree.edit.js.html
+
     /**
-     * Event handlers
+     * Collapse/Expand All - Event Handler
+     */
+    $('a#fancy-expand-all').click(function() {
+        tree.visit(function(node){ node.setExpanded(); });
+    });
+    $('a#fancy-collapse-all').click(function() {
+        tree.visit(function(node){ node.setExpanded(false); });
+    });
+
+    /**
+     * Search - Event Handler
      */
     $('input[name=search]').on('keyup', function(e){
 
@@ -566,20 +686,24 @@ function fancytreeLoad(fancytreeId) {
             return;
         }
 
+        // Get matches
         const filterFunc = tree.filterBranches; // filterBranches = match whole branches, filterNodes = nodes only
         const n = filterFunc.call(tree, match);
+        $(`label[for='fancy-filter-input']`).text(`(${n} Treffer)`);
 
+        // Enable "reset search" button
         $('button#btnResetSearch').attr('disabled', false);
-        $('span#matches').text('(' + n + ' matches)');
+
 
     }).focus();    
       
     $('button#btnResetSearch').click(function(){
         $('input[name=search]').val('');
-        $('span#matches').text('');
+        $(`label[for='fancy-filter-input']`).text('');
         tree.clearFilter();
-    }).attr('disabled', true);
-      
+        $('button#btnResetSearch').attr('disabled', true);
+    });
+
     $('fieldset input:checkbox').change(function() {
         const id = $(this).attr('id');
         const flag = $(this).is(':checked');
@@ -602,11 +726,13 @@ function fancytreeLoad(fancytreeId) {
  * 
  * @param {array} allDottedStrings - array of ALL dotted strings, like: ['Bath.Radio.on', 'Bath.Light', 'Hallway']
  * @param {array} selectedDottedStrings - array of SELECTED dotted strings, like: ['Hallway']
+ * @param {string} [zoneName=undefined] - set Zone Name if you want to add target values.
  * @return {array}               Array for FancyTree source - https://github.com/mar10/fancytree/wiki/TutorialLoadData
  */
-function convertToFancySource(allDottedStrings, selectedDottedStrings) {
+function convertToFancySource(allDottedStrings, selectedDottedStrings, zoneName=undefined) {
 
     try {
+
         /**
          * First: Prepare array of objects, example:
          *     [
@@ -621,6 +747,9 @@ function convertToFancySource(allDottedStrings, selectedDottedStrings) {
 
         for (const lpDottedStr of allDottedStrings) {
 
+            // Like {'Hallway.Light':'new val' 'Hallway.Radio':'Radio XYZ'}
+            const targetsToOverwrite = (zoneName) ? g_zonesTargetsOverwrite[zoneName] : undefined; 
+            
             const dottedArr = lpDottedStr.split('.');
             for (let i = dottedArr.length-1; i > -1; i--) {
                 const resObj = {};
@@ -639,7 +768,25 @@ function convertToFancySource(allDottedStrings, selectedDottedStrings) {
                 // Title - 'Bath.Radio.on' -> 'on' if i=2
                 resObj.title = dottedArr[i]; 
 
-                // Check box for selected ones, but only last level
+
+                // If overwrite targets: add flag to easily identify
+                if (zoneName) {
+                    resObj.overwriteTargets = true; // to easily identify.
+                }                
+                
+                // If overwrite targets: Change the node title of each end node accordingly
+                if (zoneName && (i == dottedArr.length -1)) {
+                    if (targetsToOverwrite && !isLikeEmpty(targetsToOverwrite[lpDottedStr])) {
+                        resObj.title = `${resObj.title} {${targetsToOverwrite[lpDottedStr]}}`;
+                    }
+                }
+
+                // Always expand all nodes if selected by adding "expanded:true" to selected ones.
+                if (selectedDottedStrings.indexOf(lpDottedStr) != -1) {
+                    resObj.expanded = true;
+                }
+
+                // Check box for selected ones, but only to end nodes (last level)
                 if (i == dottedArr.length -1) {
                     resObj.selected = (selectedDottedStrings.indexOf(lpDottedStr) != -1) ? true : false;
                 } else {
@@ -766,3 +913,33 @@ function getSelectOptions(jQuery, all=false) {
         return values;
     }
 }
+
+
+/**
+ * Checks if Array or String is not undefined, null or empty.
+ * Array, object, or string containing just white spaces or >'< or >"< or >[< or >]< is considered empty
+ * 18-Jun-2020: added check for { and } to also catch empty objects.
+ * 08-Sep-2019: added check for [ and ] to also catch arrays with empty strings.
+ * @param  {any}  inputVar   Input Array or String, Number, etc.
+ * @return {boolean} True if it is undefined/null/empty, false if it contains value(s)
+ */
+function isLikeEmpty(inputVar) {
+    if (typeof inputVar !== 'undefined' && inputVar !== null) {
+        let strTemp = JSON.stringify(inputVar);
+        strTemp = strTemp.replace(/\s+/g, ''); // remove all white spaces
+        strTemp = strTemp.replace(/"+/g, '');  // remove all >"<
+        strTemp = strTemp.replace(/'+/g, '');  // remove all >'<
+        strTemp = strTemp.replace(/\[+/g, '');  // remove all >[<
+        strTemp = strTemp.replace(/\]+/g, '');  // remove all >]<
+        strTemp = strTemp.replace(/\{+/g, '');  // remove all >{<
+        strTemp = strTemp.replace(/\}+/g, '');  // remove all >}<
+        if (strTemp !== '') {
+            return false;
+        } else {
+            return true;
+        }
+    } else {
+        return true;
+    }
+}
+

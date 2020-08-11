@@ -236,7 +236,11 @@
                                           <tr>
                                             <td class="translate">Geräte-Name</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Name des Gerätes deiner Wahl. Verbotene Zeichen: <code>[</code> <code>]</code> <code>*</code> <code>,</code> <code>;</code> <code>'</code> <code>"</code> <code>`</code> <code><</code> <code>></code> <code>\</code> <code>?</code></td>
+                                            <td class="translate">
+                                                Name des Gerätes deiner Wahl. Verbotene Zeichen: <code>[</code> <code>]</code> <code>*</code> <code>,</code> <code>;</code> <code>'</code> <code>"</code> <code>`</code> <code><</code> <code>></code> <code>\</code> <code>?</code>
+                                                <br><br><strong>Tipp</strong>: Wähle für die Namen Punkte als Trennung und organisere diese z.B. nach Räumen und Geräten, z.B. "Wohnzimmer.Lichter.Decke", "Wohnzimmer.Lichter.Wand links", etc.
+                                                Damit werden dir die Zielgeräte unter "4.ZONEN", "Zu schaltende Zielgeräte", dann als Ordner angezeigt: "Wohnzimmer > Hauptlicht > 30%", "Wohnzimmer > Hauptlicht > 70%".
+                                            </td>
                                           </tr>
                                           <tr>
                                             <td class="translate">Datenpunkt zum einschalten</td>
@@ -246,7 +250,12 @@
                                           <tr>
                                             <td class="translate">Wert für 'an'</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Datenpunkt-Wert, der in 'Datenpunkt zum einschalten' gesetzt wird. Du kannst <code>true</code>, <code>false</code>, Nummern wie <code>144</code>, or Strings wie <code>Schalte Radio an</code> verwenden. Sämtliche Leerzeichen und Anführungszeichen (wie <code>"</code>) am Anfang und Ende werden automatisch entfernt.</td>
+                                            <td class="translate">
+                                                Datenpunkt-Wert, der in 'Datenpunkt zum einschalten' gesetzt wird. Du kannst <code>true</code>, <code>false</code>, 
+                                                Nummern wie <code>144</code>, or Strings wie <code>Schalte Radio an</code> verwenden. 
+                                                Sämtliche Leerzeichen und Anführungszeichen (wie <code>"</code>) am Anfang und Ende werden automatisch entfernt.
+                                                <br><br>Der Wert kann unter "4. ZONEN", "Zu schaltende Zielgeräte" überschrieben werden. 
+                                            </td>
                                           </tr>
                                           <tr>
                                             <td class="translate">Datenpunkt zum ausschalten</td>
@@ -431,8 +440,10 @@
                                           </tr>
                                           <tr>
                                             <td class="translate">Sek</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">Nach dieser Anzahl an Sekunden (und keiner weiteren zwischendurch erkannten Bewegung) werden die Zielgeräte ausgeschaltet.</td>
+                                            <td class="translate">Nein</td>
+                                            <td class="translate">Nach dieser Anzahl an Sekunden (und keiner weiteren zwischendurch erkannten Bewegung) werden die Zielgeräte ausgeschaltet.
+                                                <br>Zum deaktivieren: Leer lassen oder 0 setzen.
+                                            </td>
                                           </tr>
                                           <tr>
                                             <td>✘</td>
@@ -474,7 +485,7 @@
                                             <th style="width: 40px;" data-buttons="stateSelectPopupMotionState" class="header"></th>
                                             <th class="header translate" data-name="stateId">Datenpunkt Bewegungsmelder</th>
                                             <th style="width: 120px" class="header translate" data-name="stateVal">DP-Wert</th>
-                                            <th style="width: 60px" class="header translate" data-name="duration" data-type="number">Sek</th>
+                                            <th style="width: 60px" class="mOptional header translate" data-name="duration" data-type="number">Sek</th>
                                             <th style="width: 30px" class="mOptional header" data-name="notIfManual" data-type="checkbox">✘</th>
                                             <th style="width: 40px;" data-buttons="stateSelectPopupBriState" class="header"></th>
                                             <th class="mOptional header translate" data-name="briStateId">Datenpunkt Helligkeit</th>
@@ -742,8 +753,12 @@
                                             <td class="translate">Wähle hier ein oder mehrere zu schaltende Zielgeräte aus, die geschalten werden, sobald ein Auslöser auslöst und die Ausführung und Bedingungen zutreffen.
                                                 <br><br>Mit dem blauen Button links daneben kannst du bei vielen Zielgeräten deutlich schneller auswählen. Es öffnet sich ein Dialog, 
                                                 in dem du die Zielgeräte leichter finden, filtern und auswählen kannst.
-                                                <br><strong>Pro-Tipp</strong>: Wähle im Reiter "1. ZIELGERÄTE" für die Zielgeräte-Namen Punkte als Trennung und organisere diese z.B. nach Räumen und Geräten, z.B. "Wohnzimmer.Hauptlicht.30%", "Wohnzimmer.Hauptlicht.70%", etc.
-                                                Damit werden dir hier die Zielgeräte dann als Ordner angezeigt: "Wohnzimmer > Hauptlicht > 30%", "Wohnzimmer > Hauptlicht > 70%"
+                                                <br><br><strong>Zielwerte überschreiben</strong>: Im Dialog der erscheint, wenn man auf den blauen Button links daneben klickt, kann man durch
+                                                Doppelklick oder <code>F2</code> den <code>Wert für 'an'</code> von "1. ZIELGERÄTE" jeweils überschreiben, in dem man da einfach den neuen Zielwert einträgt.
+                                                Dieser erscheint dann in geschweiften Klammern hinter dem Namen, z.B. <code>Bad.Licht.Decke {33%}</code>.
+                                                <br><img src="img/select-target-devices-overwrite.gif" >
+                                                <br><br><strong>Tipp</strong>: Wähle im Reiter "1. ZIELGERÄTE" für die Zielgeräte-Namen Punkte als Trennung und organisere diese z.B. nach Räumen und Geräten, z.B. "Wohnzimmer.Lichter.Decke", "Wohnzimmer.Lichter.Wand links", etc.
+                                                Damit werden dir hier die Zielgeräte dann als Ordner angezeigt: "Wohnzimmer > Lichter > Decke", etc.
                                             </td>
                                           </tr>
                                           <tr>
@@ -1035,12 +1050,20 @@
                         </div>
                     </div>
                     <div class="row" style="padding-left:12px; padding-right:12">
-                        <p>
-                            <input class="value fancy-filter" name="search" placeholder="Filter..." autocomplete="off">
-                            <button id="btnResetSearch">&times;</button>
-                            <span id="matches"></span>
-                        </p>
+                        <div class="row">
+                            <a id="fancy-collapse-all" class="btn-floating btn-small waves-effect waves-light" title="Collapse all nodes"><i class="material-icons">folder</i></a>
+                            <a id="fancy-expand-all" class="btn-floating btn-small waves-effect waves-light" title="Expand all nodes"><i class="material-icons">folder_open</i></a>
+                            <button id="btnResetSearch" disabled="disabled" class="btn-floating btn-small waves-effect waves-green"><i class="material-icons">clear</i></button>
+                            <input id="fancy-filter-input" class="value fancy-filter" name="search" placeholder="Filter..." autocomplete="off">
+                            <label for="fancy-filter-input"></label>
+                            <div id="matches"></div>
+                        </div>
+                        <div class="row" id="fancy-explanation">
+                            <span class="translate">Durch Doppelklick oder F2 kann der <strong>Wert für 'an'</strong> von "1. ZIELGERÄTE" jew. überschrieben werden.</span>
+                        </div>
+                        <!-- The Fancy Tree -->
                         <div class="row" id="fancytree-select-settings"></div>
+                        <!-- The Fancy Tree -->
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -1048,7 +1071,6 @@
                     <a class="modal-action modal-close waves-effect waves-green btn btn-close"><i class="large material-icons left">cancel</i><span class="translate">Cancel</span></a>
                 </div>
             </div>
-
 
             <!-- DIALOG: State Selection (SelectId). #dialog-select-member is a ioBroker ID we are using -->
             <div id="dialog-select-member" class="modal modal-fixed-footer">
