@@ -50,6 +50,9 @@ However, we hope you keep Sentry Error Reporting activated. This helps us as dev
 
 ## Changelog
 
+### 0.1.2-beta.4
+* (Mic.M) Enhance functionality of validating/correcting config settings to also process overwritten target device values (which is new in 0.1.2-beta.3). Issue described [in ioBroker forum](https://forum.iobroker.net/post/472856).
+
 ### 0.1.2-beta.3
 * (Mic.M) New feature: Overwrite target device values in Zones table, addresses [#16](https://github.com/Mic-M/ioBroker.smartcontrol/issues/16) and [#15](https://github.com/Mic-M/ioBroker.smartcontrol/issues/15)
 * (Mic.M) Improved dialogs for selection: all selected nodes are expanded when opening, and additional buttons 'collapse all' and 'expand all' - [#17](https://github.com/Mic-M/ioBroker.smartcontrol/issues/17)

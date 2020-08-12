@@ -9,9 +9,6 @@
  * 
  */
 
-
-
-
 /*******************************************************************************************************
  * Globals
  *******************************************************************************************************/
@@ -91,6 +88,7 @@ const globals = {
             check_2: {id: 'triggers', type:'name', deactivateIfError:true, removeForbidden:true },
             check_3: {id: 'targets', type:'name', deactivateIfError:true, removeForbidden:true },
             check_4: {id: 'offAfter', type:'number', numberLowerLimit: 0, deactivateIfError:true, optional:true },
+            check_5: {id: 'targetsOverwrite', type:'overwrite'},
         },    
         {
             tableName: 'Schedules',
