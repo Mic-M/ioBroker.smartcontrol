@@ -50,6 +50,9 @@ However, we hope you keep Sentry Error Reporting activated. This helps us as dev
 
 ## Changelog
 
+### 0.1.2-beta.6
+* (Mic-M) New feature: Changing name fields in admin options now also sets the names in all other fields set to the new value.
+
 ### 0.1.2-beta.5
 * (Mic-M) New feature: option in Target Devices table to not verify if device is already on/off. Use case is e.g. for button states which do not reflect the actual status of the device in the state (like Broadlink, etc.). Addresses [request #5](https://github.com/Mic-M/ioBroker.smartcontrol/issues/5)
 

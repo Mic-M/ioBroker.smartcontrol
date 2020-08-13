@@ -187,7 +187,10 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
      * @param {string}  [addFirstItem]    Optional string to add as first item of drop-down.
      */
     function populateTable(sourceTableIds, sourceFieldIds, targetTableId, targetFieldId, addFirstItem = '') {
-        
+
+        // jQuery
+        const jQ = '*[data-name="' + targetFieldId + '"]';        
+
         if(!Array.isArray(sourceTableIds)) sourceTableIds = [sourceTableIds]; // wrap into array
         if(!Array.isArray(sourceFieldIds)) sourceFieldIds = [sourceFieldIds]; // wrap into array
         const result = [];
@@ -201,9 +204,12 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
             }
         }
         // Create dropdown menu
-        $('*[data-name="' + targetFieldId + '"]').data('options', result.join(';'));
+
+        $(jQ).data('options', result.join(';'));
+
         // Fill table
         values2table(targetTableId, optionTablesSettings[targetTableId], onChange, function(){val2tableOnReady(targetTableId);});
+    
         
     }
     
@@ -211,50 +217,49 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
      * Handle all Table field changes of column "name":
      * Apply any name change to according tables using the name
      * See https://stackoverflow.com/a/29118530
-     * 
-     * TODO =========================================================================
-     * TODO Still does not work for several tables using jQuery, jQuery simply does
-     * TODO not identify the section. Most likely caused due to calls of populateTable().
-     * TODO =========================================================================
      */
     const fieldChangeConfig = [
         {changedTableId:'tableTargetDevices', targetTableId:'tableZones', targetId:'targets'},
-
         {changedTableId:'tableConditions', targetTableId:'tableTriggerTimes', targetId:'additionalConditions'},
         {changedTableId:'tableConditions', targetTableId:'tableTriggerTimes', targetId:'never'},
         {changedTableId:'tableConditions', targetTableId:'tableSchedules', targetId:'additionalConditions'},
         {changedTableId:'tableConditions', targetTableId:'tableSchedules', targetId:'never'},
-
         {changedTableId:'tableTriggerMotion',  targetTableId:'tableZones', targetId:'triggers'},
         {changedTableId:'tableTriggerDevices', targetTableId:'tableZones', targetId:'triggers'},
         {changedTableId:'tableTriggerTimes',   targetTableId:'tableZones', targetId:'triggers'},
-
         {changedTableId:'tableZones', targetTableId:'tableSchedules', targetId:'name'},
     ];
     
     for (const lpConfig of fieldChangeConfig) {
         const jQueryName = `#${lpConfig.changedTableId} input.values-input[data-name="name"]`;
-        $(jQueryName).on('focusin', function(){ $(this).data('old-val', $(this).val()); });
-        $(jQueryName).on('change', function(){
+        // * Important - we cannot use //$(jQueryName).on('xxx') here. See https://stackoverflow.com/a/41457428
+        // *             It is not recognized if populateTable() is executed for that specific table.
+        // *             So we use $(document).on(), which works well.
+        //$(jQueryName).on('focusin', function(){ $(this).data('old-val', $(this).val()); });
+        $(document).on('focusin', jQueryName, function(){ $(this).data('old-val', $(this).val()); });
+        //$(jQueryName).on('change', function(){
+        $(document).on('change',jQueryName,function(){
             const previousValue = $(this).data('old-val').trim();
             const newValue = $(this).val().trim();
             if (previousValue != newValue && newValue.length > 0) {
                 // We have a field change.
-                // Now let's change all values in tableZones, field 'targets'
+                // Now let's change all values in according table and target field
                 for (let i = 0; i < g_settings[lpConfig.targetTableId].length; i++) {
-                    // if target is string, and not an array, simply put it into an array with just this element.
-                    let lpTargets;
-                    if (typeof g_settings[lpConfig.targetTableId][i] == 'string') {
-                        lpTargets = [g_settings[lpConfig.targetTableId][i][lpConfig.targetId]]; // put into array
+                    const lpTargets = g_settings[lpConfig.targetTableId][i][lpConfig.targetId];
+                    if (typeof lpTargets == 'string') {
+                        // Handle string
+                        if (lpTargets.trim() == previousValue.trim()) {
+                            g_settings[lpConfig.targetTableId][i][lpConfig.targetId] = newValue;
+                        }
                     } else {
-                        lpTargets = g_settings[lpConfig.targetTableId][i][lpConfig.targetId];
-                    }
-                    // now process the array.
-                    for (let k = 0; k < lpTargets.length; k++) {
-                        if (lpTargets[k].trim() == previousValue.trim()) {
-                            g_settings[lpConfig.targetTableId][i][lpConfig.targetId][k] = newValue;
+                        // We have an array. Process targets accordingly.
+                        for (let k = 0; k < lpTargets.length; k++) {
+                            if (lpTargets[k].trim() == previousValue.trim()) {
+                                g_settings[lpConfig.targetTableId][i][lpConfig.targetId][k] = newValue;
+                            }
                         }
                     }
+
                 }
             }
         });
