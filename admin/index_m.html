@@ -43,7 +43,7 @@
                 <img class="logo" src="smartcontrol.png" >
                 <p>
                     <span class="h-title">Smart Control</span><br />
-                    <span class="h-sub-title">Controlling ioBroker smarter…</p>
+                    <span class="h-sub-title">Controlling ioBroker smarter…</span>
                 </p>
             </div>
         </div>
@@ -146,7 +146,7 @@
                             <li>
                                 <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">Du brauchst Hilfe? Es gibt ein Problem? Du hast einen Verbesserungsvorschlag?</h6></div>
                                 <div class="collapsible-body instructions">
-                                    <p style="margin-top:0px" class="translate">
+                                    <div style="margin-top:0px" class="translate">
                                         <table>
                                             <thead>
                                             <tr>
@@ -180,7 +180,7 @@
 
                                         </tbody>
                                         </table>
-                                    </p>
+                                    </div>
                                 </div>
                             </li>
                         </ul>
@@ -237,7 +237,7 @@
                                             <td class="translate">Geräte-Name</td>
                                             <td class="translate">Ja</td>
                                             <td class="translate">
-                                                Name des Gerätes deiner Wahl. Verbotene Zeichen: <code>[</code> <code>]</code> <code>*</code> <code>,</code> <code>;</code> <code>'</code> <code>"</code> <code>`</code> <code><</code> <code>></code> <code>\</code> <code>?</code>
+                                                Name des Gerätes deiner Wahl. Verbotene Zeichen: <code>[</code> <code>]</code> <code>*</code> <code>,</code> <code>;</code> <code>'</code> <code>"</code> <code>`</code> <code>&lt;</code> <code>></code> <code>\</code> <code>?</code>
                                                 <br><br><strong>Tipp</strong>: Wähle für die Namen Punkte als Trennung und organisere diese z.B. nach Räumen und Geräten, z.B. "Wohnzimmer.Lichter.Decke", "Wohnzimmer.Lichter.Wand links", etc.
                                                 Damit werden dir die Zielgeräte unter "4.ZONEN", "Zu schaltende Zielgeräte", dann als Ordner angezeigt: "Wohnzimmer > Hauptlicht > 30%", "Wohnzimmer > Hauptlicht > 70%".
                                             </td>
@@ -258,6 +258,15 @@
                                             </td>
                                           </tr>
                                           <tr>
+                                            <td class="translate">Keine Prüfung (an)</td>
+                                            <td class="translate">Nein</td>
+                                            <td class="translate">
+                                                Vor dem Schalten wird immer geprüft, ob das Zielgerät bereits an ist lt. "Wert für 'an'".
+                                                <br>Wenn du diese Option aktivierst, erfolgt keine Überprüfung und es wird immer geschaltet.
+                                                <br>Use Case: z.B. ein Button als Datenpunkt. Siehe <a style="text-decoration: underline" href="https://github.com/Mic-M/ioBroker.smartcontrol/issues/5" target="_blank">Github Issue #5</a>.
+                                            </td>
+                                          </tr>
+                                          <tr>
                                             <td class="translate">Datenpunkt zum ausschalten</td>
                                             <td class="translate">Ja</td>
                                             <td class="translate">Datenpunkt des Zielgerätes zum Ausschalten, sobald ein Timeout erreicht wurde (z.B. keine Bewegung mehr und die Bewegungsmelder-Sekunden sind heruntergezählt auf 0) oder falls der Datenpunkt <code>smartcontrol.x.targetDevices.xxx.[Device Name]</code> geändert wurde.</td>
@@ -267,6 +276,13 @@
                                             <td class="translate">Ja</td>
                                             <td class="translate">Datenpunkt-Wert, der in 'Datenpunkt zum ausschalten' gesetzt wird. Du kannst <code>true</code>, <code>false</code>, Nummern wie <code>144</code>, or Strings wie <code>Schalte Radio an</code> verwenden. Sämtliche Leerzeichen und Anführungszeichen (wie <code>"</code>) am Anfang und Ende werden automatisch entfernt.</td>
                                           </tr>
+                                          <tr>
+                                            <td class="translate">Keine Prüfung (aus)</td>
+                                            <td class="translate">Nein</td>
+                                            <td class="translate">
+                                                Siehe <strong>Keine Prüfung</strong> weiter oben, nur hier für das ausschalten des Gerätes.
+                                            </td>
+                                          </tr>                                          
                                         </tbody>
                                       </table>
                                 </div>
@@ -279,7 +295,7 @@
                                 <div class="col"><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></div>
                                 <div class="table-filter input-field col s12 m6 l12">
                                     <input type="text" placeholder="Filter" />
-                                    <button class="btn-floating waves-effect waves-light blue btn-small" title="Filter löschen"><i class="material-icons">clear</i></button></span>
+                                    <button class="btn-floating waves-effect waves-light blue btn-small" title="Filter löschen"><i class="material-icons">clear</i></button>
                                 </div>
                             </div>
                             <div class="table-values-div">
@@ -291,9 +307,11 @@
                                             <th style="width: 40px;" data-buttons="stateSelectPopupOnState" class="header"></th>
                                             <th class="header translate" data-name="onState">Datenpunkt zum einschalten</th>
                                             <th style="width: 120px" class="header translate" data-name="onValue">Wert für 'an'</th>
+                                            <th style="width: 60px" class="mOptional header translate" data-name="noTargetOnCheck" data-type="checkbox">Keine Prüfung</th>
                                             <th style="width: 40px;" data-buttons="stateSelectPopupOffState" class="header"></th>
                                             <th class="header translate" data-name="offState">Datenpunkt zum ausschalten</th>
                                             <th style="width: 120px" class="header translate" data-name="offValue">Wert für 'aus'</th>
+                                            <th style="width: 60px" class="mOptional header translate" data-name="noTargetOffCheck" data-type="checkbox">Keine Prüfung</th>
                                             <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
                                         </tr>
                                     </thead>
@@ -368,7 +386,7 @@
                                 <div class="col"><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></div>
                                 <div class="table-filter input-field col s12 m6 l12">
                                     <input type="text" placeholder="Filter" />
-                                    <button class="btn-floating waves-effect waves-light blue btn-small" title="Filter löschen"><i class="material-icons">clear</i></button></span>
+                                    <button class="btn-floating waves-effect waves-light blue btn-small" title="Filter löschen"><i class="material-icons">clear</i></button>
                                 </div>
                             </div>
 
@@ -472,7 +490,7 @@
                                 <div class="col"><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></div>
                                 <div class="table-filter input-field col s12 m6 l12">
                                     <input type="text" placeholder="Filter" />
-                                    <button class="btn-floating waves-effect waves-light blue btn-small" title="Filter löschen"><i class="material-icons">clear</i></button></span>
+                                    <button class="btn-floating waves-effect waves-light blue btn-small" title="Filter löschen"><i class="material-icons">clear</i></button>
                                 </div>
                             </div>
 
@@ -541,7 +559,7 @@
                                                 Sobald der Wert vom Datenpunkt mit diesem Wert übereinstimmt, wird der Auslöser aktiviert. 
                                                 <br>Du kannst <code>true</code>, <code>false</code>, Nummern wie <code>144</code>, or Strings wie <code>ABCDEF</code> verwenden. 
                                                 <br>
-                                                <br>Ebenso kannst du die Vergleichs-Operatoren <code>></code>, <code><</code>, <code>>=</code> und <code><=</code> vor Zahlen schreiben.
+                                                <br>Ebenso kannst du die Vergleichs-Operatoren <code>&lt;</code>, <code>></code>, <code>>=</code> und <code>&lt;=</code> vor Zahlen schreiben.
                                                 <br>Um also auszulösen, wenn z.B. die Temperatur größer als 20°C ist, trägst du <code>>20</code> ein.
                                                 <br>
                                                 <br>Sämtliche Leerzeichen und Anführungszeichen (wie <code>"</code>) am Anfang und Ende werden automatisch entfernt.
@@ -578,7 +596,7 @@
                                 <div class="col"><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></div>
                                 <div class="table-filter input-field col s12 m6 l12">
                                     <input type="text" placeholder="Filter" />
-                                    <button class="btn-floating waves-effect waves-light blue btn-small" title="Filter löschen"><i class="material-icons">clear</i></button></span>
+                                    <button class="btn-floating waves-effect waves-light blue btn-small" title="Filter löschen"><i class="material-icons">clear</i></button>
                                 </div>
                             </div>
 
@@ -677,7 +695,7 @@
                                 <div class="col"><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></div>
                                 <div class="table-filter input-field col s12 m6 l12">
                                     <input type="text" placeholder="Filter" />
-                                    <button class="btn-floating waves-effect waves-light blue btn-small" title="Filter löschen"><i class="material-icons">clear</i></button></span>
+                                    <button class="btn-floating waves-effect waves-light blue btn-small" title="Filter löschen"><i class="material-icons">clear</i></button>
                                 </div>
                             </div>
 
@@ -784,7 +802,7 @@
                                 <div class="col"><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></div>
                                 <div class="table-filter input-field col s12 m6 l12">
                                     <input type="text" placeholder="Filter" />
-                                    <button class="btn-floating waves-effect waves-light blue btn-small" title="Filter löschen"><i class="material-icons">clear</i></button></span>
+                                    <button class="btn-floating waves-effect waves-light blue btn-small" title="Filter löschen"><i class="material-icons">clear</i></button>
                                 </div>
                             </div>
 
@@ -892,7 +910,7 @@
                                 <div class="col"><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></div>
                                 <div class="table-filter input-field col s12 m6 l12">
                                     <input type="text" placeholder="Filter" />
-                                    <button class="btn-floating waves-effect waves-light blue btn-small" title="Filter löschen"><i class="material-icons">clear</i></button></span>
+                                    <button class="btn-floating waves-effect waves-light blue btn-small" title="Filter löschen"><i class="material-icons">clear</i></button>
                                 </div>
                             </div>
 
@@ -1046,10 +1064,10 @@
                 <div class="modal-content">
                     <div class="row">
                         <div class="col s12">
-                            <h6 class="title"><span class="translate">Placeholder (will be replaced by jQuery)</span> 
+                            <h6 class="title"><span class="translate">Placeholder (will be replaced by jQuery)</span></h6>
                         </div>
                     </div>
-                    <div class="row" style="padding-left:12px; padding-right:12">
+                    <div class="row" style="padding-left:12px; padding-right:12px">
                         <div class="row">
                             <a id="fancy-collapse-all" class="btn-floating btn-small waves-effect waves-light" title="Collapse all nodes"><i class="material-icons">folder</i></a>
                             <a id="fancy-expand-all" class="btn-floating btn-small waves-effect waves-light" title="Expand all nodes"><i class="material-icons">folder_open</i></a>
