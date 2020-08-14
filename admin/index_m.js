@@ -409,14 +409,17 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
 
 } // load
 
+
 /**
  * Save Options - Called by the admin adapter when the user clicks save
  * @param {function} callback(settingsObject) - callback function containing the settings object to be saved.
  */
 function save(callback) { /*eslint-disable-line no-unused-vars*/
 
-    // Select elements with class=value and build settings object
-    // (from Adapter Creator)
+    /**
+     * Select elements with class=value and build settings object
+     * (from Adapter Creator)
+     */ 
     const obj = {};
     $('.value').each(function () {
         const $this = $(this);
@@ -438,7 +441,6 @@ function save(callback) { /*eslint-disable-line no-unused-vars*/
 
         // get g_zonesTargetsOverwrite value for zone row
         const overwriteObject = g_zonesTargetsOverwrite[obj['tableZones'][i]['name']]; // Like {'Hallway.Light':'new val' 'Hallway.Radio':'Radio XYZ'}
-        //if (g_zonesTargetsOverwrite[lpTableRow['name']] && !isLikeEmpty(g_zonesTargetsOverwrite[lpTableRow['name']]) ) {
         if (overwriteObject && !isLikeEmpty(overwriteObject)) {
             obj['tableZones'][i]['targetsOverwrite'] = overwriteObject;
         } else {
@@ -446,6 +448,41 @@ function save(callback) { /*eslint-disable-line no-unused-vars*/
         }
 
     }
+
+    /**
+     * Verify Tables
+     */
+    const errors = [];
+    const tablesToCheck = [
+        {tabName:'1. ZIELGERÄTE', tableRows:obj.tableTargetDevices},
+        {tabName:'3. AUSLÖSER', tableRows:obj.tableTriggerMotion.concat(obj.tableTriggerDevices, obj.tableTriggerTimes)},
+        {tabName:'4. ZONEN', tableRows:obj.tableZones},
+        {tabName:'5. AUSFÜHRUNG', tableRows:obj.tableSchedules},
+    ];
+    for (const lpCheckObj of tablesToCheck) {
+        let activeRows = 0;
+        let rowCounter = 0;
+        const tabName = lpCheckObj.tabName;
+        const tableRows = lpCheckObj.tableRows;
+        for (const lpTableRow of tableRows) {
+            rowCounter++;
+            if (lpTableRow.active) activeRows++;
+        }
+        if (rowCounter == 0 || activeRows == 0) {
+            errors.push(`<strong>Reiter "${tabName}"</strong> - Anzahl Einträge: ${rowCounter}, davon sind ${activeRows} aktiviert. Du brauchst mindestens einen aktiven Eintrag.`);
+        }
+    }
+    if (errors.length > 0) {
+        let errorHtml = '<ol>\n';
+        for (const errorEntry of errors) {
+            errorHtml += `<li>${errorEntry}</li>`;
+        }
+        errorHtml += '\n</ol>';
+        $('#dialog-save-verification #save-errors').html(errorHtml);
+        $('#dialog-save-verification').modal();
+        $('#dialog-save-verification').modal('open'); 
+        return; // do not save
+    }   
 
     // Finally, save settings by calling callback function and provide the settings object
     callback(obj);

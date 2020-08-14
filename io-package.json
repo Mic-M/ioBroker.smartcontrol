@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "0.1.2-beta.6",
+        "version": "0.1.2-beta.7",
         "news": {
+            "0.1.2-beta.7": {
+                "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
+            },
             "0.1.2-beta.6": {
                 "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
             },
@@ -90,7 +93,6 @@
                 "dsn": "https://5a01dc9b29b846218064c49700c7a302@sentry.iobroker.net/94"
             }
         }
-
     },
     "native": {
         "extendedInfoLog": true,

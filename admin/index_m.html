@@ -1108,6 +1108,28 @@
             </div>        
         </div>
 
+            <!-- DIALOG: Verification Options - Called once user clicks SAVE -->
+            <div id="dialog-save-verification" class="modal modal-fixed-footer">
+                <div class="modal-content">
+                    <div class="row">
+                        <div class="col s12">
+                            <h6 class="title"><span class="translate">Fehlerhafte Konfiguration</span></h6>
+                        </div>
+                    </div>
+                    <div class="row error-section" style="padding-left:12px; padding-right:12px">
+                        <p class="translate">Deine Konfiguration ist fehlerhaft, bitte wie folgt beheben:</p>
+                        <div id="save-errors" class="translate">Place holder, being replaced in save() function</div>
+                        <p class="further-info translate">
+                            Bitte beachte, dass hier nur geprüft wurde, ob jeweils eine Tabellenzeile da ist und und diese auch aktiv.
+                            Weitere Prüfungen finden nach dem Speichern beim Neustart des Adapters statt. Bitte daher auch unbedingt ins Log sehen.
+                            Etwaige weitere Fehler werden dort ausgegeben.
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a class="modal-action modal-close waves-effect waves-green btn btn-set"><i class="large material-icons left">check_circle</i><span class="translate">Ok</span></a>
+                </div>
+            </div>        
 
     </div> <!-- Adapter Container-->
 
