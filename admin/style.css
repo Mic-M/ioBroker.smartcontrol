@@ -39,6 +39,9 @@ table.table-values th.mOptional { color:#c9e7fa }
 
 /* format second column of option tables */
 table.table-values tr td:nth-child(2) input { font-weight:bold; }
+/* but not tableZoneExecution */
+#tableZoneExecution table.table-values tr td:nth-child(2) input { font-weight:normal; }
+
 
 /* specific format of second column of tableCombinedDevices */
 #tableCombinedDevices table.table-values tr td:nth-child(2) input { width: 40% !important; font-family: monospace; }
