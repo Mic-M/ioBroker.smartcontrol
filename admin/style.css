@@ -47,6 +47,10 @@ table.table-values tr td:nth-child(2) input { font-weight:bold; }
 /* to be able to adjust column width accordingly */
 table.table-values { table-layout:fixed; }
 
+/* Table Zones: Hide execution option rows */
+#tableZones th:nth-of-type(10) { visibility: hidden; display: none; }
+#tableZones td:nth-of-type(10) { visibility: hidden; display: none; }
+
 /* add space at top/bottom */
 .spaceTop3em {margin-top: 3em; }
 .spaceBottom3em {margin-top: 3em; }
@@ -129,10 +133,12 @@ code { padding: 2px 4px; font-size: 1.05em !important; color: #2696ef; backgroun
 #dialog-select-settings .modal-content {padding-bottom: 0 !important; padding-right: 0 !important; height: calc(100% - 10px)!important }
 
 /* Dialog called once SAVE button clicked and verification failed */
-/* Dialog called once SAVE button clicked and verification failed */
 #dialog-save-verification div.error-section { font-size: 1.3em; }
 #dialog-save-verification div.error-section ol>li { color:#d92626; padding-bottom:0.5em !important; }
 #dialog-save-verification { width: 50%  !important; height: 50% !important;}
 #dialog-save-verification .further-info {font-size:.75em;}
 #dialog-save-verification h6.title { background-color: #d92626 !important; }
 #dialog-save-verification .modal-footer .btn { background-color: #d92626 !important;; }
+
+/* Dialog for Zone Execution Config */
+#dialog-configure-zone-execution { width: 90% !important; height: 80% !important}

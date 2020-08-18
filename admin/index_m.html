@@ -60,7 +60,6 @@
                     <li class="tab col m1"><a href="#tabConditions">2. <span class="translate">Zusätzliche Bedingungen</span></a></li>
                     <li class="tab col m1"><a href="#tabTriggers">3. <span class="translate">Auslöser</span></a></li>
                     <li class="tab col m1"><a href="#tabZones">4. <span class="translate">Zonen</span></a></li>
-                    <li class="tab col m1"><a href="#tabSchedules">5. <span class="translate">Ausführung</span></a></li>
                     <li class="tab col m1"><a href="#tabOptions" class="translate">– Weitere Optionen</a></li>
                 </ul>
             </div>
@@ -103,15 +102,11 @@
                                         </tr>
                                         <tr>
                                             <td class="translate">3. AUSLÖSER</td>
-                                            <td class="translate">Hier trägst du alle Auslöser ein, also: Bewegungsmelder, Wandschalter, etc., sowie zeitabhängige Auslöser.</td>
+                                            <td class="translate">Hier trägst du Auslöser ein, also z.B. Bewegungsmelder, Wandschalter, etc., sowie ggf. zeitabhängige Auslöser (z.B. jeden Tag um 8:00 Uhr).</td>
                                         </tr>
                                         <tr>
                                             <td class="translate">4. ZONEN</td>
-                                            <td class="translate">Hier definierst du alle "Zonen" (z.B. Badezimmer 1.OG, Kaffeeecke, usw.) und weist Auslöser und zu schaltende Zielgeräte zu.</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="translate">5. AUSFÜHRUNG</td>
-                                            <td class="translate">Zum Schluss definierst du hier, unter welchen Bedingungen die Zielgeräte angeschaltet werden, sobald ein Auslöser aulöst.</td>
+                                            <td class="translate">Hier führst du alles zusammen, in dem du alle "Zonen" definierst (z.B. Badezimmer 1.OG, Kaffeeecke, usw.) und Auslöser und zu schaltende Zielgeräte zuweist, sowie auch weitere Bedingungen zur Ausführung definierst.</td>
                                         </tr>
                                     </tbody>
                                     </table>
@@ -129,6 +124,8 @@
                                         <br><br>                                        
                                         <a href="https://github.com/ioBroker/ioBroker.admin/issues/590" target="_blank">Das Issue ist gemeldet und bereits behoben</a>
                                         im ioBroker Admin Adapter, und wird mit dem nächsten Update kommen.
+                                        <br><br>
+                                        Du kannst auch einfach auf den Button links daneben klicken, dann bekommst du einen komfortableren Auswahl-Dialog.
                                     </p>
                                 </div>
                             </li>
@@ -138,7 +135,7 @@
                                     <p style="margin-top:0px; line-height: 2.0em;" class="translate">
                                         Dieser Adapter bietet Test-Datenpunkte unter <code>smartcontrol.x.Test</code>. Diese Datenpunkte stellen keinerlei Funktionen oder Features zur Verfügung und dienen nur zum Testen dieses Adapters.
                                         Nach der ersten Installation einer Instanz dieses Adapters sind die Adapteroptionen mit einigen dieser Datenpunkte vorbelegt.
-                                        Beginne mit dem Testen, indem du z.B. einen Auslöser-Datenpunkt aktivierst, indem du z.B. <code>smartcontrol.0.Test.trigger.Bathroom_motion</code> auf <code>true</code> setzt. Dann prüfst du, ob etwas ausgelöst wird (basierend auf den Einstellungen in der Tabelle "Ausführung" etc.).
+                                        Beginne mit dem Testen, indem du z.B. einen Auslöser-Datenpunkt aktivierst, indem du z.B. <code>smartcontrol.0.Test.trigger.Bathroom_motion</code> auf <code>true</code> setzt. Dann prüfst du, ob etwas ausgelöst wird (basierend auf den Einstellungen in "4. ZONEN" etc.).
                                         <br>Das ioBroker-Log (ioBroker Admin > Log) liefert detaillierte Informationen. Für das Debugging setzt du bitte den Log-Level der Adapterinstanz auf 'debug', damit du viel mehr Informationen im Log erhältst.
                                     </p>
                                 </div>
@@ -205,7 +202,7 @@
                                 <div class="collapsible-body">
                                     <p style="margin-top:0px" class="translate">
 
-                                        Gib hier alle Zielgeräte ein, die Du schalten möchtest, sobald ein Auslöser aktiviert wird und die Bedingungen in der Tabelle Ausführung erfüllt sind.
+                                        Gib hier alle Zielgeräte ein, die Du schalten möchtest, sobald ein Auslöser aktiviert wird und die Bedingungen in den Zonen erfüllt sind.
                                         <br>
                                         <br>
                                         <i>Warum sind hier unterschiedliche Datenpunkte für das Ein- und Ausschalten?</i>
@@ -245,7 +242,7 @@
                                           <tr>
                                             <td class="translate">Datenpunkt zum einschalten</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Datenpunkt des Zielgerätes zum Einschalten, sobald ein Auslöser auslöst and Ausführung/Bedingungen zutreffen.</td>
+                                            <td class="translate">Datenpunkt des Zielgerätes zum Einschalten, sobald ein Auslöser auslöst und die Bedingungen in den Zonen zutreffen.</td>
                                           </tr>
                                           <tr>
                                             <td class="translate">Wert für 'an'</td>
@@ -312,7 +309,7 @@
                                             <th class="header translate" data-name="offState">Datenpunkt zum ausschalten</th>
                                             <th style="width: 120px" class="header translate" data-name="offValue">Wert für 'aus'</th>
                                             <th style="width: 60px" class="mOptional header translate" data-name="noTargetOffCheck" data-type="checkbox">Prüfung deakiv.</th>
-                                            <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
+                                            <th style="width: 160px" class="header" data-buttons="up down copy_smart delete"></th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -399,7 +396,7 @@
                                             <th style="width: 40px;" data-buttons="stateSelectPopupConditionState" class="header"></th>
                                             <th class="header translate" data-name="conditionState">Datenpunkt der Bedingung</th>
                                             <th style="width: 120px" class="header translate" data-name="conditionValue">DP-Wert</th>
-                                            <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
+                                            <th style="width: 160px" class="header" data-buttons="up down copy_smart delete"></th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -508,7 +505,7 @@
                                             <th style="width: 40px;" data-buttons="stateSelectPopupBriState" class="header"></th>
                                             <th class="mOptional header translate" data-name="briStateId">Datenpunkt Helligkeit</th>
                                             <th style="width: 60px" class="mOptional header translate" data-name="briThreshold" data-type="number">Grenze</th>
-                                            <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
+                                            <th style="width: 160px" class="header" data-buttons="up down copy_smart delete"></th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -611,7 +608,7 @@
                                             <th style="width: 120px" class="header translate" data-name="stateVal">DP-Wert</th>
                                             <th style="width: 50px" class="header translate" data-name="targetOff" data-type="checkbox">Ziel aus?</th>
                                             <th style="width: 50px" class="header translate" data-name="isToggle" data-type="checkbox">Toggle?</th>
-                                            <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
+                                            <th style="width: 160px" class="header" data-buttons="up down copy_smart delete"></th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -657,7 +654,7 @@
                                                 <br>Die aktuellen Astrozeiten findest du übrigens als Info-Datenpunkte in diesem Adapter: <code>smartcontrol.x.info.astroTimes</code>.
                                                 <br>Außerdem kannst du hier Cron verwenden, also z.B. <code>5 4 * * *</code>. Zum einfachen Ermittlung der zu verwendeten Cron-Syntax kannst du z.B. folgende Website verwenden: <a style="text-decoration: underline" href="https://crontab.guru/" target="_blank">Crontab.guru</a>.
                                                 <br>
-                                                <br>Für Stunde/Minute (wie <code>23:30</code>) oder Astrozeiten (wie <code>sunset</code>) ist die Ausführung jeden Tag. In der "Ausführung"-Tabelle kannst du das dann weiter entsprechend limitieren.
+                                                <br>Für Stunde/Minute (wie <code>23:30</code>) oder Astrozeiten (wie <code>sunset</code>) ist die Ausführung jeden Tag. In "4. ZONEN" kannst du das dann weiter entsprechend limitieren.
                                             </td>
 
                                           </tr>
@@ -711,7 +708,7 @@
                                             <th style="width: 40px;" data-buttons="selectNever" class="header"></th>
                                             <th class="mOptional header translate" data-name="never" data-type="select multiple">Nie auslösen wenn...</th>
                                             <th style="width: 50px" class="header translate" data-name="targetOff" data-type="checkbox">Ziel aus?</th>
-                                            <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
+                                            <th style="width: 160px" class="header" data-buttons="up down copy_smart delete"></th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -768,7 +765,7 @@
                                           <tr>
                                             <td class="translate">Zu schaltende Zielgeräte</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Wähle hier ein oder mehrere zu schaltende Zielgeräte aus, die geschalten werden, sobald ein Auslöser auslöst und die Ausführung und Bedingungen zutreffen.
+                                            <td class="translate">Wähle hier ein oder mehrere zu schaltende Zielgeräte aus, die geschalten werden, sobald ein Auslöser auslöst und die Bedingungen zutreffen.
                                                 <br><br>Mit dem blauen Button links daneben kannst du bei vielen Zielgeräten deutlich schneller auswählen. Es öffnet sich ein Dialog, 
                                                 in dem du die Zielgeräte leichter finden, filtern und auswählen kannst.
                                                 <br><br><strong>Zielwerte überschreiben</strong>: Im Dialog der erscheint, wenn man auf den blauen Button links daneben klickt, kann man durch
@@ -788,6 +785,25 @@
                                                 <br>Durch leer lassen oder <code>0</code> wird diese Option ignoriert. 
                                             </td>
                                           </tr>
+                                          <tr>
+                                            <td class="translate">Ausführung</td>
+                                            <td class="translate">Ja</td>
+                                            <td class="translate">
+                                                Durch Klicken auf diesen Button öffnet sich ein Dialog, in dem du weitere Bedingungen definieren kannst, wann die in der Zone definierten Zielgeräte geschaltet werden, sobald ein Auslöser auslöst.
+                                                Detail-Informationen findest du hierzu in diesem Dialog.
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td class="translate">Immer</td>
+                                            <td class="translate">Ja</td>
+                                            <td class="translate">
+                                                Diese Option ist identisch mit "Immer ausführen" im Dialog 'Ausführung' (siehe oben):
+                                                Falls aktiviert, dann wird immer ausgeführt, sofern etwaige zuvor definierte Bedingungen zutreffen.
+                                                Falls nicht aktiviert, musst du im Dialog 'Ausführung' mindestens eine Zeile anlegen.
+
+                                            </td>
+                                          </tr>
+
 
                                         </tbody>
                                       </table>
@@ -817,7 +833,12 @@
                                             <th style="width: 40px;" data-buttons="selectTargetsMenu" class="header"></th>
                                             <th class="header translate" data-name="targets" data-type="select multiple">Zu schaltende Zielgeräte</th>
                                             <th style="width: 80px" class="mOptional header translate" data-name="offAfter" data-type="number">Aus nach x sek</th>
-                                            <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
+                                            <th style="width: 100px" class="header" data-buttons="configureExecution">Ausführung</th>
+                                            <th style="width: 30px" class="header" data-name="executeAlways" data-type="checkbox">Immer</th>
+                                            <!-- Start: Execution Options, being hidden through CSS -->
+                                            <th class="header" data-name="executionJson" data-type="text"></th>
+                                            <!-- End: Execution Options, being hidden through CSS -->
+                                            <th style="width: 160px" class="header" data-buttons="up down copy_smart delete"></th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -828,124 +849,7 @@
                 </div>            
             </div>
 
-            <!--
-            ████████  █████  ██████      ███████ ██   ██ ███████  ██████ ██    ██ ████████ ██  ██████  ███    ██ 
-               ██    ██   ██ ██   ██     ██       ██ ██  ██      ██      ██    ██    ██    ██ ██    ██ ████   ██ 
-               ██    ███████ ██████      █████     ███   █████   ██      ██    ██    ██    ██ ██    ██ ██ ██  ██ 
-               ██    ██   ██ ██   ██     ██       ██ ██  ██      ██      ██    ██    ██    ██ ██    ██ ██  ██ ██ 
-               ██    ██   ██ ██████      ███████ ██   ██ ███████  ██████  ██████     ██    ██  ██████  ██   ████ 
-            -->
-            <div id="tabSchedules" class="col s12 page">
-                <div class="row spaceTop3em">
-                    <div class="col s12">
-                        <ul class="collapsible">
-                            <li>
-                                <div class="collapsible-header config-section"><h5 class="translate">Ausführung</h5><i class="material-icons">help_outline</i></div>
-                                <div class="collapsible-body">
-                                    <p style="margin-top:0px" class="translate">
-                                        Dies führt nun alles zusammen und setzt die Schaltungen um. 
-                                        Du legst hier fest, unter welchen Bedingungen die in den Zonen definierten Zielgeräte angeschaltet werden, sobald ein Auslöser aulöst.
-                                        <br>Tipp: Damit immer ausgeführt wird, stellst du einfach ein:
-                                        <br><img src="img/sc_always.png" >
-                                        <br><br>Bitte stelle sicher, dass es für jede aktive Zone hier auch eine Tabellenzeile gibt, denn sonst wird die jeweilige Zone nicht ausgeführt.
-                                    </p>
-                                    <table>
-                                        <thead>
-                                          <tr>
-                                              <th class="translate">Spalte</th>
-                                              <th class="translate">Pflichtfeld</th>
-                                              <th class="translate">Beschreibung</th>
-                                          </tr>
-                                        </thead>
-                                
-                                        <tbody>
-                                          <tr>
-                                            <td class="translate">✓</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet.</td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Zone</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">Hier wählst du die entsprechende Zone aus. Du kannst mehrere Tabellenzeilen mit der selben Zone verwenden, der Adapter wird dann alle Zeilen prüfen, ob Bedingungen zum schalten zutreffen.</td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Start/Ende</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">Sobald ein Auslöser auslöst, muss die aktuelle Uhrzeit innerhalb dieses Zeitraums sein, damit die Zielgeräte geschalten werden.
-                                                <br>Du kannst hier eine Uhrzeit in Stunde/Minute, wie <code>08:25</code> oder <code>23:30</code> eingeben. 
-                                                Außerdem kannst du einen Astro-Namen wie <code>sunset</code> eingeben und dabei einen Versatz ("Offset") in Minuten hinzufügen, z.B. <code>goldenHourEnd+30</code> oder <code>sunset-60</code>.
-                                                <br>Die aktuellen Astrozeiten findest du übrigens als Info-Datenpunkte in diesem Adapter: <code>smartcontrol.x.info.astroTimes</code>.
-                                                <br>Eine Startzeit von z.B. <code>sunset</code> und eine Endzeit von z.B. <code>03:00</code> (also über Mitternacht hinaus) ist ebenso möglich, hierzu muss in "Weitere Optionen" die Option "Über Mitternacht hinaus" aktiviert sein (ist sie standardmäßig).
-                                                <br>
-                                            </td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Mo-So</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">Ziele werden geschaltet, wenn diese Wochentage zutreffen.</td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Zusätzlich muss erfüllt sein</td>
-                                            <td class="translate">Nein</td>
-                                            <td class="translate">Hier kannst du zusätzliche Bedingungen eintragen, die zusätzlich zutreffen müssen, z.B.: Jemand ist anwesend, Heute ist Feiertag, usw.
-                                                                  <br>Falls du mehr als eine Bedingung auswählst, müssen all diese Bedingungen zutreffen, damit die Ziele geschaltet werden.
-                                            </td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Nie schalten wenn...</td>
-                                            <td class="translate">Nein</td>
-                                            <td class="translate">Hier kannst du zusätzliche Bedingungen eintragen, die nie zutreffen dürfen, z.B.: Keiner zu Hause, Radio läuft, usw.
-                                                                  <br>Falls du mehr als eine Bedingung auswählst: sobald auch nur eine dieser Bedingungen zutrifft, wird nicht geschaltet.
-                                            </td>
-                                          </tr>
-                                        </tbody>
-                                      </table>
-                                </div>
-                            </li>
-                        </ul>
-
-                        <!-- Start Options Table -->
-                        <div class="col s12" id="tableSchedules">
-
-                            <div class="row valign-wrapper" style="margin-bottom:5px">
-                                <div class="col"><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></div>
-                                <div class="table-filter input-field col s12 m6 l12">
-                                    <input type="text" placeholder="Filter" />
-                                    <button class="btn-floating waves-effect waves-light blue btn-small" title="Filter löschen"><i class="material-icons">clear</i></button>
-                                </div>
-                            </div>
-
-                            <div class="table-values-div">
-                                <table class="table-values">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
-                                            <th style="width: 240px" class="header translate" data-name="name" data-type="select">Zone</th>
-                                            <th style="width: 120px" class="header translate" data-name="start">Start</th>
-                                            <th style="width: 120px" class="header translate" data-name="end">Ende</th>
-                                            <th style="width: 35px" class="header translate" data-name="mon" data-type="checkbox">Mo</th>
-                                            <th style="width: 35px" class="header translate" data-name="tue" data-type="checkbox">Di</th>
-                                            <th style="width: 35px" class="header translate" data-name="wed" data-type="checkbox">Mi</th>
-                                            <th style="width: 35px" class="header translate" data-name="thu" data-type="checkbox">Do</th>
-                                            <th style="width: 35px" class="header translate" data-name="fri" data-type="checkbox">Fr</th>
-                                            <th style="width: 35px" class="header translate" data-name="sat" data-type="checkbox">Sa</th>
-                                            <th style="width: 35px" class="header translate" data-name="sun" data-type="checkbox">So</th>
-                                            <th style="width: 40px;" data-buttons="selectAdditionalConditions" class="header"></th>
-                                            <th class="mOptional header translate" data-name="additionalConditions" data-type="select multiple">Zusätzlich muss erfüllt sein</th>
-                                            <th style="width: 40px;" data-buttons="selectNever" class="header"></th>
-                                            <th class="mOptional header translate" data-name="never" data-type="select multiple">Nie schalten wenn...</th>
-                                            <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>                        
-                        <!-- End Options Table -->
-                    </div>
-                </div> 
-            </div>
-            
+         
             <!--
             ████████  █████  ██████       ██████  ██████  ████████ ██  ██████  ███    ██ ███████ 
                ██    ██   ██ ██   ██     ██    ██ ██   ██    ██    ██ ██    ██ ████   ██ ██      
@@ -1052,15 +956,15 @@
         </div>
 
 
-        <!--
-        ██████  ██  █████  ██       ██████   ██████  ███████ 
-        ██   ██ ██ ██   ██ ██      ██    ██ ██       ██      
-        ██   ██ ██ ███████ ██      ██    ██ ██   ███ ███████ 
-        ██   ██ ██ ██   ██ ██      ██    ██ ██    ██      ██ 
-        ██████  ██ ██   ██ ███████  ██████   ██████  ███████             
-        -->
         <div class="m material-dialogs">
 
+            <!--
+            ██████        ███████ ███████ ████████ ████████ ██ ███    ██  ██████  ███████ 
+            ██   ██       ██      ██         ██       ██    ██ ████   ██ ██       ██      
+            ██   ██ █████ ███████ █████      ██       ██    ██ ██ ██  ██ ██   ███ ███████ 
+            ██   ██            ██ ██         ██       ██    ██ ██  ██ ██ ██    ██      ██ 
+            ██████        ███████ ███████    ██       ██    ██ ██   ████  ██████  ███████ 
+            -->            
             <!-- DIALOG: Select Settings (like Triggers or Target Devices) -->
             <div id="dialog-select-settings" class="modal modal-fixed-footer">
                 <div class="modal-content">
@@ -1092,6 +996,13 @@
                 </div>
             </div>
 
+            <!--
+            ██████        ███████ ████████  █████  ████████ ███████ ███████ 
+            ██   ██       ██         ██    ██   ██    ██    ██      ██      
+            ██   ██ █████ ███████    ██    ███████    ██    █████   ███████ 
+            ██   ██            ██    ██    ██   ██    ██    ██           ██ 
+            ██████        ███████    ██    ██   ██    ██    ███████ ███████ 
+            -->     
             <!-- DIALOG: State Selection (SelectId). #dialog-select-member is a ioBroker ID we are using -->
             <div id="dialog-select-member" class="modal modal-fixed-footer">
                 <div class="modal-content">
@@ -1110,28 +1021,154 @@
             </div>        
         </div>
 
-            <!-- DIALOG: Verification Options - Called once user clicks SAVE -->
-            <div id="dialog-save-verification" class="modal modal-fixed-footer">
-                <div class="modal-content">
+        <!--
+        ██████       ███████  ██████  ███    ██ ███████     ███████ ██   ██ ███████  ██████ 
+        ██   ██         ███  ██    ██ ████   ██ ██          ██       ██ ██  ██      ██      
+        ██   ██ █████  ███   ██    ██ ██ ██  ██ █████       █████     ███   █████   ██      
+        ██   ██       ███    ██    ██ ██  ██ ██ ██          ██       ██ ██  ██      ██      
+        ██████       ███████  ██████  ██   ████ ███████     ███████ ██   ██ ███████  ██████ 
+        -->           
+        <!-- DIALOG: Configure Execution (Table Zones) -->
+        <div id="dialog-configure-zone-execution" class="modal modal-fixed-footer">
+            <div class="modal-content">
+                <div class="row" style="padding-left:12px; padding-right:0">
+                    <!-- START: Header with collapsible help contents  -->
+                    <ul class="collapsible">
+                        <li>
+                            <div class="collapsible-header config-section"><h5 class="translate">Ausführungseinstellungen für Zone</span> '<span class="zone-name">Placeholder</span>'</h5><i class="material-icons">help_outline</i></div>
+                            <div class="collapsible-body">
+                                <p style="margin-top:0px" class="translate">
+                                    Du kannst <strong>Immer ausführen</strong> selektieren, dann wird einfach immer ausgeführt, sofern etwaige zuvor definierte Bedingungen zutreffen.
+                                    <br>
+                                    Möchtest du jedoch weitere Bedingungen definieren, wann die in der Zone definierten Zielgeräte angeschaltet werden, sobald ein Auslöser auslöst, deaktivierst du diese Option.
+                                    <br>Dann erscheint eine Tabelle mit folgenden Optionen:
+                                </p>
+                                <table>
+                                    <thead>
+                                      <tr>
+                                          <th class="translate">Spalte</th>
+                                          <th class="translate">Pflichtfeld</th>
+                                          <th class="translate">Beschreibung</th>
+                                      </tr>
+                                    </thead>
+                            
+                                    <tbody>
+                                      <tr>
+                                        <td class="translate">✓</td>
+                                        <td class="translate">Ja</td>
+                                        <td class="translate">Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet.</td>
+                                      </tr>
+                                      <tr>
+                                        <td class="translate">Start/Ende</td>
+                                        <td class="translate">Ja</td>
+                                        <td class="translate">Sobald ein Auslöser auslöst, muss die aktuelle Uhrzeit innerhalb dieses Zeitraums sein, damit die Zielgeräte geschalten werden.
+                                            <br>Du kannst hier eine Uhrzeit in Stunde/Minute, wie <code>08:25</code> oder <code>23:30</code> eingeben. 
+                                            Außerdem kannst du einen Astro-Namen wie <code>sunset</code> eingeben und dabei einen Versatz ("Offset") in Minuten hinzufügen, z.B. <code>goldenHourEnd+30</code> oder <code>sunset-60</code>.
+                                            <br>Die aktuellen Astrozeiten findest du übrigens als Info-Datenpunkte in diesem Adapter: <code>smartcontrol.x.info.astroTimes</code>.
+                                            <br>Eine Startzeit von z.B. <code>sunset</code> und eine Endzeit von z.B. <code>03:00</code> (also über Mitternacht hinaus) ist ebenso möglich, hierzu muss in "Weitere Optionen" die Option "Über Mitternacht hinaus" aktiviert sein (ist sie standardmäßig).
+                                            <br>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td class="translate">Mo-So</td>
+                                        <td class="translate">Ja</td>
+                                        <td class="translate">Ziele werden geschaltet, wenn diese Wochentage zutreffen.</td>
+                                      </tr>
+                                      <tr>
+                                        <td class="translate">Zusätzlich muss erfüllt sein</td>
+                                        <td class="translate">Nein</td>
+                                        <td class="translate">Hier kannst du zusätzliche Bedingungen eintragen, die zusätzlich zutreffen müssen, z.B.: Jemand ist anwesend, Heute ist Feiertag, usw.
+                                                              <br>Falls du mehr als eine Bedingung auswählst, müssen all diese Bedingungen zutreffen, damit die Ziele geschaltet werden.
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td class="translate">Nie schalten wenn...</td>
+                                        <td class="translate">Nein</td>
+                                        <td class="translate">Hier kannst du zusätzliche Bedingungen eintragen, die nie zutreffen dürfen, z.B.: Keiner zu Hause, Radio läuft, usw.
+                                                              <br>Falls du mehr als eine Bedingung auswählst: sobald auch nur eine dieser Bedingungen zutrifft, wird nicht geschaltet.
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- END: Header with collapsible help contents  -->
+
+                    <!-- Checkbox executeZoneAlways -->
                     <div class="row">
-                        <div class="col s12">
-                            <h6 class="title"><span class="translate">Fehlerhafte Konfiguration</span></h6>
+                        <div class="input-field">
+                            <input type="checkbox" class="value" id="executeZoneAlways" />
+                            <label for="executeZoneAlways" class="translate">Immer ausführen</label>
+                            <span class="helper-text translate show-if-always">Deaktivieren, um detaillierte Kriterien zur Ausführung zu definieren</span>
                         </div>
                     </div>
-                    <div class="row error-section" style="padding-left:12px; padding-right:12px">
-                        <p class="translate">Deine Konfiguration ist fehlerhaft, bitte wie folgt beheben:</p>
-                        <div id="save-errors" class="translate">Place holder, being replaced in save() function</div>
-                        <p class="further-info translate">
-                            Bitte beachte, dass hier nur geprüft wurde, ob jeweils eine Tabellenzeile da ist und und diese auch aktiv.
-                            Weitere Prüfungen finden nach dem Speichern beim Neustart des Adapters statt. Bitte daher auch unbedingt ins Log sehen.
-                            Etwaige weitere Fehler werden dort ausgegeben.
-                        </p>
+                    
+                    <!-- Start Options Table -->
+                    <div class="col s12 hide-if-always" id="tableZoneExecution">
+
+                        <div class="row valign-wrapper" style="margin-bottom:5px">
+                            <div class="col">
+                                <a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a>
+                            </div>
+                        </div>
+
+                        <div class="table-values-div">
+                            <table class="table-values">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
+                                        <th style="width: 120px" class="header translate" data-name="start">Start</th>
+                                        <th style="width: 120px" class="header translate" data-name="end">Ende</th>
+                                        <th style="width: 35px" class="header translate" data-name="mon" data-type="checkbox">Mo</th>
+                                        <th style="width: 35px" class="header translate" data-name="tue" data-type="checkbox">Di</th>
+                                        <th style="width: 35px" class="header translate" data-name="wed" data-type="checkbox">Mi</th>
+                                        <th style="width: 35px" class="header translate" data-name="thu" data-type="checkbox">Do</th>
+                                        <th style="width: 35px" class="header translate" data-name="fri" data-type="checkbox">Fr</th>
+                                        <th style="width: 35px" class="header translate" data-name="sat" data-type="checkbox">Sa</th>
+                                        <th style="width: 35px" class="header translate" data-name="sun" data-type="checkbox">So</th>
+                                        <th style="width: 40px;" data-buttons="selectAdditionalConditions" class="header"></th>
+                                        <th class="mOptional header translate" data-name="additionalConditions" data-type="select multiple">Zusätzlich muss erfüllt sein</th>
+                                        <th style="width: 40px;" data-buttons="selectNever" class="header"></th>
+                                        <th class="mOptional header translate" data-name="never" data-type="select multiple">Nie schalten wenn...</th>
+                                        <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>  
+                    <!-- End Options Table -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a class="modal-action modal-close waves-effect waves-green btn btn-set"><i class="large material-icons left">check_circle</i><span class="translate">Select</span></a>
+                <a class="modal-action modal-close waves-effect waves-green btn btn-close"><i class="large material-icons left">cancel</i><span class="translate">Cancel</span></a>
+            </div>
+        </div>
+
+
+        <!-- DIALOG: Verification Options - Called once user clicks SAVE -->
+        <div id="dialog-save-verification" class="modal modal-fixed-footer">
+            <div class="modal-content">
+                <div class="row">
+                    <div class="col s12">
+                        <h6 class="title"><span class="translate">Fehlerhafte Konfiguration</span></h6>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <a class="modal-action modal-close waves-effect waves-green btn btn-set"><i class="large material-icons left">check_circle</i><span class="translate">Ok</span></a>
+                <div class="row error-section" style="padding-left:12px; padding-right:12px">
+                    <p class="translate">Deine Konfiguration ist fehlerhaft, bitte wie folgt beheben:</p>
+                    <div id="save-errors" class="translate">Place holder, being replaced in save() function</div>
+                    <p class="further-info translate">
+                        Bitte beachte, dass hier nur geprüft wurde, ob jeweils eine Tabellenzeile da ist und und diese auch aktiv.
+                        Weitere Prüfungen finden nach dem Speichern beim Neustart des Adapters statt. Bitte daher auch unbedingt ins Log sehen.
+                        Etwaige weitere Fehler werden dort ausgegeben.
+                    </p>
                 </div>
-            </div>        
+            </div>
+            <div class="modal-footer">
+                <a class="modal-action modal-close waves-effect waves-green btn btn-set"><i class="large material-icons left">check_circle</i><span class="translate">Ok</span></a>
+            </div>
+        </div>        
 
     </div> <!-- Adapter Container-->
 

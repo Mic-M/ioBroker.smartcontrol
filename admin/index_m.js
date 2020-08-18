@@ -15,7 +15,6 @@ const tableIds = [
     'tableCombinedDevices', 
     'tableZones', 
     'tableConditions', 
-    'tableSchedules'
 ];
 const optionTablesSettings = {}; // Table variable holding the table settings array
 for (const lpTableId of tableIds) {
@@ -74,6 +73,8 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
 
     // ++++++ For option tables ++++++
     // values2table() - see iobroker/node_modules/iobroker.admin/www/js/adapter-settings.js
+    const tTableIds = tableIds;
+    tTableIds.push('tableZoneExecution'); // special dialog table
     for (const lpTableId of tableIds) {
         values2table(lpTableId, optionTablesSettings[lpTableId], onChange, function(){val2tableOnReady(lpTableId);});
     }
@@ -88,38 +89,45 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
             case 'tableTargetDevices':
                 statePathPopupSelection(tableId,'stateSelectPopupOnState', 'onState');
                 statePathPopupSelection(tableId,'stateSelectPopupOffState', 'offState');                
-                updateTableButtonIcons(tableId);
+                updateTableButtonIcons(tableId, [{dataButton:'stateSelectPopupOnState', icon:'search'},{dataButton:'stateSelectPopupOffState', icon:'search'}]);
+                addCopyTableRowSmarter(tableId);
                 break;
             case 'tableConditions':
                 statePathPopupSelection(tableId,'stateSelectPopupConditionState', 'conditionState');               
-                updateTableButtonIcons(tableId);
+                updateTableButtonIcons(tableId, [{dataButton:'stateSelectPopupConditionState', icon:'search'}]);
+                addCopyTableRowSmarter(tableId);
                 break;
 
             case 'tableTriggerMotion':
                 statePathPopupSelection(tableId,'stateSelectPopupMotionState', 'stateId');
                 statePathPopupSelection(tableId,'stateSelectPopupBriState', 'briStateId');          
-                updateTableButtonIcons(tableId);                
+                updateTableButtonIcons(tableId, [{dataButton:'stateSelectPopupMotionState', icon:'search'},{dataButton:'stateSelectPopupBriState', icon:'search'}]);
+                addCopyTableRowSmarter(tableId);        
                 break;
 
             case 'tableTriggerDevices':
                 statePathPopupSelection(tableId,'stateSelectPopupStateId', 'stateId');    
-                updateTableButtonIcons(tableId);                
+                updateTableButtonIcons(tableId, [{dataButton:'stateSelectPopupStateId', icon:'search'}]);
+                addCopyTableRowSmarter(tableId);          
                 break;
             case 'tableTriggerTimes':
                 dialogSelectSettings({tableId:'tableTriggerTimes', triggerDataCmd:'selectAdditionalConditions', targetField:'additionalConditions', dialogTitle:'Wähle zusätzliche Bedingungen' });
                 dialogSelectSettings({tableId:'tableTriggerTimes', triggerDataCmd:'selectNever', targetField:'never', dialogTitle:`Wähle 'Nie auslösen wenn...'` });
-                updateTableButtonIcons(tableId, 'pageview');
+                updateTableButtonIcons(tableId, [{dataButton:'selectAdditionalConditions', icon:'pageview'},{dataButton:'selectNever', icon:'pageview'}]);
+                addCopyTableRowSmarter(tableId);
                 break;
             case 'tableZones':
                 dialogSelectSettings({tableId:'tableZones', triggerDataCmd:'selectTriggers', targetField:'triggers', dialogTitle:'Auswahl Auslöser' });
                 dialogSelectSettings({tableId:'tableZones', triggerDataCmd:'selectTargetsMenu', targetField:'targets', dialogTitle:'Auswahl Zielgeräte' });
-                updateTableButtonIcons(tableId, 'pageview');
+                dialogConfigureZoneExecution();
+                updateTableButtonIcons(tableId, [{dataButton:'selectTriggers', icon:'pageview'},{dataButton:'selectTargetsMenu', icon:'pageview'},{dataButton:'configureExecution', icon:'schedule', regularSize:true}]);
+                addCopyTableRowSmarter(tableId);
                 break;
-            case 'tableSchedules':
-                dialogSelectSettings({tableId:'tableSchedules', triggerDataCmd:'selectAdditionalConditions', targetField:'additionalConditions', dialogTitle:'Wähle zusätzliche Bedingungen' });
-                dialogSelectSettings({tableId:'tableSchedules', triggerDataCmd:'selectNever', targetField:'never', dialogTitle:`Wähle 'Nie schalten wenn...'` });
-                updateTableButtonIcons(tableId, 'pageview');
-                break;       
+            case 'tableZoneExecution':
+                dialogSelectSettings({tableId:tableId, triggerDataCmd:'selectAdditionalConditions', targetField:'additionalConditions', dialogTitle:'Wähle zusätzliche Bedingungen' });
+                dialogSelectSettings({tableId:tableId, triggerDataCmd:'selectNever', targetField:'never', dialogTitle:`Wähle 'Nie schalten wenn...'` });
+                updateTableButtonIcons(tableId, [{dataButton:'selectAdditionalConditions', icon:'pageview'},{dataButton:'selectNever', icon:'pageview'}]);
+                break;
             default:
                 break;
         }
@@ -127,7 +135,7 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
 
     }
 
-    // Enhance Tabs with onShow-Function. Source: iQontrol Adapter.
+    // Enhance Tabs with onTabShow-Function. Source: iQontrol Adapter.
     // This allows using JavaScript to perform certain actions as defined in function onTabShow(), since we have
     // several tabs in this adapter configuration.
     onTabShow('#tabMain');
@@ -166,15 +174,8 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
                 $('.collapsible').collapsible(); // https://materializecss.com/collapsible.html
                 populateTable(['tableTriggerMotion', 'tableTriggerDevices', 'tableTriggerTimes'], ['name', 'name', 'name'], 'tableZones', 'triggers');
                 populateTable('tableTargetDevices', 'name', 'tableZones', 'targets');
-
                 break;
 
-            case '#tabSchedules':
-                $('.collapsible').collapsible(); // https://materializecss.com/collapsible.html
-                populateTable('tableZones', 'name', 'tableSchedules', 'name');
-                populateTable('tableConditions', 'name', 'tableSchedules', 'additionalConditions');
-                populateTable('tableConditions', 'name', 'tableSchedules', 'never');
-                break;
         }
     }        
 
@@ -212,58 +213,63 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
     
         
     }
+
     
-    /**
-     * Handle all Table field changes of column "name":
-     * Apply any name change to according tables using the name
-     * See https://stackoverflow.com/a/29118530
-     */
     const fieldChangeConfig = [
         {changedTableId:'tableTargetDevices', targetTableId:'tableZones', targetId:'targets'},
         {changedTableId:'tableConditions', targetTableId:'tableTriggerTimes', targetId:'additionalConditions'},
         {changedTableId:'tableConditions', targetTableId:'tableTriggerTimes', targetId:'never'},
-        {changedTableId:'tableConditions', targetTableId:'tableSchedules', targetId:'additionalConditions'},
-        {changedTableId:'tableConditions', targetTableId:'tableSchedules', targetId:'never'},
         {changedTableId:'tableTriggerMotion',  targetTableId:'tableZones', targetId:'triggers'},
         {changedTableId:'tableTriggerDevices', targetTableId:'tableZones', targetId:'triggers'},
         {changedTableId:'tableTriggerTimes',   targetTableId:'tableZones', targetId:'triggers'},
-        {changedTableId:'tableZones', targetTableId:'tableSchedules', targetId:'name'},
     ];
-    
-    for (const lpConfig of fieldChangeConfig) {
-        const jQueryName = `#${lpConfig.changedTableId} input.values-input[data-name="name"]`;
-        // * Important - we cannot use //$(jQueryName).on('xxx') here. See https://stackoverflow.com/a/41457428
-        // *             It is not recognized if populateTable() is executed for that specific table.
-        // *             So we use $(document).on(), which works well.
-        //$(jQueryName).on('focusin', function(){ $(this).data('old-val', $(this).val()); });
-        $(document).on('focusin', jQueryName, function(){ $(this).data('old-val', $(this).val()); });
-        //$(jQueryName).on('change', function(){
-        $(document).on('change',jQueryName,function(){
-            const previousValue = $(this).data('old-val').trim();
-            const newValue = $(this).val().trim();
-            if (previousValue != newValue && newValue.length > 0) {
-                // We have a field change.
-                // Now let's change all values in according table and target field
-                for (let i = 0; i < g_settings[lpConfig.targetTableId].length; i++) {
-                    const lpTargets = g_settings[lpConfig.targetTableId][i][lpConfig.targetId];
-                    if (typeof lpTargets == 'string') {
-                        // Handle string
-                        if (lpTargets.trim() == previousValue.trim()) {
-                            g_settings[lpConfig.targetTableId][i][lpConfig.targetId] = newValue;
-                        }
-                    } else {
-                        // We have an array. Process targets accordingly.
-                        for (let k = 0; k < lpTargets.length; k++) {
-                            if (lpTargets[k].trim() == previousValue.trim()) {
-                                g_settings[lpConfig.targetTableId][i][lpConfig.targetId][k] = newValue;
+    onTableRowNameChanges(fieldChangeConfig);
+    /**
+     * Handle all Table field changes of column "name":
+     * Apply any name change (rename) to according tables using the name
+     * For getting old field value, see https://stackoverflow.com/a/29118530
+     * @param {array} fieldChangeConfig - Config array
+     */
+    function onTableRowNameChanges(fieldChangeConfig) {
+
+       
+        for (const lpConfig of fieldChangeConfig) {
+            const jQueryName = `#${lpConfig.changedTableId} input.values-input[data-name="name"]`;
+            // * Important - we cannot use //$(jQueryName).on('xxx') here. See https://stackoverflow.com/a/41457428
+            // *             It is not recognized if populateTable() is executed for that specific table.
+            // *             So we use $(document).on(), which works well.
+            //$(jQueryName).on('focusin', function(){ $(this).data('old-val', $(this).val()); });
+            $(document).on('focusin', jQueryName, function(){ $(this).data('old-val', $(this).val()); });
+            //$(jQueryName).on('change', function(){
+            $(document).on('change',jQueryName,function(){
+                const previousValue = $(this).data('old-val').trim();
+                const newValue = $(this).val().trim();
+                if (previousValue != newValue && newValue.length > 0) {
+                    // We have a field change.
+                    // Now let's change all values in according table and target field
+                    for (let i = 0; i < g_settings[lpConfig.targetTableId].length; i++) {
+                        const lpTargets = g_settings[lpConfig.targetTableId][i][lpConfig.targetId];
+                        if (typeof lpTargets == 'string') {
+                            // Handle string
+                            if (lpTargets.trim() == previousValue.trim()) {
+                                g_settings[lpConfig.targetTableId][i][lpConfig.targetId] = newValue;
+                            }
+                        } else {
+                            // We have an array. Process targets accordingly.
+                            for (let k = 0; k < lpTargets.length; k++) {
+                                if (lpTargets[k].trim() == previousValue.trim()) {
+                                    g_settings[lpConfig.targetTableId][i][lpConfig.targetId][k] = newValue;
+                                }
                             }
                         }
+    
                     }
-
                 }
-            }
-        });
+            });
+        }
     }
+
+
 
     /**
      * For Table Filter
@@ -284,6 +290,108 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
         });
 
     }
+
+    /**
+     * Dialog: Configure Execution of Zone
+     */
+    function dialogConfigureZoneExecution() {
+
+        const queryResult = $(`#tableZones a.values-buttons[data-command="configureExecution"]`);
+        queryResult.on('click', function() {
+
+            // a few variables
+            const tableZonesObj = table2values('tableZones');
+            const rowNum = $(this).data('index'); // table row number which was clicked, starting at zero.
+            //const zoneName = optionTablesSettings['tableZones'][rowNum]['name'];
+            const zoneName = tableZonesObj[rowNum].name;
+
+            const always = (tableZonesObj[rowNum].executeAlways) ? true : false;
+            const tableSett = (tableZonesObj[rowNum].executionJson) ? JSON.parse(tableZonesObj[rowNum].executionJson) : [];
+
+            // Prepare table and checkbox
+            values2table('tableZoneExecution', tableSett, onChange, function(){val2tableOnReady('tableZoneExecution');});
+            $('#dialog-configure-zone-execution #executeZoneAlways').prop('checked', always);
+
+            // Initialize dialog (modal)
+            initDialog('dialog-configure-zone-execution', dialogOkClose);
+            
+            // Hide detailed config if "Execute always" checkbox is checked
+            const $jQueryRes = $('#dialog-configure-zone-execution #executeZoneAlways');
+
+            if (always) {
+                $('#dialog-configure-zone-execution .show-if-always').show();
+                $('#dialog-configure-zone-execution .hide-if-always').hide();
+            } else {
+                $('#dialog-configure-zone-execution .show-if-always').hide();
+                $('#dialog-configure-zone-execution .hide-if-always').show();
+            }
+            $jQueryRes.change(function(){
+                if(this.checked) {
+                    $('#dialog-configure-zone-execution .hide-if-always').fadeOut('slow');
+                    setTimeout(()=> { $('#dialog-configure-zone-execution .show-if-always').fadeIn('slow'); }, 500);
+                } else {
+                    $('#dialog-configure-zone-execution .hide-if-always').fadeIn('slow');
+                    $('#dialog-configure-zone-execution .show-if-always').hide();
+                }
+            });
+
+            // Add Zone Name to title
+            $('#dialog-configure-zone-execution span.zone-name').text(zoneName);
+
+            // Open dialog
+            $('#dialog-configure-zone-execution').modal('open');
+                
+            // Called once user clicked "Ok" in the dialog
+            function dialogOkClose() {
+
+                const tableResult = table2values('tableZoneExecution');
+
+                tableZonesObj[rowNum].executeAlways = $('#dialog-configure-zone-execution #executeZoneAlways').prop('checked');
+                tableZonesObj[rowNum].executionJson = JSON.stringify(tableResult);
+                values2table('tableZones', tableZonesObj, onChange, function(){val2tableOnReady('tableZones');});
+                
+            }
+            
+        });
+    }
+
+    /**
+     * We replace "copy table row" command from node_modules/iobroker.admin/www/js/adapter-settings.js
+     * Reason: rename name functionality will not probably work any longer if name keeps the same, therefore 
+     *         we add '_Copy' to name field of copied row.
+     * @param {string} tableId - Table ID, like "tableTargetDevices"
+     */
+    function addCopyTableRowSmarter(tableId) {
+
+        // Replace icon, reason: If 'data-buttons' in table th is not set to a known keyword (like 'edit'), it uses 'add' as materialize icon.
+        updateTableButtonIcons(tableId, [{dataButton:'copy_smart', icon:'content_copy'}]);
+
+        // Apply copy
+        $(`#${tableId} table tbody td a.values-buttons[data-command="copy_smart"]`).on('click', function() { 
+
+            const rowNum = $(this).data('index'); // table row number which was clicked, starting at zero.
+            const tableArr = table2values(tableId);
+            const elem = {... tableArr[rowNum] }; // Copy, so not referencing
+            if (elem.name) elem.name = elem.name + '_Copy';
+            
+            // Add copied row below current row, of which the copy button was clicked
+            //tableArr.splice(rowNum+1, 0, elem);
+            tableArr.push(elem);  // push would add it at the end
+            onChange && onChange();
+
+            g_settings[tableId] = tableArr; // ? Seems to be important: without this, onTableRowNameChanges() will not work
+            setTimeout(()=> {
+                // Timeout is set in adapter-settings.js for copy - most likely for very good reasons, so we do as well.
+                values2table(tableId, tableArr, onChange, function(){val2tableOnReady(tableId);});
+            }, 100);
+            
+
+            // Activate save button
+            //onChange(true);
+
+        });   
+    }
+
 
     /**
      * Dialog: Select Settings (like Triggers or Target Devices)
@@ -389,8 +497,14 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
                 if (anyChange) {
 
                     // Option tables
-                    optionTablesSettings[tableId][rowNum][targetField] = selectedKeys;
-                    values2table(tableId, optionTablesSettings[tableId], onChange, function(){val2tableOnReady(tableId);});
+                    if (tableId == 'tableZoneExecution') {
+                        const tableExecObj = table2values(tableId);
+                        tableExecObj[rowNum][targetField] = selectedKeys;
+                        values2table(tableId, tableExecObj, onChange, function(){val2tableOnReady(tableId);});                        
+                    } else {
+                        optionTablesSettings[tableId][rowNum][targetField] = selectedKeys;
+                        values2table(tableId, optionTablesSettings[tableId], onChange, function(){val2tableOnReady(tableId);});
+                    }
 
                     // Activate save button
                     onChange(true);
@@ -453,11 +567,12 @@ function save(callback) { /*eslint-disable-line no-unused-vars*/
      * Verify Tables
      */
     const errors = [];
+
+    // All tables
     const tablesToCheck = [
         {tabName:'1. ZIELGERÄTE', tableRows:obj.tableTargetDevices},
         {tabName:'3. AUSLÖSER', tableRows:obj.tableTriggerMotion.concat(obj.tableTriggerDevices, obj.tableTriggerTimes)},
         {tabName:'4. ZONEN', tableRows:obj.tableZones},
-        {tabName:'5. AUSFÜHRUNG', tableRows:obj.tableSchedules},
     ];
     for (const lpCheckObj of tablesToCheck) {
         let activeRows = 0;
@@ -472,6 +587,34 @@ function save(callback) { /*eslint-disable-line no-unused-vars*/
             errors.push(`<strong>Reiter "${tabName}"</strong> - Anzahl Einträge: ${rowCounter}, davon sind ${activeRows} aktiviert. Du brauchst mindestens einen aktiven Eintrag.`);
         }
     }
+
+    // Verify Execution for Table Zones
+    for (const lpZonesRow of obj.tableZones) {
+        if (lpZonesRow.active) {
+            const executeAlways = lpZonesRow.executeAlways;
+            const executionArr = (lpZonesRow.executionJson) ? JSON.parse(lpZonesRow.executionJson) : [];
+            if(!executeAlways && isLikeEmpty(executionArr)) {
+                errors.push(`<strong>Reiter "4. ZONEN"</strong> - Zone '${lpZonesRow.name}': keine Ausführung definiert.`);
+            } else if (! executeAlways) {
+                let countValid = 0;
+                for (const lpExecRow of executionArr) {
+                    if(
+                        lpExecRow.active
+                        && (lpExecRow.start && lpExecRow.start.trim().length > 0)
+                        && (lpExecRow.end && lpExecRow.end.trim().length > 0)
+                        && (lpExecRow.mon || lpExecRow.tue || lpExecRow.wed || lpExecRow.thu || lpExecRow.fri || lpExecRow.sat || lpExecRow.sun)
+                    ) {
+                        countValid++;
+                    }
+                }
+                if (countValid == 0) {
+                    errors.push(`<strong>Reiter "4. ZONEN"</strong> - Zone '${lpZonesRow.name}': keine oder keine gültige Ausführung definiert.`);
+                }
+            }
+        }
+    }
+
+
     if (errors.length > 0) {
         let errorHtml = '<ol>\n';
         for (const errorEntry of errors) {
@@ -489,30 +632,31 @@ function save(callback) { /*eslint-disable-line no-unused-vars*/
 }
 
 
-
 /**
  * Update Table Button Icons
  * If 'data-buttons' in table th is not set to a known keyword (like 'edit'), it uses 'add' as materialize icon.
  * We modify this icon by replacing 'add' with an icon of our choice: https://materializecss.com/icons.html
  * 
- * @param {string|array} tableIds - Table ID(s), like "tableTargetDevices" or ['tableConditions', 'tableTriggerDevices']
- * @param {string} [iconName='zoom-in] - Icon Name - see https://materializecss.com/icons.html
+ * @param {string}  tableId -      Table ID, like "tableTargetDevices"
+ * @param {array}   iconsConfArr - [{dataButton:'xyz', icon:'search'}, {data-button:'abc', icon:'add', regularSize:true}];
  */
-function updateTableButtonIcons(tableIds, iconName='search') {
-    let tables = [];
-    if (typeof tableIds == 'string') {
-        tables = [tableIds];
-    } else {
-        tables = tableIds;
+function updateTableButtonIcons(tableId, iconsConfArr) {
+
+    for (const lpIconObj of iconsConfArr) {
+        $(`#${tableId} table tbody td a.values-buttons[data-command="${lpIconObj.dataButton}"] i.material-icons:contains('add')`).each(function() {
+            const text = $(this).text().replace('add', lpIconObj.icon);
+            $(this).text(text);
+        });
+        if (lpIconObj.regularSize) {
+            // replace .btn-small with .btn to change icon to regular size
+            const $query = $(`#${tableId} table tbody td a.values-buttons[data-command="${lpIconObj.dataButton}"].btn-small`);
+            $query.addClass('btn').removeClass('btn-small');
+        }
     }
 
-    for (const lpTableId of tables) {
-        $(`#${lpTableId} table.table-values tr a i.material-icons:contains('add')`).each(function() {
-            const text = $(this).text().replace('add', iconName);
-            $(this).text(text);
-        });                
-    }        
 }
+
+
 
 
 /*************************************************************

@@ -79,7 +79,6 @@ const globals = {
 
 
         },
-    
         {
             tableName: 'Zones',
             tableId: 'tableZones',
@@ -88,19 +87,21 @@ const globals = {
             check_2: {id: 'triggers', type:'name', deactivateIfError:true, removeForbidden:true },
             check_3: {id: 'targets', type:'name', deactivateIfError:true, removeForbidden:true },
             check_4: {id: 'offAfter', type:'number', numberLowerLimit: 0, deactivateIfError:true, optional:true },
-            check_5: {id: 'targetsOverwrite', type:'overwrite'},
-        },    
-        {
-            tableName: 'Schedules',
-            tableId: 'tableSchedules',
-            tableMustHaveActiveRows: true,
-            check_1: {id: 'name', type:'name', deactivateIfError:true, removeForbidden:true },
-            check_2: {id: 'start', type:'time', deactivateIfError:true },
-            check_3: {id: 'end', type:'time', deactivateIfError:true },
-            check_4: {id: 'additionalConditions', type:'name', deactivateIfError:true, removeForbidden:true, optional:true },
-            check_5: {id: 'never', type:'name', deactivateIfError:true, removeForbidden:true, optional:true },
-
+            check_5: {id: 'targetsOverwrite', type:'overwrite'}, // special for tableZones
         },
+        {
+            // Special for sub "table" for each Zone
+            tableName: 'Zone Execution',
+            tableId: 'tableZoneExecution',
+            tableMustHaveActiveRows: true,
+            check_1: {id: 'start', type:'time', deactivateIfError:true },
+            check_2: {id: 'end', type:'time', deactivateIfError:true },
+            check_3: {id: 'additionalConditions', type:'name', deactivateIfError:true, removeForbidden:true, optional:true },
+            check_4: {id: 'never', type:'name', deactivateIfError:true, removeForbidden:true, optional:true },
+        },
+
+
+
     ],
     testStates: [
         {statePath:'Test.trigger.Bathroom_motion',         commonObject:{name:'Bathroom Motion', type:'boolean', read:true, write:true, role:'button', def:false} },
@@ -183,8 +184,9 @@ class SmartControl extends utils.Adapter {
             if (await sc.asyncVerifyConfig(globals.configTableValidation)) {
                 this.log.info('Adapter admin configuration successfully validated...');
             } else {
-                // Error(s) occurred. We already logged error message(s) by the function, so simply go out here.
-                return;
+                // Error(s) occurred. We already logged error message(s) by the function, so no more log needed here
+                this.setState('info.connection', false, true); // change to yellow
+                return; // Go out.
             }
 
             /**
@@ -276,8 +278,11 @@ class SmartControl extends utils.Adapter {
              */
             this.log.info(`Subscribing to all target devices and trigger states. ${numTriggers} trigger schedules activated...`);
 
+            this.setState('info.connection', true, true); // change to green
+
         } catch (error) {
             sc.dumpError('[_asyncOnReady()]', error);
+            this.setState('info.connection', false, true); // change to yellow
             return;
         }
 
@@ -297,14 +302,15 @@ class SmartControl extends utils.Adapter {
             if (stateObject) {
 
                 // State was changed
-                this.log.debug(`Subscribed state '${statePath}' changed, new val: [${stateObject.val}] (ack: ${stateObject.ack}).`);
+                // this.log.debug(`Subscribed state '${statePath}' changed, new val: [${stateObject.val}] (ack: ${stateObject.ack}).`);
 
                 // Check acknowledge (ack)
-                if ( ! await sc.isAckPassing(statePath, stateObject)) {
-                    this.log.debug(`Subscribed state '${statePath}' change: ack '${stateObject.ack}' is *not* meeting isAckPassing() conditions`);
+                const ackPassingResult = await sc.isAckPassing(statePath, stateObject);
+                if ( ! ackPassingResult.passing ) {
+                    this.log.debug(`State Change: IGNORED – state '${statePath}' change: ack '${stateObject.ack}' - ${ackPassingResult.msg}`);
                     return;
                 } else {
-                    this.log.debug(`Subscribed state '${statePath}' change: ack '${stateObject.ack}' *is* meeting isAckPassing() conditions.`);
+                    this.log.debug(`State Change: ACCEPTED – state '${statePath}' change: ack '${stateObject.ack}' - ${ackPassingResult.msg}`);
                 }
 
                 /**
