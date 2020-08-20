@@ -126,6 +126,8 @@
                                         im ioBroker Admin Adapter, und wird mit dem nächsten Update kommen.
                                         <br><br>
                                         Du kannst auch einfach auf den Button links daneben klicken, dann bekommst du einen komfortableren Auswahl-Dialog.
+                                        <br><br> 
+                                        <img src="img/smartControl_options_dropdown_2.gif">
                                     </p>
                                 </div>
                             </li>
@@ -545,9 +547,23 @@
                                             <td class="translate">Beliebiger Name.</td>
                                           </tr>
                                           <tr>
+                                            <td class="translate">SC</td>
+                                            <td class="translate">Ja</td>
+                                            <td class="translate">
+                                                Siehe <strong>Datenpunkt</strong>.
+                                            </td>
+                                          </tr>
+                                          <tr>
                                             <td class="translate">Datenpunkt</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Entsprechender Datenpunkt.</td>
+                                            <td class="translate">
+                                                Ein existierender Datenpunkt als Auslöser.
+                                                <br>
+                                                <br>
+                                                Falls du die Option <strong>SC</strong> aktivierst, wird der Datenpunkt unterhalb von <code>smartcontrol.x.userstates</code> angelegt, d.h. wenn du hier z.B. <code>Bad.Radio.An</code> einträgst, dann wird hierfür der Datenpunkt <code>smartcontrol.x.userstates.Bad.Radio.An</code> angelegt, mit dem du dann das ganze auslösen kannst, in dem du den Datenpunkt enstprechend <strong>DP-Wert</strong> setzt. Der Datenpunkt wird als Typ 'String' angelegt, außer es ist <code>true</code> oder <code>false</code> in <strong>DP-Wert</strong>, dann wird dieser als 'boolean' angelegt.
+                                                <br>
+                                                Anwendungsfall hierfür: Etwa brauchst du einen Datenpunkt zum auslösen, also z.B. 'Heimkino an', der z.B. von Alexa getriggert wird. Hiermit ersparst du dir also, dass du deswegen manuell noch Datenpunkte anlegen musst.
+                                            </td>
                                           </tr>
                                           <tr>
                                             <td class="translate">DP-Wert</td>
@@ -604,6 +620,7 @@
                                             <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
                                             <th class="header translate" data-name="name">Name</th>
                                             <th style="width: 40px;" data-buttons="stateSelectPopupStateId" class="header"></th>
+                                            <th style="width: 30px" class="header" data-name="userState" data-type="checkbox">SC</th>
                                             <th class="header translate" data-name="stateId">Datenpunkt</th>
                                             <th style="width: 120px" class="header translate" data-name="stateVal">DP-Wert</th>
                                             <th style="width: 50px" class="header translate" data-name="targetOff" data-type="checkbox">Ziel aus?</th>

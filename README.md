@@ -51,6 +51,9 @@ However, we hope you keep Sentry Error Reporting activated. This helps us as dev
 
 ## Changelog
 
+### 0.2.2
+* (Mic-M) New feature: In '3. TRIGGERS', 'Other Triggers', you can now easily create own states as triggers under 'smartcontrol.x.userstates'
+
 ### 0.2.1
 * (Mic-M) Fixed motion sensors table, column 'seconds' to allow 0 seconds for deactivation
 

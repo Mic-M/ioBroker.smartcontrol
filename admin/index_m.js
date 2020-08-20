@@ -1,10 +1,6 @@
 /* eslint-disable no-irregular-whitespace */
 /* eslint-env jquery, browser */               // https://eslint.org/docs/user-guide/configuring#specifying-environments
-/* global socket, values2table, table2values, M, _ */  // for eslint
-
-/**
- * This is called by the admin adapter when the settings page loads
- */
+/* global socket, values2table, table2values, M, _, instance */  // for eslint
 
 // ++++++ Define option tables ++++++
 const tableIds = [
@@ -16,6 +12,9 @@ const tableIds = [
     'tableZones', 
     'tableConditions', 
 ];
+
+const adapterNamespace = `smartcontrol.${instance}`;
+
 const optionTablesSettings = {}; // Table variable holding the table settings array
 for (const lpTableId of tableIds) {
     optionTablesSettings[lpTableId] = [];
@@ -108,7 +107,8 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
             case 'tableTriggerDevices':
                 statePathPopupSelection(tableId,'stateSelectPopupStateId', 'stateId');    
                 updateTableButtonIcons(tableId, [{dataButton:'stateSelectPopupStateId', icon:'search'}]);
-                addCopyTableRowSmarter(tableId);          
+                addCopyTableRowSmarter(tableId);
+                otherTriggersShowHideUserStates(); 
                 break;
             case 'tableTriggerTimes':
                 dialogSelectSettings({tableId:'tableTriggerTimes', triggerDataCmd:'selectAdditionalConditions', targetField:'additionalConditions', dialogTitle:'Wähle zusätzliche Bedingungen' });
@@ -178,6 +178,40 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
 
         }
     }        
+
+    function otherTriggersShowHideUserStates() {
+
+        const jQueryStrCheckbox = `#tableTriggerDevices input[type="checkbox"][data-name="userState"]`;
+        $(jQueryStrCheckbox).each(function () {
+            doOrNot($(this));
+        });
+        
+        $(jQueryStrCheckbox).on('change', function() {
+            doOrNot($(this));
+        });
+
+        function doOrNot($checkbox) {
+
+            const index = $checkbox.data('index'); // table row number which was clicked, starting at zero.                    
+            const $stateField = $(`#tableTriggerDevices tr[data-index="${index}"] input[data-name="stateId"]`);
+
+            if($checkbox.prop('checked') == true) {
+                //checked
+                $stateField.prev('div.userstates').remove(); // just in case
+                $stateField.addClass('input-userstates');
+                $stateField.before(`<div class="userstates">Datenpunkt unterhalb ${adapterNamespace}.userstates. (wird autom. angelegt)</div>`);
+
+            } else {
+                //unchecked
+                $stateField.removeClass('input-userstates');
+                $stateField.prev('div.userstates').remove();
+            }            
+
+        }
+
+
+    }
+
 
     /**
      * Populate select field

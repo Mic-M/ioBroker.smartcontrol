@@ -179,6 +179,13 @@ class SmartControl extends utils.Adapter {
             }
 
             /**
+             * Create smartcontrol.x.userstates states
+             */
+            if (! await sc.asyncCreateUserTriggerStates()) {
+                throw(`We were not able to create ${this.namespace}'.userstates.xxx' states. Please check your log and configuration. You will not be able to use this adapter without fixing the issues.`);
+            }
+
+            /**
              * Validate Adapter Admin Configuration
              */
             if (await sc.asyncVerifyConfig(globals.configTableValidation)) {

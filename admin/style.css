@@ -145,3 +145,13 @@ code { padding: 2px 4px; font-size: 1.05em !important; color: #2696ef; backgroun
 
 /* Dialog for Zone Execution Config */
 #dialog-configure-zone-execution { width: 90% !important; height: 80% !important}
+
+
+#tableTriggerDevices td div.userstates {
+    color:#21448f;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+    font-style:italic;
+    font-weight:bold;
+    font-size:.8em !important;
+    width:100% !important;
+}
