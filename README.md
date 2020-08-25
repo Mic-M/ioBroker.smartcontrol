@@ -18,14 +18,15 @@ Control devices smarter: by grouping, including triggers like motion, opening wi
 
 <sub><sup>Adapter icon made by [freepik](https://www.flaticon.com/authors/freepik) from [flaticon.com](https://www.flaticon.com/).</sup></sub>
 
-## Forum Links
+## Forum Links (in German, but please feel free to post in English)
 * **Current Thread: [Test Adapter SmartControl 0.2.x GitHub](https://forum.iobroker.net/topic/36053/)**
 * 19.07. - 18.08.2020 : [Teste Adapter SmartControl 0.1.1-beta.x](https://forum.iobroker.net/topic/35308/)
 * 10.07. - 19.07.2020 : [Neuen SmartControl-Adapter 0.1.0-alpha.x testen](https://forum.iobroker.net/topic/35096/)
 * 23.05. - 10.07.2020 : [Planung neuer Adapter: Smart Control](https://forum.iobroker.net/topic/33691/)
 * 25.04.2020 : [Umfrage: Welchen Adapter soll ich als nächstes entwickeln?](https://forum.iobroker.net/topic/32644/)
 
-
+## FAQ / Use Cases (under construction)
+* ioBroker-Forum: [FAQ / Use Cases](https://forum.iobroker.net/topic/36237/smart-control-adapter-faq-use-cases) (in German, but please feel free to post in English)
 
 ## Installation
 The adapter is not yet in the "latest repository". So please [Install adapter from own URL](https://github.com/ioBroker/ioBroker.docs/blob/master/docs/en/admin/adapter.md). Then add an adapter instance.
