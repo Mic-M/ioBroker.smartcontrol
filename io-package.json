@@ -1,370 +1,376 @@
 {
-    "common": {
-        "name": "smartcontrol",
-        "version": "0.3.0",
-        "news": {
-            "0.3.0": {
-                "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-            },
-            "0.2.2": {
-                "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-            },
-            "0.2.1": {
-                "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-            },
-            "0.2.0": {
-                "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-            },
-            "0.1.2-beta.7": {
-                "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-            },
-            "0.1.2-beta.6": {
-                "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-            },
-            "0.1.2-beta.5": {
-                "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-            },
-            "0.1.2-beta.4": {
-                "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-            },
-            "0.1.2-beta.3": {
-                "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-            },
-            "0.1.2-beta.2": {
-                "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-            },
-            "0.1.2-beta.1": {
-                "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-            },
-            "0.1.1-beta.6": {
-                "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-            }
-        },
-        "title": "Smart Control",
-        "titleLang": {
-            "en": "Smart Control",
-            "de": "Smart Control",
-            "ru": "Smart Control",
-            "pt": "Smart Control",
-            "nl": "Smart Control",
-            "fr": "Smart Control",
-            "it": "Smart Control",
-            "es": "Smart Control",
-            "pl": "Smart Control",
-            "zh-cn": "Smart Control"
-        },
-        "desc": {
-            "en": "Control devices smarter: by grouping, including triggers like motion, opening window, etc. and set target devices accordingly",
-            "de": "Steuere deine Geräte smarter: durch Gruppieren, Einbindung von Auslösern wie Bewegungsmelder, Öffnen des Fensters usw., und entsprechendes Setzen der Zielgeräte",
-            "ru": "Умнее управляйте устройствами: группируя, включая триггеры, такие как движение, открывание окна и т. Д., И соответственно устанавливайте целевые устройства",
-            "pt": "Dispositivos de controle mais inteligentes: agrupando, incluindo gatilhos como movimento, abrindo a janela etc. e defina os dispositivos de destino de acordo",
-            "nl": "Bedien apparaten slimmer: door te groeperen, inclusief triggers zoals beweging, raam openen, enz. En dienovereenkomstig doelapparaten in te stellen",
-            "fr": "Contrôlez les appareils plus intelligemment: en groupant, y compris les déclencheurs comme le mouvement, l'ouverture de la fenêtre, etc. et définissez les appareils cibles en conséquence",
-            "it": "Controlla i dispositivi in ​​modo più intelligente: raggruppando, inclusi trigger come movimento, apertura della finestra, ecc. E imposta i dispositivi di destinazione di conseguenza",
-            "es": "Controle los dispositivos de manera más inteligente: agrupando, incluidos los desencadenantes como el movimiento, la ventana de apertura, etc.",
-            "pl": "Inteligentniejsze sterowanie urządzeniami: przez grupowanie, w tym wyzwalaczy, takich jak ruch, otwieranie okna itp. I odpowiednie ustawianie urządzeń docelowych",
-            "zh-cn": "控制设备更智能：通过分组（包括动作，打开窗口等）进行分组，并相应地设置目标设备"
-        },
-        "authors": [
-            "Mic-M <iob.micm@gmail.com>"
-        ],
-        "keywords": [
-            "smart",
-            "control",
-            "rooms",
-            "groups",
-            "motion sensors",
-            "devices",
-            "switches",
-            "lights",
-            "trigger",
-            "schedule",
-            "zones"
-        ],
-        "license": "MIT",
-        "platform": "Javascript/Node.js",
-        "main": "main.js",
-        "icon": "smartcontrol.png",
-        "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/Mic-M/ioBroker.smartcontrol/master/admin/smartcontrol.png",
-        "readme": "https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/README.md",
-        "loglevel": "info",
-        "mode": "daemon",
-        "type": "logic",
-        "compact": true,
-        "connectionType": "local",
-        "dataSource": "poll",
-        "materialize": true,
-        "dependencies": [
-            {
-                "js-controller": ">=1.4.2"
-            }
-        ],
-        "plugins": {
-            "sentry": {
-                "dsn": "https://5a01dc9b29b846218064c49700c7a302@sentry.iobroker.net/94"
-            }
-        }
+  "common": {
+    "name": "smartcontrol",
+    "version": "0.3.1",
+    "news": {
+      "0.3.1": {
+        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
+      },
+      "0.3.0": {
+        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
+      },
+      "0.2.2": {
+        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
+      },
+      "0.2.1": {
+        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
+      },
+      "0.2.0": {
+        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
+      },
+      "0.1.2-beta.7": {
+        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
+      },
+      "0.1.2-beta.6": {
+        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
+      },
+      "0.1.2-beta.5": {
+        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
+      },
+      "0.1.2-beta.4": {
+        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
+      },
+      "0.1.2-beta.3": {
+        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
+      },
+      "0.1.2-beta.2": {
+        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
+      },
+      "0.1.2-beta.1": {
+        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
+      },
+      "0.1.1-beta.6": {
+        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
+      }
     },
-    "native": {
-        "fixNightNightEnd": true,
-        "motionIgnoreBriIfZoneOn": true,
-        "triggerStatesAck": "false",
-        "limitTriggerInterval": "2",
-        "extendedInfoLog": true,
-        "fancy-filter-input": "",
-        "executeZoneAlways": false,
-        "tableTriggerMotion": [
-          {
-            "active": true,
-            "name": "Motion.Bad",
-            "stateId": "smartcontrol.0.Test.trigger.Bathroom_motion",
-            "stateVal": "true",
-            "duration": "10",
-            "notIfManual": false,
-            "briStateId": "smartcontrol.0.Test.brightness.Bathroom_bri",
-            "briThreshold": "100"
-          },
-          {
-            "active": true,
-            "name": "Motion.Flur.Sensor #1",
-            "stateId": "smartcontrol.0.Test.trigger.Hallway1_motion",
-            "stateVal": "true",
-            "duration": "120",
-            "notIfManual": false,
-            "briStateId": "smartcontrol.0.Test.brightness.Hallway1_bri",
-            "briThreshold": "70"
-          },
-          {
-            "active": true,
-            "name": "Motion.Flur.Sensor #2",
-            "stateId": "smartcontrol.0.Test.trigger.Hallway2_motion",
-            "stateVal": "true",
-            "duration": "120",
-            "notIfManual": false,
-            "briStateId": "smartcontrol.0.Test.brightness.Hallway2_bri",
-            "briThreshold": "60"
-          }
-        ],
-        "tableTriggerDevices": [
-          {
-            "active": true,
-            "name": "Andere.Bad.Wandschalter",
-            "userState": false,
-            "stateId": "smartcontrol.0.Test.trigger.Bathroom_wall-switch",
-            "stateVal": "true",
-            "targetOff": false,
-            "isToggle": false
-          },
-          {
-            "active": true,
-            "name": "Andere.Flur.Wandschalter #1",
-            "userState": false,
-            "stateId": "smartcontrol.0.Test.trigger.Hallway1_wall-switch",
-            "stateVal": "true",
-            "targetOff": false,
-            "isToggle": false
-          },
-          {
-            "active": true,
-            "name": "Andere.Flur.Wandschalter #2",
-            "userState": false,
-            "stateId": "smartcontrol.0.Test.trigger.Hallway2_wall-switch",
-            "stateVal": "true",
-            "targetOff": false,
-            "isToggle": false
-          },
-          {
-            "active": true,
-            "name": "Lese-Ecke.Jemand setzt sich",
-            "userState": false,
-            "stateId": "smartcontrol.0.Test.trigger.RelaxPersonSitting",
-            "stateVal": "true",
-            "targetOff": false,
-            "isToggle": false
-          }
-        ],
-        "tableTriggerTimes": [
-          {
-            "active": true,
-            "name": "Zeit.Jede Stunde in Minute 42",
-            "time": "42 * * * *",
-            "additionalConditions": [],
-            "additionalConditionsAll": false,
-            "never": [],
-            "neverAll": false,
-            "targetOff": false
-          },
-          {
-            "active": true,
-            "name": "Zeit.22:00 Mo-Fr",
-            "time": "0 22 * * 1-5",
-            "additionalConditions": [
-              "Jemand anwesend"
-            ],
-            "additionalConditionsAll": false,
-            "never": [],
-            "neverAll": false,            
-            "targetOff": false
-          },
-          {
-            "active": true,
-            "name": "Zeit.04:05 Sonntags",
-            "time": "5 4 * * sun",
-            "additionalConditions": [],
-            "additionalConditionsAll": false,
-            "never": [],
-            "neverAll": false,
-            "targetOff": false
-          },
-          {
-            "active": true,
-            "name": "Zeit.30 Minutes nach Sonnenuntergang",
-            "time": "sunset+30",
-            "additionalConditions": [],
-            "additionalConditionsAll": false,
-            "never": [],
-            "neverAll": false,
-            "targetOff": false
-          }
-        ],
-        "tableTargetDevices": [
-          {
-            "active": true,
-            "name": "Bad.EG.Licht",
-            "onState": "smartcontrol.0.Test.light.Bathroom",
-            "onValue": "true",
-            "noTargetOnCheck": false,
-            "offState": "smartcontrol.0.Test.light.Bathroom",
-            "offValue": "false",
-            "noTargetOffCheck": false
-          },
-          {
-            "active": true,
-            "name": "Bad.EG.Radio",
-            "onState": "smartcontrol.0.Test.radio.Bathroom",
-            "onValue": "Smooth Jazz",
-            "noTargetOnCheck": false,
-            "offState": "smartcontrol.0.Test.radio.Bathroom",
-            "offValue": "Musik aus",
-            "noTargetOffCheck": false
-          },
-          {
-            "active": true,
-            "name": "Flur.Light",
-            "onState": "smartcontrol.0.Test.light.Hallway",
-            "onValue": "true",
-            "noTargetOnCheck": false,
-            "offState": "smartcontrol.0.Test.light.Hallway",
-            "offValue": "false",
-            "noTargetOffCheck": false
-          },
-          {
-            "active": true,
-            "name": "Lese-Ecke.Deckenlicht",
-            "onState": "smartcontrol.0.Test.light.RelaxAreaCeiling",
-            "onValue": "true",
-            "noTargetOnCheck": false,
-            "offState": "smartcontrol.0.Test.light.RelaxAreaCeiling",
-            "offValue": "false",
-            "noTargetOffCheck": false
-          },
-          {
-            "active": true,
-            "name": "Lese-Ecke.Wandlicht",
-            "onState": "smartcontrol.0.Test.light.RelaxAreaWall",
-            "onValue": "true",
-            "noTargetOnCheck": false,
-            "offState": "smartcontrol.0.Test.light.RelaxAreaWall",
-            "offValue": "false",
-            "noTargetOffCheck": false
-          }
-        ],
-        "tableZones": [
-          {
-            "active": true,
-            "name": "Bad Erdgeschoss",
-            "triggers": [
-              "Motion.Bad",
-              "Andere.Bad.Wandschalter"
-            ],
-            "targets": [
-              "Bad.EG.Licht",
-              "Bad.EG.Radio"
-            ],
-            "offAfter": "7000",
-            "executeAlways": false,
-            "executionJson": "[{\"active\":true,\"start\":\"06:00\",\"end\":\"09:00\",\"mon\":true,\"tue\":true,\"wed\":true,\"thu\":true,\"fri\":true,\"sat\":false,\"sun\":false,\"additionalConditions\":[],\"never\":[\"Feiertag heute\",\"Keiner anwesend\"]},{\"active\":true,\"start\":\"08:00\",\"end\":\"11:00\",\"mon\":true,\"tue\":true,\"wed\":true,\"thu\":true,\"fri\":true,\"sat\":false,\"sun\":false,\"additionalConditions\":[\"Feiertag heute\"],\"never\":[\"Keiner anwesend\"]},{\"active\":true,\"start\":\"08:00\",\"end\":\"11:00\",\"mon\":false,\"tue\":false,\"wed\":false,\"thu\":false,\"fri\":false,\"sat\":true,\"sun\":true,\"additionalConditions\":[],\"never\":[\"Feiertag heute\",\"Keiner anwesend\"]}]"
-          },
-          {
-            "active": true,
-            "name": "Flur",
-            "triggers": [
-              "Motion.Flur.Sensor #1",
-              "Motion.Flur.Sensor #2",
-              "Andere.Flur.Wandschalter #1",
-              "Andere.Flur.Wandschalter #2"
-            ],
-            "targets": [
-              "Flur.Light"
-            ],
-            "offAfter": "500",
-            "executeAlways": true,
-            "executionJson": ""            
-          },
-          {
-            "active": true,
-            "name": "Leseecke",
-            "triggers": [
-              "Lese-Ecke.Jemand setzt sich"
-            ],
-            "targets": [
-              "Lese-Ecke.Deckenlicht",
-              "Lese-Ecke.Wandlicht"
-            ],
-            "offAfter": "10000",
-            "executeAlways": false,
-            "executionJson": "[{\"active\":true,\"start\":\"sunset+30\",\"end\":\"sunrise\",\"mon\":true,\"tue\":true,\"wed\":true,\"thu\":true,\"fri\":true,\"sat\":false,\"sun\":false,\"additionalConditions\":[\"Jemand anwesend\"],\"never\":[]}]"
-          }
-        ],
-        "tableConditions": [
-          {
-            "active": true,
-            "name": "Feiertag heute",
-            "conditionState": "smartcontrol.0.Test.condition.isHolidayToday",
-            "conditionValue": "true"
-          },
-          {
-            "active": true,
-            "name": "Haustür ist abgeschlossen",
-            "conditionState": "smartcontrol.0.Test.condition.isFrontDoorLocked",
-            "conditionValue": "true"
-          },
-          {
-            "active": true,
-            "name": "Keiner anwesend",
-            "conditionState": "smartcontrol.0.Test.condition.isAnyonePresent",
-            "conditionValue": "false"
-          },
-          {
-            "active": true,
-            "name": "Jemand anwesend",
-            "conditionState": "smartcontrol.0.Test.condition.isAnyonePresent",
-            "conditionValue": "true"
-          }
-        ]
+    "title": "Smart Control",
+    "titleLang": {
+      "en": "Smart Control",
+      "de": "Smart Control",
+      "ru": "Smart Control",
+      "pt": "Smart Control",
+      "nl": "Smart Control",
+      "fr": "Smart Control",
+      "it": "Smart Control",
+      "es": "Smart Control",
+      "pl": "Smart Control",
+      "zh-cn": "Smart Control"
     },
-    "instanceObjects": [{
-        "_id": "info.connection",
-        "type": "state",
-        "common": {
-            "role": "indicator.connected",
-            "name": "If adapter configuration successfully validated",
-            "type": "boolean",
-            "read": true,
-            "write": false,
-            "def": false
-        },
-        "native": {}
-    }]
+    "desc": {
+      "en": "Control devices smarter: by grouping, including triggers like motion, opening window, etc. and set target devices accordingly",
+      "de": "Steuere deine Geräte smarter: durch Gruppieren, Einbindung von Auslösern wie Bewegungsmelder, Öffnen des Fensters usw., und entsprechendes Setzen der Zielgeräte",
+      "ru": "Умнее управляйте устройствами: группируя, включая триггеры, такие как движение, открывание окна и т. Д., И соответственно устанавливайте целевые устройства",
+      "pt": "Dispositivos de controle mais inteligentes: agrupando, incluindo gatilhos como movimento, abrindo a janela etc. e defina os dispositivos de destino de acordo",
+      "nl": "Bedien apparaten slimmer: door te groeperen, inclusief triggers zoals beweging, raam openen, enz. En dienovereenkomstig doelapparaten in te stellen",
+      "fr": "Contrôlez les appareils plus intelligemment: en groupant, y compris les déclencheurs comme le mouvement, l'ouverture de la fenêtre, etc. et définissez les appareils cibles en conséquence",
+      "it": "Controlla i dispositivi in ​​modo più intelligente: raggruppando, inclusi trigger come movimento, apertura della finestra, ecc. E imposta i dispositivi di destinazione di conseguenza",
+      "es": "Controle los dispositivos de manera más inteligente: agrupando, incluidos los desencadenantes como el movimiento, la ventana de apertura, etc.",
+      "pl": "Inteligentniejsze sterowanie urządzeniami: przez grupowanie, w tym wyzwalaczy, takich jak ruch, otwieranie okna itp. I odpowiednie ustawianie urządzeń docelowych",
+      "zh-cn": "控制设备更智能：通过分组（包括动作，打开窗口等）进行分组，并相应地设置目标设备"
+    },
+    "authors": [
+      "Mic-M <iob.micm@gmail.com>"
+    ],
+    "keywords": [
+      "smart",
+      "control",
+      "rooms",
+      "groups",
+      "motion sensors",
+      "devices",
+      "switches",
+      "lights",
+      "trigger",
+      "schedule",
+      "zones"
+    ],
+    "license": "MIT",
+    "platform": "Javascript/Node.js",
+    "main": "main.js",
+    "icon": "smartcontrol.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/Mic-M/ioBroker.smartcontrol/master/admin/smartcontrol.png",
+    "readme": "https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/README.md",
+    "loglevel": "info",
+    "mode": "daemon",
+    "type": "logic",
+    "compact": true,
+    "connectionType": "local",
+    "dataSource": "poll",
+    "materialize": true,
+    "dependencies": [
+      {
+        "js-controller": ">=1.4.2"
+      }
+    ],
+    "plugins": {
+      "sentry": {
+        "dsn": "https://5a01dc9b29b846218064c49700c7a302@sentry.iobroker.net/94"
+      }
+    },
+    "installedFrom": "https://github.com/Mic-M/ioBroker.smartcontrol/tarball/55e7a381aad31225e0c95a03f145abda6bc666a4"
+  },
+  "native": {
+    "fixNightNightEnd": true,
+    "motionIgnoreBriIfZoneOn": true,
+    "triggerStatesAck": "false",
+    "limitTriggerInterval": "2",
+    "extendedInfoLog": true,
+    "fancy-filter-input": "",
+    "executeZoneAlways": false,
+    "tableTriggerMotion": [
+      {
+        "active": true,
+        "name": "Motion.Bad",
+        "stateId": "smartcontrol.0.Test.trigger.Bathroom_motion",
+        "stateVal": "true",
+        "duration": "10",
+        "notIfManual": false,
+        "briStateId": "smartcontrol.0.Test.brightness.Bathroom_bri",
+        "briThreshold": "100"
+      },
+      {
+        "active": true,
+        "name": "Motion.Flur.Sensor #1",
+        "stateId": "smartcontrol.0.Test.trigger.Hallway1_motion",
+        "stateVal": "true",
+        "duration": "120",
+        "notIfManual": false,
+        "briStateId": "smartcontrol.0.Test.brightness.Hallway1_bri",
+        "briThreshold": "70"
+      },
+      {
+        "active": true,
+        "name": "Motion.Flur.Sensor #2",
+        "stateId": "smartcontrol.0.Test.trigger.Hallway2_motion",
+        "stateVal": "true",
+        "duration": "120",
+        "notIfManual": false,
+        "briStateId": "smartcontrol.0.Test.brightness.Hallway2_bri",
+        "briThreshold": "60"
+      }
+    ],
+    "tableTriggerDevices": [
+      {
+        "active": true,
+        "name": "Andere.Bad.Wandschalter",
+        "userState": false,
+        "stateId": "smartcontrol.0.Test.trigger.Bathroom_wall-switch",
+        "stateVal": "true",
+        "targetOff": false,
+        "isToggle": false
+      },
+      {
+        "active": true,
+        "name": "Andere.Flur.Wandschalter #1",
+        "userState": false,
+        "stateId": "smartcontrol.0.Test.trigger.Hallway1_wall-switch",
+        "stateVal": "true",
+        "targetOff": false,
+        "isToggle": false
+      },
+      {
+        "active": true,
+        "name": "Andere.Flur.Wandschalter #2",
+        "userState": false,
+        "stateId": "smartcontrol.0.Test.trigger.Hallway2_wall-switch",
+        "stateVal": "true",
+        "targetOff": false,
+        "isToggle": false
+      },
+      {
+        "active": true,
+        "name": "Lese-Ecke.Jemand setzt sich",
+        "userState": false,
+        "stateId": "smartcontrol.0.Test.trigger.RelaxPersonSitting",
+        "stateVal": "true",
+        "targetOff": false,
+        "isToggle": false
+      }
+    ],
+    "tableTriggerTimes": [
+      {
+        "active": true,
+        "name": "Zeit.Jede Stunde in Minute 42",
+        "time": "42 * * * *",
+        "additionalConditions": [],
+        "additionalConditionsAll": false,
+        "never": [],
+        "neverAll": false,
+        "targetOff": false
+      },
+      {
+        "active": true,
+        "name": "Zeit.22:00 Mo-Fr",
+        "time": "0 22 * * 1-5",
+        "additionalConditions": [
+          "Jemand anwesend"
+        ],
+        "additionalConditionsAll": false,
+        "never": [],
+        "neverAll": false,
+        "targetOff": false
+      },
+      {
+        "active": true,
+        "name": "Zeit.04:05 Sonntags",
+        "time": "5 4 * * sun",
+        "additionalConditions": [],
+        "additionalConditionsAll": false,
+        "never": [],
+        "neverAll": false,
+        "targetOff": false
+      },
+      {
+        "active": true,
+        "name": "Zeit.30 Minutes nach Sonnenuntergang",
+        "time": "sunset+30",
+        "additionalConditions": [],
+        "additionalConditionsAll": false,
+        "never": [],
+        "neverAll": false,
+        "targetOff": false
+      }
+    ],
+    "tableTargetDevices": [
+      {
+        "active": true,
+        "name": "Bad.EG.Licht",
+        "onState": "smartcontrol.0.Test.light.Bathroom",
+        "onValue": "true",
+        "noTargetOnCheck": false,
+        "offState": "smartcontrol.0.Test.light.Bathroom",
+        "offValue": "false",
+        "noTargetOffCheck": false
+      },
+      {
+        "active": true,
+        "name": "Bad.EG.Radio",
+        "onState": "smartcontrol.0.Test.radio.Bathroom",
+        "onValue": "Smooth Jazz",
+        "noTargetOnCheck": false,
+        "offState": "smartcontrol.0.Test.radio.Bathroom",
+        "offValue": "Musik aus",
+        "noTargetOffCheck": false
+      },
+      {
+        "active": true,
+        "name": "Flur.Light",
+        "onState": "smartcontrol.0.Test.light.Hallway",
+        "onValue": "true",
+        "noTargetOnCheck": false,
+        "offState": "smartcontrol.0.Test.light.Hallway",
+        "offValue": "false",
+        "noTargetOffCheck": false
+      },
+      {
+        "active": true,
+        "name": "Lese-Ecke.Deckenlicht",
+        "onState": "smartcontrol.0.Test.light.RelaxAreaCeiling",
+        "onValue": "true",
+        "noTargetOnCheck": false,
+        "offState": "smartcontrol.0.Test.light.RelaxAreaCeiling",
+        "offValue": "false",
+        "noTargetOffCheck": false
+      },
+      {
+        "active": true,
+        "name": "Lese-Ecke.Wandlicht",
+        "onState": "smartcontrol.0.Test.light.RelaxAreaWall",
+        "onValue": "true",
+        "noTargetOnCheck": false,
+        "offState": "smartcontrol.0.Test.light.RelaxAreaWall",
+        "offValue": "false",
+        "noTargetOffCheck": false
+      }
+    ],
+    "tableZones": [
+      {
+        "active": true,
+        "name": "Bad Erdgeschoss",
+        "triggers": [
+          "Motion.Bad",
+          "Andere.Bad.Wandschalter"
+        ],
+        "targets": [
+          "Bad.EG.Licht",
+          "Bad.EG.Radio"
+        ],
+        "offAfter": "7000",
+        "executeAlways": false,
+        "executionJson": "[{\"active\":true,\"start\":\"06:00\",\"end\":\"09:00\",\"mon\":true,\"tue\":true,\"wed\":true,\"thu\":true,\"fri\":true,\"sat\":false,\"sun\":false,\"additionalConditions\":[],\"never\":[\"Feiertag heute\",\"Keiner anwesend\"]},{\"active\":true,\"start\":\"08:00\",\"end\":\"11:00\",\"mon\":true,\"tue\":true,\"wed\":true,\"thu\":true,\"fri\":true,\"sat\":false,\"sun\":false,\"additionalConditions\":[\"Feiertag heute\"],\"never\":[\"Keiner anwesend\"]},{\"active\":true,\"start\":\"08:00\",\"end\":\"11:00\",\"mon\":false,\"tue\":false,\"wed\":false,\"thu\":false,\"fri\":false,\"sat\":true,\"sun\":true,\"additionalConditions\":[],\"never\":[\"Feiertag heute\",\"Keiner anwesend\"]}]"
+      },
+      {
+        "active": true,
+        "name": "Flur",
+        "triggers": [
+          "Motion.Flur.Sensor #1",
+          "Motion.Flur.Sensor #2",
+          "Andere.Flur.Wandschalter #1",
+          "Andere.Flur.Wandschalter #2"
+        ],
+        "targets": [
+          "Flur.Light"
+        ],
+        "offAfter": "500",
+        "executeAlways": true,
+        "executionJson": ""
+      },
+      {
+        "active": true,
+        "name": "Leseecke",
+        "triggers": [
+          "Lese-Ecke.Jemand setzt sich"
+        ],
+        "targets": [
+          "Lese-Ecke.Deckenlicht",
+          "Lese-Ecke.Wandlicht"
+        ],
+        "offAfter": "10000",
+        "executeAlways": false,
+        "executionJson": "[{\"active\":true,\"start\":\"sunset+30\",\"end\":\"sunrise\",\"mon\":true,\"tue\":true,\"wed\":true,\"thu\":true,\"fri\":true,\"sat\":false,\"sun\":false,\"additionalConditions\":[\"Jemand anwesend\"],\"never\":[]}]"
+      }
+    ],
+    "tableConditions": [
+      {
+        "active": true,
+        "name": "Feiertag heute",
+        "conditionState": "smartcontrol.0.Test.condition.isHolidayToday",
+        "conditionValue": "true"
+      },
+      {
+        "active": true,
+        "name": "Haustür ist abgeschlossen",
+        "conditionState": "smartcontrol.0.Test.condition.isFrontDoorLocked",
+        "conditionValue": "true"
+      },
+      {
+        "active": true,
+        "name": "Keiner anwesend",
+        "conditionState": "smartcontrol.0.Test.condition.isAnyonePresent",
+        "conditionValue": "false"
+      },
+      {
+        "active": true,
+        "name": "Jemand anwesend",
+        "conditionState": "smartcontrol.0.Test.condition.isAnyonePresent",
+        "conditionValue": "true"
+      }
+    ]
+  },
+  "instanceObjects": [
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "If adapter configuration successfully validated",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    }
+  ]
 }

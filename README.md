@@ -46,6 +46,9 @@ However, we hope you keep Sentry Error Reporting activated. This helps us as dev
 
 ## Changelog
 
+### 0.3.1
+* (Mic-M) Fix error if no duration is set for motion sensor - [Forum Link](https://forum.iobroker.net/post/487630)
+
 ### 0.3.0
 **Breaking Changes**
 * (Mic-M) Entire adapter code refactored. Therefore, tests are required to verify if these massive changes do not affect the adapter functionality. However, none of your existing adapter configuration should be lost and will be kept if you upgrade from 0.2.0+. But please check ALL of your configuration, since new options were added which

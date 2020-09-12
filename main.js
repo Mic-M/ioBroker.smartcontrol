@@ -1280,7 +1280,7 @@ class SmartControl extends utils.Adapter {
                  * Motion sensor changed to false (no motion).
                  * In this case, we will not switch any target devices, but set a timer to turn targets off.
                  */
-                if (trigger.triggerIsMotion && stateObject.val===false) {
+                if (trigger.triggerIsMotion && stateObject.val===false && !this.x.helper.isLikeEmpty(trigger.motionDuration) && (parseInt(trigger.motionDuration) > 0)) {
 
                     // We start timer to switch devices off
                     if (!trigger.zoneNames || !trigger.zoneTargetNames) {
