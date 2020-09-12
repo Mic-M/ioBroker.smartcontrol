@@ -451,11 +451,6 @@
                                             <td class="translate">Datenpunkt des Bewegungsmelders</td>
                                           </tr>
                                           <tr>
-                                            <td class="translate">DP-Wert</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">Datenpunkt-Wert, den der Bewegungsmelder setzt, sobald eine Bewegung erkannt wird (typischerweise ist das <code>true</code>). Du kannst <code>true</code>, <code>false</code>, Nummern wie <code>144</code>, or Strings wie <code>Bewegung jetzt</code> verwenden. Sämtliche Leerzeichen und Anführungszeichen (wie <code>"</code>) am Anfang und Ende werden automatisch entfernt.</td>
-                                          </tr>
-                                          <tr>
                                             <td class="translate">Sek</td>
                                             <td class="translate">Nein</td>
                                             <td class="translate">Nach dieser Anzahl an Sekunden (und keiner weiteren zwischendurch erkannten Bewegung) werden die Zielgeräte ausgeschaltet.
@@ -463,7 +458,7 @@
                                             </td>
                                           </tr>
                                           <tr>
-                                            <td>✘</td>
+                                            <td><i class="material-icons left">timer_off</i></td>
                                             <td class="translate">Nein</td>
                                             <td class="translate">Wenn diese Option aktiviert ist, wird kein Ausschalt-Timer für die Zielgeräte gesetzt, die bereits an waren. Use Case: <a href="https://forum.iobroker.net/post/433871" target="_blank">siehe Forum-Beitrag</a>.</td>
                                           </tr>
@@ -501,9 +496,8 @@
                                             <th class="header translate" data-name="name">Name für Bewegungsmelder</th>
                                             <th style="width: 40px;" data-buttons="stateSelectPopupMotionState" class="header"></th>
                                             <th class="header translate" data-name="stateId">Datenpunkt Bewegungsmelder</th>
-                                            <th style="width: 120px" class="header translate" data-name="stateVal">DP-Wert</th>
                                             <th style="width: 60px" class="mOptional header translate" data-name="duration" data-type="number">Sek</th>
-                                            <th style="width: 30px" class="mOptional header" data-name="notIfManual" data-type="checkbox">✘</th>
+                                            <th style="width: 30px" class="mOptional header" data-name="notIfManual" data-type="checkbox"><i class="material-icons left">timer_off</i></th>
                                             <th style="width: 40px;" data-buttons="stateSelectPopupBriState" class="header"></th>
                                             <th class="mOptional header translate" data-name="briStateId">Datenpunkt Helligkeit</th>
                                             <th style="width: 60px" class="mOptional header translate" data-name="briThreshold" data-type="number">Grenze</th>
@@ -678,17 +672,29 @@
                                           <tr>
                                             <td class="translate">Zusätzlich muss erfüllt sein</td>
                                             <td class="translate">Nein</td>
-                                            <td class="translate">Hier kannst du zusätzliche Bedingungen eintragen, die zusätzlich zutreffen müssen, z.B.: Jemand ist anwesend, Heute ist Feiertag, Oma schläft, usw.
-                                                              <br>Falls du mehr als eine Bedingung auswählst, müssen all diese Bedingungen zutreffen, damit ausgelöst wird.
-                                            </td>
+                                            <td class="translate">Hier kannst du zusätzliche Bedingungen eintragen, die zusätzlich zutreffen müssen, z.B.: Jemand ist anwesend, Heute ist Feiertag, Oma schläft, usw.</td>
                                           </tr>
+                                          <tr>
+                                            <td><i class="material-icons left">done_all</i></td>
+                                            <td class="translate">Nein</td>
+                                            <td class="translate">
+                                                Für <i>Zusätzlich muss erfüllt sein</i>: Wenn aktiviert, müssen alle Bedingungen zutreffen ('und'). Wenn deaktiviert, reicht es, wenn eine der Bedingungen zutrifft.
+                                                <br>Falls du nur eine Bedingung auswählst, ist es egal, ob du das aktivierst oder nicht.
+                                            </td>
+                                          </tr>                                          
                                           <tr>
                                             <td class="translate">Nie auslösen wenn...</td>
                                             <td class="translate">Nein</td>
-                                            <td class="translate">Hier kannst du zusätzliche Bedingungen eintragen, die nie zutreffen dürfen, z.B.: Keiner zu Hause, Radio läuft, usw.
-                                                              <br>Falls du mehr als eine Bedingung auswählst: sobald auch nur eine dieser Bedingungen zutrifft, wird nicht ausgelöst.
-                                            </td>
+                                            <td class="translate">Hier kannst du zusätzliche Bedingungen eintragen, die nie zutreffen dürfen, z.B.: Keiner zu Hause, Radio läuft, usw.</td>
                                           </tr>
+                                          <tr>
+                                            <td><i class="material-icons left">done_all</i></td>
+                                            <td class="translate">Nein</td>
+                                            <td class="translate">
+                                                Für <i>Nie auslösen wenn...</i>: Wenn aktiviert, müssen alle Bedingungen zutreffen ('und'). Wenn deaktiviert, reicht es, wenn eine der Bedingungen zutrifft.
+                                                <br>Falls du nur eine Bedingung auswählst, ist es egal, ob du das aktivierst oder nicht.
+                                            </td>
+                                          </tr>                                           
                                           <tr>
                                             <td class="translate">Ziel aus?</td>
                                             <td class="translate">Nein</td>
@@ -722,8 +728,10 @@
                                             <th style="width: 140px" class="header translate" data-name="time">Zeit</th>
                                             <th style="width: 40px;" data-buttons="selectAdditionalConditions" class="header"></th>
                                             <th class="mOptional header translate" data-name="additionalConditions" data-type="select multiple">Zusätzlich muss erfüllt sein</th>
+                                            <th style="width: 30px" class="mOptional header" data-name="additionalConditionsAll" data-type="checkbox"><i class="material-icons left">done_all</i></th>
                                             <th style="width: 40px;" data-buttons="selectNever" class="header"></th>
                                             <th class="mOptional header translate" data-name="never" data-type="select multiple">Nie auslösen wenn...</th>
+                                            <th style="width: 30px" class="mOptional header" data-name="neverAll" data-type="checkbox"><i class="material-icons left">done_all</i></th>
                                             <th style="width: 50px" class="header translate" data-name="targetOff" data-type="checkbox">Ziel aus?</th>
                                             <th style="width: 160px" class="header" data-buttons="up down copy_smart delete"></th>
                                         </tr>
@@ -880,13 +888,37 @@
                     <p style="font-size: 0.9em; line-height: 1.5" class="translate">Hier sind weitere Adapter-Optionen.</p>
                 </div>        
                 <ul class="collapsible" style="margin-top: 1.5em;">
-                    <!-- +++ Schedule Options +++  -->
+                    <!-- +++ Motion Sensor Options +++  -->
                     <li class="lighten-2">
-                        <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">Zeitplan- und Astro-Optionen</h6></div>
+                        <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">Bewegungsmelder</h6></div>
                         <div class="collapsible-body">
                             <div class="row">
                                 <div class="col s12">
-                                    <h6 class="translate info">Astro-Zeiten 'night' und 'nightEnd'</h6>
+                                    <h6 class="hBlock translate info">Helligkeit (Bri) nicht prüfen falls Zone an</h6>
+                                    <p class="translate info">Für Bewegungssensoren und zugehörige Helligkeits-Datenpunkte kannst du hier definieren,
+                                        ob die Helligkeit ignoriert werden soll, falls eine zugehörige Zone bereits an ist.
+                                        <br>
+                                        Use Case (Anwendungsfall): 'Grenze' ist der oberere Schwellwert der Helligkeit, über dem nicht mehr eingeschaltet wird wenn der Bewegungsmelder
+                                        auslöst. Dies ist jedoch nicht praxisnah, wenn der Bewegungsmelder z.B. Lichter schaltet, denn dann werden keine wiederkehrenden
+                                        Bewegungen mehr erkannt, falls Licht an und 'Bri' höchstwahrscheinlich damit überhalb des Schwellwertes ist.
+                                        <br>Mit Aktivierung dieser Option wird die Helligkeit nicht überprüft, falls eine zugehörige Zone bereits an ist.
+                                    </p>
+                                    <div class="input-field col s12 m6">
+                                        <input type="checkbox" class="value" id="motionIgnoreBriIfZoneOn" />
+                                        <label for="motionIgnoreBriIfZoneOn" class="translate">Helligkeit (Bri) nicht prüfen, wenn Zone an</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- +++ Schedule Options +++  -->
+                    <li class="lighten-2">
+                        <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">Zeitplan und Astro</h6></div>
+                        <div class="collapsible-body">
+                            <div class="row">
+                                <div class="col s12">
+                                    <h6 class="hBlock translate info">Astro-Zeiten 'night' und 'nightEnd'</h6>
                                     <p class="translate info">
                                         Je nach den geographischen Koordinaten, die in den ioBroker-Admin-Optionen gesetzt sind, gibt es z.B. in Deutschland im Sommer teils kein <code>night</code> und <code>nightEnd</code>.
                                         Wenn du das hier aktivierst, dann wird in diesem Fall als night = '00:00' gesetzt, und als nightEnd = '02:00'
@@ -901,27 +933,11 @@
                     </li>
                     <!-- +++ Trigger Options +++  -->
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">Auslöser-Optionen</h6></div>
+                        <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">Auslöser</h6></div>
                         <div class="collapsible-body">
                             <div class="row">
                                 <div class="col s12">
-                                    <h6 class="translate info">Bewegungsmelder: Ignoriere die Helligkeit falls der Ausschalt-Timer noch läuft</h6>
-                                    <p class="translate info">Falls unter '3. AUSLÖSER' Bewegungssensoren und zugehörige Helligkeits-Datenpunkte definiert sind, kann man hiermit folgendes optimieren:
-                                        <br><br>
-                                        'Grenze' ist der oberere Schwellwert der Helligkeit, über dem nicht mehr eingeschaltet wird wenn der Bewegungsmelder auslöst. 
-                                        Dies ist jedoch nicht praxisnah, wenn der Bewegungsmelder z.B. Lichter schaltet, denn dann werden keine wiederkehrenden Bewegungen mehr erkannt, falls Licht an und 'Bri' höchstwahrscheinlich damit überhalb des Schwellwertes ist.
-                                        Mit Aktivierung dieser Option wird der Helligkeitsdatenpunkt ignoriert, wenn ein Bewegungsmelder auslöste und der Abschalt-Timer (z.B. 2 Minuten) noch läuft.
-                                    </p>
-                                    <div class="input-field col s12 m6">
-                                        <input type="checkbox" class="value" id="motionNoBriIfTimer" />
-                                        <label for="motionNoBriIfTimer" class="translate">Ignoriere Helligkeit falls Ausschalt-Timer des Bewegungsmelders noch läuft</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col s12">
-                                    <h6 class="translate info">Auslöser-Datenpunkte unterhalb von User-Datenpunkten wie javascript.x, 0_userdata.0, Messwerte.0, alias.x</h6>
+                                    <h6 class="hBlock translate info">Auslöser-Datenpunkte unterhalb von User-Datenpunkten wie javascript.x, 0_userdata.0, Messwerte.0, alias.x</h6>
                                     <p class="translate info">Änderungen von Datenpunkten, die unterhalb von Adapter-Instanzen sind, werden nur getriggert, wenn acknowledge (ack) = <code>true</code> (also States gültig/bestätigt sind). 
                                         <br>Für <strong>user-eigene Datenpunkte</strong> unterhalb javascript.x, 0_userdata.0, Messwerte.0, alias.0 usw. kann man das hier ändern.
                                         <br><strong>Achtung: </strong> Falls "Egal (ack:true oder ack:false)" ausgewählt wird, wird ggf. doppelt geschaltet, wenn ack:false und kurz darauf ack:true gesetzt wird. Dieser Adapter verhindert das aber mit der Option <i>Auslöser ignorieren, falls letzes Auslösen desselben Auslösers vor weniger als x Sekunden war</i>.
@@ -937,7 +953,7 @@
                             </div>
                             <div class="row">
                                 <div class="col s12">
-                                    <h6 class="translate info">Auslöser ignorieren, falls letzes Auslösen desselben Auslösers vor weniger als x Sekunden war</h6>
+                                    <h6 class="hBlock translate info">Auslöser ignorieren, falls letzes Auslösen desselben Auslösers vor weniger als x Sekunden war</h6>
                                     <p class="translate info">Aus Stabilitätsgründen werden Auslöser ignoriert, wenn diese bereits vor weniger als x Sekunden ausgelöst haben. Du kannst diese Anzahl Sekunden hier anpassen. Weniger als 1 Sekunde ist nicht erlaubt.</p>
                                     <!-- <div class="input-field col s12 m6"> -->
                                     <div class="input-field col s3">
@@ -955,6 +971,7 @@
                         <div class="collapsible-body">
                             <div class="row">
                                 <div class="col s12">
+                                    <h6 class="hBlock translate info">Erweitere Info-Log-Ausgaben</h6>
                                     <p class="translate info">
                                         Wenn deaktiviert, werden im Log (Level 'Info') nur wenige Informationen beim Adapter-Start und Stop/Neustart angezeigt und alle weiteren Informationen nur im Debug-Log.
                                         <br> Wenn aktiviert, werden im Log (Level 'Info') erweiterte Informationen ausgegeben (aber weniger, als im Debug-Log).
@@ -1094,15 +1111,27 @@
                                       <tr>
                                         <td class="translate">Zusätzlich muss erfüllt sein</td>
                                         <td class="translate">Nein</td>
-                                        <td class="translate">Hier kannst du zusätzliche Bedingungen eintragen, die zusätzlich zutreffen müssen, z.B.: Jemand ist anwesend, Heute ist Feiertag, usw.
-                                                              <br>Falls du mehr als eine Bedingung auswählst, müssen all diese Bedingungen zutreffen, damit die Ziele geschaltet werden.
-                                        </td>
+                                        <td class="translate">Hier kannst du zusätzliche Bedingungen eintragen, die zusätzlich zutreffen müssen, z.B.: Jemand ist anwesend, Heute ist Feiertag, Oma schläft, usw.</td>
                                       </tr>
+                                      <tr>
+                                        <td><i class="material-icons left">done_all</i></td>
+                                        <td class="translate">Nein</td>
+                                        <td class="translate">
+                                            Für <i>Zusätzlich muss erfüllt sein</i>: Wenn aktiviert, müssen alle Bedingungen zutreffen ('und'). Wenn deaktiviert, reicht es, wenn eine der Bedingungen zutrifft.
+                                            <br>Falls du nur eine Bedingung auswählst, ist es egal, ob du das aktivierst oder nicht.
+                                        </td>
+                                      </tr>                                          
                                       <tr>
                                         <td class="translate">Nie schalten wenn...</td>
                                         <td class="translate">Nein</td>
-                                        <td class="translate">Hier kannst du zusätzliche Bedingungen eintragen, die nie zutreffen dürfen, z.B.: Keiner zu Hause, Radio läuft, usw.
-                                                              <br>Falls du mehr als eine Bedingung auswählst: sobald auch nur eine dieser Bedingungen zutrifft, wird nicht geschaltet.
+                                        <td class="translate">Hier kannst du zusätzliche Bedingungen eintragen, die nie zutreffen dürfen, z.B.: Keiner zu Hause, Radio läuft, usw.</td>
+                                      </tr>
+                                      <tr>
+                                        <td><i class="material-icons left">done_all</i></td>
+                                        <td class="translate">Nein</td>
+                                        <td class="translate">
+                                            Für <i>Nie schalten wenn...</i>: Wenn aktiviert, müssen alle Bedingungen zutreffen ('und'). Wenn deaktiviert, reicht es, wenn eine der Bedingungen zutrifft.
+                                            <br>Falls du nur eine Bedingung auswählst, ist es egal, ob du das aktivierst oder nicht.
                                         </td>
                                       </tr>
                                     </tbody>
@@ -1146,8 +1175,10 @@
                                         <th style="width: 35px" class="header translate" data-name="sun" data-type="checkbox">So</th>
                                         <th style="width: 40px;" data-buttons="selectAdditionalConditions" class="header"></th>
                                         <th class="mOptional header translate" data-name="additionalConditions" data-type="select multiple">Zusätzlich muss erfüllt sein</th>
+                                        <th style="width: 30px" class="mOptional header" data-name="additionalConditionsAll" data-type="checkbox"><i class="material-icons left">done_all</i></th>
                                         <th style="width: 40px;" data-buttons="selectNever" class="header"></th>
                                         <th class="mOptional header translate" data-name="never" data-type="select multiple">Nie schalten wenn...</th>
+                                        <th style="width: 30px" class="mOptional header" data-name="neverAll" data-type="checkbox"><i class="material-icons left">done_all</i></th>
                                         <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
                                     </tr>
                                 </thead>

@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "0.2.2",
+        "version": "0.3.0",
         "news": {
+            "0.3.0": {
+                "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
+            },
             "0.2.2": {
                 "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
             },
@@ -105,7 +108,7 @@
     },
     "native": {
         "fixNightNightEnd": true,
-        "motionNoBriIfTimer": true,
+        "motionIgnoreBriIfZoneOn": true,
         "triggerStatesAck": "false",
         "limitTriggerInterval": "2",
         "extendedInfoLog": true,
@@ -147,6 +150,7 @@
           {
             "active": true,
             "name": "Andere.Bad.Wandschalter",
+            "userState": false,
             "stateId": "smartcontrol.0.Test.trigger.Bathroom_wall-switch",
             "stateVal": "true",
             "targetOff": false,
@@ -155,6 +159,7 @@
           {
             "active": true,
             "name": "Andere.Flur.Wandschalter #1",
+            "userState": false,
             "stateId": "smartcontrol.0.Test.trigger.Hallway1_wall-switch",
             "stateVal": "true",
             "targetOff": false,
@@ -163,6 +168,7 @@
           {
             "active": true,
             "name": "Andere.Flur.Wandschalter #2",
+            "userState": false,
             "stateId": "smartcontrol.0.Test.trigger.Hallway2_wall-switch",
             "stateVal": "true",
             "targetOff": false,
@@ -171,6 +177,7 @@
           {
             "active": true,
             "name": "Lese-Ecke.Jemand setzt sich",
+            "userState": false,
             "stateId": "smartcontrol.0.Test.trigger.RelaxPersonSitting",
             "stateVal": "true",
             "targetOff": false,
@@ -183,7 +190,9 @@
             "name": "Zeit.Jede Stunde in Minute 42",
             "time": "42 * * * *",
             "additionalConditions": [],
+            "additionalConditionsAll": false,
             "never": [],
+            "neverAll": false,
             "targetOff": false
           },
           {
@@ -193,7 +202,9 @@
             "additionalConditions": [
               "Jemand anwesend"
             ],
+            "additionalConditionsAll": false,
             "never": [],
+            "neverAll": false,            
             "targetOff": false
           },
           {
@@ -201,7 +212,9 @@
             "name": "Zeit.04:05 Sonntags",
             "time": "5 4 * * sun",
             "additionalConditions": [],
+            "additionalConditionsAll": false,
             "never": [],
+            "neverAll": false,
             "targetOff": false
           },
           {
@@ -209,7 +222,9 @@
             "name": "Zeit.30 Minutes nach Sonnenuntergang",
             "time": "sunset+30",
             "additionalConditions": [],
+            "additionalConditionsAll": false,
             "never": [],
+            "neverAll": false,
             "targetOff": false
           }
         ],

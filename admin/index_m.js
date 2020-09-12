@@ -391,7 +391,7 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
 
     /**
      * We replace "copy table row" command from node_modules/iobroker.admin/www/js/adapter-settings.js
-     * Reason: rename name functionality will not probably work any longer if name keeps the same, therefore 
+     * Reason: rename name functionality does not work any longer if name keeps the same, therefore 
      *         we add '_Copy' to name field of copied row.
      * @param {string} tableId - Table ID, like "tableTargetDevices"
      */
@@ -1214,4 +1214,3 @@ function isLikeEmpty(inputVar) {
         return true;
     }
 }
-

@@ -18,18 +18,12 @@ Control devices smarter: by grouping, including triggers like motion, opening wi
 
 <sub><sup>Adapter icon made by [freepik](https://www.flaticon.com/authors/freepik) from [flaticon.com](https://www.flaticon.com/).</sup></sub>
 
-## Forum Links (in German, but please feel free to post in English)
-* **Current Thread: [Test Adapter SmartControl 0.2.x GitHub](https://forum.iobroker.net/topic/36053/)**
-* 19.07. - 18.08.2020 : [Teste Adapter SmartControl 0.1.1-beta.x](https://forum.iobroker.net/topic/35308/)
-* 10.07. - 19.07.2020 : [Neuen SmartControl-Adapter 0.1.0-alpha.x testen](https://forum.iobroker.net/topic/35096/)
-* 23.05. - 10.07.2020 : [Planung neuer Adapter: Smart Control](https://forum.iobroker.net/topic/33691/)
-* 25.04.2020 : [Umfrage: Welchen Adapter soll ich als nächstes entwickeln?](https://forum.iobroker.net/topic/32644/)
+## ioBroker Forum
+* [**Smart Control Adapter (Splash Page)**](https://forum.iobroker.net/topic/36728/smart-control-adapter-splash-page)
 
-## FAQ / Use Cases (under construction)
-* ioBroker-Forum: [FAQ / Use Cases](https://forum.iobroker.net/topic/36237/smart-control-adapter-faq-use-cases) (in German, but please feel free to post in English)
 
 ## Installation
-The adapter is not yet in the "latest repository". So please [Install adapter from own URL](https://github.com/ioBroker/ioBroker.docs/blob/master/docs/en/admin/adapter.md). Then add an adapter instance.
+The adapter is not yet in the "latest repository". So please [install the adapter by using the github URL](https://github.com/ioBroker/ioBroker.docs/blob/master/docs/en/admin/adapter.md). Once done, add an adapter instance accordingly.
 
 
 ## Instructions
@@ -51,6 +45,18 @@ If you want to disable Sentry, see [Disable Sentry Error Reporting](https://gith
 However, we hope you keep Sentry Error Reporting activated. This helps us as developers to identify unexpected errors fast and provide you an adapter as stabile as possible. 
 
 ## Changelog
+
+### 0.3.0
+**Breaking Changes**
+* (Mic-M) Entire adapter code refactored. Therefore, tests are required to verify if these massive changes do not affect the adapter functionality. However, none of your existing adapter configuration should be lost and will be kept if you upgrade from 0.2.0+. But please check ALL of your configuration, since new options were added which
+can have an effect to your existing configuration.
+* (Mic-M) New feature: Implemented [issue #22](https://github.com/Mic-M/ioBroker.smartcontrol/issues/22) - Motion sensors timeout, e.g. for Homematic sensors: Motion sensor timer will now start once a motion sensor is set to false. In previous adapter versions, it was started once set to true.
+<br><strong>Note:</strong> This change will cause that per your existing adapter configuration, the timer end will be reached later (so: once no motion detected any longer + the seconds you have set)
+* (Mic-M) New feature: Time triggers - added options for additional conditions for 'any' or 'all'. [issue #24](https://github.com/Mic-M/ioBroker.smartcontrol/issues/24)
+* (Mic-M) New feature: Zones > Execution - added options for additional conditions for 'any' or 'all'. 
+* (Mic-M) Many fixes under the hood
+
+
 
 ### 0.2.2
 * (Mic-M) New feature: In '3. TRIGGERS', 'Other Triggers', you can now easily create own states as triggers under 'smartcontrol.x.userstates'

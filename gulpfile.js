@@ -15,7 +15,7 @@ const iopackage = require('./io-package.json');
 const version = (pkg && pkg.version) ? pkg.version : iopackage.common.version;
 const fileName = 'words.js';
 const EMPTY = '';
-const translate = require('./lib/tools').translateText;
+const translate = require('ioBroker.smartcontrol/lib/tools').translateText;
 const languages = {
     en: {},
     de: {},
