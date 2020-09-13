@@ -242,8 +242,8 @@ class SmartControl extends utils.Adapter {
                 for (let k = 0; k < this.config[tablesToProcess[i]].length; k++) {
                 
                     const lpRow = this.config[tablesToProcess[i]][k];
-                    let lpStateSubSection = tablesToProcess[i]; // Table name from config, like 'tableTargetDevices';
-                    lpStateSubSection = lpStateSubSection.substr(5); // 'tableTargetDevices' => 'TargetDevices'
+                    const lpTableName = tablesToProcess[i]; // Table name from config, like 'tableTargetDevices';
+                    const lpStateSubSection = lpTableName.substr(5); // 'tableTargetDevices' => 'TargetDevices'
     
                     // Get the name of the table row and convert to a valid state portion.
                     const lpRowNameStatePortion = lpRow.name;  // like: 'Motion Bathroom' or 'At 04:05 every Sunday'
@@ -253,34 +253,35 @@ class SmartControl extends utils.Adapter {
     
                     for (const fieldName in lpRow){
     
-                        const fieldEntry = lpRow[fieldName]; // like 'smartcontrol.0.Test.light.Bathroom'
-                        if(fieldName != 'active' && fieldName != 'name') {
-                            continue;
-                        }
-    
-                        const lpCommonObject = {};
+                        const lpFieldEntry = lpRow[fieldName]; // like 'smartcontrol.0.Test.light.Bathroom' or true, etc.
 
-                        // Define the common object to create the state
-                        lpCommonObject.name = (fieldName != 'active') ? fieldName : 'Please note: Changing this state restarts the adapter instance to put the change into effect';
+                        if (! ((['active', 'name'].indexOf(fieldName) !== -1)
+                               || (lpTableName == 'tableTriggerMotion' && (['duration', 'briThreshold'].indexOf(fieldName) !== -1))
+                        )) continue;
+
+
+                        // Define the common object to create the state    
+                        const lpCommonObject = {};
                         lpCommonObject.read = true;
                         lpCommonObject.write = true;
                         lpCommonObject.role = 'value';
 
-                        // We convert all all to string, except to 'active'.
-                        // Reason: User input in adapter settings is string as well. And so Users can change a state from 'true' to like 'Radio is playing'.
+                        // Apply different types.
                         if (fieldName == 'active') {
-                            // active check box of table row should always be boolean and not string.
+                            lpCommonObject.name = 'Please note: Changing this state restarts the adapter instance to put the change into effect';
                             lpCommonObject.type = 'boolean';
-                            lpCommonObject.def  = fieldEntry;                            
-                        } else {
-                            // all others
-                            lpCommonObject.type = 'string';
-                            lpCommonObject.def  = (typeof fieldEntry != 'string') ? JSON.stringify(fieldEntry) : fieldEntry;
+                            lpCommonObject.def  = lpFieldEntry;
                         }
-
-                        // Don't allow to change the 'name'
                         if (fieldName == 'name') {
-                            lpCommonObject.write = false;
+                            lpCommonObject.name = fieldName;
+                            lpCommonObject.write = false; // Don't allow to change the 'name'
+                            lpCommonObject.type = 'string';
+                            lpCommonObject.def  = (typeof lpFieldEntry != 'string') ? JSON.stringify(lpFieldEntry) : lpFieldEntry;
+                        }
+                        if (lpTableName == 'tableTriggerMotion' && (['duration', 'briThreshold'].indexOf(fieldName) !== -1)) {
+                            lpCommonObject.name = 'Please note: Changing this state restarts the adapter instance to put the change into effect';
+                            lpCommonObject.type = 'number';
+                            lpCommonObject.def  = parseInt(lpFieldEntry);
                         }
 
                         const lpStatePath = `${this.namespace}.options.${lpStateSubSection}.${lpRowNameStatePortion}.${fieldName}`; // Like: 'options.TargetDevices.Bathroom Light'
@@ -289,7 +290,6 @@ class SmartControl extends utils.Adapter {
                             errorCounter++;
                             continue;
                         }
-    
                         statesFull.push({statePath:lpStatePath, commonObject:lpCommonObject });
                         statePathsOnly.push(lpStatePath);
                       
@@ -377,10 +377,13 @@ class SmartControl extends utils.Adapter {
                     await this.subscribeForeignStatesAsync(lpRow.offState);
                 }
             }
+            
+            // STATE SUBSCRIPTION: to all 'smartcontrol.0.options.TriggerMotion.xxx.<duration|briThreshold>'
+            await this.subscribeStatesAsync('smartcontrol.0.options.TriggerMotion.*.duration');
+            await this.subscribeStatesAsync('smartcontrol.0.options.TriggerMotion.*.briThreshold');
 
             // STATE SUBSCRIPTION: to all 'smartcontrol.x.options.x.x.active'
-            await this.subscribeStatesAsync('options.*.active');
-
+            await this.subscribeStatesAsync('options.*.active');            
 
             // STATE SUBSCRIPTION: to all trigger states
             // @ts-ignore -> https://github.com/microsoft/TypeScript/issues/36769
@@ -550,11 +553,9 @@ class SmartControl extends utils.Adapter {
                 if (optionObj.row[optionObj.field] == stateObject.val) {
                     this.log.info(`Smart Control Adapter State '${statePath}' changed to '${stateObject.val}', but is equal to old state val, so no action at this point.`);
                 } else {
-                    // Info
+
                     this.x.helper.logExtendedInfo(`Smart Control Adapter State '${statePath}' changed to '${stateObject.val}'.`);
-        
-                    // Acknowledge State Change
-                    await this.setStateAsync(statePath, {val:stateObject.val, ack: true});
+                    await this.setStateAsync(statePath, {val:stateObject.val, ack: true}); // Acknowledge State Change
         
                     // Set config change into adapter configuration. This will also restart the adapter instance by intention.
                     // Restart is required since an activation or deactivation of a table row has multiple effects.
@@ -567,7 +568,39 @@ class SmartControl extends utils.Adapter {
                         throw('getForeignObjectAsync(): No object provided from function.');
                     }
                 }
-            } 
+            }
+
+            /**
+             * State Change: smartcontrol.0.options.TriggerMotion.xxx.duration and .briThreshold
+             */
+            if (statePath.startsWith(`${this.namespace}.options.TriggerMotion.`) && (statePath.endsWith('.duration') || (statePath.endsWith('.briThreshold') ))) {
+                this.log.debug(`State Change: smartcontrol.0.options.TriggerMotion<duration|briThreshold> - Subscribed state '${statePath}' changed.`);
+
+                // {name:'Motion.Bathroom', index:2, table:'tableTriggerMotion', field:'active', row:{.....} }
+                const optionObj = await this._asyncGetOptionForOptionStatePath(statePath);
+    
+                // Check if new value != old value
+                if (optionObj.row[optionObj.field] == stateObject.val) {
+                    this.x.helper.logExtendedInfo(`Smart Control Adapter State '${statePath}' changed to '${stateObject.val}', but is equal to old state val, so no action at this point.`);
+                } else {
+
+                    this.x.helper.logExtendedInfo(`Smart Control Adapter State '${statePath}' changed to '${stateObject.val}'.`);
+                    await this.setStateAsync(statePath, {val:stateObject.val, ack: true}); // Acknowledge State Change
+        
+                    // Set config change into adapter configuration. This will also restart the adapter instance by intention.
+                    // Restart is required since an activation or deactivation of a table row has multiple effects.
+                    this.log.info(`State change of '${statePath}' to '${stateObject.val}' now executes an adapter instance restart to put the change into effect.`);
+                    const resultObject = await this.getForeignObjectAsync(`system.adapter.${this.namespace}`);
+                    if (resultObject) {
+                        const stateVal = (!stateObject.val) ? '' : stateObject.val.toString(); // the number is a string in adapter config
+                        resultObject.native[optionObj.table][optionObj.index][optionObj.field] = stateVal;
+                        await this.setForeignObjectAsync(`system.adapter.${this.namespace}`, resultObject);
+                    } else {
+                        throw('getForeignObjectAsync(): No object provided from function.');
+                    }
+                }
+            }
+
 
             /**
              * State Change: smartcontrol.0.targetDevices.xxx

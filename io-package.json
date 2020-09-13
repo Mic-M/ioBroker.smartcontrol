@@ -1,8 +1,11 @@
 {
   "common": {
     "name": "smartcontrol",
-    "version": "0.3.2",
+    "version": "0.3.3",
     "news": {
+      "0.3.3": {
+        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
+      },
       "0.3.2": {
         "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
       },
@@ -10,39 +13,6 @@
         "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
       },
       "0.3.0": {
-        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-      },
-      "0.2.2": {
-        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-      },
-      "0.2.1": {
-        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-      },
-      "0.2.0": {
-        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-      },
-      "0.1.2-beta.7": {
-        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-      },
-      "0.1.2-beta.6": {
-        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-      },
-      "0.1.2-beta.5": {
-        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-      },
-      "0.1.2-beta.4": {
-        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-      },
-      "0.1.2-beta.3": {
-        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-      },
-      "0.1.2-beta.2": {
-        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-      },
-      "0.1.2-beta.1": {
-        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-      },
-      "0.1.1-beta.6": {
         "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
       }
     },
