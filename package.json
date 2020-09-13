@@ -1,6 +1,6 @@
 {
   "name": "iobroker.smartcontrol",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Control devices smarter: by grouping, including triggers like motion, opening window, etc. and set target devices accordingly",
   "author": {
     "name": "Mic-M",

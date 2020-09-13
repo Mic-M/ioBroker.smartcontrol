@@ -689,9 +689,11 @@ class SmartControl extends utils.Adapter {
              */
             let scheduleCounter = 0;
             for (const lpScheduleName in this.x.schedules) {
-                this.log.debug('Cancelling schedule: ' + lpScheduleName);
-                this.x.schedules[lpScheduleName].cancel();
-                scheduleCounter++;
+                if(this.x.schedules[lpScheduleName]) {
+                    this.log.debug('Cancelling schedule: ' + lpScheduleName);
+                    this.x.schedules[lpScheduleName].cancel();
+                    scheduleCounter++;
+                }
             }
             this.log.info(`(${scheduleCounter}) schedules cleared...`);
 
@@ -846,9 +848,8 @@ class SmartControl extends utils.Adapter {
                     } 
                 
                     for (let i = 0; i < lpTable.table.length; i++) {
-                        // -- deactivated for 0.1.1-beta.2 - we should also validate de-activated table items, as these 
-                        //    can be switched on thru smartcontrol.x.options.xxx.xxx.active
-                        // if (!lpTable.table[i].active) continue;
+
+                        if (!lpTable.table[i].active && !this.config.validateDeactivatedRows) continue;
 
                         // Returns all object keys starting with 'check_' as array, like ['check_1','check_2']. Or empty array, if not found.
                         const lpCriteriaToCheck = (Object.keys(functionConfigObj).filter(str => str.includes('check_'))); 

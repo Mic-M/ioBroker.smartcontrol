@@ -230,7 +230,7 @@
                                           <tr>
                                             <td class="translate">✓</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet.</td>
+                                            <td class="translate">Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet. In den Adapter-Optionen, unter 'WEITERE OPTIONEN > Eingabe-Validierung' kannst du übrigens einstellen, dass auch deaktivierte Zeilen auf Gültigkeit geprüft werden.</td>
                                           </tr>
                                           <tr>
                                             <td class="translate">Geräte-Name</td>
@@ -356,7 +356,7 @@
                                           <tr>
                                             <td class="translate">✓</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Aktiviert/deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet.</td>
+                                            <td class="translate">Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet. In den Adapter-Optionen, unter 'WEITERE OPTIONEN > Eingabe-Validierung' kannst du übrigens einstellen, dass auch deaktivierte Zeilen auf Gültigkeit geprüft werden.</td>
                                           </tr>
                                           <tr>
                                             <td class="translate">Name der Bedingung</td>
@@ -438,7 +438,7 @@
                                           <tr>
                                             <td class="translate">✓</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet.</td>
+                                            <td class="translate">Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet. In den Adapter-Optionen, unter 'WEITERE OPTIONEN > Eingabe-Validierung' kannst du übrigens einstellen, dass auch deaktivierte Zeilen auf Gültigkeit geprüft werden.</td>
                                           </tr>
                                           <tr>
                                             <td class="translate">Name für Bewegungsmelder</td>
@@ -533,7 +533,7 @@
                                           <tr>
                                             <td class="translate">✓</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet.</td>
+                                            <td class="translate">Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet. In den Adapter-Optionen, unter 'WEITERE OPTIONEN > Eingabe-Validierung' kannst du übrigens einstellen, dass auch deaktivierte Zeilen auf Gültigkeit geprüft werden.</td>
                                           </tr>
                                           <tr>
                                             <td class="translate">Name</td>
@@ -651,7 +651,7 @@
                                           <tr>
                                             <td class="translate">✓</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet.</td>
+                                            <td class="translate">Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet. In den Adapter-Optionen, unter 'WEITERE OPTIONEN > Eingabe-Validierung' kannst du übrigens einstellen, dass auch deaktivierte Zeilen auf Gültigkeit geprüft werden.</td>
                                           </tr>
                                           <tr>
                                             <td class="translate">Name des Auslösers</td>
@@ -775,7 +775,7 @@
                                           <tr>
                                             <td class="translate">✓</td>
                                             <td class="translate">Ja</td>
-                                            <td class="translate">Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet.</td>
+                                            <td class="translate">Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet. In den Adapter-Optionen, unter 'WEITERE OPTIONEN > Eingabe-Validierung' kannst du übrigens einstellen, dass auch deaktivierte Zeilen auf Gültigkeit geprüft werden.</td>
                                           </tr>
                                           <tr>
                                             <td class="translate">Name der Zone</td>
@@ -984,6 +984,26 @@
                             </div>
                         </div>
                     </li>
+                    <!-- +++ Input Validation Options +++  -->
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">Eingabe-Validierung</h6></div>
+                        <div class="collapsible-body">
+                            <div class="row">
+                                <div class="col s12">
+                                    <h6 class="hBlock translate info">Überprüfe auch deaktivierte Tabellenzeilen</h6>
+                                    <p class="translate info">
+                                        Mit Aktivieren dieser Option werden auch deaktivierte Tabellenzeilen auf Gültigkeit geprüft (z.B. ob Datenpunkt existiert, etc.).
+                                        Dies kann sinnvoll sein, weil du über die Datenpunkte unterhalb <code>smartcontrol.x.options.</code> Tabellenzeilen aktivieren kannst.
+                                        Damit wird also schon im Vorfeld geprüft, ob diese gültig sind, und nicht erst bei Aktivierung über die Datenpunkte.
+                                    </p>
+                                    <div class="input-field col s12 m6">
+                                        <input type="checkbox" class="value" id="validateDeactivatedRows" />
+                                        <label for="extendedInfoLog" class="translate">Überprüfe auch deaktivierte Tabellenzeilen auf Gültigkeit</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </div>            
 
@@ -1090,7 +1110,7 @@
                                       <tr>
                                         <td class="translate">✓</td>
                                         <td class="translate">Ja</td>
-                                        <td class="translate">Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet.</td>
+                                        <td class="translate">Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet. In den Adapter-Optionen, unter 'WEITERE OPTIONEN > Eingabe-Validierung' kannst du übrigens einstellen, dass auch deaktivierte Zeilen auf Gültigkeit geprüft werden.</td>
                                       </tr>
                                       <tr>
                                         <td class="translate">Start/Ende</td>

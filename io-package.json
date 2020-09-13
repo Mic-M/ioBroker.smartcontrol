@@ -1,8 +1,11 @@
 {
   "common": {
     "name": "smartcontrol",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "news": {
+      "0.3.2": {
+        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
+      },
       "0.3.1": {
         "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
       },
@@ -107,8 +110,7 @@
       "sentry": {
         "dsn": "https://5a01dc9b29b846218064c49700c7a302@sentry.iobroker.net/94"
       }
-    },
-    "installedFrom": "https://github.com/Mic-M/ioBroker.smartcontrol/tarball/55e7a381aad31225e0c95a03f145abda6bc666a4"
+    }
   },
   "native": {
     "fixNightNightEnd": true,
@@ -118,6 +120,7 @@
     "extendedInfoLog": true,
     "fancy-filter-input": "",
     "executeZoneAlways": false,
+    "validateDeactivatedRows": false,
     "tableTriggerMotion": [
       {
         "active": true,
