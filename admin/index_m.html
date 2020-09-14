@@ -23,6 +23,13 @@
     <link rel="stylesheet" type="text/css" href="../../lib/css/fancytree/ui.fancytree.min.css"/>
     <script type="text/javascript"          src="../../lib/js/selectID.js"></script>
 
+    <!-- ################### TEST https://github.com/zerodevx/zero-md -->
+    <!-- Lightweight client-side loader that feature-detects and load polyfills only when necessary -->
+    <script src="zero-md/webcomponents-loader.min.js"></script>
+    <!-- Load the element definition -->
+    <script type="module" src="zero-md/zero-md.min.js.js"></script>
+    <!-- ################### TEST https://github.com/zerodevx/zero-md -->
+
     <!-- Our style.css -->
     <link rel="stylesheet" type="text/css" href="style.css" />
     
@@ -202,88 +209,8 @@
                                 <div class="collapsible-header config-section"><h5 class="translate">Ziel-Geräte</h5><i class="material-icons">help_outline</i>
                                 </div>
                                 <div class="collapsible-body">
-                                    <p style="margin-top:0px" class="translate">
-
-                                        Gib hier alle Zielgeräte ein, die Du schalten möchtest, sobald ein Auslöser aktiviert wird und die Bedingungen in den Zonen erfüllt sind.
-                                        <br>
-                                        <br>
-                                        <i>Warum sind hier unterschiedliche Datenpunkte für das Ein- und Ausschalten?</i>
-                                        <br>Normalerweise sind diese gleich (Datenpunkt erwartet <code>true</code>/<code>false</code>) für das Ein-/Ausschalten, aber in bestimmten Fällen benötigen Benutzer einen anderen Datenpunkt und Datenpunkt-Wert, um ein Gerät ein- oder auszuschalten.
-                                        Beispiel: <code>fully-tablet-control.0.device.tablet_bathroom.commands.screenOn</code> und <code>fully-tablet-control.0.device.tablet_bathroom.commands.screenOff</code>.
-                                        <br>
-                                        Du kannst auch Datenpunkte hinzufügen, die nicht boolean (<code>true</code>/<code>false</code>), sondern String oder Zahl sind.
-                                        <br>
-                                        <br>
-                                        Für jede Tabellenzeile fügt dieser Adapter verknüpfte Datenpunkte zu <code>smartcontrol.x.targetDevices.xxx</code> hinzu. Wenn du diese Datenpunkte änderst, wird der ursprüngliche Ziel-Datenpunkt entsprechend geändert, und umgekehrt.
-
-                                    </p>
-                                    <table>
-                                        <thead>
-                                          <tr>
-                                              <th class="translate">Spalte</th>
-                                              <th class="translate">Pflichtfeld</th>
-                                              <th class="translate">Beschreibung</th>
-                                          </tr>
-                                        </thead>
-                                
-                                        <tbody>
-                                          <tr>
-                                            <td class="translate">✓</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet. In den Adapter-Optionen, unter 'WEITERE OPTIONEN > Eingabe-Validierung' kannst du übrigens einstellen, dass auch deaktivierte Zeilen auf Gültigkeit geprüft werden.</td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Geräte-Name</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">
-                                                Name des Gerätes deiner Wahl. Verbotene Zeichen: <code>[</code> <code>]</code> <code>*</code> <code>,</code> <code>;</code> <code>'</code> <code>"</code> <code>`</code> <code>&lt;</code> <code>></code> <code>\</code> <code>?</code>
-                                                <br><br><strong>Tipp</strong>: Wähle für die Namen Punkte als Trennung und organisere diese z.B. nach Räumen und Geräten, z.B. "Wohnzimmer.Lichter.Decke", "Wohnzimmer.Lichter.Wand links", etc.
-                                                Damit werden dir die Zielgeräte unter "4.ZONEN", "Zu schaltende Zielgeräte", dann als Ordner angezeigt: "Wohnzimmer > Hauptlicht > 30%", "Wohnzimmer > Hauptlicht > 70%".
-                                            </td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Datenpunkt zum einschalten</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">Datenpunkt des Zielgerätes zum Einschalten, sobald ein Auslöser auslöst und die Bedingungen in den Zonen zutreffen.</td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Wert für 'an'</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">
-                                                Datenpunkt-Wert, der in 'Datenpunkt zum einschalten' gesetzt wird. Du kannst <code>true</code>, <code>false</code>, 
-                                                Nummern wie <code>144</code>, or Strings wie <code>Schalte Radio an</code> verwenden. 
-                                                Sämtliche Leerzeichen und Anführungszeichen (wie <code>"</code>) am Anfang und Ende werden automatisch entfernt.
-                                                <br><br>Der Wert kann unter "4. ZONEN", "Zu schaltende Zielgeräte" überschrieben werden. 
-                                            </td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Prüfung deakiv. (an)</td>
-                                            <td class="translate">Nein</td>
-                                            <td class="translate">
-                                                Vor dem Schalten wird immer geprüft, ob das Zielgerät bereits an ist lt. "Wert für 'an'".
-                                                <br>Wenn du diese Option aktivierst, erfolgt keine Überprüfung und es wird immer geschaltet.
-                                                <br>Use Case: z.B. ein Button als Datenpunkt. Siehe <a style="text-decoration: underline" href="https://github.com/Mic-M/ioBroker.smartcontrol/issues/5" target="_blank">Github Issue #5</a>.
-                                            </td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Datenpunkt zum ausschalten</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">Datenpunkt des Zielgerätes zum Ausschalten, sobald ein Timeout erreicht wurde (z.B. keine Bewegung mehr und die Bewegungsmelder-Sekunden sind heruntergezählt auf 0) oder falls der Datenpunkt <code>smartcontrol.x.targetDevices.xxx.[Device Name]</code> geändert wurde.</td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Wert für 'aus'</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">Datenpunkt-Wert, der in 'Datenpunkt zum ausschalten' gesetzt wird. Du kannst <code>true</code>, <code>false</code>, Nummern wie <code>144</code>, or Strings wie <code>Schalte Radio an</code> verwenden. Sämtliche Leerzeichen und Anführungszeichen (wie <code>"</code>) am Anfang und Ende werden automatisch entfernt.</td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Prüfung deakiv. (aus)</td>
-                                            <td class="translate">Nein</td>
-                                            <td class="translate">
-                                                Siehe <strong>Prüfung deakiv.</strong> weiter oben, nur hier für das ausschalten des Gerätes.
-                                            </td>
-                                          </tr>                                          
-                                        </tbody>
-                                      </table>
+                                    <!-- Importing Markdown -->
+                                    <zero-md id="md-targetDevices" manual-render src="doc-md/table-target-devices_en.md"></zero-md>
                                 </div>
                             </li>
                         </ul>
@@ -337,44 +264,8 @@
                             <li>
                                 <div class="collapsible-header config-section"><h5 class="translate">Zusätzliche Bedingungen</h5><i class="material-icons">help_outline</i></div>
                                 <div class="collapsible-body">
-                                    <p style="margin-top:0px" class="translate">
-                                        Diese Tabelle ist optional:
-                                        <br>Hier trägst du zusätzliche Bedingungen ein, die (nicht) zutreffen sollen, z.B.: Jemand ist anwesend, Keiner ist anwesend, Heute ist Feiertag, Oma schläft, usw.
-                                        <br>
-                                        <br>Diese kannst du dann in den entsprechenden anderen Optionen-Tabellen auswählen.
-                                    </p>
-                                    <table>
-                                        <thead>
-                                          <tr>
-                                              <th class="translate">Spalte</th>
-                                              <th class="translate">Pflichtfeld</th>
-                                              <th class="translate">Beschreibung</th>
-                                          </tr>
-                                        </thead>
-                                
-                                        <tbody>
-                                          <tr>
-                                            <td class="translate">✓</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet. In den Adapter-Optionen, unter 'WEITERE OPTIONEN > Eingabe-Validierung' kannst du übrigens einstellen, dass auch deaktivierte Zeilen auf Gültigkeit geprüft werden.</td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Name der Bedingung</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">Hier beliebigen Namen deiner Bedingung eintragen, z.B. 'Feiertag Heute'.</td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Datenpunkt der Bedingung</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">Datenpunkt für diese Bedingung, wie <code>javascript.0.Holiday.isHolidayToday</code>.</td>
-                                        </tr>
-                                          <tr>
-                                            <td class="translate">DP-Wert</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">Datenpunkt-Wert der Bedingung, wenn sie zutreffen soll. Du kannst <code>true</code>, <code>false</code>, Nummern wie <code>144</code>, or Strings wie <code>Oma schläft jetzt</code> verwenden. Sämtliche Leerzeichen und Anführungszeichen (wie <code>"</code>) am Anfang und Ende werden automatisch entfernt.</td>
-                                          </tr>
-                                        </tbody>
-                                      </table>
+                                    <!-- Importing Markdown -->
+                                    <zero-md id="md-tableConditions" manual-render src="doc-md/table-conditions_en.md"></zero-md>
                                 </div>
                             </li>
                         </ul>
@@ -455,6 +346,9 @@
                                             <td class="translate">Nein</td>
                                             <td class="translate">Nach dieser Anzahl an Sekunden (und keiner weiteren zwischendurch erkannten Bewegung) werden die Zielgeräte ausgeschaltet.
                                                 <br>Zum deaktivieren: Leer lassen oder 0 setzen.
+                                                <br>Detail-Info: Sobald der Bewegungsmelder-Datenpunkt auf <code>false</code> geht, also keine Bewegung mehr erkannt wird, startet 
+                                                ein Timer mit den hier angegebenen Sekunden. Erst nach Ablauf dieser Sekunden werden die in der jeweiligen Zone definierten Zielgeräte ausgeschaltet. 
+                                                Erfolgt eine neue Bewegung (Bewegungsmelder-Datenpunkt auf <code>true</code>) während der Timer läuft, wird der Timer gelöscht und die Zielgeräte bleiben an.
                                             </td>
                                           </tr>
                                           <tr>
@@ -470,7 +364,9 @@
                                           <tr>
                                             <td class="translate">Grenze</td>
                                             <td class="translate">Nein</td>
-                                            <td class="translate">Grenzwert für die Helligkeit. Falls die aktuelle Helligkeit von 'Datenpunkt Helligkeit' größer als diese Zahl ist, wird die Bewegung ignoriert.</td>
+                                            <td class="translate">Grenzwert für die Helligkeit. Falls die aktuelle Helligkeit von 'Datenpunkt Helligkeit' größer als diese Zahl ist, wird die Bewegung ignoriert.
+                                                <br>Bitte beachte hierzu auch die Option <i>Helligkeit (Bri) nicht prüfen falls Zone an</i> unter 'WEITERE OPTIONEN > Bewegungsmelder'.
+                                            </td>
                                           </tr>
                                         </tbody>
                                       </table>

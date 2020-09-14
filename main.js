@@ -1,4 +1,3 @@
-/* eslint-disable no-irregular-whitespace */
 'use strict';
 /**
  * ioBroker Smart Control Adapter
@@ -268,7 +267,7 @@ class SmartControl extends utils.Adapter {
 
                         // Apply different types.
                         if (fieldName == 'active') {
-                            lpCommonObject.name = 'Please note: Changing this state restarts the adapter instance to put the change into effect';
+                            lpCommonObject.name = 'Please note: Changing this state restarts the adapter instance for being able to apply the change.';
                             lpCommonObject.type = 'boolean';
                             lpCommonObject.def  = lpFieldEntry;
                         }
@@ -279,7 +278,7 @@ class SmartControl extends utils.Adapter {
                             lpCommonObject.def  = (typeof lpFieldEntry != 'string') ? JSON.stringify(lpFieldEntry) : lpFieldEntry;
                         }
                         if (lpTableName == 'tableTriggerMotion' && (['duration', 'briThreshold'].indexOf(fieldName) !== -1)) {
-                            lpCommonObject.name = 'Please note: Changing this state restarts the adapter instance to put the change into effect';
+                            lpCommonObject.name = 'Please note: Changing this state restarts the adapter instance for being able to apply the change.';
                             lpCommonObject.type = 'number';
                             lpCommonObject.def  = parseInt(lpFieldEntry);
                         }

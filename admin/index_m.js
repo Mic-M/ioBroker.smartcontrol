@@ -2,6 +2,7 @@
 /* eslint-env jquery, browser */               // https://eslint.org/docs/user-guide/configuring#specifying-environments
 /* global socket, values2table, table2values, M, _, instance */  // for eslint
 
+
 // ++++++ Define option tables ++++++
 const tableIds = [
     'tableTriggerMotion', 
@@ -32,6 +33,38 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
     // Adapter Settings
     if (!settings) return;
     g_settings = settings;
+
+    /**
+     * Apply markdown for documentation through https://github.com/zerodevx/zero-md
+     */
+    // index_m.html: All ids defined in <zero-md> tags
+    const mdIds = [
+        'md-targetDevices',
+        'md-tableConditions',
+    ];
+    for (const mdId of mdIds) {
+        getObject('system.config', (error, result)=> {
+            if (!error && result && result.common && result.common.language) {
+                const lang = result.common.language;
+                const mdFileName = $('zero-md#' + mdId).attr('src'); // <zero-md> tags in index_m.html.
+                if (mdFileName) {
+                    if (lang == 'de') {
+                        const newFileName = mdFileName.slice(0, -5) + 'de.md'; // remove last 5 chars 'en.js' and add de.js
+                        $('zero-md#' + mdId).attr('src', newFileName); // set new filename
+                    }
+                } else {
+                    console.error(`load(): mdFileName for '${mdId}' is undefined.`);
+                }
+            } else {
+                console.error('Error while getting ioBroker system configuration language.');
+            }
+            // Finally, render zero-md - https://github.com/zerodevx/zero-md#public-methods
+            const el = document.querySelector('#'+mdId);
+            // @ts-ignore
+            el.render();        
+        });
+    }
+
 
     /**
      * Set tableZones>targetsOverwrite to global variable
@@ -841,7 +874,6 @@ function initDialog(id, callback) {
 /**
  * To be called in load() function of index_m.html / index_m.js 
  * @param {string} fancytreeId - like 'fancytree-select-settings' for #fancytree-select-settings
- * @param {boolean}  [editTargetVals=false]  if true, adds an edit functionality to add values
  */
 function fancytreeLoad(fancytreeId) {
 
@@ -999,7 +1031,7 @@ function fancytreeLoad(fancytreeId) {
  * @param {array} allDottedStrings - array of ALL dotted strings, like: ['Bath.Radio.on', 'Bath.Light', 'Hallway']
  * @param {array} selectedDottedStrings - array of SELECTED dotted strings, like: ['Hallway']
  * @param {string} [zoneName=undefined] - set Zone Name if you want to add target values.
- * @return {array}               Array for FancyTree source - https://github.com/mar10/fancytree/wiki/TutorialLoadData
+ * @return {array|null}       Array for FancyTree source - https://github.com/mar10/fancytree/wiki/TutorialLoadData
  */
 function convertToFancySource(allDottedStrings, selectedDottedStrings, zoneName=undefined) {
 
@@ -1112,7 +1144,7 @@ function convertToFancySource(allDottedStrings, selectedDottedStrings, zoneName=
 
         // Pass 3: sort children by 'title'
         for(const lpVal of mappedArray) {
-            if( lpVal.children && lpVal.children.length > 1 ) {
+            if( lpVal && lpVal.children && lpVal.children.length > 1 ) {
                 lpVal.children.sort(function(a, b){
                     return ((a.title < b.title) ? -1 : ((a.title > b.title) ? 1 : 0));
                 });

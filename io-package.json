@@ -1,8 +1,11 @@
 {
   "common": {
     "name": "smartcontrol",
-    "version": "0.3.3",
+    "version": "0.3.4",
     "news": {
+      "0.3.4": {
+        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
+      },
       "0.3.3": {
         "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
       },
