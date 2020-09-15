@@ -1,3 +1,4 @@
+### This is supposed to be in English - translation will follow soon.
 ## Inhalt
 - **Über diesen Adapter**
 - **Wie lege ich los?**
