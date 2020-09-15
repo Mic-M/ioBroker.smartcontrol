@@ -23,12 +23,9 @@
     <link rel="stylesheet" type="text/css" href="../../lib/css/fancytree/ui.fancytree.min.css"/>
     <script type="text/javascript"          src="../../lib/js/selectID.js"></script>
 
-    <!-- ################### TEST https://github.com/zerodevx/zero-md -->
-    <!-- Lightweight client-side loader that feature-detects and load polyfills only when necessary -->
-    <script src="zero-md/webcomponents-loader.min.js"></script>
-    <!-- Load the element definition -->
-    <script type="module" src="zero-md/zero-md.min.js.js"></script>
-    <!-- ################### TEST https://github.com/zerodevx/zero-md -->
+    <!-- For embedding markdown files - https://github.com/zerodevx/zero-md -->
+    <script src="zero-md/webcomponents-loader.min.js"></script> <!-- Lightweight client-side loader that feature-detects and load polyfills only when necessary -->
+    <script type="module" src="zero-md/zero-md.min.js.js"></script> <!-- Load the element definition -->
 
     <!-- Our style.css -->
     <link rel="stylesheet" type="text/css" href="style.css" />
@@ -80,116 +77,11 @@
             -->
             <div id="tabMain" class="col s12 page">
 
-                <!-- Section "How to start?" -->
+                <!-- Section "Start" -->
                 <div class="row">
-
                     <div class="col s12">
-                        <p style="font-size: 1.25em; font-weight: bold; margin-top: 1.5em; margin-bottom: 2.0em; ">For English or any other language: <a target="_blank" href="https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/docs/translations.md"><span class="translate">Please click here</span></a></p>
-                        <h5 class="translate">Anleitung</h5>
-                        <ul class="collapsible">
-                            <li>
-                                <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">Wie konfiguriere ich diesen Adapter?</h6></div>
-                                <div class="collapsible-body instructions">
-                                    <p style="margin-top:0px" class="translate">Du gehst einfach durch die einzelnen Options-Seiten (obige Reiter) wie folgt durch:</p>
-                                    <table>
-                                        <thead>
-                                        <tr>
-                                            <th class="translate">Reiter</th>
-                                            <th class="translate">Was machen</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td class="translate">1. ZIELGERÄTE</td>
-                                            <td class="translate">Hier trägst du all deine zu schaltenden Ziel-Geräte ein, also Lampen, Radio, usw.</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="translate">2. ZUSÄTZLICHE BEDINGUNGEN</td>
-                                            <td class="translate"><i>Optional</i>: Hier trägst du zusätzliche Bedingungen ein, die (nicht) zutreffen sollen, z.B.: keiner anwesend, Feiertag heute, usw.</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="translate">3. AUSLÖSER</td>
-                                            <td class="translate">Hier trägst du Auslöser ein, also z.B. Bewegungsmelder, Wandschalter, etc., sowie ggf. zeitabhängige Auslöser (z.B. jeden Tag um 8:00 Uhr).</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="translate">4. ZONEN</td>
-                                            <td class="translate">Hier führst du alles zusammen, in dem du alle "Zonen" definierst (z.B. Badezimmer 1.OG, Kaffeeecke, usw.) und Auslöser und zu schaltende Zielgeräte zuweist, sowie auch weitere Bedingungen zur Ausführung definierst.</td>
-                                        </tr>
-                                    </tbody>
-                                    </table>
-                                    <p>Im Reiter <span style="color: #0d47a1;">WEITERE OPTIONEN</span> kannst du weitere Adapter-Optionen einstellen.</p>
-
-                                </div>
-                            </li>
-                            <li>
-                                <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">Wichtig: Auswahl-Felder (Drop-Down-Menüs) in Tabellen</h6></div>
-                                <div class="collapsible-body instructions">
-                                    <p style="margin-top:0px; line-height: 2.0em;" class="translate">
-                                        Die Auswahlfelder (Drop-Down-Menüs) müssen "an der Seite" angeklickt werden. Dies ist ein Problem im ioBroker-Admin-Adapter.
-                                        <br><br> 
-                                        <img src="img/smartControl_options_dropdown.gif">
-                                        <br><br>                                        
-                                        <a href="https://github.com/ioBroker/ioBroker.admin/issues/590" target="_blank">Das Issue ist gemeldet und bereits behoben</a>
-                                        im ioBroker Admin Adapter, und wird mit dem nächsten Update kommen.
-                                        <br><br>
-                                        Du kannst auch einfach auf den Button links daneben klicken, dann bekommst du einen komfortableren Auswahl-Dialog.
-                                        <br><br> 
-                                        <img src="img/smartControl_options_dropdown_2.gif">
-                                    </p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">Für Tester</h6></div>
-                                <div class="collapsible-body instructions">
-                                    <p style="margin-top:0px; line-height: 2.0em;" class="translate">
-                                        Dieser Adapter bietet Test-Datenpunkte unter <code>smartcontrol.x.Test</code>. Diese Datenpunkte stellen keinerlei Funktionen oder Features zur Verfügung und dienen nur zum Testen dieses Adapters.
-                                        Nach der ersten Installation einer Instanz dieses Adapters sind die Adapteroptionen mit einigen dieser Datenpunkte vorbelegt.
-                                        Beginne mit dem Testen, indem du z.B. einen Auslöser-Datenpunkt aktivierst, indem du z.B. <code>smartcontrol.0.Test.trigger.Bathroom_motion</code> auf <code>true</code> setzt. Dann prüfst du, ob etwas ausgelöst wird (basierend auf den Einstellungen in "4. ZONEN" etc.).
-                                        <br>Das ioBroker-Log (ioBroker Admin > Log) liefert detaillierte Informationen. Für das Debugging setzt du bitte den Log-Level der Adapterinstanz auf 'debug', damit du viel mehr Informationen im Log erhältst.
-                                    </p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">Du brauchst Hilfe? Es gibt ein Problem? Du hast einen Verbesserungsvorschlag?</h6></div>
-                                <div class="collapsible-body instructions">
-                                    <div style="margin-top:0px" class="translate">
-                                        <table>
-                                            <thead>
-                                            <tr>
-                                                <th class="translate">Deine Thematik</th>
-                                                <th class="translate">Was du machen sollst</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td class="translate">Ich habe eine Frage</td>
-                                                <td class="translate">Frage am besten im ioBroker-Forum, idealerweise referenzierst du <code>@Mic</code> so dass ich als Entwickler eine Meldung bekomme. Aktueller Forum-Thread für diesen Adapter ist <a href="https://forum.iobroker.net/topic/35308/" target="_blank">Teste Adapter SmartControl 0.1.1-beta.x</a>. Allerdings wird sich dieser Link noch ändern und neue Forum-Threads folgen, basierend auf dem Fortschritt der Adapter-Entwicklung.</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="translate">I habe einen Fehler/Bug</td>
-                                                <td class="translate">
-                                                    Keine Sorge :-) Dieser Adapter ist in einer frühen Entwicklungsphase und Fehler werden wohl noch vorkommen.
-                                                    Zunächst: Prüfe das ioBroker Log auf sämtliche Hinweise und gehe diesen entsprechend nach.
-                                                    <br>Falls du nicht sicher bist, ob du alles richtig gemacht hast in den Adapter-Einstellungen, siehe oben "Ich habe eine Frage".
-                                                    <br>Falls du wirklich einen durch diesen Adapter verursachten Fehler hast, dann gehe bitte zu <strong><a href="https://github.com/Mic-M/ioBroker.smartcontrol/issues" target="_blank">GitHub: Smart Control Issues</a></strong> und erstelle ein neues Issue.
-                                                    Bitte beschreibe ausführlich die Problematik und genau und Schritt für Schritt, was du getan hast als/bevor der Fehler auftrat. Setze außerdem das Log Level des Adapters auf "Debug", reproduziere den Fehler und stelle die Logausgabe in Code-Tags (<code>```</code> hier Log einfügen... <code>```</code>) im Issue ein.
-                                                    ioBroker schneidet Log-Zeilen ab, daher gehst du dazu bitte direkt ins Logfile (durch Klicken auf "Download Log").
-                                                    <br><br><strong>Wichtig für Github:</strong> Wenn Deutsch deine Muttersprache ist, dann schreibe auch bitte in Deutsch und nicht Englisch auf Github. Das macht unsere Kommunikation deutlich einfacher und du brauchst dir keinen abbrechen :-) Nicht deutsch sprechende User können das dennoch dank Google Translate super mitlesen und sich einbringen.
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="translate">Ich möchte ein neues Feature vorschlagen</td>
-                                                <td class="translate">Bitte mache am besten hier ein neues Github-Issue auf: <a href="https://github.com/Mic-M/ioBroker.smartcontrol/issues" target="_blank"><strong>GitHub: Smart Control Issues</strong></a>. 
-                                                    <br><br><strong>Wichtig für Github:</strong> Wenn Deutsch deine Muttersprache ist, dann schreibe auch bitte in Deutsch und nicht Englisch auf Github. Das macht unsere Kommunikation deutlich einfacher und du brauchst dir keinen abbrechen :-) Nicht deutsch sprechende User können das dennoch dank Google Translate super mitlesen und sich einbringen.
-                                                </td>
-                                            </tr>
-
-                                        </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+                        <!-- Importing Markdown -->
+                        <zero-md id="md-start" manual-render src="doc-md/start_en.md"></zero-md>
                     </div>
                 </div>
             </div>
