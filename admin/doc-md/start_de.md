@@ -1,6 +1,36 @@
-# Anleitung
+## Inhalt
+- **Über diesen Adapter**
+- **Wie lege ich los?**
+- **Adapter-Datenpunkte**
+  - smartcontrol.x.info.astroTimes
+  - smartcontrol.x.options
+  - smartcontrol.x.targetDevices
+  - smartcontrol.x.Test
+- **Du brauchst Hilfe? Es gibt ein Problem? Du hast einen Verbesserungsvorschlag?**
+  - Du hast eine Frage
+  - Du hast einen Fehler / Bug
+  - Du möchtest eine Erweiterung / ein neues Feature vorschlagen.
 
-## Wie konfiguriere ich diesen Adapter?
+<hr>
+
+# Über diesen Adapter
+
+In unserer Heim-Automation haben wir ja diverse **Auslöser**, z.B.
+ * Bewegungsmelder im Flur löst aus, 
+ * ein Wandschalter wird gedrückt, 
+ * eine bestimmte Zeit tritt ein (etwa 30 Minuten nach Sonnenuntergang oder Mo-Fr um 7:00)
+
+Gleichzeitig treffen hier oft Bedingungen zu (z.B. 'Heute ist Feiertag', 'Wohnzimmer-Fenster ist offen', Helligkeit ist größer 100 Lux, etc.).
+
+Sobald also was auslöst, und optional Bedingungen zutreffen oder nicht zutreffen, sollen Ziel-Datenpunkte (d.h. **Zielgeräte**) geschaltet werden.
+Außerdem soll etwa nach ausgelöstem Bewegungungsmelder ein Timer laufen, der (sobald keine Bewegung mehr) nach der eingestellten Anzahl Sekunden die Zielgeräte wieder abschaltet.
+
+Smart Control kümmert sich entsprechend darum und führt alles gemäß IFTTT aus.
+
+Ziel ist, hiermit viele JavaScripts und Blockly abzulösen und eine sehr anwenderfreundliche Möglichkeit für diverse Szenarien zu bieten.
+
+
+# Wie legst du los?
 
 Du gehst einfach durch die einzelnen Options-Seiten (obige Reiter) wie folgt durch:
 
@@ -12,27 +42,39 @@ Du gehst einfach durch die einzelnen Options-Seiten (obige Reiter) wie folgt dur
 |4. ZONEN |Hier führst du alles zusammen, in dem du alle "Zonen" definierst (z.B. Badezimmer 1.OG, Kaffeeecke, usw.) und Auslöser und zu schaltende Zielgeräte zuweist, sowie auch weitere Bedingungen zur Ausführung definierst. |
 | WEITERE OPTIONEN | Hier kannst du weitere Adapter-Optionen einstellen. |
 
+Durch Klicken auf die jeweils dunkelblau hinterlegte Überschrift erhältst du weitere Infos zur Einstellung:
+
+![image](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/img/start_show-explanation.gif?raw=true)
+
+
+
 ### Hinweis: Auswahl-Felder (Drop-Down-Menüs) in Tabellen
 
 Auswahlfelder (Drop-Down-Menüs), die mehrere selektierbare Werte bieten, müssen "an der Seite" angeklickt werden. Dies ist ein Issue des ioBroker-Admin-Adapters, und nicht von Smart Control. [Das Issue ist gemeldet und adressiert](https://github.com/ioBroker/ioBroker.admin/issues/590) im ioBroker Admin Adapter, und wird mit dem nächsten Update kommen.
-![image](img/start_dropdown-ani.gif)
+
+![image](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/img/start_dropdown-ani.gif?raw=true)
+
 
 <br>Einfache Abhilfe: Klicke einfach auf den blauen Button links daneben, dann bekommst du einen besseren Auswahl-Dialog:
-![image](img/start_open-dialog.png)
 
-## Adapter-Datenpunkte
+![image](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/img/start_open-dialog.png?raw=true)
+
+# Adapter-Datenpunkte
 
 ### smartcontrol.x.info.astroTimes
 
 Hier findest du alle aktuellen Astrozeiten deiner Geo-Koordinaten, die du in den ioBroker-Admin-Optionen (Schraubschlüssel oben links) eingestellt hast.
-![image](img/start_states-astro.png)
+
+![image](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/img/start_states-astro.png?raw=true)
+
 
 ### smartcontrol.x.options
 
 Hier kannst du für jede Optionen-Tabelle einzelne Zeilen an- und abschalten (Datenpunkt `active`).
 <br>Zudem kannst du für alle Bewegungsmelder die Zeit in Sekunden (Datenpunkt `duration`) und die Grenze für die Helligkeit (Datenpunkt `briThreshold`) ändern.
 
-![image](img/start_states-options-motion.png)
+![image](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/img/start_states-options-motion.png?raw=true)
+
 
 **Bitte beachten:** Eine Änderung dieser Datenpunkte bewirkt einen Neustart der Adapter-Instanz, damit die Änderungen greifen können.
 
@@ -40,8 +82,7 @@ Hier kannst du für jede Optionen-Tabelle einzelne Zeilen an- und abschalten (Da
 
 Für jede Tabellenzeile unter "1. ZIELGERÄTE" fügt der Adapter hier verknüpfte Datenpunkte hinzu. Wenn du diese Datenpunkte änderst, wird der ursprüngliche Ziel-Datenpunkt entsprechend geändert, und umgekehrt.
 
-![image](img/start_states-target-devices.png)
-
+![image](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/img/start_states-target-devices.png?raw=true)
 
 
 ### smartcontrol.x.Test
@@ -49,14 +90,25 @@ Für jede Tabellenzeile unter "1. ZIELGERÄTE" fügt der Adapter hier verknüpft
 Hier stehen dir Datenpunkte rein zum Testen des Adapters zur Verfügung. Diese Datenpunkte stellen keinerlei Funktionen oder Features zur Verfügung und dienen eben nur zum Testen dieses Adapters. Nach der ersten Installation einer Instanz dieses Adapters sind die Adapteroptionen mit einigen dieser Datenpunkte vorbelegt. Beginne z.B. mit dem Testen, indem du z.B. einen Auslöser-Datenpunkt aktivierst, also z.B. `smartcontrol.0.Test.trigger.Bathroom_motion` auf `true` setzt. Dann prüfst du, ob etwas ausgelöst wird (basierend auf den Einstellungen in "4. ZONEN" etc.).
 <br>Das ioBroker-Log (ioBroker Admin > Log) liefert detaillierte Informationen. Für das Debugging setzt du bitte den Log-Level der Adapterinstanz auf 'debug', damit du viel mehr Informationen im Log erhältst.
 
-![image](img/start_states-test.png)
+![image](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/img/start_states-test.png?raw=true)
 
 
-### Du brauchst Hilfe? Es gibt ein Problem? Du hast einen Verbesserungsvorschlag?
+# Du brauchst Hilfe? Es gibt ein Problem? Du hast einen Verbesserungsvorschlag?
 
-| Um was geht es dir? | Wie du vorgehst |
-|--------|------------|
-|Ich habe eine Frage|Frage am besten im ioBroker-Forum, idealerweise referenzierst du @Mic so dass ich als Entwickler eine Meldung bekomme. Aktueller Forum-Thread für diesen Adapter ist hier ersichtlich: [ioBroker SmartControl Splash Page](https://forum.iobroker.net/topic/36728/).|
-|Ich habe einen Fehler/Bug | Zunächst: Prüfe das ioBroker Log auf sämtliche Hinweise und gehe diesen entsprechend nach. Falls du nicht sicher bist, ob du alles richtig gemacht hast in den Adapter-Einstellungen, siehe oben -> *Ich habe eine Frage*. Falls du wirklich einen durch diesen Adapter verursachten Fehler hast:<br>1. Gehe zu [GitHub: Smart Control Issues](https://github.com/Mic-M/ioBroker.smartcontrol/issues) und erstelle ein neues Issue. <br>2. Bitte beschreibe **ausführlich** die Problematik und Schritt für Schritt, was du getan hast als/bevor der Fehler auftrat. Setze außerdem das Log Level des Adapters auf "Debug", reproduziere den Fehler und stelle die Logausgabe in Code-Tags im Issue ein. ioBroker schneidet Log-Zeilen ab, daher gehst du dazu bitte direkt ins Logfile (durch Klicken auf "Download Log"). <br>3. Füge Screenshots hinzu, soweit möglicherweise hilfreich für mich als Entwickler<br>4. Füge den Adapter-Optionen-Export hinzu, sofern möglicherweise sinnvoll zur Fehlersuche für mich: Ganz oben rechts in den SmartControl-Adapter-Optionen den blauen Button "Pfeil nach unten" anklicken.|
-|Ich möchte ein neues Feature vorschlagen| Mache ein neues Github-Issue auf unter [GitHub: Smart Control Issues](https://github.com/Mic-M/ioBroker.smartcontrol/issues), in Deutsch oder Englisch. Wenn Deutsch deine Muttersprache ist, dann schreibe auch bitte in Deutsch und nicht Englisch auf Github. Das macht unsere Kommunikation deutlich einfacher und du brauchst dir keinen abbrechen :-) Nicht deutsch sprechende User können das dennoch dank Google Translate o.ä. super mitlesen und sich einbringen.
- |
+### Du hast eine Frage
+
+Frage am besten im ioBroker-Forum, idealerweise referenzierst du @Mic so dass ich als Entwickler eine Meldung bekomme. Aktueller Forum-Thread für diesen Adapter ist hier : [ioBroker-Forum: Smart Control](https://forum.iobroker.net/topic/36728/).
+
+### Du hast einen Fehler / Bug
+
+Prüfe zunächst das ioBroker Log auf sämtliche Hinweise und gehe diesen entsprechend nach. Falls du nicht sicher bist, ob du alles richtig gemacht hast in den Adapter-Einstellungen, siehe oben -> *Du hast eine Frage*. 
+<br>Falls du wirklich einen durch diesen Adapter verursachten Fehler hast:
+1. Gehe zu [GitHub: Smart Control Issues](https://github.com/Mic-M/ioBroker.smartcontrol/issues) und erstelle ein neues Issue. 
+2. Beschreibe **ausführlich** die Problematik und Schritt für Schritt, was du getan hast als/bevor der Fehler auftrat. Setze außerdem das Log Level des Adapters auf "Debug", reproduziere den Fehler und stelle die Logausgabe in Code-Tags im Issue ein. ioBroker schneidet Log-Zeilen ab, daher gehst du dazu bitte direkt ins Logfile (durch Klicken auf "Download Log"). 
+3. Füge Screenshots hinzu, soweit möglicherweise hilfreich für mich als Entwickler
+4. Füge den Adapter-Optionen-Export hinzu, sofern möglicherweise sinnvoll zur Fehlersuche für mich: Ganz oben rechts in den SmartControl-Adapter-Optionen den blauen Button "Pfeil nach unten" anklicken.
+
+## Du möchtest eine Erweiterung / ein neues Feature vorschlagen.
+
+Mach am besten ein neues Github-Issue auf unter [GitHub: Smart Control Issues](https://github.com/Mic-M/ioBroker.smartcontrol/issues), in Deutsch oder Englisch. Wenn Deutsch deine Muttersprache ist, dann schreibe auch bitte in Deutsch und nicht Englisch auf Github. Das macht unsere Kommunikation deutlich einfacher und du brauchst dir keinen abbrechen :-) Nicht deutsch sprechende User können das dennoch dank Google Translate o.ä. super mitlesen und sich einbringen.
+
