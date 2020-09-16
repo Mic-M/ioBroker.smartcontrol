@@ -1,20 +1,8 @@
 ### This is supposed to be in English - translation will follow soon.
-## Inhalt
-- **Über diesen Adapter**
-- **Wie lege ich los?**
-- **Adapter-Datenpunkte**
-  - smartcontrol.x.info.astroTimes
-  - smartcontrol.x.options
-  - smartcontrol.x.targetDevices
-  - smartcontrol.x.Test
-- **Du brauchst Hilfe? Es gibt ein Problem? Du hast einen Verbesserungsvorschlag?**
-  - Du hast eine Frage
-  - Du hast einen Fehler / Bug
-  - Du möchtest eine Erweiterung / ein neues Feature vorschlagen.
-
-<hr>
-
-# Über diesen Adapter
+<!-- Markdown Collapsible Section, see https://gist.github.com/pierrejoubert73/902cc94d79424356a8d20be2b382e1ab -->
+<details>
+  <summary style="font-size:1.3em; border:1px solid #ddd; background-color:#E0EBF3; color:black; padding:10px 0 10px 5px">Über diesen Adapter</summary> <!-- Header -->
+  <!-- Markdown Collapsible Section - We must have an empty line below (per link above)  -->
 
 In unserer Heim-Automation haben wir ja diverse **Auslöser**, z.B.
  * Bewegungsmelder im Flur löst aus, 
@@ -30,8 +18,12 @@ Smart Control kümmert sich entsprechend darum und führt alles gemäß IFTTT au
 
 Ziel ist, hiermit viele JavaScripts und Blockly abzulösen und eine sehr anwenderfreundliche Möglichkeit für diverse Szenarien zu bieten.
 
+</details>
+<!-- Markdown Collapsible Section - We must have an empty line below (per link above)  -->
 
-# Wie legst du los?
+<details>
+  <summary style="font-size:1.3em; border:1px solid #ddd; background-color:#E0EBF3; color:black; padding:10px 0 10px 5px">Wie am besten starten?</summary> <!-- Header -->
+  <!-- Markdown Collapsible Section - We must have an empty line below (per link above)  -->
 
 Du gehst einfach durch die einzelnen Options-Seiten (obige Reiter) wie folgt durch:
 
@@ -43,7 +35,7 @@ Du gehst einfach durch die einzelnen Options-Seiten (obige Reiter) wie folgt dur
 |4. ZONEN |Hier führst du alles zusammen, in dem du alle "Zonen" definierst (z.B. Badezimmer 1.OG, Kaffeeecke, usw.) und Auslöser und zu schaltende Zielgeräte zuweist, sowie auch weitere Bedingungen zur Ausführung definierst. |
 | WEITERE OPTIONEN | Hier kannst du weitere Adapter-Optionen einstellen. |
 
-Durch Klicken auf die jeweils dunkelblau hinterlegte Überschrift erhältst du weitere Infos zur Einstellung, Beispiel:
+### Durch Klicken auf die jeweils dunkelblau hinterlegte Überschrift erhältst du weitere Infos zur Einstellung, Beispiel:
 
 ![image](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/img/start_show-explanation.gif?raw=true)
 
@@ -60,7 +52,13 @@ Auswahlfelder (Drop-Down-Menüs), die mehrere selektierbare Werte bieten, müsse
 
 ![image](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/img/start_open-dialog.png?raw=true)
 
-# Adapter-Datenpunkte
+
+</details>
+<!-- Markdown Collapsible Section - We must have an empty line below (per link above)  -->
+
+<details>
+  <summary style="font-size:1.3em; border:1px solid #ddd; background-color:#E0EBF3; color:black; padding:10px 0 10px 5px">Adapter-Datenpunkte</summary> <!-- Header -->
+  <!-- Markdown Collapsible Section - We must have an empty line below (per link above)  -->
 
 ### smartcontrol.x.info.astroTimes
 
@@ -93,14 +91,18 @@ Hier stehen dir Datenpunkte rein zum Testen des Adapters zur Verfügung. Diese D
 
 ![image](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/img/start_states-test.png?raw=true)
 
+</details>
+<!-- Markdown Collapsible Section - We must have an empty line below (per link above)  -->
 
-# Du brauchst Hilfe? Es gibt ein Problem? Du hast einen Verbesserungsvorschlag?
+<details>
+  <summary style="font-size:1.3em; border:1px solid #ddd; background-color:#E0EBF3; color:black; padding:10px 0 10px 5px">Fragen / Probleme / Verbesserungsvorschläge</summary> <!-- Header -->
+  <!-- Markdown Collapsible Section - We must have an empty line below (per link above)  -->
 
-### Du hast eine Frage
+### Fragen zur Bedienung, etc.
 
 Frage am besten im ioBroker-Forum, idealerweise referenzierst du @Mic so dass ich als Entwickler eine Meldung bekomme. Aktueller Forum-Thread für diesen Adapter ist hier : [ioBroker-Forum: Smart Control](https://forum.iobroker.net/topic/36728/).
 
-### Du hast einen Fehler / Bug
+### Fehler / Bug
 
 Prüfe zunächst das ioBroker Log auf sämtliche Hinweise und gehe diesen entsprechend nach. Falls du nicht sicher bist, ob du alles richtig gemacht hast in den Adapter-Einstellungen, siehe oben -> *Du hast eine Frage*. 
 <br>Falls du wirklich einen durch diesen Adapter verursachten Fehler hast:
@@ -109,7 +111,12 @@ Prüfe zunächst das ioBroker Log auf sämtliche Hinweise und gehe diesen entspr
 3. Füge Screenshots hinzu, soweit möglicherweise hilfreich für mich als Entwickler
 4. Füge den Adapter-Optionen-Export hinzu, sofern möglicherweise sinnvoll zur Fehlersuche für mich: Ganz oben rechts in den SmartControl-Adapter-Optionen den blauen Button "Pfeil nach unten" anklicken.
 
-## Du möchtest eine Erweiterung / ein neues Feature vorschlagen.
+### Erweiterungungswunsch (neues Feature)
 
 Mach am besten ein neues Github-Issue auf unter [GitHub: Smart Control Issues](https://github.com/Mic-M/ioBroker.smartcontrol/issues), in Deutsch oder Englisch. Wenn Deutsch deine Muttersprache ist, dann schreibe auch bitte in Deutsch und nicht Englisch auf Github. Das macht unsere Kommunikation deutlich einfacher und du brauchst dir keinen abbrechen :-) Nicht deutsch sprechende User können das dennoch dank Google Translate o.ä. super mitlesen und sich einbringen.
+
+
+</details>
+<!-- Markdown Collapsible Section - We must have an empty line below (per link above)  -->
+
 

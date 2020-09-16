@@ -83,19 +83,12 @@
                     <div class="col s12">
                         <h5 class="translate">Start</h5>
                         <div>
-                            <p style="font-size: 1.3em;">Willkommen beim Smart-Control-Adapter, aktueller ioBroker-Forum-Artikel: <a href="https://forum.iobroker.net/topic/36728/smart-control-adapter-splash-page" target="_blank">ioBroker Forum: Smart Control</a>.
+                            <p class="translate" style="font-size: 1.3em;">Willkommen beim Smart-Control-Adapter. Aktueller ioBroker-Forum-Artikel: <a href="https://forum.iobroker.net/topic/36728/smart-control-adapter-splash-page" target="_blank">ioBroker Forum: Smart Control</a>.
                             <br><br>
-                            <p style="font-size: 1.3em;">Dokumentation / Anleitung zu diesem Adapter:</p>
+                            <p class="translate" style="font-size: 1.3em;">Dokumentation / Anleitung zu diesem Adapter:</p>
                         </div>
-                        <ul class="collapsible">
-                            <li>
-                                <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">Adapter-Dokumentation</h6></div>
-                                <div class="collapsible-body instructions">
-                                    <!-- Importing Markdown -->
-                                    <zero-md id="md-start" manual-render src="doc-md/start_en.md"></zero-md>                                    
-                                </div>
-                            </li>
-                        </ul>
+                        <!-- Importing Markdown -->
+                        <zero-md id="md-start" manual-render src="doc-md/start_en.md"></zero-md>
                     </div>
                 </div>
             </div>
@@ -220,62 +213,8 @@
                             <li>
                                 <div class="collapsible-header config-section"><h5 class="translate">Bewegungsmelder</h5><i class="material-icons">help_outline</i></div>
                                 <div class="collapsible-body">
-                                    <p style="margin-top:0px" class="translate">
-                                        Hier erfasst du deine Bewegungsmelder. Du kannst optional auch noch einen Helligkeits-Datenpunkt und einen Grenzwert für diesen festlegen.
-                                    </p>
-                                    <table>
-                                        <thead>
-                                          <tr>
-                                              <th class="translate">Spalte</th>
-                                              <th class="translate">Pflichtfeld</th>
-                                              <th class="translate">Beschreibung</th>
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                          <tr>
-                                            <td class="translate">✓</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet. In den Adapter-Optionen, unter 'WEITERE OPTIONEN > Eingabe-Validierung' kannst du übrigens einstellen, dass auch deaktivierte Zeilen auf Gültigkeit geprüft werden.</td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Name für Bewegungsmelder</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">Beliebiger Name für den Bewegungsmelder.</td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Datenpunkt Bewegungsmelder</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">Datenpunkt des Bewegungsmelders</td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Sek</td>
-                                            <td class="translate">Nein</td>
-                                            <td class="translate">Nach dieser Anzahl an Sekunden (und keiner weiteren zwischendurch erkannten Bewegung) werden die Zielgeräte ausgeschaltet.
-                                                <br>Zum deaktivieren: Leer lassen oder 0 setzen.
-                                                <br>Detail-Info: Sobald der Bewegungsmelder-Datenpunkt auf <code>false</code> geht, also keine Bewegung mehr erkannt wird, startet 
-                                                ein Timer mit den hier angegebenen Sekunden. Erst nach Ablauf dieser Sekunden werden die in der jeweiligen Zone definierten Zielgeräte ausgeschaltet. 
-                                                Erfolgt eine neue Bewegung (Bewegungsmelder-Datenpunkt auf <code>true</code>) während der Timer läuft, wird der Timer gelöscht und die Zielgeräte bleiben an.
-                                            </td>
-                                          </tr>
-                                          <tr>
-                                            <td><i class="material-icons left">timer_off</i></td>
-                                            <td class="translate">Nein</td>
-                                            <td class="translate">Wenn diese Option aktiviert ist, wird kein Ausschalt-Timer für die Zielgeräte gesetzt, die bereits an waren. Use Case: <a href="https://forum.iobroker.net/post/433871" target="_blank">siehe Forum-Beitrag</a>.</td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Datenpunkt Helligkeit</td>
-                                            <td class="translate">Nein</td>
-                                            <td class="translate">Optional: Datenpunkt, der die aktuelle Helligkeit widergibt.</td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Grenze</td>
-                                            <td class="translate">Nein</td>
-                                            <td class="translate">Grenzwert für die Helligkeit. Falls die aktuelle Helligkeit von 'Datenpunkt Helligkeit' größer als diese Zahl ist, wird die Bewegung ignoriert.
-                                                <br>Bitte beachte hierzu auch die Option <i>Helligkeit (Bri) nicht prüfen falls Zone an</i> unter 'WEITERE OPTIONEN > Bewegungsmelder'.
-                                            </td>
-                                          </tr>
-                                        </tbody>
-                                      </table>
+                                    <!-- Importing Markdown -->
+                                    <zero-md id="md-tableTriggerMotion" manual-render src="doc-md/table-trigger-motion_en.md"></zero-md>
                                 </div>
                             </li>
                         </ul>

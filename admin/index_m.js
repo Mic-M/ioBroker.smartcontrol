@@ -39,12 +39,9 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
      * Concept: Within the html file, we refer to English markdown files like /admin/doc-md/table-conditions_en.md
      * If user is using German as ioBroker language, we change to table-conditions_de.md
      */
-    // index_m.html: All ids defined in <zero-md> tags
-    const mdIds = [
-        'md-start',
-        'md-targetDevices',
-        'md-tableConditions',
-    ];
+
+    // index_m.html: All ids defined in <zero-md> tags, like ['md-start', 'md-targetDevices', ...]
+    const mdIds = $('zero-md[manual-render]').map((i, el) => el.getAttribute('id')).get(); // https://stackoverflow.com/a/54392415
     for (const mdId of mdIds) {
         getObject('system.config', (error, result)=> {
             if (!error && result && result.common && result.common.language) {
@@ -62,9 +59,13 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
                 console.warn('Error while getting ioBroker system configuration language, so we use English.');
             }
             // Finally, render zero-md - https://github.com/zerodevx/zero-md#public-methods
-            const el = document.querySelector('zero-md#' + mdId);
-            // @ts-ignore
-            el.render();        
+            // We add a slight delay, just in case
+            setTimeout(() => {
+                const el = document.querySelector('zero-md#' + mdId);
+                // @ts-ignore
+                el.render();                        
+            }, 100);
+
         });
     }
 
