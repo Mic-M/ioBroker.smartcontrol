@@ -27,7 +27,8 @@ In addition, a timer should run after a motion sensor is triggered, which (as so
 
 All of this can be easily accomplished with this adapter, und even much more ;-)
 
-The goal of this adapter is to replace many JavaScript and Blockly's and to provide a **very user-friendly environment** for various scenarios, including IFTTT (*if this, then that*).
+The purpose of this adapter is to to provide you a very **user-friendly environment** for various scenarios you need, and while the above was just one simple example using IFTTT (*if this, then that*), you can configure many different scenarios (called "zones" in the adapter option) for your home.
+Also, if your are using Javascripts/Blockly, you should be typically able to replace several scripts with this adapter, for ensuring more consistency, a stable environment, and much more.
 
 ## Installation
 The adapter is not yet in the "latest repository". So please [install the adapter by using the github URL](https://github.com/ioBroker/ioBroker.docs/blob/master/docs/en/admin/adapter.md). Once done, add an adapter instance accordingly.
