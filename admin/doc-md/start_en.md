@@ -1,54 +1,53 @@
-### This is supposed to be in English - translation will follow soon.
 <!-- Markdown Collapsible Section, see https://gist.github.com/pierrejoubert73/902cc94d79424356a8d20be2b382e1ab -->
 <details>
-  <summary style="font-size:1.3em; border:1px solid #ddd; background-color:#E0EBF3; color:black; padding:10px 0 10px 5px">Über diesen Adapter</summary> <!-- Header -->
+  <summary style="font-size:1.3em; border:1px solid #ddd; background-color:#E0EBF3; color:black; padding:10px 0 10px 5px">About this adapter</summary> <!-- Header -->
   <!-- Markdown Collapsible Section - We must have an empty line below (per link above)  -->
 
-In unserer Heim-Automation haben wir ja diverse **Auslöser**, z.B.
- * Bewegungsmelder im Flur löst aus, 
- * ein Wandschalter wird gedrückt, 
- * eine bestimmte Zeit tritt ein (etwa 30 Minuten nach Sonnenuntergang oder Mo-Fr um 7:00)
+In our home automation we have several **triggers**, e.g.
+ * motion sensor in the corridor triggers, 
+ * a wall switch is pressed, 
+ * a certain time occurs (e.g. 30 minutes after sunset or Mon-Fri at 7:00)
 
-Gleichzeitig treffen hier oft Bedingungen zu (z.B. 'Heute ist Feiertag', 'Wohnzimmer-Fenster ist offen', Helligkeit ist größer 100 Lux, etc.).
+In addition, we often want that additional conditions are (not) met (e.g. 'Today is a holiday', 'living room window is open', brightness is greater than 100 lux, etc.).
 
-Sobald also was auslöst, und optional Bedingungen zutreffen oder nicht zutreffen, sollen Ziel-Datenpunkte (d.h. **Zielgeräte**) geschaltet werden.
-Außerdem soll etwa nach ausgelöstem Bewegungungsmelder ein Timer laufen, der (sobald keine Bewegung mehr) nach der eingestellten Anzahl Sekunden die Zielgeräte wieder abschaltet.
+So as soon as something triggers and optionally conditions apply or do not apply, target states (i.e. **Target devices**) should be switched.
+In addition, a timer should run after a motion sensor is triggered, which (as soon as there is no more motion) switches off the target devices after the set number of seconds.
 
-Smart Control kümmert sich entsprechend darum und führt alles gemäß IFTTT aus.
+Smart Control takes care of this and executes everything according to IFTTT.
 
-Ziel ist, hiermit viele JavaScripts und Blockly abzulösen und eine sehr anwenderfreundliche Möglichkeit für diverse Szenarien zu bieten.
+The goal is to replace many JavaScript and Blockly's and to provide a very user-friendly environment for various scenarios.
 
 </details>
 <!-- Markdown Collapsible Section - We must have an empty line below (per link above)  -->
 
 <details>
-  <summary style="font-size:1.3em; border:1px solid #ddd; background-color:#E0EBF3; color:black; padding:10px 0 10px 5px">Wie am besten starten?</summary> <!-- Header -->
+  <summary style="font-size:1.3em; border:1px solid #ddd; background-color:#E0EBF3; color:black; padding:10px 0 10px 5px">How to start?</summary> <!-- Header -->
   <!-- Markdown Collapsible Section - We must have an empty line below (per link above)  -->
 
-Du gehst einfach durch die einzelnen Options-Seiten (obige Reiter) wie folgt durch:
+You simply go through the individual options pages (tabs) as follows:
 
-| Reiter | Was machen |
+| Tab | What to do |
 |--------|------------|
-|1. ZIELGERÄTE | Hier trägst du all deine zu schaltenden Ziel-Geräte ein, also Lampen, Radio, usw. |
-|2. ZUSÄTZLICHE BEDINGUNGEN | *Optional*: Hier trägst du zusätzliche Bedingungen ein, die (nicht) zutreffen sollen, z.B.: keiner anwesend, Feiertag heute, usw. |
-|3. AUSLÖSER |Hier trägst du Auslöser ein, also z.B. Bewegungsmelder, Wandschalter, etc., sowie ggf. zeitabhängige Auslöser (z.B. jeden Tag um 8:00 Uhr). |
-|4. ZONEN |Hier führst du alles zusammen, in dem du alle "Zonen" definierst (z.B. Badezimmer 1.OG, Kaffeeecke, usw.) und Auslöser und zu schaltende Zielgeräte zuweist, sowie auch weitere Bedingungen zur Ausführung definierst. |
-| WEITERE OPTIONEN | Hier kannst du weitere Adapter-Optionen einstellen. |
+|1. TARGET DEVICES | Here you enter all your target devices to be switched, e.g. lights, radio, etc. |
+|2. ADDITIONAL CONDITIONS | *optional*: Here you enter additional conditions that should (not) apply, e.g.: nobody present, holiday today, etc. |
+|3. TRIGGERS |Here you enter triggers, e.g. motion sensors, wall switches, etc., as well as any time-dependent triggers (e.g. every day at 8:00 am). |
+|4 ZONES |Here you bring everything together by defining all "zones" (e.g. bathroom 1st floor, coffee corner, etc.) and assigning triggers and target devices to be switched, as well as defining further conditions for execution. |
+| FURTHER OPTIONS | Here you can set additional adapter options. |
 
-### Durch Klicken auf die jeweils dunkelblau hinterlegte Überschrift erhältst du weitere Infos zur Einstellung, Beispiel:
+### By clicking on the dark blue highlighted headline you will get more information about the settings, example:
 
 ![image](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/img/start_show-explanation.gif?raw=true)
 
 
 
-### Hinweis: Auswahl-Felder (Drop-Down-Menüs) in Tabellen
+### Note: Drop-down fields in tables
 
-Auswahlfelder (Drop-Down-Menüs), die mehrere selektierbare Werte bieten, müssen "an der Seite" angeklickt werden. Dies ist ein Issue des ioBroker-Admin-Adapters, und nicht von Smart Control. [Das Issue ist gemeldet und adressiert](https://github.com/ioBroker/ioBroker.admin/issues/590) im ioBroker Admin Adapter, und wird mit dem nächsten Update kommen.
+Drop-down fields that offer several selectable values must be clicked "on the side". This is an issue of the ioBroker admin adapter, not of Smart Control. [The issue is reported and addressed](https://github.com/ioBroker/ioBroker.admin/issues/590) in the ioBroker admin adapter, and will come with the next update.
 
 ![image](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/img/start_dropdown-ani.gif?raw=true)
 
 
-<br>Einfache Abhilfe: Klicke einfach auf den blauen Button links daneben, dann bekommst du einen besseren Auswahl-Dialog:
+<br>Simple remedy: Just click on the blue button to the left of it and you will get a much better selection dialog:
 
 ![image](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/img/start_open-dialog.png?raw=true)
 
@@ -57,37 +56,37 @@ Auswahlfelder (Drop-Down-Menüs), die mehrere selektierbare Werte bieten, müsse
 <!-- Markdown Collapsible Section - We must have an empty line below (per link above)  -->
 
 <details>
-  <summary style="font-size:1.3em; border:1px solid #ddd; background-color:#E0EBF3; color:black; padding:10px 0 10px 5px">Adapter-Datenpunkte</summary> <!-- Header -->
+  <summary style="font-size:1.3em; border:1px solid #ddd; background-color:#E0EBF3; color:black; padding:10px 0 10px 5px">Adapter states</summary> <!-- Header -->
   <!-- Markdown Collapsible Section - We must have an empty line below (per link above)  -->
 
 ### smartcontrol.x.info.astroTimes
 
-Hier findest du alle aktuellen Astrozeiten deiner Geo-Koordinaten, die du in den ioBroker-Admin-Optionen (Schraubschlüssel oben links) eingestellt hast.
+Here you see all current astro times of your geo-coordinates, which you have set in the ioBroker-Admin-Options (wrench top left).
 
 ![image](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/img/start_states-astro.png?raw=true)
 
 
 ### smartcontrol.x.options
 
-Hier kannst du für jede Optionen-Tabelle einzelne Zeilen an- und abschalten (Datenpunkt `active`).
-<br>Zudem kannst du für alle Bewegungsmelder die Zeit in Sekunden (Datenpunkt `duration`) und die Grenze für die Helligkeit (Datenpunkt `briThreshold`) ändern.
+Here you can switch on and off individual rows for each options table (state 'active').
+<br>In addition you can change the time in seconds (state 'duration') and the brightness threshold (state 'briThreshold') for all motion sensors.
 
 ![image](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/img/start_states-options-motion.png?raw=true)
 
 
-**Bitte beachten:** Eine Änderung dieser Datenpunkte bewirkt einen Neustart der Adapter-Instanz, damit die Änderungen greifen können.
+**Please note:** A change of these states causes a restart of the adapter instance so that the changes can take effect.
 
 ### smartcontrol.x.targetDevices
 
-Für jede Tabellenzeile unter "1. ZIELGERÄTE" fügt der Adapter hier verknüpfte Datenpunkte hinzu. Wenn du diese Datenpunkte änderst, wird der ursprüngliche Ziel-Datenpunkt entsprechend geändert, und umgekehrt.
+For each table row under "1. TARGET DEVICES" the adapter adds linked states here. If you change these states, the original target state is changed accordingly, and vice versa.
 
 ![image](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/img/start_states-target-devices.png?raw=true)
 
 
 ### smartcontrol.x.Test
 
-Hier stehen dir Datenpunkte rein zum Testen des Adapters zur Verfügung. Diese Datenpunkte stellen keinerlei Funktionen oder Features zur Verfügung und dienen eben nur zum Testen dieses Adapters. Nach der ersten Installation einer Instanz dieses Adapters sind die Adapteroptionen mit einigen dieser Datenpunkte vorbelegt. Beginne z.B. mit dem Testen, indem du z.B. einen Auslöser-Datenpunkt aktivierst, also z.B. `smartcontrol.0.Test.trigger.Bathroom_motion` auf `true` setzt. Dann prüfst du, ob etwas ausgelöst wird (basierend auf den Einstellungen in "4. ZONEN" etc.).
-<br>Das ioBroker-Log (ioBroker Admin > Log) liefert detaillierte Informationen. Für das Debugging setzt du bitte den Log-Level der Adapterinstanz auf 'debug', damit du viel mehr Informationen im Log erhältst.
+Here you have states purely for testing the adapter. These states do not provide any functions or features and are only used to test the adapter. After the first installation of an instance of this adapter, the adapter options are preset with some of these states. For example, start testing by activating a trigger state, e.g. set 'smartcontrol.0.Test.trigger.Bathroom_motion' to 'true'. Then you check if something is triggered (based on the settings in '4. ZONES' etc.).
+<br>The ioBroker Log (ioBroker Admin > Log) provides detailed information. For debugging, please set the log level of the adapter instance to 'debug' to get much more information in the log.
 
 ![image](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/img/start_states-test.png?raw=true)
 
@@ -95,25 +94,25 @@ Hier stehen dir Datenpunkte rein zum Testen des Adapters zur Verfügung. Diese D
 <!-- Markdown Collapsible Section - We must have an empty line below (per link above)  -->
 
 <details>
-  <summary style="font-size:1.3em; border:1px solid #ddd; background-color:#E0EBF3; color:black; padding:10px 0 10px 5px">Fragen / Probleme / Verbesserungsvorschläge</summary> <!-- Header -->
+  <summary style="font-size:1.3em; border:1px solid #ddd; background-color:#E0EBF3; color:black; padding:10px 0 10px 5px">Questions / problems / suggestions for improvement</summary> <!-- Header -->
   <!-- Markdown Collapsible Section - We must have an empty line below (per link above)  -->
 
-### Fragen zur Bedienung, etc.
+### Questions about usage, etc.
 
-Frage am besten im ioBroker-Forum, idealerweise referenzierst du @Mic so dass ich als Entwickler eine Meldung bekomme. Aktueller Forum-Thread für diesen Adapter ist hier : [ioBroker-Forum: Smart Control](https://forum.iobroker.net/topic/36728/).
+The best way is to ask a question in the ioBroker forum, ideally you reference @Mic so that I, as the developer, get a notification. Current forum thread for this adapter is here: [ioBroker-Forum: Smart Control](https://forum.iobroker.net/topic/36728/). Feel free to write in English or German.
 
-### Fehler / Bug
+### Error / Bug
 
-Prüfe zunächst das ioBroker Log auf sämtliche Hinweise und gehe diesen entsprechend nach. Falls du nicht sicher bist, ob du alles richtig gemacht hast in den Adapter-Einstellungen, siehe oben -> *Du hast eine Frage*. 
-<br>Falls du wirklich einen durch diesen Adapter verursachten Fehler hast:
-1. Gehe zu [GitHub: Smart Control Issues](https://github.com/Mic-M/ioBroker.smartcontrol/issues) und erstelle ein neues Issue. 
-2. Beschreibe **ausführlich** die Problematik und Schritt für Schritt, was du getan hast als/bevor der Fehler auftrat. Setze außerdem das Log Level des Adapters auf "Debug", reproduziere den Fehler und stelle die Logausgabe in Code-Tags im Issue ein. ioBroker schneidet Log-Zeilen ab, daher gehst du dazu bitte direkt ins Logfile (durch Klicken auf "Download Log"). 
-3. Füge Screenshots hinzu, soweit möglicherweise hilfreich für mich als Entwickler
-4. Füge den Adapter-Optionen-Export hinzu, sofern möglicherweise sinnvoll zur Fehlersuche für mich: Ganz oben rechts in den SmartControl-Adapter-Optionen den blauen Button "Pfeil nach unten" anklicken.
+First check the ioBroker log for all hints and follow them accordingly. If you are not sure if you have done everything correctly in the adapter settings, see above -> *Questions about usage, etc.*. 
+<br>If you really have an error caused by this adapter:
+1. go to [GitHub: Smart Control Issues](https://github.com/Mic-M/ioBroker.smartcontrol/issues) and open a new issue. 
+2. describe **in detail** the issue and step-by-step what you were doing when/before the bug occurred. Also set the log level of the adapter to "debug", reproduce the error and set the log output in code tags in the issue. ioBroker cuts off log lines, so please go directly to the log file (by clicking on "Download Log"). 
+3. add screenshots, if likely helpful for me as developer
+4. add the adapter options export, if possibly useful for troubleshooting for me, by clicking on the blue "arrow down" button in the top right corner of the SmartControl adapter options
 
-### Erweiterungungswunsch (neues Feature)
+### Enhancement/feature requests
 
-Mach am besten ein neues Github-Issue auf unter [GitHub: Smart Control Issues](https://github.com/Mic-M/ioBroker.smartcontrol/issues), in Deutsch oder Englisch. Wenn Deutsch deine Muttersprache ist, dann schreibe auch bitte in Deutsch und nicht Englisch auf Github. Das macht unsere Kommunikation deutlich einfacher und du brauchst dir keinen abbrechen :-) Nicht deutsch sprechende User können das dennoch dank Google Translate o.ä. super mitlesen und sich einbringen.
+Open a new Github issue at [GitHub: Smart Control Issues](https://github.com/Mic-M/ioBroker.smartcontrol/issues), in English or German.
 
 
 </details>

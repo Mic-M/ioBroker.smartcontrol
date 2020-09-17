@@ -148,21 +148,21 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
                 otherTriggersShowHideUserStates(); 
                 break;
             case 'tableTriggerTimes':
-                dialogSelectSettings({tableId:'tableTriggerTimes', triggerDataCmd:'selectAdditionalConditions', targetField:'additionalConditions', dialogTitle:'Wähle zusätzliche Bedingungen' });
-                dialogSelectSettings({tableId:'tableTriggerTimes', triggerDataCmd:'selectNever', targetField:'never', dialogTitle:`Wähle 'Nie auslösen wenn...'` });
+                dialogSelectSettings({tableId:'tableTriggerTimes', triggerDataCmd:'selectAdditionalConditions', targetField:'additionalConditions', dialogTitle:'Select additional conditions' });
+                dialogSelectSettings({tableId:'tableTriggerTimes', triggerDataCmd:'selectNever', targetField:'never', dialogTitle:`Select 'never if...'` });
                 updateTableButtonIcons(tableId, [{dataButton:'selectAdditionalConditions', icon:'pageview'},{dataButton:'selectNever', icon:'pageview'}]);
                 addCopyTableRowSmarter(tableId);
                 break;
             case 'tableZones':
-                dialogSelectSettings({tableId:'tableZones', triggerDataCmd:'selectTriggers', targetField:'triggers', dialogTitle:'Auswahl Auslöser' });
-                dialogSelectSettings({tableId:'tableZones', triggerDataCmd:'selectTargetsMenu', targetField:'targets', dialogTitle:'Auswahl Zielgeräte' });
+                dialogSelectSettings({tableId:'tableZones', triggerDataCmd:'selectTriggers', targetField:'triggers', dialogTitle:'Select triggers' });
+                dialogSelectSettings({tableId:'tableZones', triggerDataCmd:'selectTargetsMenu', targetField:'targets', dialogTitle:'Select target devices' });
                 dialogConfigureZoneExecution();
                 updateTableButtonIcons(tableId, [{dataButton:'selectTriggers', icon:'pageview'},{dataButton:'selectTargetsMenu', icon:'pageview'},{dataButton:'configureExecution', icon:'schedule', regularSize:true}]);
                 addCopyTableRowSmarter(tableId);
                 break;
             case 'tableZoneExecution':
-                dialogSelectSettings({tableId:tableId, triggerDataCmd:'selectAdditionalConditions', targetField:'additionalConditions', dialogTitle:'Wähle zusätzliche Bedingungen' });
-                dialogSelectSettings({tableId:tableId, triggerDataCmd:'selectNever', targetField:'never', dialogTitle:`Wähle 'Nie schalten wenn...'` });
+                dialogSelectSettings({tableId:tableId, triggerDataCmd:'selectAdditionalConditions', targetField:'additionalConditions', dialogTitle:'Select additional conditions' });
+                dialogSelectSettings({tableId:tableId, triggerDataCmd:'selectNever', targetField:'never', dialogTitle:`Select 'never if...'` });
                 updateTableButtonIcons(tableId, [{dataButton:'selectAdditionalConditions', icon:'pageview'},{dataButton:'selectNever', icon:'pageview'}]);
                 break;
             default:
@@ -236,7 +236,7 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
                 //checked
                 $stateField.prev('div.userstates').remove(); // just in case
                 $stateField.addClass('input-userstates');
-                $stateField.before(`<div class="userstates">Datenpunkt unterhalb ${adapterNamespace}.userstates. (wird autom. angelegt)</div>`);
+                $stateField.before(`<div class="userstates">State under ${adapterNamespace}.userstates. (will be generated automatically)</div>`);
 
             } else {
                 //unchecked
@@ -641,9 +641,9 @@ function save(callback) { /*eslint-disable-line no-unused-vars*/
 
     // All tables
     const tablesToCheck = [
-        {tabName:'1. ZIELGERÄTE', tableRows:obj.tableTargetDevices},
-        {tabName:'3. AUSLÖSER', tableRows:obj.tableTriggerMotion.concat(obj.tableTriggerDevices, obj.tableTriggerTimes)},
-        {tabName:'4. ZONEN', tableRows:obj.tableZones},
+        {tabName:'1. TARGET DEVICES', tableRows:obj.tableTargetDevices},
+        {tabName:'3. TRIGGERS', tableRows:obj.tableTriggerMotion.concat(obj.tableTriggerDevices, obj.tableTriggerTimes)},
+        {tabName:'4. ZONES', tableRows:obj.tableZones},
     ];
     for (const lpCheckObj of tablesToCheck) {
         let activeRows = 0;
@@ -655,7 +655,7 @@ function save(callback) { /*eslint-disable-line no-unused-vars*/
             if (lpTableRow.active) activeRows++;
         }
         if (rowCounter == 0 || activeRows == 0) {
-            errors.push(`<strong>Reiter "${tabName}"</strong> - Anzahl Einträge: ${rowCounter}, davon sind ${activeRows} aktiviert. Du brauchst mindestens einen aktiven Eintrag.`);
+            errors.push(`<strong>Tab "${tabName}"</strong> - Total number of rows: ${rowCounter}, active rows: ${activeRows}. At least one active row is required.`);
         }
     }
 
@@ -665,7 +665,7 @@ function save(callback) { /*eslint-disable-line no-unused-vars*/
             const executeAlways = lpZonesRow.executeAlways;
             const executionArr = (lpZonesRow.executionJson) ? JSON.parse(lpZonesRow.executionJson) : [];
             if(!executeAlways && isLikeEmpty(executionArr)) {
-                errors.push(`<strong>Reiter "4. ZONEN"</strong> - Zone '${lpZonesRow.name}': keine Ausführung definiert.`);
+                errors.push(`<strong>Tab "4. ZONES"</strong> - Zone '${lpZonesRow.name}': no execution is defined.`);
             } else if (! executeAlways) {
                 let countValid = 0;
                 for (const lpExecRow of executionArr) {
@@ -679,7 +679,7 @@ function save(callback) { /*eslint-disable-line no-unused-vars*/
                     }
                 }
                 if (countValid == 0) {
-                    errors.push(`<strong>Reiter "4. ZONEN"</strong> - Zone '${lpZonesRow.name}': keine oder keine gültige Ausführung definiert.`);
+                    errors.push(`<strong>Tab "4. ZONES"</strong> - Zone '${lpZonesRow.name}': Invalid or no execution defined.`);
                 }
             }
         }
@@ -801,7 +801,7 @@ function initSelectId (cb) {
                     role:            _('Role'),
                     room:            _('Room'),
                     value:           _('Value'),
-                    selectid:        _('Wähle einen Datenpunkt'),
+                    selectid:        _('Select state'),
                     from:            _('From'),
                     lc:              _('Last changed'),
                     ts:              _('Time stamp'),
@@ -957,7 +957,7 @@ function fancytreeLoad(fancytreeId) {
             //loading: 'Loading&#8230;',
             //loadError: 'Load error!',
             //moreData: 'More&#8230;',
-            noData: 'Keine Treffer',
+            noData: 'No hits',
         }
 
     });

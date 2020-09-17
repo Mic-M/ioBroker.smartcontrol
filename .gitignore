@@ -5,6 +5,7 @@
 node_modules
 nbproject
 iob_npm.done
+admin/i18n/.i18n-editor-metadata
 
 # npm package files
 iobroker.*.tgz

@@ -60,11 +60,11 @@
                 <ul class="tabs blue lighten-4">
                     <!-- see description: https://materializecss.com/grid.html -->
                     <li class="tab col m1"><a href="#tabMain">Start</a></li>
-                    <li class="tab col m1"><a href="#tabDevices">1. <span class="translate">Zielgeräte</span></a></li>
-                    <li class="tab col m1"><a href="#tabConditions">2. <span class="translate">Zusätzliche Bedingungen</span></a></li>
-                    <li class="tab col m1"><a href="#tabTriggers">3. <span class="translate">Auslöser</span></a></li>
-                    <li class="tab col m1"><a href="#tabZones">4. <span class="translate">Zonen</span></a></li>
-                    <li class="tab col m1"><a href="#tabOptions" class="translate">– Weitere Optionen</a></li>
+                    <li class="tab col m1"><a href="#tabDevices">1. <span class="translate">Target devices</span></a></li>
+                    <li class="tab col m1"><a href="#tabConditions">2. <span class="translate">Additional conditions</span></a></li>
+                    <li class="tab col m1"><a href="#tabTriggers">3. <span class="translate">Triggers</span></a></li>
+                    <li class="tab col m1"><a href="#tabZones">4. <span class="translate">Zones</span></a></li>
+                    <li class="tab col m1"><a href="#tabOptions">– <span class="translate">Further Options</span></a></li>
                 </ul>
             </div>
 
@@ -81,11 +81,11 @@
                 <div class="row">
 
                     <div class="col s12">
-                        <h5 class="translate">Start</h5>
+                        <h5>Start</h5>
                         <div>
-                            <p class="translate" style="font-size: 1.3em;">Willkommen beim Smart-Control-Adapter. Aktueller ioBroker-Forum-Artikel: <a href="https://forum.iobroker.net/topic/36728/smart-control-adapter-splash-page" target="_blank">ioBroker Forum: Smart Control</a>.
-                            <br><br>
-                            <p class="translate" style="font-size: 1.3em;">Dokumentation / Anleitung zu diesem Adapter:</p>
+                            <p style="font-size: 1.3em"><span class="translate">tabMain.Welcome</span>: <a href="https://forum.iobroker.net/topic/36728/smart-control-adapter-splash-page" target="_blank">ioBroker Forum: Smart Control</a>.</p>
+                            <br>
+                            <p class="translate" style="font-size: 1.3em;">tabMain.Doc</p>
                         </div>
                         <!-- Importing Markdown -->
                         <zero-md id="md-start" manual-render src="doc-md/start_en.md"></zero-md>
@@ -105,7 +105,7 @@
                     <div class="col s12">
                         <ul class="collapsible">
                             <li>
-                                <div class="collapsible-header config-section"><h5 class="translate">Ziel-Geräte</h5><i class="material-icons">help_outline</i>
+                                <div class="collapsible-header config-section"><h5 class="translate">Target devices</h5><i class="material-icons">help_outline</i>
                                 </div>
                                 <div class="collapsible-body">
                                     <!-- Importing Markdown -->
@@ -120,7 +120,7 @@
                                 <div class="col"><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></div>
                                 <div class="table-filter input-field col s12 m6 l12">
                                     <input type="text" placeholder="Filter" />
-                                    <button class="btn-floating waves-effect waves-light blue btn-small" title="Filter löschen"><i class="material-icons">clear</i></button>
+                                    <button class="btn-floating waves-effect waves-light blue btn-small" title="Clear filter"><i class="material-icons">clear</i></button>
                                 </div>
                             </div>
                             <div class="table-values-div">
@@ -128,15 +128,15 @@
                                     <thead>
                                         <tr>
                                             <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
-                                            <th class="header translate" data-name="name">Geräte-Name</th>
+                                            <th class="header translate" data-name="name">Device Name</th>
                                             <th style="width: 40px;" data-buttons="stateSelectPopupOnState" class="header"></th>
-                                            <th class="header translate" data-name="onState">Datenpunkt zum einschalten</th>
-                                            <th style="width: 120px" class="header translate" data-name="onValue">Wert für 'an'</th>
-                                            <th style="width: 60px" class="mOptional header translate" data-name="noTargetOnCheck" data-type="checkbox">Prüfung deakiv.</th>
+                                            <th class="header translate" data-name="onState">State to switch device on</th>
+                                            <th style="width: 120px" class="header translate" data-name="onValue">Value for 'on'</th>
+                                            <th style="width: 60px" class="mOptional header translate" data-name="noTargetOnCheck" data-type="checkbox">Do not verify</th>
                                             <th style="width: 40px;" data-buttons="stateSelectPopupOffState" class="header"></th>
-                                            <th class="header translate" data-name="offState">Datenpunkt zum ausschalten</th>
-                                            <th style="width: 120px" class="header translate" data-name="offValue">Wert für 'aus'</th>
-                                            <th style="width: 60px" class="mOptional header translate" data-name="noTargetOffCheck" data-type="checkbox">Prüfung deakiv.</th>
+                                            <th class="header translate" data-name="offState">State to switch device off</th>
+                                            <th style="width: 120px" class="header translate" data-name="offValue">Value for 'off'</th>
+                                            <th style="width: 60px" class="mOptional header translate" data-name="noTargetOffCheck" data-type="checkbox">Do not verify</th>
                                             <th style="width: 160px" class="header" data-buttons="up down copy_smart delete"></th>
                                         </tr>
                                     </thead>
@@ -161,7 +161,7 @@
                     <div class="col s12">
                         <ul class="collapsible">
                             <li>
-                                <div class="collapsible-header config-section"><h5 class="translate">Zusätzliche Bedingungen</h5><i class="material-icons">help_outline</i></div>
+                                <div class="collapsible-header config-section"><h5 class="translate">Additional conditions</h5><i class="material-icons">help_outline</i></div>
                                 <div class="collapsible-body">
                                     <!-- Importing Markdown -->
                                     <zero-md id="md-tableConditions" manual-render src="doc-md/table-conditions_en.md"></zero-md>
@@ -175,7 +175,7 @@
                                 <div class="col"><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></div>
                                 <div class="table-filter input-field col s12 m6 l12">
                                     <input type="text" placeholder="Filter" />
-                                    <button class="btn-floating waves-effect waves-light blue btn-small" title="Filter löschen"><i class="material-icons">clear</i></button>
+                                    <button class="btn-floating waves-effect waves-light blue btn-small" title="Clear filter"><i class="material-icons">clear</i></button>
                                 </div>
                             </div>
 
@@ -184,10 +184,10 @@
                                     <thead>
                                         <tr>
                                             <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
-                                            <th class="header translate" data-name="name">Name der Bedingung</th>
+                                            <th class="header translate" data-name="name">Name of condition</th>
                                             <th style="width: 40px;" data-buttons="stateSelectPopupConditionState" class="header"></th>
-                                            <th class="header translate" data-name="conditionState">Datenpunkt der Bedingung</th>
-                                            <th style="width: 120px" class="header translate" data-name="conditionValue">DP-Wert</th>
+                                            <th class="header translate" data-name="conditionState">State of condition</th>
+                                            <th style="width: 120px" class="header translate" data-name="conditionValue">State value</th>
                                             <th style="width: 160px" class="header" data-buttons="up down copy_smart delete"></th>
                                         </tr>
                                     </thead>
@@ -211,7 +211,7 @@
                     <div class="col s12">
                         <ul class="collapsible">
                             <li>
-                                <div class="collapsible-header config-section"><h5 class="translate">Bewegungsmelder</h5><i class="material-icons">help_outline</i></div>
+                                <div class="collapsible-header config-section"><h5 class="translate">Motion sensors</h5><i class="material-icons">help_outline</i></div>
                                 <div class="collapsible-body">
                                     <!-- Importing Markdown -->
                                     <zero-md id="md-tableTriggerMotion" manual-render src="doc-md/table-trigger-motion_en.md"></zero-md>
@@ -225,7 +225,7 @@
                                 <div class="col"><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></div>
                                 <div class="table-filter input-field col s12 m6 l12">
                                     <input type="text" placeholder="Filter" />
-                                    <button class="btn-floating waves-effect waves-light blue btn-small" title="Filter löschen"><i class="material-icons">clear</i></button>
+                                    <button class="btn-floating waves-effect waves-light blue btn-small" title="Clear filter"><i class="material-icons">clear</i></button>
                                 </div>
                             </div>
 
@@ -234,14 +234,14 @@
                                     <thead>
                                         <tr>
                                             <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
-                                            <th class="header translate" data-name="name">Name für Bewegungsmelder</th>
+                                            <th class="header translate" data-name="name">Name of motion sensor</th>
                                             <th style="width: 40px;" data-buttons="stateSelectPopupMotionState" class="header"></th>
-                                            <th class="header translate" data-name="stateId">Datenpunkt Bewegungsmelder</th>
-                                            <th style="width: 60px" class="mOptional header translate" data-name="duration" data-type="number">Sek</th>
+                                            <th class="header translate" data-name="stateId">State of motion sensor</th>
+                                            <th style="width: 60px" class="mOptional header translate" data-name="duration" data-type="number">Sec</th>
                                             <th style="width: 30px" class="mOptional header" data-name="notIfManual" data-type="checkbox"><i class="material-icons left">timer_off</i></th>
                                             <th style="width: 40px;" data-buttons="stateSelectPopupBriState" class="header"></th>
-                                            <th class="mOptional header translate" data-name="briStateId">Datenpunkt Helligkeit</th>
-                                            <th style="width: 60px" class="mOptional header translate" data-name="briThreshold" data-type="number">Grenze</th>
+                                            <th class="mOptional header translate" data-name="briStateId">State of brightness</th>
+                                            <th style="width: 60px" class="mOptional header translate" data-name="briThreshold" data-type="number">Threshold</th>
                                             <th style="width: 160px" class="header" data-buttons="up down copy_smart delete"></th>
                                         </tr>
                                     </thead>
@@ -257,83 +257,10 @@
                     <div class="col s12">
                         <ul class="collapsible">
                             <li>
-                                <div class="collapsible-header config-section"><h5 class="translate">Andere Auslöser</h5><i class="material-icons">help_outline</i></div>
+                                <div class="collapsible-header config-section"><h5 class="translate">Other triggers</h5><i class="material-icons">help_outline</i></div>
                                 <div class="collapsible-body">
-                                    <p style="margin-top:0px" class="translate">
-                                        Hier erfasst du andere Geräte als Auslöser, wie Wandschalter, das Betreten der Wohnung, Küchenfenster wird geöffnet, usw. 
-                                    </p>
-                                    <table>
-                                        <thead>
-                                          <tr>
-                                              <th class="translate">Spalte</th>
-                                              <th class="translate">Pflichtfeld</th>
-                                              <th class="translate">Beschreibung</th>
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                          <tr>
-                                            <td class="translate">✓</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet. In den Adapter-Optionen, unter 'WEITERE OPTIONEN > Eingabe-Validierung' kannst du übrigens einstellen, dass auch deaktivierte Zeilen auf Gültigkeit geprüft werden.</td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Name</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">Beliebiger Name.</td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">SC</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">
-                                                Siehe <strong>Datenpunkt</strong>.
-                                            </td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Datenpunkt</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">
-                                                Ein existierender Datenpunkt als Auslöser.
-                                                <br>
-                                                <br>
-                                                Falls du die Option <strong>SC</strong> aktivierst, wird der Datenpunkt unterhalb von <code>smartcontrol.x.userstates</code> angelegt, d.h. wenn du hier z.B. <code>Bad.Radio.An</code> einträgst, dann wird hierfür der Datenpunkt <code>smartcontrol.x.userstates.Bad.Radio.An</code> angelegt, mit dem du dann das ganze auslösen kannst, in dem du den Datenpunkt enstprechend <strong>DP-Wert</strong> setzt. Der Datenpunkt wird als Typ 'String' angelegt, außer es ist <code>true</code> oder <code>false</code> in <strong>DP-Wert</strong>, dann wird dieser als 'boolean' angelegt.
-                                                <br>
-                                                Anwendungsfall hierfür: Etwa brauchst du einen Datenpunkt zum auslösen, also z.B. 'Heimkino an', der z.B. von Alexa getriggert wird. Hiermit ersparst du dir also, dass du deswegen manuell noch Datenpunkte anlegen musst.
-                                            </td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">DP-Wert</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">
-                                                Sobald der Wert vom Datenpunkt mit diesem Wert übereinstimmt, wird der Auslöser aktiviert. 
-                                                <br>Du kannst <code>true</code>, <code>false</code>, Nummern wie <code>144</code>, or Strings wie <code>ABCDEF</code> verwenden. 
-                                                <br>
-                                                <br>Ebenso kannst du die Vergleichs-Operatoren <code>&lt;</code>, <code>></code>, <code>>=</code> und <code>&lt;=</code> vor Zahlen schreiben.
-                                                <br>Um also auszulösen, wenn z.B. die Temperatur größer als 20°C ist, trägst du <code>>20</code> ein.
-                                                <br>
-                                                <br>Sämtliche Leerzeichen und Anführungszeichen (wie <code>"</code>) am Anfang und Ende werden automatisch entfernt.
-                                            </td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Ziel aus?</td>
-                                            <td class="translate">Nein</td>
-                                            <td class="translate">Normalerweise werden die Ziel-Geräte beim Auslösen eingeschaltet (1. ZIELGERÄTE > 'Datenpunkt zum einschalten' / 'Wert für an').
-                                                Wenn du den Haken aktivierst, werden die Ziele nicht ein- sondern ausgeschaltet (1. ZIELGERÄTE > 'Datenpunkt zum ausschalten' / 'Wert für aus').
-                                                <br>
-                                                <br>Hinweis: Falls "Toggle?" gesetzt ist, wird diese Option ignoriert.
-                                            </td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Toggle?</td>
-                                            <td class="translate">Nein</td>
-                                            <td class="translate">Falls aktiviert, ermöglicht dies einen Taster (Toggle) als Auslöser. 
-                                                Wenn die Zielgeräte aus sind, werden sie vom Auslöser eingeschaltet, und umgekehrt (wenn sie ein sind, werden sie ausgeschaltet).
-                                                <br>Der Adapter verwendet zur Ermittlung, ob das Gerät bereits an ist, den "Datenpunkt zum einschalten" unter "1. ZIELGERÄTE".
-                                                <br>
-                                                <br>Hinweis: Falls gleichzeitig "Ziel aus?" aktiviert ist, wird die "Ziel aus?"-Option ignoriert, das würde sonst auch keinen Sinn ergeben für einen "Toggle".
-                                            </td>
-                                          </tr>                                          
-                                        </tbody>
-                                      </table>
+                                    <!-- Importing Markdown -->
+                                    <zero-md id="md-tableTriggerDevices" manual-render src="doc-md/table-trigger-devices_en.md"></zero-md>
                                 </div>
                             </li>
                         </ul>
@@ -344,7 +271,7 @@
                                 <div class="col"><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></div>
                                 <div class="table-filter input-field col s12 m6 l12">
                                     <input type="text" placeholder="Filter" />
-                                    <button class="btn-floating waves-effect waves-light blue btn-small" title="Filter löschen"><i class="material-icons">clear</i></button>
+                                    <button class="btn-floating waves-effect waves-light blue btn-small" title="Clear filter"><i class="material-icons">clear</i></button>
                                 </div>
                             </div>
 
@@ -356,10 +283,10 @@
                                             <th class="header translate" data-name="name">Name</th>
                                             <th style="width: 40px;" data-buttons="stateSelectPopupStateId" class="header"></th>
                                             <th style="width: 30px" class="header" data-name="userState" data-type="checkbox">SC</th>
-                                            <th class="header translate" data-name="stateId">Datenpunkt</th>
-                                            <th style="width: 120px" class="header translate" data-name="stateVal">DP-Wert</th>
-                                            <th style="width: 50px" class="header translate" data-name="targetOff" data-type="checkbox">Ziel aus?</th>
-                                            <th style="width: 50px" class="header translate" data-name="isToggle" data-type="checkbox">Toggle?</th>
+                                            <th class="header translate" data-name="stateId">State</th>
+                                            <th style="width: 120px" class="header translate" data-name="stateVal">State value</th>
+                                            <th style="width: 50px" class="header translate" data-name="targetOff" data-type="checkbox">Target off</th>
+                                            <th style="width: 50px" class="header translate" data-name="isToggle" data-type="checkbox">Toggle</th>
                                             <th style="width: 160px" class="header" data-buttons="up down copy_smart delete"></th>
                                         </tr>
                                     </thead>
@@ -375,76 +302,10 @@
                         
                         <ul class="collapsible">
                             <li>
-                                <div class="collapsible-header config-section"><h5 class="translate">Zeitabhängige Auslöser</h5><i class="material-icons">help_outline</i></div>
+                                <div class="collapsible-header config-section"><h5 class="translate">Time based triggers</h5><i class="material-icons">help_outline</i></div>
                                 <div class="collapsible-body">
-                                    <p style="margin-top:0px" class="translate">
-                                        Diese Auslöser aktivieren, sobald die entsprechende Zeit eintritt.
-                                    </p>
-                                    <table>
-                                        <thead>
-                                          <tr>
-                                              <th class="translate">Spalte</th>
-                                              <th class="translate">Pflichtfeld</th>
-                                              <th class="translate">Beschreibung</th>
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                          <tr>
-                                            <td class="translate">✓</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet. In den Adapter-Optionen, unter 'WEITERE OPTIONEN > Eingabe-Validierung' kannst du übrigens einstellen, dass auch deaktivierte Zeilen auf Gültigkeit geprüft werden.</td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Name des Auslösers</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">Beliebiger Name.</td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Zeit</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">Hier kannst du eine Uhrzeit in Stunde/Minute, wie <code>23:30</code>, eingeben. Außerdem kannst du einen Astro-Namen wie <code>sunset</code> eingeben und dabei einen Versatz ("Offset") in Minuten hinzufügen, z.B. <code>goldenHourEnd+30</code> oder <code>sunset-60</code>.
-                                                <br>Die aktuellen Astrozeiten findest du übrigens als Info-Datenpunkte in diesem Adapter: <code>smartcontrol.x.info.astroTimes</code>.
-                                                <br>Außerdem kannst du hier Cron verwenden, also z.B. <code>5 4 * * *</code>. Zum einfachen Ermittlung der zu verwendeten Cron-Syntax kannst du z.B. folgende Website verwenden: <a style="text-decoration: underline" href="https://crontab.guru/" target="_blank">Crontab.guru</a>.
-                                                <br>
-                                                <br>Für Stunde/Minute (wie <code>23:30</code>) oder Astrozeiten (wie <code>sunset</code>) ist die Ausführung jeden Tag. In "4. ZONEN" kannst du das dann weiter entsprechend limitieren.
-                                            </td>
-
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Zusätzlich muss erfüllt sein</td>
-                                            <td class="translate">Nein</td>
-                                            <td class="translate">Hier kannst du zusätzliche Bedingungen eintragen, die zusätzlich zutreffen müssen, z.B.: Jemand ist anwesend, Heute ist Feiertag, Oma schläft, usw.</td>
-                                          </tr>
-                                          <tr>
-                                            <td><i class="material-icons left">done_all</i></td>
-                                            <td class="translate">Nein</td>
-                                            <td class="translate">
-                                                Für <i>Zusätzlich muss erfüllt sein</i>: Wenn aktiviert, müssen alle Bedingungen zutreffen ('und'). Wenn deaktiviert, reicht es, wenn eine der Bedingungen zutrifft.
-                                                <br>Falls du nur eine Bedingung auswählst, ist es egal, ob du das aktivierst oder nicht.
-                                            </td>
-                                          </tr>                                          
-                                          <tr>
-                                            <td class="translate">Nie auslösen wenn...</td>
-                                            <td class="translate">Nein</td>
-                                            <td class="translate">Hier kannst du zusätzliche Bedingungen eintragen, die nie zutreffen dürfen, z.B.: Keiner zu Hause, Radio läuft, usw.</td>
-                                          </tr>
-                                          <tr>
-                                            <td><i class="material-icons left">done_all</i></td>
-                                            <td class="translate">Nein</td>
-                                            <td class="translate">
-                                                Für <i>Nie auslösen wenn...</i>: Wenn aktiviert, müssen alle Bedingungen zutreffen ('und'). Wenn deaktiviert, reicht es, wenn eine der Bedingungen zutrifft.
-                                                <br>Falls du nur eine Bedingung auswählst, ist es egal, ob du das aktivierst oder nicht.
-                                            </td>
-                                          </tr>                                           
-                                          <tr>
-                                            <td class="translate">Ziel aus?</td>
-                                            <td class="translate">Nein</td>
-                                            <td class="translate">Normalerweise werden die Ziel-Geräte beim Auslösen eingeschaltet (1. ZIELGERÄTE > 'Datenpunkt zum einschalten' / 'Wert für an').
-                                                Wenn du den Haken aktivierst, werden die Ziele nicht ein- sondern ausgeschaltet (1. ZIELGERÄTE > 'Datenpunkt zum ausschalten' / 'Wert für aus').
-                                            </td>
-                                          </tr>                                          
-                                        </tbody>
-                                      </table>
+                                    <!-- Importing Markdown -->
+                                    <zero-md id="md-tableTriggerTimes" manual-render src="doc-md/table-trigger-times_en.md"></zero-md>
                                 </div>
                             </li>
                         </ul>
@@ -456,7 +317,7 @@
                                 <div class="col"><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></div>
                                 <div class="table-filter input-field col s12 m6 l12">
                                     <input type="text" placeholder="Filter" />
-                                    <button class="btn-floating waves-effect waves-light blue btn-small" title="Filter löschen"><i class="material-icons">clear</i></button>
+                                    <button class="btn-floating waves-effect waves-light blue btn-small" title="Clear filter"><i class="material-icons">clear</i></button>
                                 </div>
                             </div>
 
@@ -465,15 +326,15 @@
                                     <thead>
                                         <tr>
                                             <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
-                                            <th class="header translate" data-name="name">Name des Auslösers</th>
-                                            <th style="width: 140px" class="header translate" data-name="time">Zeit</th>
+                                            <th class="header translate" data-name="name">Name of trigger</th>
+                                            <th style="width: 140px" class="header translate" data-name="time">Time</th>
                                             <th style="width: 40px;" data-buttons="selectAdditionalConditions" class="header"></th>
-                                            <th class="mOptional header translate" data-name="additionalConditions" data-type="select multiple">Zusätzlich muss erfüllt sein</th>
+                                            <th class="mOptional header translate" data-name="additionalConditions" data-type="select multiple">Additional conditions</th>
                                             <th style="width: 30px" class="mOptional header" data-name="additionalConditionsAll" data-type="checkbox"><i class="material-icons left">done_all</i></th>
                                             <th style="width: 40px;" data-buttons="selectNever" class="header"></th>
-                                            <th class="mOptional header translate" data-name="never" data-type="select multiple">Nie auslösen wenn...</th>
+                                            <th class="mOptional header translate" data-name="never" data-type="select multiple">Never if...</th>
                                             <th style="width: 30px" class="mOptional header" data-name="neverAll" data-type="checkbox"><i class="material-icons left">done_all</i></th>
-                                            <th style="width: 50px" class="header translate" data-name="targetOff" data-type="checkbox">Ziel aus?</th>
+                                            <th style="width: 50px" class="header translate" data-name="targetOff" data-type="checkbox">Target off</th>
                                             <th style="width: 160px" class="header" data-buttons="up down copy_smart delete"></th>
                                         </tr>
                                     </thead>
@@ -498,81 +359,10 @@
                     <div class="col s12">
                         <ul class="collapsible">
                             <li>
-                                <div class="collapsible-header config-section"><h5 class="translate">Zonen</h5><i class="material-icons">help_outline</i></div>
+                                <div class="collapsible-header config-section"><h5 class="translate">Zones</h5><i class="material-icons">help_outline</i></div>
                                 <div class="collapsible-body">
-                                    <p style="margin-top:0px" class="translate">
-                                        Hier definierst du alle "Zonen" (z.B. Badezimmer 1.OG, Kaffeeecke, usw.) und weist Auslöser und zu schaltende Zielgeräte zu.
-                                    </p>
-                                    <table>
-                                        <thead>
-                                          <tr>
-                                              <th class="translate">Spalte</th>
-                                              <th class="translate">Pflichtfeld</th>
-                                              <th class="translate">Beschreibung</th>
-                                          </tr>
-                                        </thead>
-                                
-                                        <tbody>
-                                          <tr>
-                                            <td class="translate">✓</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet. In den Adapter-Optionen, unter 'WEITERE OPTIONEN > Eingabe-Validierung' kannst du übrigens einstellen, dass auch deaktivierte Zeilen auf Gültigkeit geprüft werden.</td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Name der Zone</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">Beliebiger Name für die Zone.</td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Auslöser</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">Wähle hier einen oder mehrere Auslöser aus, um dieser Zone zuzuordnen.</td>
-                                        </tr>
-                                          <tr>
-                                            <td class="translate">Zu schaltende Zielgeräte</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">Wähle hier ein oder mehrere zu schaltende Zielgeräte aus, die geschalten werden, sobald ein Auslöser auslöst und die Bedingungen zutreffen.
-                                                <br><br>Mit dem blauen Button links daneben kannst du bei vielen Zielgeräten deutlich schneller auswählen. Es öffnet sich ein Dialog, 
-                                                in dem du die Zielgeräte leichter finden, filtern und auswählen kannst.
-                                                <br><br><strong>Zielwerte überschreiben</strong>: Im Dialog der erscheint, wenn man auf den blauen Button links daneben klickt, kann man durch
-                                                Doppelklick oder <code>F2</code> den <code>Wert für 'an'</code> von "1. ZIELGERÄTE" jeweils überschreiben, in dem man da einfach den neuen Zielwert einträgt.
-                                                Dieser erscheint dann in geschweiften Klammern hinter dem Namen, z.B. <code>Bad.Licht.Decke {33%}</code>.
-                                                <br><img src="img/select-target-devices-overwrite.gif" >
-                                                <br><br><strong>Tipp</strong>: Wähle im Reiter "1. ZIELGERÄTE" für die Zielgeräte-Namen Punkte als Trennung und organisere diese z.B. nach Räumen und Geräten, z.B. "Wohnzimmer.Lichter.Decke", "Wohnzimmer.Lichter.Wand links", etc.
-                                                Damit werden dir hier die Zielgeräte dann als Ordner angezeigt: "Wohnzimmer > Lichter > Decke", etc.
-                                            </td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Aus nach x sec</td>
-                                            <td class="translate">Nein</td>
-                                            <td class="translate">
-                                                Normalerweise wird nur wieder automatisch ausgeschaltet, wenn ein Bewegungsmelder die Zone erfolgreich ausgelöst hat. 
-                                                <br>Wenn hier eine Anzahl Sekunden eingetragen ist, wird jedes Mal ein Timer mit dieser Anzahl Sekunden gestartet, sobald die Zone aktiviert wird. Nach dieser Anzahl an Sekunden wird dann ausgeschaltet, es sei denn es gibt zwischendurch wieder eine Auslösung der Zone.
-                                                <br>Durch leer lassen oder <code>0</code> wird diese Option ignoriert. 
-                                            </td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Ausführung</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">
-                                                Durch Klicken auf diesen Button öffnet sich ein Dialog, in dem du weitere Bedingungen definieren kannst, wann die in der Zone definierten Zielgeräte geschaltet werden, sobald ein Auslöser auslöst.
-                                                Detail-Informationen findest du hierzu in diesem Dialog.
-                                            </td>
-                                          </tr>
-                                          <tr>
-                                            <td class="translate">Immer</td>
-                                            <td class="translate">Ja</td>
-                                            <td class="translate">
-                                                Diese Option ist identisch mit "Immer ausführen" im Dialog 'Ausführung' (siehe oben):
-                                                Falls aktiviert, dann wird immer ausgeführt, sofern etwaige zuvor definierte Bedingungen zutreffen.
-                                                Falls nicht aktiviert, musst du im Dialog 'Ausführung' mindestens eine Zeile anlegen.
-
-                                            </td>
-                                          </tr>
-
-
-                                        </tbody>
-                                      </table>
+                                    <!-- Importing Markdown -->
+                                    <zero-md id="md-tableZones" manual-render src="doc-md/table-zones_en.md"></zero-md>
                                 </div>
                             </li>
                         </ul>
@@ -584,7 +374,7 @@
                                 <div class="col"><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></div>
                                 <div class="table-filter input-field col s12 m6 l12">
                                     <input type="text" placeholder="Filter" />
-                                    <button class="btn-floating waves-effect waves-light blue btn-small" title="Filter löschen"><i class="material-icons">clear</i></button>
+                                    <button class="btn-floating waves-effect waves-light blue btn-small" title="Clear filter"><i class="material-icons">clear</i></button>
                                 </div>
                             </div>
 
@@ -593,14 +383,14 @@
                                     <thead>
                                         <tr>
                                             <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
-                                            <th class="header translate" data-name="name">Name der Zone</th>
+                                            <th class="header translate" data-name="name">Name of zone</th>
                                             <th style="width: 40px;" data-buttons="selectTriggers" class="header"></th>
-                                            <th class="header translate" data-name="triggers" data-type="select multiple">Auslöser</th>
+                                            <th class="header translate" data-name="triggers" data-type="select multiple">Trigger</th>
                                             <th style="width: 40px;" data-buttons="selectTargetsMenu" class="header"></th>
-                                            <th class="header translate" data-name="targets" data-type="select multiple">Zu schaltende Zielgeräte</th>
-                                            <th style="width: 80px" class="mOptional header translate" data-name="offAfter" data-type="number">Aus nach x sek</th>
-                                            <th style="width: 100px" class="header" data-buttons="configureExecution">Ausführung</th>
-                                            <th style="width: 30px" class="header" data-name="executeAlways" data-type="checkbox">Immer</th>
+                                            <th class="header translate" data-name="targets" data-type="select multiple">Target devices</th>
+                                            <th style="width: 80px" class="mOptional header translate" data-name="offAfter" data-type="number">Off after x sec</th>
+                                            <th style="width: 100px" class="header" data-buttons="configureExecution">Execution</th>
+                                            <th style="width: 30px" class="header" data-name="executeAlways" data-type="checkbox">Always</th>
                                             <!-- Start: Execution Options, being hidden through CSS -->
                                             <th class="header" data-name="executionJson" data-type="text"></th>
                                             <!-- End: Execution Options, being hidden through CSS -->
@@ -625,28 +415,20 @@
             -->
             <div id="tabOptions" class="col s12 page">
                 <div class="intro">
-                    <h5 class="translate" style="margin-top: 2em;">Weitere Adapter-Optionen</h5>
-                    <p style="font-size: 0.9em; line-height: 1.5" class="translate">Hier sind weitere Adapter-Optionen.</p>
+                    <h5 class="translate" style="margin-top: 2em;">Further Adapter Options</h5>
                 </div>        
                 <ul class="collapsible" style="margin-top: 1.5em;">
                     <!-- +++ Motion Sensor Options +++  -->
                     <li class="lighten-2">
-                        <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">Bewegungsmelder</h6></div>
+                        <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">Motion sensors</h6></div>
                         <div class="collapsible-body">
                             <div class="row">
                                 <div class="col s12">
-                                    <h6 class="hBlock translate info">Helligkeit (Bri) nicht prüfen falls Zone an</h6>
-                                    <p class="translate info">Für Bewegungssensoren und zugehörige Helligkeits-Datenpunkte kannst du hier definieren,
-                                        ob die Helligkeit ignoriert werden soll, falls eine zugehörige Zone bereits an ist.
-                                        <br>
-                                        Use Case (Anwendungsfall): 'Grenze' ist der oberere Schwellwert der Helligkeit, über dem nicht mehr eingeschaltet wird wenn der Bewegungsmelder
-                                        auslöst. Dies ist jedoch nicht praxisnah, wenn der Bewegungsmelder z.B. Lichter schaltet, denn dann werden keine wiederkehrenden
-                                        Bewegungen mehr erkannt, falls Licht an und 'Bri' höchstwahrscheinlich damit überhalb des Schwellwertes ist.
-                                        <br>Mit Aktivierung dieser Option wird die Helligkeit nicht überprüft, falls eine zugehörige Zone bereits an ist.
-                                    </p>
+                                    <h6 class="hBlock translate info">tabOptions.notVerifyBriHeader</h6>
+                                    <p class="translate info">tabOptions.notVerifyBriInfo</p>
                                     <div class="input-field col s12 m6">
                                         <input type="checkbox" class="value" id="motionIgnoreBriIfZoneOn" />
-                                        <label for="motionIgnoreBriIfZoneOn" class="translate">Helligkeit (Bri) nicht prüfen, wenn Zone an</label>
+                                        <label for="motionIgnoreBriIfZoneOn" class="translate">tabOptions.notVerifyBriHeader</label>
                                     </div>
                                 </div>
                             </div>
@@ -655,18 +437,15 @@
 
                     <!-- +++ Schedule Options +++  -->
                     <li class="lighten-2">
-                        <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">Zeitplan und Astro</h6></div>
+                        <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">Time schedule and astro</h6></div>
                         <div class="collapsible-body">
                             <div class="row">
                                 <div class="col s12">
-                                    <h6 class="hBlock translate info">Astro-Zeiten 'night' und 'nightEnd'</h6>
-                                    <p class="translate info">
-                                        Je nach den geographischen Koordinaten, die in den ioBroker-Admin-Optionen gesetzt sind, gibt es z.B. in Deutschland im Sommer teils kein <code>night</code> und <code>nightEnd</code>.
-                                        Wenn du das hier aktivierst, dann wird in diesem Fall als night = '00:00' gesetzt, und als nightEnd = '02:00'
-                                    </p>
+                                    <h6 class="hBlock translate info">Astro times 'night' and 'nightEnd'</h6>
+                                    <p class="translate info">tabOptions.nightEndInfo</p>
                                     <div class="input-field col s12 m6">
                                         <input type="checkbox" class="value" id="fixNightNightEnd" />
-                                        <label for="fixNightNightEnd" class="translate">Setze 0:00/2:00, falls kein night/nightEnd verfügbar</label>
+                                        <label for="fixNightNightEnd" class="translate">tabOptions.nightEndOpt</label>
                                     </div>
                                 </div>
                             </div>
@@ -674,33 +453,30 @@
                     </li>
                     <!-- +++ Trigger Options +++  -->
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">Auslöser</h6></div>
+                        <div class="collapsible-header"><i class="material-icons">expand_more</i><h6 class="translate">Trigger</h6></div>
                         <div class="collapsible-body">
                             <div class="row">
                                 <div class="col s12">
-                                    <h6 class="hBlock translate info">Auslöser-Datenpunkte unterhalb von User-Datenpunkten wie javascript.x, 0_userdata.0, Messwerte.0, alias.x</h6>
-                                    <p class="translate info">Änderungen von Datenpunkten, die unterhalb von Adapter-Instanzen sind, werden nur getriggert, wenn acknowledge (ack) = <code>true</code> (also States gültig/bestätigt sind). 
-                                        <br>Für <strong>user-eigene Datenpunkte</strong> unterhalb javascript.x, 0_userdata.0, Messwerte.0, alias.0 usw. kann man das hier ändern.
-                                        <br><strong>Achtung: </strong> Falls "Egal (ack:true oder ack:false)" ausgewählt wird, wird ggf. doppelt geschaltet, wenn ack:false und kurz darauf ack:true gesetzt wird. Dieser Adapter verhindert das aber mit der Option <i>Auslöser ignorieren, falls letzes Auslösen desselben Auslösers vor weniger als x Sekunden war</i>.
-                                    </p>
+                                    <h6 class="hBlock translate info">tabOptions.triggerAckHeader</h6>
+                                    <p class="translate info">tabOptions.triggerAckInfo</p>
                                     <div class="input-field col s3 select">
                                         <select class="value" value="true" id="triggerStatesAck">
-                                            <option class="translate" value="false" selected>Nur ack:false (ignoriere ack:true)</option>
-                                            <option class="translate" value="true">Nur ack:true (ignoriere ack:false)</option>
-                                            <option class="translate" value="any">Egal (ack:true oder ack:false)</option>
+                                            <option class="translate" value="false" selected>tabOptions.triggerAckOptFalse</option>
+                                            <option class="translate" value="true">tabOptions.triggerAckOptTrue</option>
+                                            <option class="translate" value="any">tabOptions.triggerAckOptAny</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col s12">
-                                    <h6 class="hBlock translate info">Auslöser ignorieren, falls letzes Auslösen desselben Auslösers vor weniger als x Sekunden war</h6>
-                                    <p class="translate info">Aus Stabilitätsgründen werden Auslöser ignoriert, wenn diese bereits vor weniger als x Sekunden ausgelöst haben. Du kannst diese Anzahl Sekunden hier anpassen. Weniger als 1 Sekunde ist nicht erlaubt.</p>
+                                    <h6 class="hBlock translate info">tabOptions.triggerLimitHeader</h6>
+                                    <p class="translate info">tabOptions.triggerLimitInfo</p>
                                     <!-- <div class="input-field col s12 m6"> -->
                                     <div class="input-field col s3">
                                         <input class="value validate" placeholder="10" id="limitTriggerInterval" type="number" min="1" max="10000">
-                                        <label for="limitTriggerInterval" class="translate">Mindestens 1 Sekunde erforderlich</label>
-                                        <span class="helper-text translate">Sekunde(n)</span>
+                                        <label for="limitTriggerInterval" class="translate">tabOptions.triggerLimitLabel</label>
+                                        <span class="helper-text translate">Second(s)</span>
                                     </div>
                                 </div>
                             </div>
@@ -778,7 +554,7 @@
                             <div id="matches"></div>
                         </div>
                         <div class="row" id="fancy-explanation">
-                            <span class="translate">Durch Doppelklick oder F2 kann der <strong>Wert für 'an'</strong> von "1. ZIELGERÄTE" jew. überschrieben werden.</span>
+                            <span class="translate">dialog.selectSettings.explanation</span>
                         </div>
                         <!-- The Fancy Tree -->
                         <div class="row" id="fancytree-select-settings"></div>
@@ -830,73 +606,10 @@
                     <!-- START: Header with collapsible help contents  -->
                     <ul class="collapsible">
                         <li>
-                            <div class="collapsible-header config-section"><h5 class="translate">Ausführungseinstellungen für Zone</span> '<span class="zone-name">Placeholder</span>'</h5><i class="material-icons">help_outline</i></div>
+                            <div class="collapsible-header config-section"><h5 class="translate">Execution settings for zone</span> '<span class="zone-name">Placeholder</span>'</h5><i class="material-icons">help_outline</i></div>
                             <div class="collapsible-body">
-                                <p style="margin-top:0px" class="translate">
-                                    Du kannst <strong>Immer ausführen</strong> selektieren, dann wird einfach immer ausgeführt, sofern etwaige zuvor definierte Bedingungen zutreffen.
-                                    <br>
-                                    Möchtest du jedoch weitere Bedingungen definieren, wann die in der Zone definierten Zielgeräte angeschaltet werden, sobald ein Auslöser auslöst, deaktivierst du diese Option.
-                                    <br>Dann erscheint eine Tabelle mit folgenden Optionen:
-                                </p>
-                                <table>
-                                    <thead>
-                                      <tr>
-                                          <th class="translate">Spalte</th>
-                                          <th class="translate">Pflichtfeld</th>
-                                          <th class="translate">Beschreibung</th>
-                                      </tr>
-                                    </thead>
-                            
-                                    <tbody>
-                                      <tr>
-                                        <td class="translate">✓</td>
-                                        <td class="translate">Ja</td>
-                                        <td class="translate">Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet. In den Adapter-Optionen, unter 'WEITERE OPTIONEN > Eingabe-Validierung' kannst du übrigens einstellen, dass auch deaktivierte Zeilen auf Gültigkeit geprüft werden.</td>
-                                      </tr>
-                                      <tr>
-                                        <td class="translate">Start/Ende</td>
-                                        <td class="translate">Ja</td>
-                                        <td class="translate">Sobald ein Auslöser auslöst, muss die aktuelle Uhrzeit innerhalb dieses Zeitraums sein, damit die Zielgeräte geschalten werden.
-                                            <br>Du kannst hier eine Uhrzeit in Stunde/Minute, wie <code>08:25</code> oder <code>23:30</code> eingeben. 
-                                            Außerdem kannst du einen Astro-Namen wie <code>sunset</code> eingeben und dabei einen Versatz ("Offset") in Minuten hinzufügen, z.B. <code>goldenHourEnd+30</code> oder <code>sunset-60</code>.
-                                            <br>Die aktuellen Astrozeiten findest du übrigens als Info-Datenpunkte in diesem Adapter: <code>smartcontrol.x.info.astroTimes</code>.
-                                            <br>Eine Startzeit von z.B. <code>sunset</code> und eine Endzeit von z.B. <code>03:00</code> (also über Mitternacht hinaus) ist ebenso möglich, hierzu muss in "Weitere Optionen" die Option "Über Mitternacht hinaus" aktiviert sein (ist sie standardmäßig).
-                                            <br>
-                                        </td>
-                                      </tr>
-                                      <tr>
-                                        <td class="translate">Mo-So</td>
-                                        <td class="translate">Ja</td>
-                                        <td class="translate">Ziele werden geschaltet, wenn diese Wochentage zutreffen.</td>
-                                      </tr>
-                                      <tr>
-                                        <td class="translate">Zusätzlich muss erfüllt sein</td>
-                                        <td class="translate">Nein</td>
-                                        <td class="translate">Hier kannst du zusätzliche Bedingungen eintragen, die zusätzlich zutreffen müssen, z.B.: Jemand ist anwesend, Heute ist Feiertag, Oma schläft, usw.</td>
-                                      </tr>
-                                      <tr>
-                                        <td><i class="material-icons left">done_all</i></td>
-                                        <td class="translate">Nein</td>
-                                        <td class="translate">
-                                            Für <i>Zusätzlich muss erfüllt sein</i>: Wenn aktiviert, müssen alle Bedingungen zutreffen ('und'). Wenn deaktiviert, reicht es, wenn eine der Bedingungen zutrifft.
-                                            <br>Falls du nur eine Bedingung auswählst, ist es egal, ob du das aktivierst oder nicht.
-                                        </td>
-                                      </tr>                                          
-                                      <tr>
-                                        <td class="translate">Nie schalten wenn...</td>
-                                        <td class="translate">Nein</td>
-                                        <td class="translate">Hier kannst du zusätzliche Bedingungen eintragen, die nie zutreffen dürfen, z.B.: Keiner zu Hause, Radio läuft, usw.</td>
-                                      </tr>
-                                      <tr>
-                                        <td><i class="material-icons left">done_all</i></td>
-                                        <td class="translate">Nein</td>
-                                        <td class="translate">
-                                            Für <i>Nie schalten wenn...</i>: Wenn aktiviert, müssen alle Bedingungen zutreffen ('und'). Wenn deaktiviert, reicht es, wenn eine der Bedingungen zutrifft.
-                                            <br>Falls du nur eine Bedingung auswählst, ist es egal, ob du das aktivierst oder nicht.
-                                        </td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
+                                <!-- Importing Markdown -->
+                                <zero-md id="md-tableExecution" manual-render src="doc-md/table-execution_en.md"></zero-md>
                             </div>
                         </li>
                     </ul>
@@ -906,8 +619,8 @@
                     <div class="row">
                         <div class="input-field">
                             <input type="checkbox" class="value" id="executeZoneAlways" />
-                            <label for="executeZoneAlways" class="translate">Immer ausführen</label>
-                            <span class="helper-text translate show-if-always">Deaktivieren, um detaillierte Kriterien zur Ausführung zu definieren</span>
+                            <label for="executeZoneAlways" class="translate">Execute always</label>
+                            <span class="helper-text translate show-if-always">Deactivate to define detailed criteria for execution</span>
                         </div>
                     </div>
                     
@@ -926,19 +639,19 @@
                                     <tr>
                                         <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
                                         <th style="width: 120px" class="header translate" data-name="start">Start</th>
-                                        <th style="width: 120px" class="header translate" data-name="end">Ende</th>
-                                        <th style="width: 35px" class="header translate" data-name="mon" data-type="checkbox">Mo</th>
-                                        <th style="width: 35px" class="header translate" data-name="tue" data-type="checkbox">Di</th>
-                                        <th style="width: 35px" class="header translate" data-name="wed" data-type="checkbox">Mi</th>
-                                        <th style="width: 35px" class="header translate" data-name="thu" data-type="checkbox">Do</th>
-                                        <th style="width: 35px" class="header translate" data-name="fri" data-type="checkbox">Fr</th>
-                                        <th style="width: 35px" class="header translate" data-name="sat" data-type="checkbox">Sa</th>
-                                        <th style="width: 35px" class="header translate" data-name="sun" data-type="checkbox">So</th>
+                                        <th style="width: 120px" class="header translate" data-name="end">End</th>
+                                        <th style="width: 35px" class="header translate" data-name="mon" data-type="checkbox">Mon</th>
+                                        <th style="width: 35px" class="header translate" data-name="tue" data-type="checkbox">Tue</th>
+                                        <th style="width: 35px" class="header translate" data-name="wed" data-type="checkbox">Wed</th>
+                                        <th style="width: 35px" class="header translate" data-name="thu" data-type="checkbox">Thu</th>
+                                        <th style="width: 35px" class="header translate" data-name="fri" data-type="checkbox">Fri</th>
+                                        <th style="width: 35px" class="header translate" data-name="sat" data-type="checkbox">Sat</th>
+                                        <th style="width: 35px" class="header translate" data-name="sun" data-type="checkbox">Sun</th>
                                         <th style="width: 40px;" data-buttons="selectAdditionalConditions" class="header"></th>
-                                        <th class="mOptional header translate" data-name="additionalConditions" data-type="select multiple">Zusätzlich muss erfüllt sein</th>
+                                        <th class="mOptional header translate" data-name="additionalConditions" data-type="select multiple">Additional conditions</th>
                                         <th style="width: 30px" class="mOptional header" data-name="additionalConditionsAll" data-type="checkbox"><i class="material-icons left">done_all</i></th>
                                         <th style="width: 40px;" data-buttons="selectNever" class="header"></th>
-                                        <th class="mOptional header translate" data-name="never" data-type="select multiple">Nie schalten wenn...</th>
+                                        <th class="mOptional header translate" data-name="never" data-type="select multiple">Never switch if...</th>
                                         <th style="width: 30px" class="mOptional header" data-name="neverAll" data-type="checkbox"><i class="material-icons left">done_all</i></th>
                                         <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
                                     </tr>
@@ -961,17 +674,13 @@
             <div class="modal-content">
                 <div class="row">
                     <div class="col s12">
-                        <h6 class="title"><span class="translate">Fehlerhafte Konfiguration</span></h6>
+                        <h6 class="title"><span class="translate">Incorrect configuration</span></h6>
                     </div>
                 </div>
                 <div class="row error-section" style="padding-left:12px; padding-right:12px">
-                    <p class="translate">Deine Konfiguration ist fehlerhaft, bitte wie folgt beheben:</p>
+                    <p class="translate">log.verifyOptions.header</p>
                     <div id="save-errors" class="translate">Place holder, being replaced in save() function</div>
-                    <p class="further-info translate">
-                        Bitte beachte, dass hier nur geprüft wurde, ob jeweils eine Tabellenzeile da ist und und diese auch aktiv.
-                        Weitere Prüfungen finden nach dem Speichern beim Neustart des Adapters statt. Bitte daher auch unbedingt ins Log sehen.
-                        Etwaige weitere Fehler werden dort ausgegeben.
-                    </p>
+                    <p class="further-info translate">log.verifyOptions.info</p>
                 </div>
             </div>
             <div class="modal-footer">

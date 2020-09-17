@@ -8,7 +8,7 @@ In unserer Heim-Automation haben wir ja diverse **Auslöser**, z.B.
  * ein Wandschalter wird gedrückt, 
  * eine bestimmte Zeit tritt ein (etwa 30 Minuten nach Sonnenuntergang oder Mo-Fr um 7:00)
 
-Gleichzeitig treffen hier oft Bedingungen zu (z.B. 'Heute ist Feiertag', 'Wohnzimmer-Fenster ist offen', Helligkeit ist größer 100 Lux, etc.).
+Gleichzeitig möchten wir oftmals, dass dabei zusätzliche Bedingungen (nicht) zutreffen (z.B. 'Heute ist Feiertag', 'Wohnzimmer-Fenster ist offen', Helligkeit ist größer 100 Lux, etc.).
 
 Sobald also was auslöst, und optional Bedingungen zutreffen oder nicht zutreffen, sollen Ziel-Datenpunkte (d.h. **Zielgeräte**) geschaltet werden.
 Außerdem soll etwa nach ausgelöstem Bewegungungsmelder ein Timer laufen, der (sobald keine Bewegung mehr) nach der eingestellten Anzahl Sekunden die Zielgeräte wieder abschaltet.
@@ -28,26 +28,26 @@ Du gehst einfach durch die einzelnen Options-Seiten (obige Reiter) wie folgt dur
 
 | Reiter | Was machen |
 |--------|------------|
-|1. ZIELGERÄTE | Hier trägst du all deine zu schaltenden Ziel-Geräte ein, also Lampen, Radio, usw. |
+|1. ZIELGERÄTE | Hier trägst du all deine zu schaltenden Ziel-Geräte ein, also Lichter, Radio, usw. |
 |2. ZUSÄTZLICHE BEDINGUNGEN | *Optional*: Hier trägst du zusätzliche Bedingungen ein, die (nicht) zutreffen sollen, z.B.: keiner anwesend, Feiertag heute, usw. |
 |3. AUSLÖSER |Hier trägst du Auslöser ein, also z.B. Bewegungsmelder, Wandschalter, etc., sowie ggf. zeitabhängige Auslöser (z.B. jeden Tag um 8:00 Uhr). |
 |4. ZONEN |Hier führst du alles zusammen, in dem du alle "Zonen" definierst (z.B. Badezimmer 1.OG, Kaffeeecke, usw.) und Auslöser und zu schaltende Zielgeräte zuweist, sowie auch weitere Bedingungen zur Ausführung definierst. |
 | WEITERE OPTIONEN | Hier kannst du weitere Adapter-Optionen einstellen. |
 
-### Durch Klicken auf die jeweils dunkelblau hinterlegte Überschrift erhältst du weitere Infos zur Einstellung, Beispiel:
+### Durch Klicken auf die jeweils dunkelblau hinterlegte Überschrift erhältst du weitere Infos zu den Einstellungungen, Beispiel:
 
 ![image](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/img/start_show-explanation.gif?raw=true)
 
 
 
-### Hinweis: Auswahl-Felder (Drop-Down-Menüs) in Tabellen
+### Hinweis: Auswahl-Felder (Drop-Down) in Tabellen
 
 Auswahlfelder (Drop-Down-Menüs), die mehrere selektierbare Werte bieten, müssen "an der Seite" angeklickt werden. Dies ist ein Issue des ioBroker-Admin-Adapters, und nicht von Smart Control. [Das Issue ist gemeldet und adressiert](https://github.com/ioBroker/ioBroker.admin/issues/590) im ioBroker Admin Adapter, und wird mit dem nächsten Update kommen.
 
 ![image](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/img/start_dropdown-ani.gif?raw=true)
 
 
-<br>Einfache Abhilfe: Klicke einfach auf den blauen Button links daneben, dann bekommst du einen besseren Auswahl-Dialog:
+<br>Einfache Abhilfe: Klicke einfach auf den blauen Button links daneben, dann bekommst du einen viel besseren Auswahl-Dialog:
 
 ![image](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/img/start_open-dialog.png?raw=true)
 
@@ -99,11 +99,11 @@ Hier stehen dir Datenpunkte rein zum Testen des Adapters zur Verfügung. Diese D
 
 ### Fragen zur Bedienung, etc.
 
-Frage am besten im ioBroker-Forum, idealerweise referenzierst du @Mic so dass ich als Entwickler eine Meldung bekomme. Aktueller Forum-Thread für diesen Adapter ist hier : [ioBroker-Forum: Smart Control](https://forum.iobroker.net/topic/36728/).
+Frage am besten im ioBroker-Forum, idealerweise referenzierst du @Mic so dass ich als Entwickler eine Meldung bekomme. Aktueller Forum-Thread für diesen Adapter ist hier: [ioBroker-Forum: Smart Control](https://forum.iobroker.net/topic/36728/).
 
 ### Fehler / Bug
 
-Prüfe zunächst das ioBroker Log auf sämtliche Hinweise und gehe diesen entsprechend nach. Falls du nicht sicher bist, ob du alles richtig gemacht hast in den Adapter-Einstellungen, siehe oben -> *Du hast eine Frage*. 
+Prüfe zunächst das ioBroker Log auf sämtliche Hinweise und gehe diesen entsprechend nach. Falls du nicht sicher bist, ob du alles richtig gemacht hast in den Adapter-Einstellungen, siehe oben -> *Fragen zur Bedienung, etc.*. 
 <br>Falls du wirklich einen durch diesen Adapter verursachten Fehler hast:
 1. Gehe zu [GitHub: Smart Control Issues](https://github.com/Mic-M/ioBroker.smartcontrol/issues) und erstelle ein neues Issue. 
 2. Beschreibe **ausführlich** die Problematik und Schritt für Schritt, was du getan hast als/bevor der Fehler auftrat. Setze außerdem das Log Level des Adapters auf "Debug", reproduziere den Fehler und stelle die Logausgabe in Code-Tags im Issue ein. ioBroker schneidet Log-Zeilen ab, daher gehst du dazu bitte direkt ins Logfile (durch Klicken auf "Download Log"). 
