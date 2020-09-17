@@ -1,4 +1,4 @@
-![Logo](admin/smartcontrol.png)
+![Logo](admin/smartcontrol-banner.png)
 # ioBroker.smartcontrol
 
 [![NPM version](http://img.shields.io/npm/v/iobroker.smartcontrol.svg)](https://www.npmjs.com/package/iobroker.smartcontrol)
@@ -14,7 +14,7 @@
 
 ## Smart Control Adapter for ioBroker
 
-In our ioBroker home automation we have several triggers, e.g.
+In our [ioBroker](https://github.com/ioBroker/ioBroker) home automation we have several triggers, e.g.
  * motion sensor in the corridor triggers, 
  * a wall switch is pressed, 
  * a certain time occurs (e.g. 30 minutes after sunset or Mon-Fri at 7:00)
@@ -25,7 +25,7 @@ If met, target states (i.e. **Target devices**) should be switched.
 
 In addition, a timer should run after a motion sensor is triggered, which (as soon as there is no more motion) switches off the target devices after the set number of seconds.
 
-All of this can be easy accomplished with this adapter, und much more.
+All of this can be easily accomplished with this adapter, und even much more ;-)
 
 The goal of this adapter is to replace many JavaScript and Blockly's and to provide a **very user-friendly environment** for various scenarios, including IFTTT (*if this, then that*).
 
@@ -35,7 +35,9 @@ The adapter is not yet in the "latest repository". So please [install the adapte
 
 ## Instructions
 
-We are having a nice term [Medienbruch](https://de.wikipedia.org/wiki/Medienbruch) in the German language, which is an unnecessary requirement to 'break' the current medium and switch to a different medium (like different website, program, etc.) to execute/complete a task. Since this is cumbersome, I have included all instructions in the admin settings of this adapter.
+I have included all instructions right in the admin settings of this adapter.
+
+<sub>Reason: We are having a nice term [Medienbruch](https://de.wikipedia.org/wiki/Medienbruch) in the German language, which is an unnecessary requirement to 'break' the current medium and switch to a different medium (like different website, program, etc.) to execute/complete a task, etc. Since this is cumbersome, I have included all instructions in the admin settings of this adapter.</sub>
 
 Also, you can read most of these instructions here as well:
 * [**Basic Adapter Instructions**](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/start_en.md) - for German [click here (Deutsch)](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/start_de.md)
@@ -48,6 +50,9 @@ Also, you can read most of these instructions here as well:
 * [**Execution Settings**](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/table-execution_en.md) - for German [click here (Deutsch)](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/table-execution_de.md)
 
 ## Screenshots of adapter options
+
+Please note that these screenshots are a snapshot and do not reflect the latest adapter version's options.
+This is just to provide you an overview of the adapter options. 
 
 ![SmartControl Options](admin/img/option-screenshots/tab-start.png)
 
@@ -68,11 +73,7 @@ Also, you can read most of these instructions here as well:
 ![SmartControl Options](admin/img/option-screenshots/tab-further-options.png)
 
 
-
-
-
-
-## Resources
+## Links and resources
 * [**Permanent Smart Control ioBroker Forum Link (Splash Page)**](https://forum.iobroker.net/topic/36728/smart-control-adapter-splash-page)
 
 
