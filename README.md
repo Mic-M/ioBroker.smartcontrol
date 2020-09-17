@@ -28,24 +28,15 @@ Smart Control takes care of this and executes everything according to IFTTT.
 
 The goal is to replace many JavaScript and Blockly's and to provide a very user-friendly environment for various scenarios.
 
-<sub><sup>Adapter icon made by [freepik](https://www.flaticon.com/authors/freepik) from [flaticon.com](https://www.flaticon.com/).</sup></sub>
-
-## ioBroker Forum
-* [**Smart Control Adapter (Splash Page)**](https://forum.iobroker.net/topic/36728/smart-control-adapter-splash-page)
-
-
 ## Installation
 The adapter is not yet in the "latest repository". So please [install the adapter by using the github URL](https://github.com/ioBroker/ioBroker.docs/blob/master/docs/en/admin/adapter.md). Once done, add an adapter instance accordingly.
 
 
 ## Instructions
 
-We are having a nice term [Medienbruch](https://de.wikipedia.org/wiki/Medienbruch) in the German language, which is an unnecessary requirement to 'break' the current medium and switch to a different medium (like different website, program, etc.) to execute/complete a task. 
-Since this is cumbersome, I have included all instructions in the admin settings of this adapter. Click on the according header, and you will get the instructions accordingly (in English or German):
+We are having a nice term [Medienbruch](https://de.wikipedia.org/wiki/Medienbruch) in the German language, which is an unnecessary requirement to 'break' the current medium and switch to a different medium (like different website, program, etc.) to execute/complete a task. Since this is cumbersome, I have included all instructions in the admin settings of this adapter.
 
-![SmartControl Options](admin/img/smartControl_options1.gif)
-
-Also, you can read most of these instructions here:
+Also, you can read most of these instructions here as well:
 * [**Basic Adapter Instructions**](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/start_en.md) - for German [click here (Deutsch)](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/start_de.md)
 * [**Target Devices**](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/table-target-devices_en.md) - for German [click here (Deutsch)](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/table-target-devices_de.md)
 * [**Additional Conditions**](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/table-conditions_en.md) - for German [click here (Deutsch)](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/table-conditions_de.md)
@@ -55,16 +46,38 @@ Also, you can read most of these instructions here:
 * [**Zones**](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/table-zones_en.md) - for German [click here (Deutsch)](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/table-zones_de.md)
 * [**Execution Settings**](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/table-execution_en.md) - for German [click here (Deutsch)](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/table-execution_de.md)
 
+## Screenshots of adapter options
+
+![SmartControl Options](admin/img/option-screenshots/tab-start.png)
+
+![SmartControl Options](admin/img/option-screenshots/tab-triggers-motion.png)
+
+![SmartControl Options](admin/img/option-screenshots/tab-triggers-other.png)
+
+![SmartControl Options](admin/img/option-screenshots/tab-triggers-time.png)
+
+![SmartControl Options](admin/img/option-screenshots/tab-target-devices.png)
+
+![SmartControl Options](admin/img/option-screenshots/tab-conditions.png)
+
+![SmartControl Options](admin/img/option-screenshots/tab-zones.png)
+
+![SmartControl Options](admin/img/option-screenshots/tab-zones-execution.png)
+
+![SmartControl Options](admin/img/option-screenshots/tab-further-options.png)
 
 
-## Sentry Error Reporting
 
-This adapter is using [Sentry](https://github.com/ioBroker/plugin-sentry) to report **anonymized** information to the ioBroker Sentry server, if the adapter crashes or other code errors occur. 
-No worries: All data sent is anonymized, so **no** IP address or other non-anonymous data is included. See [What is Sentry/Sentry.io?](https://github.com/ioBroker/plugin-sentry#what-is-sentrysentryio) for details.
-<br><br>
-If you want to disable Sentry, see [Disable Sentry Error Reporting](https://github.com/ioBroker/plugin-sentry#what-is-sentrysentryio) for detailed instructions. For example, you can execute `iobroker plugin disable sentry` in the ioBroker console to disable Sentry for all adapters, or `iobroker plugin disable sentry --instance <adapter name>.<instance numer>` for a specific adapter instance.
-<br><br>
-However, we hope you keep Sentry Error Reporting activated. This helps us as developers to identify unexpected errors fast and provide you an adapter as stabile as possible. 
+
+
+
+## Resources
+* [**Permanent Smart Control ioBroker Forum Link (Splash Page)**](https://forum.iobroker.net/topic/36728/smart-control-adapter-splash-page)
+
+
+## Notes
+* This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers.** For more details and for information how to disable the error reporting see [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is used starting with js-controller 3.0.
+* Adapter icon made by [freepik](https://www.flaticon.com/authors/freepik) from [flaticon.com](https://www.flaticon.com/).</sup></sub>
 
 ## Changelog
 

@@ -1,3 +1,4 @@
+### This is supposed to be in English - translation will follow soon.
 Diese Auslöser aktivieren, sobald die entsprechende Zeit eintritt.
 Hier definierst du alle "Zonen" (z.B. Badezimmer 1.OG, Kaffeeecke, usw.) und weist Auslöser und zu schaltende Zielgeräte zu.
 

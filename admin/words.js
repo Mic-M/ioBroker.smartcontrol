@@ -18,6 +18,7 @@ systemDictionary = {
     "Further Options": {                             "en": "Further Options",                                 "de": "Weitere Optionen"},
     "Hello World": {                                 "en": "Hello World",                                     "de": "Hallo Welt"},
     "Incorrect configuration": {                     "en": "Incorrect configuration",                         "de": "Fehlerhafte Konfiguration"},
+    "Input Validation": {                            "en": "Input Validation",                                "de": "Eingabe-Validierung"},
     "Mo": {                                          "en": "Mo",                                              "de": "Mo"},
     "Motion sensors": {                              "en": "Motion sensors",                                  "de": "Bewegungsmelder"},
     "Name of condition": {                           "en": "Name of condition",                               "de": "Name der Bedingung"},
