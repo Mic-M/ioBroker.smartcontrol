@@ -14,7 +14,19 @@
 
 ## Smart Control Adapter for ioBroker
 
-Control devices smarter: by grouping, including triggers like motion, opening window, etc. and set target devices accordingly.
+In our home automation we have several **triggers**, e.g.
+ * motion sensor in the corridor triggers, 
+ * a wall switch is pressed, 
+ * a certain time occurs (e.g. 30 minutes after sunset or Mon-Fri at 7:00)
+
+In addition, we often want that additional conditions are (not) met (e.g. 'Today is a holiday', 'living room window is open', brightness is greater than 100 lux, etc.).
+
+So as soon as something triggers and optionally conditions apply or do not apply, target states (i.e. **Target devices**) should be switched.
+In addition, a timer should run after a motion sensor is triggered, which (as soon as there is no more motion) switches off the target devices after the set number of seconds.
+
+Smart Control takes care of this and executes everything according to IFTTT.
+
+The goal is to replace many JavaScript and Blockly's and to provide a very user-friendly environment for various scenarios.
 
 <sub><sup>Adapter icon made by [freepik](https://www.flaticon.com/authors/freepik) from [flaticon.com](https://www.flaticon.com/).</sup></sub>
 
@@ -29,11 +41,21 @@ The adapter is not yet in the "latest repository". So please [install the adapte
 ## Instructions
 
 We are having a nice term [Medienbruch](https://de.wikipedia.org/wiki/Medienbruch) in the German language, which is an unnecessary requirement to 'break' the current medium and switch to a different medium (like different website, program, etc.) to execute/complete a task. 
-Since this is cumbersome, I am not providing any adapter instructions here, but intuitively right within the adapter configuration.
-
-Therefore, I have included all instructions in the admin settings of this adapter. Click on the according header, and you will get the instructions accordingly:
+Since this is cumbersome, I have included all instructions in the admin settings of this adapter. Click on the according header, and you will get the instructions accordingly (in English or German):
 
 ![SmartControl Options](admin/img/smartControl_options1.gif)
+
+Also, you can read most of these instructions here:
+* [**Basic Adapter Instructions**](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/start_en.md) - for German [click here (Deutsch)](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/start_de.md)
+* [**Target Devices**](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/table-target-devices_en.md) - for German [click here (Deutsch)](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/table-target-devices_de.md)
+* [**Additional Conditions**](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/table-conditions_en.md) - for German [click here (Deutsch)](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/table-conditions_de.md)
+* [**Triggers: Motion Sensors**](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/table-trigger-motion_en.md) - for German [click here (Deutsch)](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/table-trigger-motion_de.md)
+* [**Triggers: Other Devices (wall switch, etc.)**](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/table-trigger-devices_en.md) - for German [click here (Deutsch)](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/table-trigger-devices_de.md)
+* [**Triggers: Time-dependent**](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/table-trigger-times_en.md) - for German [click here (Deutsch)](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/table-trigger-times_de.md)
+* [**Zones**](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/table-zones_en.md) - for German [click here (Deutsch)](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/table-zones_de.md)
+* [**Execution Settings**](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/table-execution_en.md) - for German [click here (Deutsch)](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/table-execution_de.md)
+
+
 
 ## Sentry Error Reporting
 
