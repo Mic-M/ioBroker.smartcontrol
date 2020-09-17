@@ -14,19 +14,20 @@
 
 ## Smart Control Adapter for ioBroker
 
-In our home automation we have several **triggers**, e.g.
+In our ioBroker home automation we have several triggers, e.g.
  * motion sensor in the corridor triggers, 
  * a wall switch is pressed, 
  * a certain time occurs (e.g. 30 minutes after sunset or Mon-Fri at 7:00)
 
-In addition, we often want that additional conditions are (not) met (e.g. 'Today is a holiday', 'living room window is open', brightness is greater than 100 lux, etc.).
+Once such a trigger is triggering, we often want that additional conditions are (not) met (e.g. 'Today is a holiday', 'living room window is open', brightness is greater than 100 lux, etc.).
 
-So as soon as something triggers and optionally conditions apply or do not apply, target states (i.e. **Target devices**) should be switched.
+If met, target states (i.e. **Target devices**) should be switched.
+
 In addition, a timer should run after a motion sensor is triggered, which (as soon as there is no more motion) switches off the target devices after the set number of seconds.
 
-Smart Control takes care of this and executes everything according to IFTTT.
+All of this can be easy accomplished with this adapter, und much more.
 
-The goal is to replace many JavaScript and Blockly's and to provide a very user-friendly environment for various scenarios.
+The goal of this adapter is to replace many JavaScript and Blockly's and to provide a **very user-friendly environment** for various scenarios, including IFTTT (*if this, then that*).
 
 ## Installation
 The adapter is not yet in the "latest repository". So please [install the adapter by using the github URL](https://github.com/ioBroker/ioBroker.docs/blob/master/docs/en/admin/adapter.md). Once done, add an adapter instance accordingly.
