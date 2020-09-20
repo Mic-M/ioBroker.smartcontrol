@@ -157,4 +157,5 @@ code { padding: 2px 4px; font-size: 1.05em !important; color: #2696ef; backgroun
     width:100% !important;
 }
 
-
+/* Translation required */
+p.translation-required { font-style:italic; color:#21448f; font-size:14px !important; line-height: 14px !important;}

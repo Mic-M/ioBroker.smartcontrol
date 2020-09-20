@@ -21,14 +21,14 @@ In our [ioBroker](https://github.com/ioBroker/ioBroker) home automation we have 
 
 Once such a trigger is triggering, we often want that additional conditions are (not) met (e.g. 'Today is a holiday', 'living room window is open', brightness is greater than 100 lux, etc.).
 
-If met, target states (i.e. **Target devices**) should be switched.
+Once these optional verifications passed, target states (i.e. **Target devices**) should be switched.
 
 In addition, a timer should run after a motion sensor is triggered, which (as soon as there is no more motion) switches off the target devices after the set number of seconds.
 
 All of this can be easily accomplished with this adapter, und even much more ;-)
 
 The purpose of this adapter is to to provide you a very **user-friendly environment** for various scenarios you need, and while the above was just one simple example using IFTTT (*if this, then that*), you can configure many different scenarios (called "zones" in the adapter option) for your home.
-Also, if your are using Javascripts/Blockly, you should be typically able to replace several scripts with this adapter, for ensuring more consistency, a stable environment, and much more.
+Also, if your are using Javascripts/Blockly, you should be typically able to replace several scripts with this adapter, which will also ensure more consistency, a stable environment, and especially a way user-friendlier configuration.
 
 ## Installation
 The adapter is not yet in the "latest repository". So please [install the adapter by using the github URL](https://github.com/ioBroker/ioBroker.docs/blob/master/docs/en/admin/adapter.md). Once done, add an adapter instance accordingly.
@@ -52,7 +52,7 @@ Also, you can read most of these instructions here as well:
 
 ## Screenshots of adapter options
 
-Please note that these screenshots are a snapshot and do not reflect the latest adapter version's options.
+Please note that these screenshots are a snapshot and do not reflect the latest adapter options.
 This is just to provide you an overview of the adapter options. 
 
 ![SmartControl Options](admin/img/option-screenshots/tab-start.png)

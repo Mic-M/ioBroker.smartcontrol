@@ -9,7 +9,7 @@ Für jede Tabellenzeile fügt dieser Adapter verknüpfte Datenpunkte zu `smartco
 | Spalte   |  Pflichtfeld |  Beschreibung |
 |----------|:------------:|-------|
 | ✓        |  Ja          | Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet. In den Adapter-Optionen, unter 'WEITERE OPTIONEN > Eingabe-Validierung' kannst du übrigens einstellen, dass auch deaktivierte Zeilen auf Gültigkeit geprüft werden. |
-| Geräte-Name |    Ja   | Name des Gerätes deiner Wahl. Verbotene Zeichen: `[ ] * , ; ' " &#96; < > \ ?` |
+| Geräte-Name |    Ja   | Name des Gerätes deiner Wahl. Verbotene Zeichen: ``[ ] * , ; ' " ` < > \ ?`` |
 | Datenpunkt zum einschalten | Ja | 	Datenpunkt des Zielgerätes zum Einschalten, sobald ein Auslöser auslöst und die Bedingungen in den Zonen zutreffen. |
 | Wert für 'an' | Ja | Datenpunkt-Wert, der in 'Datenpunkt zum einschalten' gesetzt wird. Du kannst `true`, `false`, Nummern wie `144`, or Strings wie `Schalte Radio an` verwenden. Sämtliche Leerzeichen und Anführungszeichen (wie `"`) am Anfang und Ende werden automatisch entfernt. <br><br>Der Wert kann unter "4. ZONEN", "Zu schaltende Zielgeräte" überschrieben werden.|
 | Prüfung deakiv. (an) | Nein | Vor dem Schalten wird immer geprüft, ob das Zielgerät bereits an ist lt. "Wert für 'an'". Wenn du diese Option aktivierst, erfolgt keine Überprüfung und es wird immer geschaltet. Use Case: z.B. ein Button als Datenpunkt. Siehe [Github Issue #5](https://github.com/Mic-M/ioBroker.smartcontrol/issues/5).|

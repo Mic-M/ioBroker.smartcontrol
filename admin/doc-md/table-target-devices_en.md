@@ -1,19 +1,18 @@
-### This is supposed to be in English - translation will follow soon.
-Gib hier alle Zielgeräte ein, die Du schalten möchtest, sobald ein Auslöser aktiviert wird und die Bedingungen in den Zonen erfüllt sind.
+Enter here all target devices you want to switch as soon as a trigger is activated and the conditions in the zones are met.
 
-*Warum sind hier unterschiedliche Datenpunkte für das Ein- und Ausschalten?*
-Normalerweise sind diese gleich (Datenpunkt erwartet `true`/`false`) für das Ein-/Ausschalten, aber in bestimmten Fällen benötigen Benutzer einen anderen Datenpunkt und Datenpunkt-Wert, um ein Gerät ein- oder auszuschalten. Beispiel: fully-tablet-control.0.device.tablet_bathroom.commands.screenOn und fully-tablet-control.0.device.tablet_bathroom.commands.screenOff.
-Du kannst auch Datenpunkte hinzufügen, die nicht boolean (`true`/`false`), sondern String oder Zahl sind.
+*Why are there different states for switching on and off?*
+Normally these are the same (states expect `true`/`false`) for switching on/off, but in certain cases users may need a different state and state value to switch a device on or off. For example: fully-tablet-control.0.device.tablet_bathroom.commands.screenOn and fully-tablet-control.0.device.tablet_bathroom.commands.screenOff.
+You can also add states that are not boolean (`true`/`false`), but string or number.
 
-Für jede Tabellenzeile fügt dieser Adapter verknüpfte Datenpunkte zu `smartcontrol.x.targetDevices.xxx` hinzu. Wenn du diese Datenpunkte änderst, wird der ursprüngliche Ziel-Datenpunkt entsprechend geändert, und umgekehrt.
+For each table row this adapter adds linked states to `smartcontrol.x.targetDevices.xxx`. If you change these states, the original target state is changed accordingly, and vice versa.
 
-| Spalte   |  Pflichtfeld |  Beschreibung |
+| Column | Mandatory | Description |
 |----------|:------------:|-------|
-| ✓        |  Ja          | Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet. In den Adapter-Optionen, unter 'WEITERE OPTIONEN > Eingabe-Validierung' kannst du übrigens einstellen, dass auch deaktivierte Zeilen auf Gültigkeit geprüft werden. |
-| Geräte-Name |    Ja   | Name des Gerätes deiner Wahl. Verbotene Zeichen: `[ ] * , ; ' " &#96; < > \ ?` |
-| Datenpunkt zum einschalten | Ja | 	Datenpunkt des Zielgerätes zum Einschalten, sobald ein Auslöser auslöst und die Bedingungen in den Zonen zutreffen. |
-| Wert für 'an' | Ja | Datenpunkt-Wert, der in 'Datenpunkt zum einschalten' gesetzt wird. Du kannst `true`, `false`, Nummern wie `144`, or Strings wie `Schalte Radio an` verwenden. Sämtliche Leerzeichen und Anführungszeichen (wie `"`) am Anfang und Ende werden automatisch entfernt. <br><br>Der Wert kann unter "4. ZONEN", "Zu schaltende Zielgeräte" überschrieben werden.|
-| Prüfung deakiv. (an) | Nein | Vor dem Schalten wird immer geprüft, ob das Zielgerät bereits an ist lt. "Wert für 'an'". Wenn du diese Option aktivierst, erfolgt keine Überprüfung und es wird immer geschaltet. Use Case: z.B. ein Button als Datenpunkt. Siehe [Github Issue #5](https://github.com/Mic-M/ioBroker.smartcontrol/issues/5).|
-| Datenpunkt zum ausschalten | Ja | Datenpunkt des Zielgerätes zum Ausschalten, sobald ein Timeout erreicht wurde (z.B. keine Bewegung mehr und die Bewegungsmelder-Sekunden sind heruntergezählt auf 0) oder falls der Datenpunkt `smartcontrol.x.targetDevices.xxx.[Device Name]` geändert wurde.|
-| Wert für 'aus' | Ja | Datenpunkt-Wert, der in 'Datenpunkt zum ausschalten' gesetzt wird. Du kannst `true`, `false`, Nummern wie `144`, or Strings wie `Schalte Radio an` verwenden. Sämtliche Leerzeichen und Anführungszeichen (wie `"`) am Anfang und Ende werden automatisch entfernt.|
-| Prüfung deakiv. (aus) | Nein | Siehe *Prüfung deakiv. (an)* weiter oben, nur hier für das ausschalten des Gerätes.|
+| ✓        |  Yes   | Enables/disables this table row. If not activated, this table row is ignored by the adapter. In the Adapter Options, under 'FURTHER OPTIONS > Input Validation', you can set that even disabled rows are checked for validity. |
+| Device name | Yes   | Name of the device of your choice. Forbidden characters: ``[ ] * , ; ' " ` < > \ ?`` |
+| State to switch device on | Yes | States of the target device to switch on as soon as a trigger is triggered and the conditions in the zones are met. |
+| Value for 'on' | Yes | States value that is set in 'states to switch on'. You can use `true`, `false`, numbers like `144`, or strings like `Turn on radio`. All spaces and quotation marks (like `"`) at the beginning and end are automatically removed. <br><br>The value can be overwritten under "4. ZONES", "Target devices". |
+| Do not verify (on) | No | Before switching, it is always verified if the target device is already on according to "Value for 'on'". Activating this option disables this verification, and switching is always done. Use case: e.g. a button as a state. See [Github Issue #5](https://github.com/Mic-M/ioBroker.smartcontrol/issues/5). |
+| State to switch device off | Yes | states of the target device to switch off as soon as a timeout has been reached (e.g. no more motion and the motion sensor seconds have counted down to 0) or if the 'smartcontrol.x.targetDevices.xxx.[Device Name]` state has been changed. |
+| Value for 'off' | Yes | States value to be set in 'Switch off state'. You can use `true`, `false`, numbers like `144`, or strings like `turn radio on`. All spaces and quotation marks (like `"`) at the beginning and end are automatically removed.|
+| Do not verify (off) | No | See *Value for 'on'* above, bot for switching off, and not on. |

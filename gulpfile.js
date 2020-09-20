@@ -389,6 +389,7 @@ function languages2words(src) {
             continue;
         langs[lang] = fs.readFileSync(src + 'i18n/' + lang + '/translations.json').toString();
         langs[lang] = fs.readFileSync(src + 'i18n/' + lang + '/translations.json').toString();
+        console.log(`Processing language ${lang}...`);
         langs[lang] = JSON.parse(langs[lang]);
         const words = langs[lang];
         for (const word in words) {

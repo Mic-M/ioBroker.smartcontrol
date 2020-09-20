@@ -2,7 +2,6 @@
 /* eslint-env jquery, browser */               // https://eslint.org/docs/user-guide/configuring#specifying-environments
 /* global socket, values2table, table2values, M, _, instance */  // for eslint
 
-
 // ++++++ Define option tables ++++++
 const tableIds = [
     'tableTriggerMotion', 
@@ -36,7 +35,7 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
 
     /**
      * Apply markdown for documentation through https://github.com/zerodevx/zero-md
-     * Concept: Within the html file, we refer to English markdown files like /admin/doc-md/table-conditions_en.md
+     * Concept: Within index_m.js, we refer to English markdown files like /admin/doc-md/table-conditions_en.md for embedment.
      * If user is using German as ioBroker language, we change to table-conditions_de.md
      */
 
@@ -46,14 +45,27 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
         getObject('system.config', (error, result)=> {
             if (!error && result && result.common && result.common.language) {
                 const lang = result.common.language;
-                const mdFileName = $('zero-md#' + mdId).attr('src'); // <zero-md> tags in index_m.html.
-                if (mdFileName) {
-                    if (lang == 'de') {
-                        const newFileName = mdFileName.slice(0, -5) + 'de.md'; // remove last 5 chars 'en.js' and add de.js
-                        $('zero-md#' + mdId).attr('src', newFileName); // set new filename
+                const mdFilePath = $('zero-md#' + mdId).attr('src'); // like 'doc-md/start_en.md'
+                if (mdFilePath) {
+                    
+                    if (lang !== 'en') { // English is always required
+                        const newFilePath = mdFilePath.slice(0, -5) + `${lang}.md`; // remove last 5 chars 'en.js' and add <lang>.js
+                        if (fileExists(newFilePath)) {
+                            $('zero-md#' + mdId).attr('src', newFilePath); // set new file path src of <zero-md>                      
+                        } else {
+                            // Fallback is English. We add a note to the HTML
+                            $(`
+                                <p class='translation-required'>
+                                    Your current ioBroker language is <strong>${lang.toUpperCase()}</strong>, however, the following instructions have not yet been translated into your language, so English is used as fallback.
+                                    If you are fluently speaking ${lang.toUpperCase()}, please help and translate into your language.
+                                    The English file is <a target="_blank" href="https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/${mdFilePath}">located on Github</a>.
+                                    Please translate and provide a Github pull request for adding a new file '${newFilePath}' with your ${lang.toUpperCase()} translation. Thank you!
+                                </p>
+                            `).insertBefore('zero-md#' + mdId);
+                        }
                     }
                 } else {
-                    console.warn(`load(): mdFileName for '${mdId}' is undefined, so we use English.`);
+                    console.warn(`load(): mdFilePath for '${mdId}' is undefined, so we use English.`);
                 }
             } else {
                 console.warn('Error while getting ioBroker system configuration language, so we use English.');
@@ -1249,4 +1261,18 @@ function isLikeEmpty(inputVar) {
     } else {
         return true;
     }
+}
+
+/**
+ * Checks if a file exists
+ * Source: https://stackoverflow.com/a/58344215
+ * @param url {string} path to file
+ * @return {boolean} true if file exists, false if not
+ */
+function fileExists(url)
+{
+    var http = new XMLHttpRequest();
+    http.open('HEAD', url, false);
+    http.send();
+    return http.status!=404;
 }
