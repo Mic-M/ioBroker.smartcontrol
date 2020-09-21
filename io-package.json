@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "smartcontrol",
-    "version": "0.3.5",
+    "version": "0.3.6",
     "news": {
+      "0.3.6": {
+        "en": "Minor translation update and Compact Mode test successfully completed.",
+        "de": "Kleine Übersetzungsaktualisierung und Compact-Mode-Test erfolgreich abgeschlossen.",
+        "ru": "Незначительное обновление перевода и тест в компактном режиме успешно завершены.",
+        "pt": "A atualização da tradução secundária e o teste do modo compacto foram concluídos com êxito.",
+        "nl": "Kleine vertaalupdate en Compact Mode-test met succes voltooid.",
+        "fr": "Mise à jour mineure de la traduction et test du mode compact terminé avec succès.",
+        "it": "Aggiornamento della traduzione minore e test della modalità compatta completati con successo.",
+        "es": "Actualización de traducción menor y prueba de modo compacto completada con éxito.",
+        "pl": "Niewielka aktualizacja tłumaczenia i test trybu kompaktowego zakończone pomyślnie.",
+        "zh-cn": "小型翻译更新和紧凑模式测试成功完成。"
+      }
+    },
       "0.3.5": {
         "en": "Internationalization (i18n) only – added all required 10 languages, and provide documentation in English and German plus support for embedded other translations (like Russian, Spanish, etc.) within the admin configuration.",
         "de": "Nur Internationalisierung (i18n) - alle erforderlichen 10 Sprachen hinzugefügt Dokumentation in Englisch und Deutsch, sowie Unterstützung für eingebettete andere Übersetzungen (wie Russisch, Spanisch usw.) in der Admin-Konfiguration.",

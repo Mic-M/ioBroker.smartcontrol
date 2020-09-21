@@ -84,6 +84,9 @@ This is just to provide you an overview of the adapter options.
 
 ## Changelog
 
+### 0.3.6
+* (Mic-M) Minor translation update and [Compact Mode test](https://forum.iobroker.net/topic/32789/anleitung-f%C3%BCr-adapter-entwickler-compact-mode-testen) successfully completed.
+
 ### 0.3.5
 * (Mic-M) Internationalization (i18n) only – added all required 10 languages, and provide documentation in English and German plus support for embedded other translations (like Russian, Spanish, etc.) within the admin configuration.
 
