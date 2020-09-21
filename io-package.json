@@ -1,22 +1,19 @@
 {
   "common": {
     "name": "smartcontrol",
-    "version": "0.3.4",
+    "version": "0.3.5",
     "news": {
-      "0.3.4": {
-        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-      },
-      "0.3.3": {
-        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-      },
-      "0.3.2": {
-        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-      },
-      "0.3.1": {
-        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
-      },
-      "0.3.0": {
-        "en": "See https://github.com/Mic-M/ioBroker.smartcontrol#changelog"
+      "0.3.5": {
+        "en": "Internationalization (i18n) only – added all required 10 languages, and provide documentation in English and German plus support for embedded other translations (like Russian, Spanish, etc.) within the admin configuration.",
+        "de": "Nur Internationalisierung (i18n) - alle erforderlichen 10 Sprachen hinzugefügt Dokumentation in Englisch und Deutsch, sowie Unterstützung für eingebettete andere Übersetzungen (wie Russisch, Spanisch usw.) in der Admin-Konfiguration.",
+        "ru": "Только интернационализация (i18n) - добавлены все необходимые 10 языков и предоставлена документация на английском и немецком языках, а также поддержка встроенных других переводов (например, русский, испанский и т. Д.) В конфигурации администратора.",
+        "pt": "Internacionalização (i18n) apenas - adicionado todos os 10 idiomas necessários e fornece documentação em inglês e alemão, além de suporte para outras traduções embutidas (como russo, espanhol, etc.) dentro da configuração administrativa.",
+        "nl": "Alleen internationalisatie (i18n) - alle vereiste 10 talen toegevoegd, en documentatie in het Engels en Duits plus ondersteuning voor ingebedde andere vertalingen (zoals Russisch, Spaans, enz.) In de admin-configuratie.",
+        "fr": "Internationalisation (i18n) uniquement - ajout des 10 langues requises et fourniture de la documentation en anglais et en allemand, ainsi que prise en charge d'autres traductions intégrées (comme le russe, l'espagnol, etc.) dans la configuration d'administration.",
+        "it": "Solo internazionalizzazione (i18n): sono state aggiunte tutte le 10 lingue richieste e fornisce documentazione in inglese e tedesco oltre al supporto per altre traduzioni incorporate (come russo, spagnolo, ecc.) Nella configurazione dell'amministratore.",
+        "es": "Solo internacionalización (i18n): se agregaron los 10 idiomas requeridos y proporcionar documentación en inglés y alemán, además de soporte para otras traducciones integradas (como ruso, español, etc.) dentro de la configuración del administrador.",
+        "pl": "Tylko internacjonalizacja (i18n) - dodano wszystkie wymagane 10 języków i dostarczono dokumentację w języku angielskim i niemieckim oraz obsługę innych wbudowanych tłumaczeń (takich jak rosyjski, hiszpański itp.) W konfiguracji administratora.",
+        "zh-cn": "仅国际化（i18n）–添加了所有必需的10种语言，并提供了英语和德语文档，并在管理配置中支持嵌入式其他翻译（如俄语，西班牙语等）。"
       }
     },
     "title": "Smart Control",
