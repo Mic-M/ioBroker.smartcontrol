@@ -1,13 +1,12 @@
-### This is supposed to be in English - translation will follow soon.
-Diese Auslöser aktivieren, sobald die entsprechende Zeit eintritt.
+These triggers are activated once the according time is reached.
 
-| Spalte   |  Pflichtfeld |  Beschreibung |
+| Column | Mandatory | Description |
 |----------|:------------:|-------|
-| ✓        |  Ja          | Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet. In den Adapter-Optionen, unter 'WEITERE OPTIONEN > Eingabe-Validierung' kannst du übrigens einstellen, dass auch deaktivierte Zeilen auf Gültigkeit geprüft werden. |
-| Zeit | Ja | Hier kannst du eine Uhrzeit in Stunde/Minute, wie `23:30`, eingeben. Außerdem kannst du einen Astro-Namen wie sunset eingeben und dabei einen Versatz ("Offset") in Minuten hinzufügen, z.B. `goldenHourEnd+30` oder `sunset-60`.<br>Die aktuellen Astrozeiten findest du übrigens als Info-Datenpunkte in diesem Adapter: `smartcontrol.x.info.astroTimes`.<br>Außerdem kannst du hier Cron verwenden, also z.B. `5 4 * * *`. Zum einfachen Ermittlung der zu verwendeten Cron-Syntax kannst du z.B. folgende Website verwenden: [Crontab.guru](https://crontab.guru/).<br><br>Für Stunde/Minute (wie `23:30`) oder Astrozeiten (wie ``sunset) ist die Ausführung jeden Tag. In "4. ZONEN" kannst du das dann weiter entsprechend limitieren. |
-| Zusätzlich muss erfüllt sein	 | Nein | Hier kannst du zusätzliche Bedingungen eintragen, die zusätzlich zutreffen müssen, z.B.: Jemand ist anwesend, Heute ist Feiertag, Oma schläft, usw. |
-| ✓✓ | Nein | Für *Zusätzlich muss erfüllt sein*: Wenn aktiviert, müssen alle Bedingungen zutreffen ('und'). Wenn deaktiviert, reicht es, wenn eine der Bedingungen zutrifft.<br>Falls du nur eine Bedingung auswählst, ist es egal, ob du das aktivierst oder nicht.|
-| Nie auslösen wenn... | Nein | Hier kannst du zusätzliche Bedingungen eintragen, die nie zutreffen dürfen, z.B.: Keiner zu Hause, Radio läuft, usw.|
-| ✓✓ | Nein | Für *Nie auslösen wenn...*: Wenn aktiviert, müssen alle Bedingungen zutreffen ('und'). Wenn deaktiviert, reicht es, wenn eine der Bedingungen zutrifft.<br>Falls du nur eine Bedingung auswählst, ist es egal, ob du das aktivierst oder nicht.|
-| Ziel aus? | Nein | Normalerweise werden die Ziel-Geräte beim Auslösen eingeschaltet (1. ZIELGERÄTE > 'Datenpunkt zum einschalten' / 'Wert für an'). Wenn du den Haken aktivierst, werden die Ziele nicht ein- sondern ausgeschaltet (1. ZIELGERÄTE > 'Datenpunkt zum ausschalten' / 'Wert für aus').|
-
+| ✓        |  Yes   | Enables/disables this table row. If not activated, this table row is ignored by the adapter. In the Adapter Options, under 'FURTHER OPTIONS > Input Validation', you can set that even disabled rows are checked for validity. |
+| Name of trigger | Yes | Any trigger name. |
+| Time | Yes | Here you can enter a time in hour/minute, like '23:30'. You can also enter an astro name like `sunset` and add an offset in minutes, e.g. `goldenHourEnd+30` or `sunset-60`.<br>The current astro times can be found as info states of this adapter: `smartcontrol.x.info.astroTimes`.<br> You can also use Cron here, e.g. `5 4 * * *`. To easily determine the cron syntax to use, you can use the following website: [Crontab.guru](https://crontab.guru/).<br><br>For hours/minutes (like `23:30`) or astro times (like `sunset`) the execution is every day. In "4. ZONES" you can further limit this accordingly. |
+| Additional conditions | No | Here you can enter additional conditions that must be fulfilled additionally, e.g: Someone is present, today is a holiday, grandma is sleeping, etc. |
+| ✓✓ | No | For *Additional conditions*: If activated, all conditions must apply ('and'). If disabled, it is enough if one of the conditions applies.<br>If you select only one condition, it doesn't matter if you enable it or not.|
+| Never if... | No | Here you can enter additional conditions that must never apply, for example No one at home, radio on, etc. |
+| ✓✓ | No | For *Never if...*: If activated, all conditions must apply ('and'). If disabled, it is enough if one of the conditions applies.<br>If you select only one condition, it doesn't matter if you enable it or not.|
+| Target off | No | Normally, the target devices are switched on when the triggering occurs (1. TARGET DEVICES > 'State to switch device on' / 'Value for on'). If you activate this option, the state is not turned on but off (1. TARGET DEVICES > 'State to switch device off' / 'Value for off'). |

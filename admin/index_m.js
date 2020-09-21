@@ -35,8 +35,6 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
 
     /**
      * Apply markdown for documentation through https://github.com/zerodevx/zero-md
-     * Concept: Within index_m.js, we refer to English markdown files like /admin/doc-md/table-conditions_en.md for embedment.
-     * If user is using German as ioBroker language, we change to table-conditions_de.md
      */
 
     // index_m.html: All ids defined in <zero-md> tags, like ['md-start', 'md-targetDevices', ...]
@@ -1269,9 +1267,8 @@ function isLikeEmpty(inputVar) {
  * @param url {string} path to file
  * @return {boolean} true if file exists, false if not
  */
-function fileExists(url)
-{
-    var http = new XMLHttpRequest();
+function fileExists(url) {
+    const http = new XMLHttpRequest();
     http.open('HEAD', url, false);
     http.send();
     return http.status!=404;

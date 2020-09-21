@@ -1,12 +1,11 @@
-### This is supposed to be in English - translation will follow soon.
-Hier erfasst du deine Bewegungsmelder. Du kannst optional auch noch Helligkeits-Datenpunkte und Grenzwerte für diese festlegen.
+Here you can enter your motion sensors. You can also optionally define brightness states and according thresholds.
 
-| Spalte   |  Pflichtfeld |  Beschreibung |
+| Column | Mandatory | Description |
 |----------|:------------:|-------|
-| ✓        |  Ja          | Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet. In den Adapter-Optionen, unter 'WEITERE OPTIONEN > Eingabe-Validierung' kannst du übrigens einstellen, dass auch deaktivierte Zeilen auf Gültigkeit geprüft werden. |
-| Name für Bewegungsmelder | Ja | Beliebiger Name für den Bewegungsmelder.|
-| Datenpunkt Bewegungsmelder | Ja | Datenpunkt des Bewegungsmelders|
-| Sek | Nein | Nach dieser Anzahl an Sekunden (und keiner weiteren zwischendurch erkannten Bewegung) werden die Zielgeräte ausgeschaltet.<br>Zum deaktivieren: Leer lassen oder 0 setzen.<br>Detail-Info: Sobald der Bewegungsmelder-Datenpunkt auf `false` geht, also keine Bewegung mehr erkannt wird, startet ein Timer mit den hier angegebenen Sekunden. Erst nach Ablauf dieser Sekunden werden die in der jeweiligen Zone definierten Zielgeräte ausgeschaltet. Erfolgt eine neue Bewegung (Bewegungsmelder-Datenpunkt auf `true`) während der Timer läuft, wird der Timer gelöscht und die Zielgeräte bleiben an.|
-| (Symbol: Timer aus) | Nein | Wenn diese Option aktiviert ist, wird kein Ausschalt-Timer für die Zielgeräte gesetzt, die bereits an waren. Use Case: [siehe Forum-Beitrag](https://forum.iobroker.net/post/433871).|
-| Datenpunkt Helligkeit | Nein | Datenpunkt, der die aktuelle Helligkeit widergibt.|
-| Grenze | Nein | Grenzwert für die Helligkeit. Falls die aktuelle Helligkeit von 'Datenpunkt Helligkeit' größer als diese Zahl ist, wird die Bewegung ignoriert.<br>Bitte beachte hierzu auch die Option Helligkeit (Bri) nicht prüfen falls Zone an unter 'WEITERE OPTIONEN > Bewegungsmelder'.|
+| ✓        |  Yes   | Enables/disables this table row. If not activated, this table row is ignored by the adapter. In the Adapter Options, under 'FURTHER OPTIONS > Input Validation', you can set that even disabled rows are checked for validity. |
+| Name of motion sensor | Yes | Any name for the motion sensor.
+| State of motion sensor | Yes | states for motion sensor|
+| Sec | No | After this number of seconds (and no further motion detected in the meantime), the target devices will be turned off.<br>To disable: Leave blank or set to 0.<br>Further info: As soon as the motion sensor states is set to `false`, i.e. no more motion is detected any longer, a timer starts with the seconds specified here. After these seconds have elapsed, the target devices defined in the respective zone(s) will be switched off. If a new motion occurs (motion sensor state to `true`) while the timer is running, the timer will be cleared and the target devices will remain on.
+| (icon: timer off) | No | If this option is enabled, no off timer will be set for the target devices that were already on. Use case: [see forum post](https://forum.iobroker.net/post/433871).|
+| State of brightness | No | state that reflects the current brightness.|
+| Threshold | No | Threshold value for the brightness. If the current brightness of 'State of brightness' is greater than this number, the motion is ignored.<br>Please also note the option *Do not verify brightness if zone is on* under 'FURTHER OPTIONS > Motion sensors'.|

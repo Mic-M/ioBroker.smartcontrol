@@ -1,11 +1,10 @@
-### This is supposed to be in English - translation will follow soon.
-Diese Tabelle ist optional:
-<br>Hier trägst du zusätzliche Bedingungen ein, die (nicht) zutreffen sollen, z.B.: Jemand ist anwesend, Keiner ist anwesend, Heute ist Feiertag, etc. Diese Bedingungen kannst du dann in den entsprechenden anderen Optionen-Tabellen auswählen.
+This table is optional:
+<br>Here you enter additional conditions that should (not) apply, e.g: Someone is present, No one is present, Today is a holiday, etc. You can then select these conditions in the corresponding other option tables.
 
-| Spalte   |  Pflichtfeld |  Beschreibung |
+| Column | Mandatory | Description |
 |----------|:------------:|-------|
-| ✓        |  Ja          | Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet. In den Adapter-Optionen, unter 'WEITERE OPTIONEN > Eingabe-Validierung' kannst du übrigens einstellen, dass auch deaktivierte Zeilen auf Gültigkeit geprüft werden. |
-| Name der Bedingung | Ja | Hier beliebigen Namen deiner Bedingung eintragen, z.B. 'Feiertag Heute'. |
-| Datenpunkt der Bedingung | Ja | Datenpunkt für diese Bedingung, wie `javascript.0.Holiday.isHolidayToday`. |
-| DP-Wert | Ja | Datenpunkt-Wert der Bedingung, wenn sie zutreffen soll. Du kannst `true`, `false`, Nummern wie `144`, or Strings wie `Oma schläft jetzt` verwenden. Sämtliche Leerzeichen und Anführungszeichen (wie `"`) am Anfang und Ende werden automatisch entfernt. |
+| ✓        |  Yes   | Enables/disables this table row. If not activated, this table row is ignored by the adapter. In the Adapter Options, under 'FURTHER OPTIONS > Input Validation', you can set that even disabled rows are checked for validity. |
+| Name of condition | Yes | Enter any name of your condition here, e.g. 'Holiday today'. |
+| State of condition | Yes | State for this condition, e.g. `javascript.0.Holiday.isHolidayToday`. |
+| State value | Yes | States value of the condition, if it should apply. You can use `true`, `false`, numbers like `144`, or strings. All spaces and quotation marks (like `"`) at the beginning and end are automatically removed. |
 
