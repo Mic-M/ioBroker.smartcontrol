@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "0.3.6",
+        "version": "0.3.7",
         "news": {
+            "0.3.7": {
+                "en": "mini update under the hood",
+                "de": "Mini-Update unter der Haube",
+                "ru": "мини-обновление под капотом",
+                "pt": "mini atualização sob o capô",
+                "nl": "mini-update onder de motorkap",
+                "fr": "mini mise à jour sous le capot",
+                "it": "mini aggiornamento sotto il cofano",
+                "es": "mini actualización bajo el capó",
+                "pl": "mini aktualizacja pod maską",
+                "zh-cn": "引擎盖下的迷你更新"
+            },
             "0.3.6": {
                 "en": "Minor translation update and Compact Mode test successfully completed.",
                 "de": "Kleine Übersetzungsaktualisierung und Compact-Mode-Test erfolgreich abgeschlossen.",

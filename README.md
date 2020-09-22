@@ -84,6 +84,9 @@ This is just to provide you an overview of the adapter options.
 
 ## Changelog
 
+### 0.3.7
+* (Mic-M) Mini update, just under the hood.
+
 ### 0.3.6
 * (Mic-M) Minor translation update and [Compact Mode test](https://forum.iobroker.net/topic/32789/anleitung-f%C3%BCr-adapter-entwickler-compact-mode-testen) successfully completed.
 
