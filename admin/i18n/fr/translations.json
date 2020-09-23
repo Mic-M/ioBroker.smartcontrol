@@ -32,6 +32,11 @@
     "Sec": "Seconde",
     "Second(s)": "Seconde (s)",
     "Select": "Sélectionner",
+    "Select 'never if...'": "Sélectionnez «jamais si ...»",
+    "Select additional conditions": "Sélectionnez des conditions supplémentaires",
+    "Select state": "Sélectionnez l'état",
+    "Select target devices": "Sélectionnez les appareils cibles",
+    "Select triggers": "Sélectionnez les déclencheurs",
     "Start": "Début",
     "State": "Etat",
     "State of brightness": "État de luminosité",
@@ -39,6 +44,7 @@
     "State of motion sensor": "État du capteur de mouvement",
     "State to switch device off": "État pour éteindre l'appareil",
     "State to switch device on": "État pour allumer l'appareil",
+    "State under": "État sous",
     "State value": "Valeur de l'état",
     "Sun": "Soleil",
     "Target devices": "Appareils cibles",
@@ -78,5 +84,6 @@
     "tabOptions.triggerAckOptTrue": "ack: true uniquement (ignoriere ack: false)",
     "tabOptions.triggerLimitHeader": "Ignorer le déclencheur si le dernier déclenchement du même déclencheur remonte à moins de x secondes",
     "tabOptions.triggerLimitInfo": "Pour des raisons de stabilité, les déclencheurs sont ignorés s'ils ont été déclenchés il y a moins de x secondes. Vous pouvez régler ce nombre de secondes ici. Moins d'une seconde n'est pas autorisée.",
-    "tabOptions.triggerLimitLabel": "Minimum 1 seconde requis"
+    "tabOptions.triggerLimitLabel": "Minimum 1 seconde requis",
+    "will be generated automatically": "sera généré automatiquement"
 }

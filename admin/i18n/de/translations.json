@@ -32,6 +32,11 @@
     "Sec": "Sek",
     "Second(s)": "Sekunde(n)",
     "Select": "Auswählen",
+    "Select 'never if...'": "Wähle 'Nie wenn...'",
+    "Select additional conditions": "Wähle zusätzliche Bedingungen aus",
+    "Select state": "Wähle Datenpunkt",
+    "Select target devices": "Wählen Zielgeräte aus",
+    "Select triggers": "Wähle Auslöser aus",
     "Start": "Start",
     "State": "Datenpunkt",
     "State of brightness": "Datenpunkt Helligkeit",
@@ -39,6 +44,7 @@
     "State of motion sensor": "Datenpunkt Bewegungsmelder",
     "State to switch device off": "Datenpunkt zum ausschalten",
     "State to switch device on": "Datenpunkt zum einschalten",
+    "State under": "Datenpunkt unterhalb",
     "State value": "DP-Wert",
     "Sun": "So",
     "Target devices": "Zielgeräte",
@@ -78,5 +84,6 @@
     "tabOptions.triggerAckOptTrue": "Nur ack:true (ignoriere ack:false)",
     "tabOptions.triggerLimitHeader": "Auslöser ignorieren, falls letzes Auslösen desselben Auslösers vor weniger als x Sekunden war",
     "tabOptions.triggerLimitInfo": "Aus Stabilitätsgründen werden Auslöser ignoriert, wenn diese bereits vor weniger als x Sekunden ausgelöst haben. Du kannst diese Anzahl Sekunden hier anpassen. Weniger als 1 Sekunde ist nicht erlaubt.",
-    "tabOptions.triggerLimitLabel": "Mindestens 1 Sekunde erforderlich"
+    "tabOptions.triggerLimitLabel": "Mindestens 1 Sekunde erforderlich",
+    "will be generated automatically": "wird automatisch erstellt"
 }

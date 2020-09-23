@@ -32,6 +32,11 @@
     "Sec": "Segundo",
     "Second(s)": "Segundos)",
     "Select": "Seleccione",
+    "Select 'never if...'": "Seleccione 'nunca si ...'",
+    "Select additional conditions": "Seleccionar condiciones adicionales",
+    "Select state": "Seleccione estado",
+    "Select target devices": "Seleccionar dispositivos de destino",
+    "Select triggers": "Seleccionar disparadores",
     "Start": "comienzo",
     "State": "Estado",
     "State of brightness": "Estado de brillo",
@@ -39,6 +44,7 @@
     "State of motion sensor": "Estado del sensor de movimiento",
     "State to switch device off": "Estado para apagar el dispositivo",
     "State to switch device on": "Estado para encender el dispositivo",
+    "State under": "Estado bajo",
     "State value": "Valor del estado",
     "Sun": "Dom",
     "Target devices": "Dispositivos de destino",
@@ -78,5 +84,6 @@
     "tabOptions.triggerAckOptTrue": "ack: solo verdadero (ignoriere ack: falso)",
     "tabOptions.triggerLimitHeader": "Ignore el activador si la última activación del mismo activador fue hace menos de x segundos",
     "tabOptions.triggerLimitInfo": "Por razones de estabilidad, los disparadores se ignoran si se dispararon hace menos de x segundos. Puede ajustar este número de segundos aquí. No se permite menos de 1 segundo.",
-    "tabOptions.triggerLimitLabel": "Mínimo 1 segundo requerido"
+    "tabOptions.triggerLimitLabel": "Mínimo 1 segundo requerido",
+    "will be generated automatically": "se generará automáticamente"
 }

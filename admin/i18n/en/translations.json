@@ -32,6 +32,11 @@
     "Sec": "Sec",
     "Second(s)": "Second(s)",
     "Select": "Select",
+    "Select 'never if...'": "Select 'never if...'",
+    "Select additional conditions": "Select additional conditions",
+    "Select state": "Select state",
+    "Select target devices": "Select target devices",
+    "Select triggers": "Select triggers",
     "Start": "Start",
     "State": "State",
     "State of brightness": "State of brightness",
@@ -39,6 +44,7 @@
     "State of motion sensor": "State of motion sensor",
     "State to switch device off": "State to switch device off",
     "State to switch device on": "State to switch device on",
+    "State under": "State under",
     "State value": "State value",
     "Sun": "Sun",
     "Target devices": "Target devices",
@@ -78,5 +84,6 @@
     "tabOptions.triggerAckOptTrue": "ack:true only (ignoriere ack:false)",
     "tabOptions.triggerLimitHeader": "Ignore trigger if last triggering of the same trigger was less than x seconds ago",
     "tabOptions.triggerLimitInfo": "For stability reasons, triggers are ignored if they were triggered less than x seconds ago. You can adjust this number of seconds here. Less than 1 second is not allowed.",
-    "tabOptions.triggerLimitLabel": "Minimum 1 second required"
+    "tabOptions.triggerLimitLabel": "Minimum 1 second required",
+    "will be generated automatically": "will be generated automatically"
 }

@@ -31,7 +31,11 @@ The purpose of this adapter is to to provide you a very **user-friendly environm
 Also, if your are using Javascripts/Blockly, you should be typically able to replace several scripts with this adapter, which will also ensure more consistency, a stable environment, and especially a way user-friendlier configuration.
 
 ## Installation
-The adapter is not yet in the "latest repository". So please [install the adapter by using the github URL](https://github.com/ioBroker/ioBroker.docs/blob/master/docs/en/admin/adapter.md). Once done, add an adapter instance accordingly.
+This adapter is in the "latest repository", but not yet in "stable": If your active ioBroker repository (ioBroker admin -> click the 'wrench symbol' top left -> MAIN SETTINGS -> 'Active repository) is ...
+   * ...latest: Just install regularly
+   * ...stable: [Install adapter from own URL](https://github.com/ioBroker/ioBroker.docs/blob/master/docs/en/admin/adapter.md)
+
+Once done, add an adapter instance accordingly.
 
 
 ## Instructions
@@ -83,6 +87,11 @@ This is just to provide you an overview of the adapter options.
 * Adapter icon made by [freepik](https://www.flaticon.com/authors/freepik) from [flaticon.com](https://www.flaticon.com/).</sup></sub>
 
 ## Changelog
+
+### 0.3.8
+* (Mic-M) Updated readme since adapter [is now in latest repository](https://github.com/ioBroker/ioBroker.repositories/pull/930)
+* (Mic-M) Updated translations, which also addresses [#26](https://github.com/Mic-M/ioBroker.smartcontrol/issues/26)
+* (Mic-M) Fixed/improved 'admin/index_m.js' 
 
 ### 0.3.7
 * (Mic-M) Mini update, just under the hood.

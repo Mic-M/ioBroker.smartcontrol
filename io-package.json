@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "0.3.7",
+        "version": "0.3.8",
         "news": {
+            "0.3.8": {
+                "en": "Updated readme since adapter is now in latest repository, updated translations, fixed/improved admin/index_m.js ",
+                "de": "Readme aktualisiert, da Adapter nun im Latest repository, aktualisierte Übersetzungen, verbesserte admin/index_m.js",
+                "ru": "Обновлен файл readme, так как адаптер теперь находится в последнем репозитории, обновлены переводы, исправлен / улучшен admin / index_m.js",
+                "pt": "Leia-me atualizado, pois o adaptador está agora no repositório mais recente, traduções atualizadas, admin / index_m.js corrigido / aprimorado",
+                "nl": "Bijgewerkte readme omdat adapter nu in de nieuwste repository is, bijgewerkte vertalingen, vaste / verbeterde admin / index_m.js",
+                "fr": "Lisez-moi mis à jour puisque l'adaptateur est maintenant dans le dernier référentiel, traductions mises à jour, admin / index_m.js corrigé / amélioré",
+                "it": "Readme aggiornato poiché l'adattatore è ora nell'ultimo repository, traduzioni aggiornate, admin / index_m.js corretto / migliorato",
+                "es": "Léame actualizado ya que el adaptador ahora está en el último repositorio, traducciones actualizadas, admin / index_m.js corregido / mejorado",
+                "pl": "Zaktualizowany plik readme, ponieważ adapter znajduje się teraz w najnowszym repozytorium, zaktualizowane tłumaczenia, naprawiony / ulepszony admin / index_m.js",
+                "zh-cn": "由于适配器现在位于最新的存储库中，因此更新了自述文件，更新了翻译，已修复/改进了admin / index_m.js"
+            },
             "0.3.7": {
                 "en": "mini update under the hood",
                 "de": "Mini-Update unter der Haube",

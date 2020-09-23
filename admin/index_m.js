@@ -13,6 +13,14 @@ const tableIds = [
     'tableConditions', 
 ];
 
+/**
+ * List of some global constants
+ * 
+ * systemLang - 'en', 'de', 'ru', ect. // iobroker.admin/www/js/adapter-settings.js
+ */ 
+
+
+
 const adapterNamespace = `smartcontrol.${instance}`;
 
 const optionTablesSettings = {}; // Table variable holding the table settings array
@@ -20,9 +28,11 @@ for (const lpTableId of tableIds) {
     optionTablesSettings[lpTableId] = [];
 }
 
+
 /** More Globals, being set once load() is called */
 let g_settings; // To have globally the settings available.
 const g_zonesTargetsOverwrite = {}; // { 'Hallway': {'Hallway.Light':'new val' 'Hallway.Radio':'Radio XYZ'} }, {'Bath Light': '33%'} }
+
 
 /************************************************************************
  *** This is called by the admin adapter once the settings page loads ***
@@ -40,43 +50,38 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
     // index_m.html: All ids defined in <zero-md> tags, like ['md-start', 'md-targetDevices', ...]
     const mdIds = $('zero-md[manual-render]').map((i, el) => el.getAttribute('id')).get(); // https://stackoverflow.com/a/54392415
     for (const mdId of mdIds) {
-        getObject('system.config', (error, result)=> {
-            if (!error && result && result.common && result.common.language) {
-                const lang = result.common.language;
-                const mdFilePath = $('zero-md#' + mdId).attr('src'); // like 'doc-md/start_en.md'
-                if (mdFilePath) {
-                    
-                    if (lang !== 'en') { // English is always required
-                        const newFilePath = mdFilePath.slice(0, -5) + `${lang}.md`; // remove last 5 chars 'en.js' and add <lang>.js
-                        if (fileExists(newFilePath)) {
-                            $('zero-md#' + mdId).attr('src', newFilePath); // set new file path src of <zero-md>                      
-                        } else {
-                            // Fallback is English. We add a note to the HTML
-                            $(`
-                                <p class='translation-required'>
-                                    Your current ioBroker language is <strong>${lang.toUpperCase()}</strong>, however, the following instructions have not yet been translated into your language, so English is used as fallback.
-                                    If you are fluently speaking ${lang.toUpperCase()}, please help and translate into your language.
-                                    The English file is <a target="_blank" href="https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/${mdFilePath}">located on Github</a>.
-                                    Please translate and provide a Github pull request for adding a new file '${newFilePath}' with your ${lang.toUpperCase()} translation. Thank you!
-                                </p>
-                            `).insertBefore('zero-md#' + mdId);
-                        }
-                    }
-                } else {
-                    console.warn(`load(): mdFilePath for '${mdId}' is undefined, so we use English.`);
-                }
-            } else {
-                console.warn('Error while getting ioBroker system configuration language, so we use English.');
-            }
-            // Finally, render zero-md - https://github.com/zerodevx/zero-md#public-methods
-            // We add a slight delay, just in case
-            setTimeout(() => {
-                const el = document.querySelector('zero-md#' + mdId);
-                // @ts-ignore
-                el.render();                        
-            }, 100);
 
-        });
+        const mdFilePath = $('zero-md#' + mdId).attr('src'); // like 'doc-md/start_en.md'
+        if (mdFilePath) {
+            
+            if (systemLang !== 'en') { // English is always required
+                const newFilePath = mdFilePath.slice(0, -5) + `${systemLang}.md`; // remove last 5 chars 'en.js' and add <lang>.js
+                if (fileExists(newFilePath)) {
+                    $('zero-md#' + mdId).attr('src', newFilePath); // set new file path src of <zero-md>                      
+                } else {
+                    // Fallback is English. We add a note to the HTML
+                    $(`
+                        <p class='translation-required'>
+                            Your current ioBroker language is <strong>${systemLang.toUpperCase()}</strong>, however, the following instructions have not yet been translated into your language, so English is used as fallback.
+                            If you are fluently speaking ${systemLang.toUpperCase()}, please help and translate into your language.
+                            The English file is <a target="_blank" href="https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/${mdFilePath}">located on Github</a>.
+                            Please translate and provide a Github pull request for adding a new file '${newFilePath}' with your ${systemLang.toUpperCase()} translation. Thank you!
+                        </p>
+                    `).insertBefore('zero-md#' + mdId);
+                }
+            }
+        } else {
+            console.warn(`load(): mdFilePath for '${mdId}' is undefined, so we use English.`);
+        }
+
+        // Finally, render zero-md - https://github.com/zerodevx/zero-md#public-methods
+        // We add a slight delay, just in case
+        setTimeout(() => {
+            const el = document.querySelector('zero-md#' + mdId);
+            // @ts-ignore
+            el.render();                        
+        }, 100);
+
     }
 
 
@@ -158,21 +163,21 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
                 otherTriggersShowHideUserStates(); 
                 break;
             case 'tableTriggerTimes':
-                dialogSelectSettings({tableId:'tableTriggerTimes', triggerDataCmd:'selectAdditionalConditions', targetField:'additionalConditions', dialogTitle:'Select additional conditions' });
-                dialogSelectSettings({tableId:'tableTriggerTimes', triggerDataCmd:'selectNever', targetField:'never', dialogTitle:`Select 'never if...'` });
+                dialogSelectSettings({tableId:'tableTriggerTimes', triggerDataCmd:'selectAdditionalConditions', targetField:'additionalConditions', dialogTitle:_('Select additional conditions') });
+                dialogSelectSettings({tableId:'tableTriggerTimes', triggerDataCmd:'selectNever', targetField:'never', dialogTitle:_(`Select 'never if...'`) });
                 updateTableButtonIcons(tableId, [{dataButton:'selectAdditionalConditions', icon:'pageview'},{dataButton:'selectNever', icon:'pageview'}]);
                 addCopyTableRowSmarter(tableId);
                 break;
             case 'tableZones':
-                dialogSelectSettings({tableId:'tableZones', triggerDataCmd:'selectTriggers', targetField:'triggers', dialogTitle:'Select triggers' });
-                dialogSelectSettings({tableId:'tableZones', triggerDataCmd:'selectTargetsMenu', targetField:'targets', dialogTitle:'Select target devices' });
+                dialogSelectSettings({tableId:'tableZones', triggerDataCmd:'selectTriggers', targetField:'triggers', dialogTitle:_('Select triggers') });
+                dialogSelectSettings({tableId:'tableZones', triggerDataCmd:'selectTargetsMenu', targetField:'targets', dialogTitle:_('Select target devices') });
                 dialogConfigureZoneExecution();
                 updateTableButtonIcons(tableId, [{dataButton:'selectTriggers', icon:'pageview'},{dataButton:'selectTargetsMenu', icon:'pageview'},{dataButton:'configureExecution', icon:'schedule', regularSize:true}]);
                 addCopyTableRowSmarter(tableId);
                 break;
             case 'tableZoneExecution':
-                dialogSelectSettings({tableId:tableId, triggerDataCmd:'selectAdditionalConditions', targetField:'additionalConditions', dialogTitle:'Select additional conditions' });
-                dialogSelectSettings({tableId:tableId, triggerDataCmd:'selectNever', targetField:'never', dialogTitle:`Select 'never if...'` });
+                dialogSelectSettings({tableId:tableId, triggerDataCmd:'selectAdditionalConditions', targetField:'additionalConditions', dialogTitle:_('Select additional conditions') });
+                dialogSelectSettings({tableId:tableId, triggerDataCmd:'selectNever', targetField:'never', dialogTitle:_(`Select 'never if...'`) });
                 updateTableButtonIcons(tableId, [{dataButton:'selectAdditionalConditions', icon:'pageview'},{dataButton:'selectNever', icon:'pageview'}]);
                 break;
             default:
@@ -246,7 +251,10 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
                 //checked
                 $stateField.prev('div.userstates').remove(); // just in case
                 $stateField.addClass('input-userstates');
-                $stateField.before(`<div class="userstates">State under ${adapterNamespace}.userstates. (will be generated automatically)</div>`);
+                $stateField.before(`<div class="translate userstates">${_('State under')} ${adapterNamespace}.userstates. (${_('will be generated automatically')})</div>`);
+                //$stateField.before(`<div class="translate userstates">State under ${adapterNamespace}.userstates. (will be generated automatically)</div>`);
+                //$stateField.before(`<div class="userstates">${translateWord('Additional conditions', systemLang)}</div>`);
+                //$stateField.before(`<div class="userstates">${_(`Astro times 'night' and 'nightEnd'`)}</div>`);
 
             } else {
                 //unchecked
@@ -1273,3 +1281,4 @@ function fileExists(url) {
     http.send();
     return http.status!=404;
 }
+

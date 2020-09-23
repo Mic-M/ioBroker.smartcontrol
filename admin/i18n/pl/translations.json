@@ -32,6 +32,11 @@
     "Sec": "Sek",
     "Second(s)": "Sekundy)",
     "Select": "Wybierz",
+    "Select 'never if...'": "Wybierz „nigdy, jeśli ...”",
+    "Select additional conditions": "Wybierz dodatkowe warunki",
+    "Select state": "Wybierz stan",
+    "Select target devices": "Wybierz urządzenia docelowe",
+    "Select triggers": "Wybierz wyzwalacze",
     "Start": "Początek",
     "State": "Stan",
     "State of brightness": "Stan jasności",
@@ -39,6 +44,7 @@
     "State of motion sensor": "Stan czujnika ruchu",
     "State to switch device off": "Stan wyłączenia urządzenia",
     "State to switch device on": "Stan włączenia urządzenia",
+    "State under": "Stan poniżej",
     "State value": "Wartość stanu",
     "Sun": "Słońce",
     "Target devices": "Kieruj na urządzenia",
@@ -78,5 +84,6 @@
     "tabOptions.triggerAckOptTrue": "ACK: tylko true (ignoriere ACK: false)",
     "tabOptions.triggerLimitHeader": "Ignoruj wyzwalacz, jeśli ostatnie wyzwolenie tego samego wyzwalacza było mniej niż x sekund temu",
     "tabOptions.triggerLimitInfo": "Ze względu na stabilność wyzwalacze są ignorowane, jeśli zostały uruchomione mniej niż x sekund temu. Tutaj możesz dostosować liczbę sekund. Mniej niż 1 sekunda jest niedozwolona.",
-    "tabOptions.triggerLimitLabel": "Wymagana minimum 1 sekunda"
+    "tabOptions.triggerLimitLabel": "Wymagana minimum 1 sekunda",
+    "will be generated automatically": "zostanie wygenerowany automatycznie"
 }

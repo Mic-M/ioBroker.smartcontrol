@@ -32,6 +32,11 @@
     "Sec": "Сек",
     "Second(s)": "Секунды",
     "Select": "Выбрать",
+    "Select 'never if...'": "Выберите \"никогда, если ...\"",
+    "Select additional conditions": "Выбрать дополнительные условия",
+    "Select state": "Выберите штат",
+    "Select target devices": "Выберите целевые устройства",
+    "Select triggers": "Выберите триггеры",
     "Start": "Начало",
     "State": "государство",
     "State of brightness": "Состояние яркости",
@@ -39,6 +44,7 @@
     "State of motion sensor": "Состояние датчика движения",
     "State to switch device off": "Состояние выключения устройства",
     "State to switch device on": "Состояние для включения устройства",
+    "State under": "Государство под",
     "State value": "Государственная ценность",
     "Sun": "солнце",
     "Target devices": "Целевые устройства",
@@ -78,5 +84,6 @@
     "tabOptions.triggerAckOptTrue": "ack: только true (ignoriere ack: false)",
     "tabOptions.triggerLimitHeader": "Игнорировать триггер, если последний запуск того же триггера был менее x секунд назад",
     "tabOptions.triggerLimitInfo": "По соображениям стабильности триггеры игнорируются, если они сработали менее x секунд назад. Здесь вы можете настроить это количество секунд. Менее 1 секунды не допускается.",
-    "tabOptions.triggerLimitLabel": "Требуется минимум 1 секунда"
+    "tabOptions.triggerLimitLabel": "Требуется минимум 1 секунда",
+    "will be generated automatically": "будет сгенерирован автоматически"
 }

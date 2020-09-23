@@ -32,6 +32,11 @@
     "Sec": "秒",
     "Second(s)": "秒",
     "Select": "选择",
+    "Select 'never if...'": "选择“如果...则从不”",
+    "Select additional conditions": "选择其他条件",
+    "Select state": "选择州",
+    "Select target devices": "选择目标设备",
+    "Select triggers": "选择触发器",
     "Start": "开始",
     "State": "州",
     "State of brightness": "亮度状态",
@@ -39,6 +44,7 @@
     "State of motion sensor": "运动状态传感器",
     "State to switch device off": "状态以关闭设备",
     "State to switch device on": "开启设备的状态",
+    "State under": "状态下",
     "State value": "状态值",
     "Sun": "太阳",
     "Target devices": "目标设备",
@@ -78,5 +84,6 @@
     "tabOptions.triggerAckOptTrue": "ack：仅真（忽略ack：false）",
     "tabOptions.triggerLimitHeader": "如果同一触发器的上一次触发时间少于x秒，则忽略触发器",
     "tabOptions.triggerLimitInfo": "出于稳定性的原因，如果触发时间少于x秒，则忽略触发。您可以在此处调整此秒数。不允许少于1秒。",
-    "tabOptions.triggerLimitLabel": "至少需要1秒"
+    "tabOptions.triggerLimitLabel": "至少需要1秒",
+    "will be generated automatically": "将自动生成"
 }

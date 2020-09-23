@@ -32,6 +32,11 @@
     "Sec": "Sec",
     "Second(s)": "Tweede (n)",
     "Select": "Selecteer",
+    "Select 'never if...'": "Selecteer 'nooit als ...'",
+    "Select additional conditions": "Selecteer aanvullende voorwaarden",
+    "Select state": "Selecteer staat",
+    "Select target devices": "Selecteer doelapparaten",
+    "Select triggers": "Selecteer triggers",
     "Start": "Begin",
     "State": "Staat",
     "State of brightness": "Staat van helderheid",
@@ -39,6 +44,7 @@
     "State of motion sensor": "Staat van bewegingssensor",
     "State to switch device off": "Staat om het apparaat uit te schakelen",
     "State to switch device on": "Staat om het apparaat in te schakelen",
+    "State under": "Staat onder",
     "State value": "Staat waarde",
     "Sun": "Zon",
     "Target devices": "Target apparaten",
@@ -78,5 +84,6 @@
     "tabOptions.triggerAckOptTrue": "ack: alleen waar (ignoriere ack: false)",
     "tabOptions.triggerLimitHeader": "Negeer de trigger als de laatste activering van dezelfde trigger minder dan x seconden geleden was",
     "tabOptions.triggerLimitInfo": "Om stabiliteitsredenen worden triggers genegeerd als ze minder dan x seconden geleden zijn geactiveerd. U kunt dit aantal seconden hier aanpassen. Minder dan 1 seconde is niet toegestaan.",
-    "tabOptions.triggerLimitLabel": "Minimaal 1 seconde vereist"
+    "tabOptions.triggerLimitLabel": "Minimaal 1 seconde vereist",
+    "will be generated automatically": "wordt automatisch gegenereerd"
 }

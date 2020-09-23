@@ -32,6 +32,11 @@
     "Sec": "Seg",
     "Second(s)": "Segundo (s)",
     "Select": "Selecione",
+    "Select 'never if...'": "Selecione 'nunca se ...'",
+    "Select additional conditions": "Selecione condições adicionais",
+    "Select state": "Selecione o estado",
+    "Select target devices": "Selecione os dispositivos alvo",
+    "Select triggers": "Selecione gatilhos",
     "Start": "Começar",
     "State": "Estado",
     "State of brightness": "Estado de brilho",
@@ -39,6 +44,7 @@
     "State of motion sensor": "Estado do sensor de movimento",
     "State to switch device off": "Estado para desligar o dispositivo",
     "State to switch device on": "Estado para ligar o dispositivo",
+    "State under": "Estado sob",
     "State value": "Valor do estado",
     "Sun": "Sol",
     "Target devices": "Dispositivos alvo",
@@ -78,5 +84,6 @@
     "tabOptions.triggerAckOptTrue": "ack: somente verdadeiro (ignoriere ack: falso)",
     "tabOptions.triggerLimitHeader": "Ignore o gatilho se o último gatilho do mesmo gatilho foi menos de x segundos atrás",
     "tabOptions.triggerLimitInfo": "Por motivos de estabilidade, os gatilhos são ignorados se tiverem sido disparados há menos de x segundos. Você pode ajustar este número de segundos aqui. Menos de 1 segundo não é permitido.",
-    "tabOptions.triggerLimitLabel": "Mínimo 1 segundo necessário"
+    "tabOptions.triggerLimitLabel": "Mínimo 1 segundo necessário",
+    "will be generated automatically": "será gerado automaticamente"
 }
