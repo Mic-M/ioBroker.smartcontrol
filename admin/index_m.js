@@ -2,26 +2,37 @@
 /* eslint-env jquery, browser */               // https://eslint.org/docs/user-guide/configuring#specifying-environments
 /* global socket, values2table, table2values, M, _, instance */  // for eslint
 
-// ++++++ Define option tables ++++++
-const tableIds = [
-    'tableTriggerMotion', 
-    'tableTriggerDevices', 
-    'tableTriggerTimes', 
-    'tableTargetDevices', 
-    'tableCombinedDevices', 
-    'tableZones', 
-    'tableConditions', 
-];
-
 /**
  * List of some global constants
  * 
  * systemLang - 'en', 'de', 'ru', ect. // iobroker.admin/www/js/adapter-settings.js
  */ 
 
+/**
+ * ioBroker function explanation
+ * onChange(boolean) - if set true, grayed out save button turns to blue and being activated, and vice versa if false
+ * _(string) - the provided translation key will be translated into ioBroker's admin language (words.js)
+ * 
+ */
+
+
 
 
 const adapterNamespace = `smartcontrol.${instance}`;
+
+/**
+ * Basic Constants
+ */ 
+
+// ++++++ Define option tables ++++++
+const tableIds = [
+    'tableTargetDevices', 
+    'tableConditions', 
+    'tableTriggerMotion', 
+    'tableTriggerDevices', 
+    'tableTriggerTimes', 
+    'tableZones', 
+];
 
 const optionTablesSettings = {}; // Table variable holding the table settings array
 for (const lpTableId of tableIds) {
@@ -274,9 +285,9 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
      * @param {*}  sourceFieldIds   Id of table line field, from which to get content, like "name". . String or array of strings for multiple fields
      * @param {string}  targetTableId   Target table id, like "tableZones"
      * @param {string}  targetFieldId   Target table line field, like 'Test'
-     * @param {string}  [addFirstItem]    Optional string to add as first item of drop-down.
+     * @param {boolean} [sort]    Optional: if true, values will be sorted
      */
-    function populateTable(sourceTableIds, sourceFieldIds, targetTableId, targetFieldId, addFirstItem = '') {
+    function populateTable(sourceTableIds, sourceFieldIds, targetTableId, targetFieldId, sort=false) {
 
         // jQuery
         const jQ = '*[data-name="' + targetFieldId + '"]';        
@@ -284,7 +295,7 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
         if(!Array.isArray(sourceTableIds)) sourceTableIds = [sourceTableIds]; // wrap into array
         if(!Array.isArray(sourceFieldIds)) sourceFieldIds = [sourceFieldIds]; // wrap into array
         const result = [];
-        if (addFirstItem) result.push(addFirstItem);
+
         for (let i = 0; i < sourceTableIds.length; i++) {
             const configTbl = settings[sourceTableIds[i]] || [];
             for (const lpElement of configTbl) {
@@ -294,7 +305,7 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
             }
         }
         // Create dropdown menu
-
+        if(sort) result.sort();
         $(jQ).data('options', result.join(';'));
 
         // Fill table

@@ -1342,30 +1342,16 @@ class SmartControl extends utils.Adapter {
                 // Check for >=, <=, >, <  and number, so like '>= 3', '<7'
                 let comparatorSuccess = false;
                 if (trigger.triggerTableId == 'tableTriggerDevices' && (typeof trigger.triggerStateVal == 'string') ) {
-                    const matchComparator = trigger.triggerStateVal.match(/^(>=|<=|>|<)\s?(\d{1,})$/);
-                    if (matchComparator != null) {
-                        // String like ">= 30" found.
-                        const operand = matchComparator[1];
-                        const num = parseFloat(matchComparator[2]);
-                        if (operand == '>=' && Number(stateObject.val) >= num ) {
-                            comparatorSuccess = true;
-                        } else if (operand == '<=' && Number(stateObject.val) <= num ) {
-                            comparatorSuccess = true;
-                        } else if (operand == '>' && Number(stateObject.val) > num ) {
-                            comparatorSuccess = true;
-                        } else if (operand == '<' && Number(stateObject.val) < num ) {
-                            comparatorSuccess = true;
-                        } else {
-                            this.log.debug(`Trigger '${lpTriggerName}' activated, but not meeting 'comparator' condition (trigger state val: '${trigger.triggerStateVal}'), therefore, we disregard the activation.`);
-                            continue; // We go out since we have a comparator, but not matching
-                        }
+                    const res = this.x.helper.isNumComparatorMatching(stateObject.val, trigger.triggerStateVal);
+                    if (res.isComparator && res.result) {
+                        comparatorSuccess = true;
+                    } else if (res.isComparator && !res.result) {
+                        this.log.debug(`Trigger '${lpTriggerName}' activated, but not meeting 'comparator' condition (trigger state val: '${trigger.triggerStateVal}'), therefore, we disregard the activation.`);
+                        continue; // We go out since we have a comparator, but not matching
                     }
 
                 }
-                
-                /**
-                 * Compare state value with config
-                 */
+                // Compare state value with config
                 if (!comparatorSuccess && trigger.triggerStateVal != undefined && trigger.triggerStateVal != stateObject.val ) {
                     this.log.debug(`Trigger '${lpTriggerName}' activated, but not meeting conditions (triggerStateVal '${trigger.triggerStateVal}' != stateObject.val '${stateObject.val}' ), therefore, we disregard the activation.`);
                     continue; // Go out since no match

@@ -88,6 +88,9 @@ This is just to provide you an overview of the adapter options.
 
 ## Changelog
 
+### 0.3.9
+* (Mic-M) New feature: Table "Additional Conditions" is now allowing comparators like `> 30`, `<= 25` etc. in column 'State value'. See [issue #28](https://github.com/Mic-M/ioBroker.smartcontrol/issues/28)
+
 ### 0.3.8
 * (Mic-M) Updated readme since adapter [is now in latest repository](https://github.com/ioBroker/ioBroker.repositories/pull/930)
 * (Mic-M) Updated translations, which also addresses [#26](https://github.com/Mic-M/ioBroker.smartcontrol/issues/26)
