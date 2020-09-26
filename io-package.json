@@ -1,19 +1,19 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "0.3.9",
+        "version": "0.3.10",
         "news": {
-            "0.3.9": {
-                "en": "New feature: Table 'Additional Conditions' is now allowing comparators like '> 30', '<= 25' etc. in column 'State value'.",
-                "de": "Neue Funktion: In der Tabelle 'Zusätzliche Bedingungen' sind jetzt Vergleichsoperatoren wie '> 30', '<= 25' usw. in der Spalte 'Statuswert' möglich.",
-                "ru": "Новая функция: таблица «Дополнительные условия» теперь позволяет использовать такие компараторы, как «> 30», «<= 25» и т. Д. В столбце «Значение состояния».",
-                "pt": "Novo recurso: a tabela 'Condições adicionais' agora permite comparadores como '> 30', '<= 25' etc. na coluna 'Valor do estado'.",
-                "nl": "Nieuwe functie: Tabel 'Aanvullende voorwaarden' staat nu vergelijkers toe zoals '> 30', '<= 25' etc. in de kolom 'Statuswaarde'.",
-                "fr": "Nouvelle fonctionnalité: le tableau 'Conditions supplémentaires' autorise désormais des comparateurs comme '> 30', '<= 25' etc. dans la colonne 'State value'.",
-                "it": "Nuova funzione: la tabella \"Condizioni aggiuntive\" consente ora comparatori come \"> 30\", \"<= 25\" ecc. Nella colonna \"Valore di stato\".",
-                "es": "Nueva función: la tabla 'Condiciones adicionales' ahora permite comparadores como '> 30', '<= 25', etc. en la columna 'Valor de estado'.",
-                "pl": "Nowa funkcja: Tabela „Dodatkowe warunki” zezwala teraz na stosowanie porównawczych, takich jak „> 30”, „<= 25” itp. W kolumnie „Wartość stanu”.",
-                "zh-cn": "新功能：表“其他条件”现在允许在“状态值”列中使用类似“> 30”，“ <= 25”等的比较器。"
+            "0.3.10": {
+                "en": "Fixed io-package.json",
+                "de": "io-package.json behoben",
+                "ru": "Исправлен io-package.json",
+                "pt": "Io-package.json corrigido",
+                "nl": "Io-package.json opgelost",
+                "fr": "Correction de io-package.json",
+                "it": "Risolto il problema con io-package.json",
+                "es": "Io-package.json fijo",
+                "pl": "Naprawiono io-package.json",
+                "zh-cn": "修复了io-package.json"
             },
             "0.3.8": {
                 "en": "Updated readme since adapter is now in latest repository, updated translations, fixed/improved admin/index_m.js ",
