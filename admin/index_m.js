@@ -1,12 +1,16 @@
 /* eslint-disable no-irregular-whitespace */
 /* eslint-env jquery, browser */               // https://eslint.org/docs/user-guide/configuring#specifying-environments
-/* global socket, values2table, table2values, M, _, instance */  // for eslint
+/* global getEnums, systemLang, socket, values2table, table2values, M, _, instance */  // for eslint
 
+
+// @ts-ignore
+// eslint-disable-next-line no-undef
 /**
  * List of some global constants
- * 
+ *
  * systemLang - 'en', 'de', 'ru', ect. // iobroker.admin/www/js/adapter-settings.js
- */ 
+ */
+
 
 /**
  * ioBroker function explanation
@@ -14,8 +18,6 @@
  * _(string) - the provided translation key will be translated into ioBroker's admin language (words.js)
  * 
  */
-
-
 
 
 const adapterNamespace = `smartcontrol.${instance}`;
@@ -27,6 +29,7 @@ const adapterNamespace = `smartcontrol.${instance}`;
 // ++++++ Define option tables ++++++
 const tableIds = [
     'tableTargetDevices', 
+    'tableTargetEnums',
     'tableConditions', 
     'tableTriggerMotion', 
     'tableTriggerDevices', 
@@ -38,6 +41,13 @@ const optionTablesSettings = {}; // Table variable holding the table settings ar
 for (const lpTableId of tableIds) {
     optionTablesSettings[lpTableId] = [];
 }
+
+// Enums
+const enums = {
+    rooms: {},
+    functions: {}
+};
+
 
 
 /** More Globals, being set once load() is called */
@@ -53,6 +63,7 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
     // Adapter Settings
     if (!settings) return;
     g_settings = settings;
+
 
     /**
      * Apply markdown for documentation through https://github.com/zerodevx/zero-md
@@ -94,6 +105,25 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
         }, 100);
 
     }
+
+    /**
+     * tableTargetEnums: set enum room and function names to drop down (multiple select) fields
+     */
+    getTargetEnums('rooms', (res)=> {
+        if(res) {
+            enums.rooms = res;
+            $('#tableTargetEnums *[data-name="enumRooms"]').data('options', res.join(';'));
+        }
+    });
+    getTargetEnums('functions', (res)=>{
+        if(res) {
+            enums.functions = res;
+            $('#tableTargetEnums *[data-name="enumId"]').data('options', res.join(';'));
+        }
+    });
+
+
+
 
 
     /**
@@ -152,6 +182,9 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
                 statePathPopupSelection(tableId,'stateSelectPopupOnState', 'onState');
                 statePathPopupSelection(tableId,'stateSelectPopupOffState', 'offState');                
                 updateTableButtonIcons(tableId, [{dataButton:'stateSelectPopupOnState', icon:'search'},{dataButton:'stateSelectPopupOffState', icon:'search'}]);
+                addCopyTableRowSmarter(tableId);
+                break;
+            case 'tableTargetEnums':
                 addCopyTableRowSmarter(tableId);
                 break;
             case 'tableConditions':
@@ -221,6 +254,9 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
 
             case '#tabDevices':
                 $('.collapsible').collapsible(); // https://materializecss.com/collapsible.html
+                if(!isLikeEmpty(enums.rooms)) $('#tableTargetEnums *[data-name="enumRooms"]').data('options', enums.rooms.join(';'));
+                if(!isLikeEmpty(enums.functions)) $('#tableTargetEnums *[data-name="enumId"]').data('options', enums.functions.join(';'));
+                values2table('tableTargetEnums', optionTablesSettings['tableTargetEnums'], onChange, function(){val2tableOnReady('tableTargetEnums');});
                 break;
 
             case '#tabConditions':
@@ -236,7 +272,8 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
             case '#tabZones':
                 $('.collapsible').collapsible(); // https://materializecss.com/collapsible.html
                 populateTable(['tableTriggerMotion', 'tableTriggerDevices', 'tableTriggerTimes'], ['name', 'name', 'name'], 'tableZones', 'triggers');
-                populateTable('tableTargetDevices', 'name', 'tableZones', 'targets');
+                //populateTable('tableTargetDevices', 'name', 'tableZones', 'targets');
+                populateTable(['tableTargetDevices', 'tableTargetEnums'], ['name', 'name'], 'tableZones', 'targets');
                 break;
 
         }
@@ -310,7 +347,7 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
 
         // Fill table
         values2table(targetTableId, optionTablesSettings[targetTableId], onChange, function(){val2tableOnReady(targetTableId);});
-    
+   
         
     }
 
@@ -670,7 +707,7 @@ function save(callback) { /*eslint-disable-line no-unused-vars*/
 
     // All tables
     const tablesToCheck = [
-        {tabName:'1. TARGET DEVICES', tableRows:obj.tableTargetDevices},
+        {tabName:'1. TARGET DEVICES', tableRows:obj.tableTargetDevices.concat(obj.tableTargetEnums)},
         {tabName:'3. TRIGGERS', tableRows:obj.tableTriggerMotion.concat(obj.tableTriggerDevices, obj.tableTriggerTimes)},
         {tabName:'4. ZONES', tableRows:obj.tableZones},
     ];
@@ -1055,6 +1092,46 @@ function fancytreeLoad(fancytreeId) {
         tree.clearFilter();
         $('input[name=search]').keyup();
     });
+}
+
+/**
+ * tableTargetEnums: Get lists of enum room and function names to set to drop down (multiple select) fields for selection
+ * @param {string} enumType - 'rooms' for rooms, and 'functions' for functions
+ * @param {function} callback - callback function
+ * @return {function} callback with array of enum room names or enum function names, or null if nothing found
+ */
+function getTargetEnums(enumType, callback) {
+
+    getEnums(enumType, (error, enumObj)=> {
+        if (!error && enumObj) {
+            const enumIds = [];
+            for (const id in enumObj) {
+                const nameObj = enumObj[id].common.name; // either string like 'Living room' or {en:'Living room', de:'Wohnzimmer', ...}
+                if (typeof nameObj === 'string') {
+                    enumIds.push(nameObj);
+                } else if (typeof nameObj === 'object') {
+                    enumIds.push(nameObj[systemLang]);
+                } else {
+                    console.warn(`Getting enum ${(enumType=='rooms'?'room':'function')} name for '${id}': type for name must be string or object, but is '${typeof nameObj}'.`);
+                }
+            }
+            if (!isLikeEmpty(enumIds)) {
+                return callback(enumIds.sort());
+            } else {
+                console.warn(`No enum ${enumType} found.`);
+                return callback(null);
+            }
+        } else {
+            if (error) {
+                console.error(`getTargetEnums(${enumType}) - error: ${error}`);
+                return callback(null);
+            } else {
+                console.error(`getTargetEnums(${enumType}) - blank object was returned, so could not get ${enumType}.`);
+                return callback(null);
+            }
+        }
+    });    
+
 }
 
 

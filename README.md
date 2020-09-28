@@ -86,7 +86,21 @@ This is just to provide you an overview of the adapter options.
 * This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers.** For more details and for information how to disable the error reporting see [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is used starting with js-controller 3.0.
 * Adapter icon made by [freepik](https://www.flaticon.com/authors/freepik) from [flaticon.com](https://www.flaticon.com/).</sup></sub>
 
+## To-Do's once version 0.4.0 is successfully tested:
+ 1. 'smartcontrol.x.info.log.zoneActivations.json': currently 100 entries allowed -> add adapter option to configure.
+ 2. Add documentation for new table 'Targets: Enum functions'
+ 3. Add new state 'smartcontrol.x.info.log.zoneActivations.json' to documentation
+ 4. Possibly rename tab '1. TARGET DEVICES' into '1. TARGETS' since we enum functions were added
+ 5. Update screen shots
+
 ## Changelog
+
+### 0.4.0
+#### Please note: These new features are not yet documented within the adapter documentation.
+* (Mic-M) New feature: Tab 'Target Devices': New table 'Targets: Enum functions' to **support enum functions**, and optionally limit to certain enum rooms. [issue #29](https://github.com/Mic-M/ioBroker.smartcontrol/issues/29).
+* (Mic-M) New feature: New JSON state for recent zone activations: 'smartcontrol.x.info.log.zoneActivations.json'. [issue #30](https://github.com/Mic-M/ioBroker.smartcontrol/issues/30).
+* (Mic-M) Code fixes
+
 
 ### 0.3.10
 * (Mic-M) Fixed io-package.json

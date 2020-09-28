@@ -129,6 +129,7 @@
                                         <tr>
                                             <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
                                             <th class="header translate" data-name="name">Device Name</th>
+                                            <th class="header translate" data-name="enumFunction" data-type="select">Device Name</th>
                                             <th style="width: 40px;" data-buttons="stateSelectPopupOnState" class="header"></th>
                                             <th class="header translate" data-name="onState">State to switch device on</th>
                                             <th style="width: 120px" class="header translate" data-name="onValue">Value for 'on'</th>
@@ -144,8 +145,53 @@
                             </div>
                         </div>                        
                         <!-- End Options Table -->
+
                     </div>
                 </div>
+
+                <div class="row spaceTop3em">
+                    <div class="col s12">
+                        <ul class="collapsible">
+                            <li>
+                                <div class="collapsible-header config-section"><h5 class="translate">Targets: Enum functions</h5><i class="material-icons">help_outline</i></div>
+                                <div class="collapsible-body">
+                                    <!-- Importing Markdown -->
+                                    <!-- <zero-md id="md-tableTriggerDevices" manual-render src="doc-md/table-trigger-devices_en.md"></zero-md> -->
+                                    <strong>This table is a new feature with 0.4.0, documentation will follow soon.</strong>
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- Start Options Table -->
+                        <div class="col s12" id="tableTargetEnums">
+                            <div class="row valign-wrapper" style="margin-bottom:5px">
+                                <div class="col"><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></div>
+                                <div class="table-filter input-field col s12 m6 l12">
+                                    <input type="text" placeholder="Filter" />
+                                    <button class="btn-floating waves-effect waves-light blue btn-small" title="Clear filter"><i class="material-icons">clear</i></button>
+                                </div>
+                            </div>
+                            <div class="table-values-div">
+                                <table class="table-values">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
+                                            <th class="header translate" data-name="name">Name</th>
+                                            <th class="header translate" data-name="enumId" data-type="select">Enum Id</th>
+                                            <th class="header translate" data-name="enumRooms" data-type="select multiple">Limit to rooms</th>
+                                            <th style="width: 120px" class="header translate" data-name="onValue">Value for 'on'</th>
+                                            <th style="width: 60px" class="mOptional header translate" data-name="noTargetOnCheck" data-type="checkbox">Do not verify</th>
+                                            <th style="width: 120px" class="header translate" data-name="offValue">Value for 'off'</th>
+                                            <th style="width: 60px" class="mOptional header translate" data-name="noTargetOffCheck" data-type="checkbox">Do not verify</th>
+                                            <th style="width: 160px" class="header" data-buttons="up down copy_smart delete"></th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>                        
+                        <!-- End Options Table -->
+                    </div>
+                </div>                        
+
 
             </div>
 

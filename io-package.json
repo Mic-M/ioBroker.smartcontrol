@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "0.3.10",
+        "version": "0.4.0",
         "news": {
+            "0.4.0": {
+                "en": "New features: new target devices table for enum functions, new JSON state for recent zone activations",
+                "de": "Neue Features: Neue Tabelle unterhalb '1. ZIELGERÄTE' für Aufzählungen (enums),  neuer JSON-State für die letzten Zonenaktivierungen",
+                "ru": "Новые возможности: новая таблица целевых устройств для функций перечисления, новое новое состояние JSON для недавних активаций зоны",
+                "pt": "Novos recursos: nova tabela de dispositivos de destino para funções enum, novo novo estado JSON para ativações de zona recentes",
+                "nl": "Nieuwe functies: nieuwe tabel met doelapparaten voor opsommingsfuncties, nieuwe nieuwe JSON-status voor recente zone-activeringen",
+                "fr": "Nouvelles fonctionnalités: nouveau tableau des appareils cibles pour les fonctions d'énumération, nouvel état JSON pour les activations de zone récentes",
+                "it": "Nuove funzionalità: nuova tabella dei dispositivi di destinazione per le funzioni enum, nuovo nuovo stato JSON per le recenti attivazioni di zona",
+                "es": "Nuevas funciones: nueva tabla de dispositivos de destino para funciones de enumeración, nuevo estado JSON nuevo para activaciones de zona recientes",
+                "pl": "Nowe funkcje: nowa tabela urządzeń docelowych dla funkcji wyliczania, nowy stan JSON dla ostatnich aktywacji stref",
+            },
             "0.3.10": {
                 "en": "Fixed io-package.json",
                 "de": "io-package.json behoben",
@@ -208,6 +219,18 @@
                 "targetOff": false,
                 "isToggle": false
             }
+        ],
+        "tableTargetEnums": [
+            {
+                "active": false,
+                "name": "Enum.Beleuchtung",
+                "enumId": "Beleuchtung",
+                "enumRooms": [],
+                "onValue": "true",
+                "noTargetOnCheck": false,
+                "offValue": "false",
+                "noTargetOffCheck": false
+              }            
         ],
         "tableTriggerTimes": [
             {

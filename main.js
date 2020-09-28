@@ -76,11 +76,13 @@ class SmartControl extends utils.Adapter {
             // Zones Status - currently switched on/off, like {'Bathroom': true, 'Couch':false}- initialized in _asyncOnReady() with false
             zonesIsOn: {},
 
+            // Zone Log - for smartcontrol.x.info.log.zoneActivations.json
+            zonesLog: [],
+
         };
         
     }
 
-    
     /**
      * Called once ioBroker databases are connected and adapter received configuration.
      */
@@ -96,6 +98,28 @@ class SmartControl extends utils.Adapter {
                 throw(`ioBroker system configuration not found.`);
             }
             
+            // Get room and function enumerations (for tableTargetEnums) and set to tableTargetDevices. Also update tableZones.
+            const convertEnums = await this._asyncConvertEnumTargetsToTargetDevices();
+            if (!convertEnums) {
+                this.log.error(`[User Error (Anwenderfehler)] - Tab 'TARGETS', table 'Enum functions': active row(s) found, but no corresponding states found for the enum function(s) selected.`);
+                this.log.error(`Please check the previous warn log for details and then correct your configuration accordingly. You must fix these issue(s) to use this adapter.`);
+                this.setState('info.connection', false, true); // change to yellow
+                return; // Go out.             
+            } 
+
+
+            /**
+             * Validate Adapter Admin Configuration
+             */
+            if (await this._asyncVerifyConfig(this.x.constants.configTableValidation)) {
+                this.log.info('Adapter admin configuration successfully validated...');
+            } else {
+                // Error(s) occurred. We already logged error message(s) by the function, so no more log needed here
+                this.setState('info.connection', false, true); // change to yellow
+                return; // Go out.
+            }
+
+
             // Warning if latitude / longitude not defined
             if (!this.x.systemConfig.latitude || !this.x.systemConfig.longitude) {
                 this.log.warn('Latitude/Longitude is not defined in your ioBroker main configuration, so you will not be able to use Astro functionality for schedules!');
@@ -132,6 +156,24 @@ class SmartControl extends utils.Adapter {
                 await this._asyncOnReady_asyncRefreshAstroStates();
 
             }
+
+            /**
+             * Create state smartcontrol.x.info.log.zoneActivations.json
+             */
+            await this.x.helper.asyncCreateStates({ 
+                statePath: `${this.namespace}.info.log.zoneActivations.json`, 
+                commonObject: {name:'JSON of recent zone activations', type:'string', read:true, write:false, role:'json', def:'' }
+            });
+            // Note: above will not overwrite existing states and values. 
+            // Now get state value and set into global variable
+            const state = await this.getStateAsync(`info.log.zoneActivations.json`);
+            if (state && state.val && typeof state.val == 'string') {
+                this.x.zonesLog = JSON.parse(state.val);
+            } else {
+                this.log.debug(`State value of 'info.log.zoneActivations.json' is empty.`);
+            }
+
+
 
             /**
              * Create smartcontrol.x.userstates states
@@ -1187,7 +1229,7 @@ class SmartControl extends utils.Adapter {
         try {
 
             // Remove any brackets at beginning and end
-            stateVal = stateVal.replace(/^(\[|"|'|`|´)([\s\S]*)(]|"|'|`|´)$/, '$2');
+            stateVal = stateVal.toString().replace(/^(\[|"|'|`|´)([\s\S]*)(]|"|'|`|´)$/, '$2');
 
             // Trim again
             stateVal = stateVal.trim();
@@ -1246,7 +1288,6 @@ class SmartControl extends utils.Adapter {
 
 
 
-
     /**
      * Retrieves a value of an admin option table
      * 
@@ -1273,6 +1314,160 @@ class SmartControl extends utils.Adapter {
         return undefined; // Nothing found
     }
 
+    /**
+     * For tableTargetEnums
+     * 1. Sets result in adapter config: 'adapter.config._tableTargetDevicesEnums'
+     * 2. Update tableZones, field 'targets', e.g. 'Enum.Beleuchtung' --> 'Enum.Beleuchtung_enum-1', 'Enum.Beleuchtung_enum-2', etc.
+     * @return {Promise<boolean>} - true if successful, false if not
+     */
+    async _asyncConvertEnumTargetsToTargetDevices() {
+
+        try {
+            
+            const targetDevicesResult = []; // Table row objects to be added to this.config.tableTargetDevices
+            const zoneTargetsResult = {};   // Object with 'old' names as keys, and new names as values, e.g.: {'Windows': ['Windows_enum-1', 'Windows_enum-2'], 'Lights' : ['Lights_enum-1', 'Lights_enum-2', 'Lights_enum-3']}
+                
+            /**
+             * Get room and function enumerations (for tableTargetEnums)
+             */
+            let enumRooms = null; // rooms object
+            let enumRoomNamesAndIds = null; // like {'Bathroom': 'enum.rooms.bathroom', 'Bedroom': 'enum.rooms.bedroom'}
+            let enumFuncs = null; // functions object
+            let enumFuncNamesAndIds = null; // like {'Audio/Music': 'enum.functions.audio', 'Lights': 'enum.functions.lights'}
+            let errorCounter = 0;
+
+            const enumRoomsRet = await this.getEnumAsync('rooms');
+            if (enumRoomsRet && enumRoomsRet.result) {
+                enumRooms = enumRoomsRet.result;
+            } else {
+                this.log.debug(`No enum rooms found.`);
+            }
+            const enumFuncRet = await this.getEnumAsync('functions');
+            if (enumFuncRet && !this.x.helper.isLikeEmpty(enumFuncRet.result)) {
+                enumFuncs = enumFuncRet.result;
+            } else {
+                this.log.debug(`No enum functions found.`);
+                return true; // no enum functions defined, which is not necessarily an error, since user can delete all.
+            }
+            enumRoomNamesAndIds = this.x.helper.enumsGetNamesAndIds(enumRooms, true); // Option allLanguages=true
+            enumFuncNamesAndIds = this.x.helper.enumsGetNamesAndIds(enumFuncs, true); // Option allLanguages=true
+            
+            if(this.x.helper.isLikeEmpty(this.config.tableTargetEnums)) {
+                return true; // Table tableTargetEnums is empty, which is not an error
+            }
+            for (const lpEnumRow of this.config.tableTargetEnums) {
+
+                if (!lpEnumRow.active) continue;
+
+                const lpRowName = lpEnumRow.name;
+                const lpEnumFuncName = lpEnumRow.enumId;
+                const lpEnumRooms = lpEnumRow.enumRooms;
+                let finalStates = [];
+                
+                /**
+                 * Get states
+                 */
+                const lpEnumFuncId = enumFuncNamesAndIds[lpEnumFuncName]; // e.g. 'enum.functions.audio'
+                const targetStates = enumFuncs[lpEnumFuncId].common.members;
+                if (this.x.helper.isLikeEmpty(targetStates)) {
+                    this.log.warn(`Targets - Enum '${lpRowName}', function '${lpEnumFuncName}': no states found'`);
+                    errorCounter++;
+                    continue;
+                }
+                
+                for (const lpStatePath of targetStates) {
+
+                    // Check if room is matching
+                    if (enumRooms && enumRoomNamesAndIds && !this.x.helper.isLikeEmpty(lpEnumRooms)) {
+                        for (const lpEnumRoomName of lpEnumRooms) {
+                            const lpEnumRoomId = enumRoomNamesAndIds[lpEnumRoomName];
+                            const enumRoomMemberStates = enumRooms[lpEnumRoomId].common.members;
+                            if (enumRoomMemberStates && enumRoomMemberStates.includes(lpStatePath)) {
+                                // Hit
+                                finalStates.push(lpStatePath);
+                            }
+                        }
+                        finalStates = this.x.helper.uniqueArray(finalStates);
+                    } else {
+                        // No room defined, so we add all
+                        finalStates = targetStates;
+                    }
+
+                }
+                if (this.x.helper.isLikeEmpty(finalStates)) {
+                    this.log.warn(`Targets - Enum '${lpRowName}', function '${lpEnumFuncName}', rooms '${lpEnumRooms.toString()}': no states found.`);
+                    errorCounter++;
+                    continue;
+                }
+
+
+                /** Build table row for tableTargetDevices and object entry for tableZone -> Target Device names */
+                let counter = 0;
+                for (const statePath of finalStates) {
+                    // Build table row for tableTargetDevices
+                    counter++;
+                    const rowObj = {};
+                    rowObj.active = true; // we checked this before
+                    rowObj.isEnum = true; // additionally added
+                    rowObj.name = lpRowName + '_enum-' + counter;
+                    rowObj.onState = statePath;
+                    rowObj.onValue = lpEnumRow.onValue;
+                    rowObj.offValue = lpEnumRow.offValue;
+                    rowObj.noTargetOnCheck = lpEnumRow.noTargetOnCheck;
+                    rowObj.offState = statePath;
+                    rowObj.noTargetOffCheck = lpEnumRow.noTargetOffCheck;
+                    targetDevicesResult.push(rowObj);
+
+                    // Build object entry for tableZone -> Target Device names
+                    if (this.x.helper.isLikeEmpty(zoneTargetsResult[lpRowName])) {
+                        // We don't have an entry yet, so set a new array with one element
+                        zoneTargetsResult[lpRowName] = [rowObj.name];
+                    } else {
+                        // We already have an entry, so we add to array
+                        zoneTargetsResult[lpRowName].push(rowObj.name);
+                    }
+                    
+
+                }            
+
+            }
+
+            // @ts-ignore - Property '_tableTargetDevicesEnums' does not exist on type 'AdapterConfig'
+            if (errorCounter == 0 && (!this.x.helper.isLikeEmpty(targetDevicesResult))) {
+                
+                /**
+                 * Successfully completed
+                 */
+
+                // Add converted function enums to target devices
+                this.config.tableTargetDevices = this.config.tableTargetDevices.concat(targetDevicesResult);
+
+                // Update tableZone -> Target Device names
+                let zoneRowIdx = -1;
+                for (const lpZoneRow of this.config.tableZones) {
+                    zoneRowIdx++;
+                    if (!lpZoneRow.active) continue;
+                    for (const lpKey in zoneTargetsResult) {
+                        const index = lpZoneRow.targets.indexOf(lpKey);
+                        if (index !== -1) {
+                            lpZoneRow.targets.splice(index, 1); // remove array element
+                            this.config.tableZones[zoneRowIdx].targets = lpZoneRow.targets.concat(zoneTargetsResult[lpKey]);
+                        }
+                    }
+                }
+                return true;
+
+            } else {
+                // warn msg should already been logged
+                return false;
+            }
+
+        } catch (error) {
+            this.x.helper.dumpError('[_asyncConvertEnumTargetsToTargetDevices]', error);
+            return false;
+        }            
+
+    }
 
     /**
      * Called once a trigger was activated (i.e. a motion or other trigger state changed)
