@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "0.4.0",
+        "version": "0.4.1",
         "news": {
             "0.4.0": {
                 "en": "New features: new target devices table for enum functions, new JSON state for recent zone activations",
@@ -12,7 +12,7 @@
                 "fr": "Nouvelles fonctionnalités: nouveau tableau des appareils cibles pour les fonctions d'énumération, nouvel état JSON pour les activations de zone récentes",
                 "it": "Nuove funzionalità: nuova tabella dei dispositivi di destinazione per le funzioni enum, nuovo nuovo stato JSON per le recenti attivazioni di zona",
                 "es": "Nuevas funciones: nueva tabla de dispositivos de destino para funciones de enumeración, nuevo estado JSON nuevo para activaciones de zona recientes",
-                "pl": "Nowe funkcje: nowa tabela urządzeń docelowych dla funkcji wyliczania, nowy stan JSON dla ostatnich aktywacji stref",
+                "pl": "Nowe funkcje: nowa tabela urządzeń docelowych dla funkcji wyliczania, nowy stan JSON dla ostatnich aktywacji stref"
             },
             "0.3.10": {
                 "en": "Fixed io-package.json",

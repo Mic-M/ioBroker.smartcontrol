@@ -95,6 +95,10 @@ This is just to provide you an overview of the adapter options.
 
 ## Changelog
 
+### 0.4.1
+* (Mic-M) Fixed io-package.json
+
+
 ### 0.4.0
 #### Please note: These new features are not yet documented within the adapter documentation.
 * (Mic-M) New feature: Tab 'Target Devices': New table 'Targets: Enum functions' to **support enum functions**, and optionally limit to certain enum rooms. [issue #29](https://github.com/Mic-M/ioBroker.smartcontrol/issues/29).
