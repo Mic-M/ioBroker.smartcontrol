@@ -1433,7 +1433,10 @@ class SmartControl extends utils.Adapter {
             }
 
             // @ts-ignore - Property '_tableTargetDevicesEnums' does not exist on type 'AdapterConfig'
-            if (errorCounter == 0 && (!this.x.helper.isLikeEmpty(targetDevicesResult))) {
+            if (errorCounter == 0 && (this.x.helper.isLikeEmpty(targetDevicesResult))) {
+                // No issue  here, we just have an empty table
+                return true;
+            } else if (errorCounter == 0 && (!this.x.helper.isLikeEmpty(targetDevicesResult))) {
                 
                 /**
                  * Successfully completed

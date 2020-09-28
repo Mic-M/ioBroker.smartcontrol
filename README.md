@@ -95,6 +95,9 @@ This is just to provide you an overview of the adapter options.
 
 ## Changelog
 
+### 0.4.2
+* (Mic-M) Fix code
+
 ### 0.4.1
 * (Mic-M) Fixed io-package.json
 
