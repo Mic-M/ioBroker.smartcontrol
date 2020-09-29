@@ -108,23 +108,12 @@ class SmartControl extends utils.Adapter {
             } 
 
 
-            /**
-             * Validate Adapter Admin Configuration
-             */
-            if (await this._asyncVerifyConfig(this.x.constants.configTableValidation)) {
-                this.log.info('Adapter admin configuration successfully validated...');
-            } else {
-                // Error(s) occurred. We already logged error message(s) by the function, so no more log needed here
-                this.setState('info.connection', false, true); // change to yellow
-                return; // Go out.
-            }
-
-
             // Warning if latitude / longitude not defined
             if (!this.x.systemConfig.latitude || !this.x.systemConfig.longitude) {
                 this.log.warn('Latitude/Longitude is not defined in your ioBroker main configuration, so you will not be able to use Astro functionality for schedules!');
             }
 
+            //!!!!!!!!!!!!!!
             /**
              * For testing: create test states
              */
@@ -239,6 +228,7 @@ class SmartControl extends utils.Adapter {
                 this.setState('info.connection', false, true); // change to yellow
                 return; // Go out.
             }
+
 
             /**
              * Create smartcontrol.x.targetDevices.xxx states.

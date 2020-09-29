@@ -28,7 +28,7 @@ You simply go through the individual options pages (tabs) as follows:
 
 | Tab | What to do |
 |--------|------------|
-|1. TARGET DEVICES | Here you enter all your target devices to be switched, e.g. lights, radio, etc. |
+|1. TARGET DEVICES | Here you enter all your target devices to be switched, e.g. lights, radio, etc. You can enter single device states in the first table, and/or use so-called enumerations ("enums") in the second table. [Documentation link : Enumerations](https://www.iobroker.net/#en/documentation/admin/enums.md) |
 |2. ADDITIONAL CONDITIONS | *optional*: Here you enter additional conditions that should (not) apply, e.g.: nobody present, holiday today, etc. |
 |3. TRIGGERS |Here you enter triggers, e.g. motion sensors, wall switches, etc., as well as any time-dependent triggers (e.g. every day at 8:00 am). |
 |4 ZONES |Here you bring everything together by defining all "zones" (e.g. bathroom 1st floor, coffee corner, etc.) and assigning triggers and target devices to be switched, as well as defining further conditions for execution. |
@@ -64,6 +64,11 @@ Drop-down fields that offer several selectable values must be clicked "on the si
 Here you see all current astro times of your geo-coordinates, which you have set in the ioBroker-Admin-Options (wrench top left).
 
 ![image](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/img/start_states-astro.png?raw=true)
+
+
+### smartcontrol.x.info.log.zoneActivations.json
+
+With <code>smartcontrol.x.info.log.zoneActivations.json</code> the adapter provides a state, which provides information as JSON once a a zone has been successfully executed  (the newest entry appears at the top). In the adapter options, tab "FURTHER OPTIONS" -> "Logging", you can set the number of JSON entries accordingly.
 
 
 ### smartcontrol.x.options

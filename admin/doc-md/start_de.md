@@ -28,7 +28,7 @@ Du gehst einfach durch die einzelnen Options-Seiten (obige Reiter) wie folgt dur
 
 | Reiter | Was machen |
 |--------|------------|
-|1. ZIELGERÄTE | Hier trägst du all deine zu schaltenden Ziel-Geräte ein, also Lichter, Radio, usw. |
+|1. ZIELGERÄTE | Hier trägst du all deine zu schaltenden Ziel-Geräte ein, also Lichter, Radio, usw. Du kannst dort in der ersten Tabelle einzelne Geräte anlegen, und/oder in der zweiten Tabelle auch sogenannte "Aufzählungen" (Enums) nutzen. [Link zur Dokumentation: Aufzählungen](https://www.iobroker.net/#de/documentation/admin/enums.md) |
 |2. ZUSÄTZLICHE BEDINGUNGEN | *Optional*: Hier trägst du zusätzliche Bedingungen ein, die (nicht) zutreffen sollen, z.B.: keiner anwesend, Feiertag heute, usw. |
 |3. AUSLÖSER |Hier trägst du Auslöser ein, also z.B. Bewegungsmelder, Wandschalter, etc., sowie ggf. zeitabhängige Auslöser (z.B. jeden Tag um 8:00 Uhr). |
 |4. ZONEN |Hier führst du alles zusammen, in dem du alle "Zonen" definierst (z.B. Badezimmer 1.OG, Kaffeeecke, usw.) und Auslöser und zu schaltende Zielgeräte zuweist, sowie auch weitere Bedingungen zur Ausführung definierst. |
@@ -65,6 +65,9 @@ Hier findest du alle aktuellen Astrozeiten deiner Geo-Koordinaten, die du in den
 
 ![image](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/img/start_states-astro.png?raw=true)
 
+### smartcontrol.x.info.log.zoneActivations.json
+
+Mit `smartcontrol.x.info.log.zoneActivations.json` stellt der Adapter einen Datenpunkt bereit, der, sobald eine Zone erfolgreich ausgeführt wurde, Informationen hierzu als JSON zur Verfügung stellt (dabei erscheint der neueste Eintrag jeweils oben). In den Adapter-Optionen, im Reiter "WEITERE OPTIONEN", kannst du unter "Logging" die Anzahl der JSON-Einträge einstellen.
 
 ### smartcontrol.x.options
 

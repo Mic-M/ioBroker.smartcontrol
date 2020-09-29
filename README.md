@@ -86,14 +86,12 @@ This is just to provide you an overview of the adapter options.
 * This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers.** For more details and for information how to disable the error reporting see [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is used starting with js-controller 3.0.
 * Adapter icon made by [freepik](https://www.flaticon.com/authors/freepik) from [flaticon.com](https://www.flaticon.com/).</sup></sub>
 
-## To-Do's once version 0.4.0 is successfully tested:
- 1. 'smartcontrol.x.info.log.zoneActivations.json': currently 100 entries allowed -> add adapter option to configure.
- 2. Add documentation for new table 'Targets: Enum functions'
- 3. Add new state 'smartcontrol.x.info.log.zoneActivations.json' to documentation
- 4. Possibly rename tab '1. TARGET DEVICES' into '1. TARGETS' since we enum functions were added
- 5. Update screen shots
-
 ## Changelog
+
+### 0.4.3
+* (Mic-M) New feature in adapter options: configure number of entries in 'smartcontrol.x.info.log.zoneActivations.json'
+* (Mic-M) Extend adapter documentation by adding new 0.4.0 features 
+* (Mic-M) Fixed issue regarding 'smartcontrol.x.userstates.xxx' creation
 
 ### 0.4.2
 * (Mic-M) Fix code

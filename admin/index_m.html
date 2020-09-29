@@ -156,8 +156,7 @@
                                 <div class="collapsible-header config-section"><h5 class="translate">Targets: Enum functions</h5><i class="material-icons">help_outline</i></div>
                                 <div class="collapsible-body">
                                     <!-- Importing Markdown -->
-                                    <!-- <zero-md id="md-tableTriggerDevices" manual-render src="doc-md/table-trigger-devices_en.md"></zero-md> -->
-                                    <strong>This table is a new feature with 0.4.0, documentation will follow soon.</strong>
+                                    <zero-md id="md-tableTriggerDevices" manual-render src="doc-md/table-target-enums_en.md"></zero-md>
                                 </div>
                             </li>
                         </ul>
@@ -176,8 +175,8 @@
                                         <tr>
                                             <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
                                             <th class="header translate" data-name="name">Name</th>
-                                            <th class="header translate" data-name="enumId" data-type="select">Enum Id</th>
-                                            <th class="header translate" data-name="enumRooms" data-type="select multiple">Limit to rooms</th>
+                                            <th class="header translate" data-name="enumId" data-type="select">Enum Function Name</th>
+                                            <th class="header translate mOptional" data-name="enumRooms" data-type="select multiple">Limit to rooms</th>
                                             <th style="width: 120px" class="header translate" data-name="onValue">Value for 'on'</th>
                                             <th style="width: 60px" class="mOptional header translate" data-name="noTargetOnCheck" data-type="checkbox">Do not verify</th>
                                             <th style="width: 120px" class="header translate" data-name="offValue">Value for 'off'</th>
@@ -517,7 +516,6 @@
                                 <div class="col s12">
                                     <h6 class="hBlock translate info">tabOptions.triggerLimitHeader</h6>
                                     <p class="translate info">tabOptions.triggerLimitInfo</p>
-                                    <!-- <div class="input-field col s12 m6"> -->
                                     <div class="input-field col s3">
                                         <input class="value validate" placeholder="10" id="limitTriggerInterval" type="number" min="1" max="10000">
                                         <label for="limitTriggerInterval" class="translate">tabOptions.triggerLimitLabel</label>
@@ -531,6 +529,17 @@
                     <li>
                         <div class="collapsible-header"><i class="material-icons">expand_more</i><h6>Logging</h6></div>
                         <div class="collapsible-body">
+                            <div class="row">
+                                <div class="col s12">
+                                    <h6 class="hBlock translate info">JSON state for recent successful zone activations</h6>
+                                    <p class="translate info">tabOptions.jsonZoneActivationMaxEntriesInfo</p>
+                                    <!-- <p class="translate info">tabOptions.JsonRecentZoneActivationInfo</p> -->
+                                    <div class="input-field col s3">
+                                        <input class="value validate" placeholder="100" id="jsonZoneActivationMaxEntries" type="number" min="0" max="500">
+                                        <span class="helper-text translate">Number of entries in JSON state (0-500)</span>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col s12">
                                     <h6 class="hBlock translate info">tabOptions.extendedLogHeader</h6>
