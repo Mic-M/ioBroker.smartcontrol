@@ -113,7 +113,6 @@ class SmartControl extends utils.Adapter {
                 this.log.warn('Latitude/Longitude is not defined in your ioBroker main configuration, so you will not be able to use Astro functionality for schedules!');
             }
 
-            //!!!!!!!!!!!!!!
             /**
              * For testing: create test states
              */
@@ -237,12 +236,14 @@ class SmartControl extends utils.Adapter {
             const statePaths = [];
             for (const lpRow of this.config.tableTargetDevices) {
                 if (!lpRow.active) continue;
+                if(/_enum-\d{1,3}$/.test(lpRow.name)) continue; // don't add enums
                 const lpStatePath = `${this.namespace}.targetDevices.${lpRow.name.trim()}`;
                 if (! this.x.helper.isStateIdValid(lpStatePath) ) throw(`Invalid state name portion provided in table 'Target Devices': '${lpRow.name}'`);
                 const lpCommon = { name: lpRow.name, type: 'boolean', read: true, write: true, role: 'switch', def: false };
                 statesToBeCreated.push({statePath:lpStatePath, commonObject:lpCommon});
                 statePaths.push(lpStatePath);
             }
+
             // Create all states
             const createStatesResult = await this.x.helper.asyncCreateStates(statesToBeCreated);
             if (!createStatesResult) throw (`Certain error(s) occurred in asyncCreateStates().`);
@@ -278,10 +279,9 @@ class SmartControl extends utils.Adapter {
     
                     // Get the name of the table row and convert to a valid state portion.
                     const lpRowNameStatePortion = lpRow.name;  // like: 'Motion Bathroom' or 'At 04:05 every Sunday'
-                    if (this.x.helper.isLikeEmpty(lpRow.name.trim())) {
-                        continue; // We do not add rows with blank name
-                    }
-    
+                    if (this.x.helper.isLikeEmpty(lpRow.name.trim())) continue; // We do not add rows with blank name                        
+                    if (lpTableName == 'tableTargetDevices' && /_enum-\d{1,3}$/.test(lpRow.name)) continue; // Don't add enums
+
                     for (const fieldName in lpRow){
     
                         const lpFieldEntry = lpRow[fieldName]; // like 'smartcontrol.0.Test.light.Bathroom' or true, etc.
@@ -1252,7 +1252,7 @@ class SmartControl extends utils.Adapter {
                     }
                 } else if (stateType == 'number') {
                     // We allow comparators '<', '>=' etc.
-                    const isComparator = (/^(>=|<=|>|<)\s?(\d{1,})$/.test(stateVal.trim()));
+                    const isComparator = (/^(>=|<=|>|<|!=|<>)\s?(\d{1,})$/.test(stateVal.trim()));
                     if (isComparator) {
                         return {validationFailed:false, newStateVal:stateVal};
                     } else if (this.x.helper.isNumber(stateVal)) {
@@ -1527,7 +1527,7 @@ class SmartControl extends utils.Adapter {
                 /**
                  * Verify if state value that was set matches with the config
                  */
-                // Check for >=, <=, >, <  and number, so like '>= 3', '<7'
+                // Check for >=, <=, >, <, !=/<>  and number, so like '>= 3', '<7'
                 let comparatorSuccess = false;
                 if (trigger.triggerTableId == 'tableTriggerDevices' && (typeof trigger.triggerStateVal == 'string') ) {
                     const res = this.x.helper.isNumComparatorMatching(stateObject.val, trigger.triggerStateVal);
@@ -1554,7 +1554,7 @@ class SmartControl extends utils.Adapter {
                 const currTs = Date.now();
                 this.x.onStateChangeTriggers[trigger.triggerName] = currTs;
                 if (formerTs && ( (formerTs + (threshold*1000)) > currTs)) {
-                    this.log.info(`Trigger '${trigger.triggerName}' was already activated ${Math.round(((currTs-formerTs) / 1000) * 100) / 100} seconds ago and is ignored. Must be at least ${threshold} seconds.`);
+                    this.x.helper.logExtendedInfo(`Trigger '${trigger.triggerName}' was already activated ${Math.round(((currTs-formerTs) / 1000) * 100) / 100} seconds ago and is ignored. Must be at least ${threshold} seconds.`);
                     continue;
                 }
     

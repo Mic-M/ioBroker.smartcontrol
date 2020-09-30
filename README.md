@@ -14,6 +14,8 @@
 
 ## Smart Control Adapter for ioBroker
 
+
+
 In our [ioBroker](https://github.com/ioBroker/ioBroker) home automation we have several triggers, e.g.
  * motion sensor in the corridor triggers, 
  * a wall switch is pressed, 
@@ -87,6 +89,13 @@ This is just to provide you an overview of the adapter options.
 * Adapter icon made by [freepik](https://www.flaticon.com/authors/freepik) from [flaticon.com](https://www.flaticon.com/).</sup></sub>
 
 ## Changelog
+
+### 0.4.4
+* (Mic-M) New feature: allow comparison operators `!=` / `<>` in 'TRIGGERS -> Other triggers' to trigger if state value is unequal. Example: `<>30` or `!=30` - see [Forum](https://forum.iobroker.net/post/496133)
+* (Mic-M) Fix: Don't create `smartcontrol.x.options.TargetDevices.` states for enums since this does not make sense for enums.
+* (Mic-M) Fix: Don't create `smartcontrol.x.targetDevices.` states for enums since this does not make sense for enums.
+* (Mic-M) Moved log `Trigger xyz was already activated x seconds ago and is ignored...` from regular info log to debug/'extended info log' - [Forum](https://forum.iobroker.net/post/496604)
+
 
 ### 0.4.3
 * (Mic-M) New feature in adapter options: configure number of entries in 'smartcontrol.x.info.log.zoneActivations.json'

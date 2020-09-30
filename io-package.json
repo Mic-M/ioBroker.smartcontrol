@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "0.4.3",
+        "version": "0.4.4",
         "news": {
             "0.4.0": {
                 "en": "New features: new target devices table for enum functions, new JSON state for recent zone activations",
