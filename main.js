@@ -725,7 +725,19 @@ class SmartControl extends utils.Adapter {
             let timeoutCounter = 0;
 
             // Zone on and Zone off timers
-            for (const timerName in this.x.timersZoneOff.concat(this.x.timersZoneOn)) {
+            // TODO: merge the following two for loops
+            for (const timerName in this.x.timersZoneOn) {
+                // We need getTimeoutTimeLeft() for logging purposes only, but since we have the value, we are using it for firing clearTimeout condition as well.
+                const timeLeft = this.x.helper.getTimeoutTimeLeft(this.x.timersZoneOn[timerName]);
+                if (timeLeft > -1) {
+                    this.x.helper.logExtendedInfo('Clearing currently running zone timer: ' + timerName);
+                    clearTimeout(this.x.timersZoneOn[timerName]);
+                    this.x.timersZoneOn[timerName] = null;
+                    timeoutCounter++;
+                }
+
+            }
+            for (const timerName in this.x.timersZoneOff) {
                 // We need getTimeoutTimeLeft() for logging purposes only, but since we have the value, we are using it for firing clearTimeout condition as well.
                 const timeLeft = this.x.helper.getTimeoutTimeLeft(this.x.timersZoneOff[timerName]);
                 if (timeLeft > -1) {

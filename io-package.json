@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "0.5.0",
+        "version": "0.5.1",
         "news": {
             "0.5.0": {
                 "New features: new options in table zones": {

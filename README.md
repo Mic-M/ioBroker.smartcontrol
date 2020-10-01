@@ -90,6 +90,9 @@ This is just to provide you an overview of the adapter options.
 
 ## Changelog
 
+### 0.5.1
+* (Mic-M) Fixed clearing timeout while adapter is stopping.
+
 ### 0.5.0
 * (Mic-M) New feature: ZONES - New option "Delay for switching zone on (in seconds)" - [issue #31](https://github.com/Mic-M/ioBroker.smartcontrol/issues/31)
 * (Mic-M) New feature: ZONES - New option "Never switch off if..." - [issue #32](https://github.com/Mic-M/ioBroker.smartcontrol/issues/32)
