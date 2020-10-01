@@ -50,6 +50,7 @@ class SmartControl extends utils.Adapter {
             mSchedule: require('node-schedule'),          // https://github.com/node-schedule/node-schedule
 
             // {object} timers    - All timer objects.
+            timersZoneOn: {},    // for option "onAfter" in Zones table
             timersZoneOff: {},    // for option "offAfter" in Zones table
 
             // {object} schedules - All schedules (node-schedule)
@@ -466,6 +467,7 @@ class SmartControl extends utils.Adapter {
      * Schedule all trigger times of Trigger Times table
      * 
      * @return {Promise<number>}   number of schedules activated.
+     * @fires trigger.asyncSetTargetDevices() 
      */
     async _asyncOnReady_asyncScheduleTriggerTimes() {
 
@@ -722,8 +724,8 @@ class SmartControl extends utils.Adapter {
              */
             let timeoutCounter = 0;
 
-            // Zone off timers
-            for (const timerName in this.x.timersZoneOff) {
+            // Zone on and Zone off timers
+            for (const timerName in this.x.timersZoneOff.concat(this.x.timersZoneOn)) {
                 // We need getTimeoutTimeLeft() for logging purposes only, but since we have the value, we are using it for firing clearTimeout condition as well.
                 const timeLeft = this.x.helper.getTimeoutTimeLeft(this.x.timersZoneOff[timerName]);
                 if (timeLeft > -1) {
@@ -1352,6 +1354,9 @@ class SmartControl extends utils.Adapter {
                 const lpRowName = lpEnumRow.name;
                 const lpEnumFuncName = lpEnumRow.enumId;
                 const lpEnumRooms = lpEnumRow.enumRooms;
+
+                if (this.x.helper.isLikeEmpty(lpEnumFuncName)) continue;
+
                 let finalStates = [];
                 
                 /**

@@ -49,8 +49,8 @@ table.table-values tr td:nth-child(2) input { font-weight:bold; }
 table.table-values { table-layout:fixed; }
 
 /* Table Zones: Hide execution option rows */
-#tableZones th:nth-of-type(10) { visibility: hidden; display: none; }
-#tableZones td:nth-of-type(10) { visibility: hidden; display: none; }
+#tableZones th:nth-of-type(14) { visibility: hidden; display: none; }
+#tableZones td:nth-of-type(14) { visibility: hidden; display: none; }
 
 /* add space at top/bottom */
 .spaceTop3em {margin-top: 3em; }

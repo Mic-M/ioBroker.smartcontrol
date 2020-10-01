@@ -215,13 +215,14 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
             case 'tableZones':
                 dialogSelectSettings({tableId:'tableZones', triggerDataCmd:'selectTriggers', targetField:'triggers', dialogTitle:_('Select triggers') });
                 dialogSelectSettings({tableId:'tableZones', triggerDataCmd:'selectTargetsMenu', targetField:'targets', dialogTitle:_('Select target devices') });
+                dialogSelectSettings({tableId:'tableZones', triggerDataCmd:'selectNeverOff', targetField:'neverOff', dialogTitle:_(`Select 'never switch off if...'`) });
                 dialogConfigureZoneExecution();
-                updateTableButtonIcons(tableId, [{dataButton:'selectTriggers', icon:'pageview'},{dataButton:'selectTargetsMenu', icon:'pageview'},{dataButton:'configureExecution', icon:'schedule', regularSize:true}]);
+                updateTableButtonIcons(tableId, [{dataButton:'selectTriggers', icon:'pageview'},{dataButton:'selectTargetsMenu', icon:'pageview'},{dataButton:'selectNeverOff', icon:'pageview'},{dataButton:'configureExecution', icon:'schedule', regularSize:true}]);
                 addCopyTableRowSmarter(tableId);
                 break;
             case 'tableZoneExecution':
                 dialogSelectSettings({tableId:tableId, triggerDataCmd:'selectAdditionalConditions', targetField:'additionalConditions', dialogTitle:_('Select additional conditions') });
-                dialogSelectSettings({tableId:tableId, triggerDataCmd:'selectNever', targetField:'never', dialogTitle:_(`Select 'never if...'`) });
+                dialogSelectSettings({tableId:tableId, triggerDataCmd:'selectNever', targetField:'never', dialogTitle:_(`Select 'never switch on if...'`) });
                 updateTableButtonIcons(tableId, [{dataButton:'selectAdditionalConditions', icon:'pageview'},{dataButton:'selectNever', icon:'pageview'}]);
                 break;
             default:
@@ -272,8 +273,8 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
             case '#tabZones':
                 $('.collapsible').collapsible(); // https://materializecss.com/collapsible.html
                 populateTable(['tableTriggerMotion', 'tableTriggerDevices', 'tableTriggerTimes'], ['name', 'name', 'name'], 'tableZones', 'triggers');
-                //populateTable('tableTargetDevices', 'name', 'tableZones', 'targets');
                 populateTable(['tableTargetDevices', 'tableTargetEnums'], ['name', 'name'], 'tableZones', 'targets');
+                populateTable('tableConditions', 'name', 'tableZones', 'neverOff');
                 break;
 
         }
@@ -323,11 +324,12 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
      * @param {string}  targetTableId   Target table id, like "tableZones"
      * @param {string}  targetFieldId   Target table line field, like 'Test'
      * @param {boolean} [sort]    Optional: if true, values will be sorted
+     * @param {boolean} [fill]    Optional: if true, table will be filled. Set to false for tableExecution
      */
-    function populateTable(sourceTableIds, sourceFieldIds, targetTableId, targetFieldId, sort=false) {
+    function populateTable(sourceTableIds, sourceFieldIds, targetTableId, targetFieldId, sort=false, fill=true) {
 
         // jQuery
-        const jQ = '*[data-name="' + targetFieldId + '"]';        
+        const jQ = `#${targetTableId} *[data-name="${targetFieldId}"]`;        
 
         if(!Array.isArray(sourceTableIds)) sourceTableIds = [sourceTableIds]; // wrap into array
         if(!Array.isArray(sourceFieldIds)) sourceFieldIds = [sourceFieldIds]; // wrap into array
@@ -346,7 +348,7 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
         $(jQ).data('options', result.join(';'));
 
         // Fill table
-        values2table(targetTableId, optionTablesSettings[targetTableId], onChange, function(){val2tableOnReady(targetTableId);});
+        if(fill) values2table(targetTableId, optionTablesSettings[targetTableId], onChange, function(){val2tableOnReady(targetTableId);});
    
         
     }
@@ -356,6 +358,7 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
         {changedTableId:'tableTargetDevices', targetTableId:'tableZones', targetId:'targets'},
         {changedTableId:'tableConditions', targetTableId:'tableTriggerTimes', targetId:'additionalConditions'},
         {changedTableId:'tableConditions', targetTableId:'tableTriggerTimes', targetId:'never'},
+        {changedTableId:'tableConditions', targetTableId:'tableZones', targetId:'neverOff'},
         {changedTableId:'tableTriggerMotion',  targetTableId:'tableZones', targetId:'triggers'},
         {changedTableId:'tableTriggerDevices', targetTableId:'tableZones', targetId:'triggers'},
         {changedTableId:'tableTriggerTimes',   targetTableId:'tableZones', targetId:'triggers'},
@@ -435,6 +438,10 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
 
         const queryResult = $(`#tableZones a.values-buttons[data-command="configureExecution"]`);
         queryResult.on('click', function() {
+
+            // Fill drop down (select) fields with additional conditions
+            populateTable('tableConditions', 'name', 'tableZoneExecution', 'additionalConditions', false, false);
+            populateTable('tableConditions', 'name', 'tableZoneExecution', 'never', false, false);
 
             // a few variables
             const tableZonesObj = table2values('tableZones');

@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "0.4.4",
+        "version": "0.5.0",
         "news": {
+            "0.5.0": {
+                "New features: new options in table zones": {
+                    "en": "New features: new options in table zones",
+                    "de": "Neue Features: Neue Optionen in Zonen",
+                    "ru": "Новые возможности: новые параметры в зонах стола",
+                    "pt": "Novos recursos: novas opções em zonas de mesa",
+                    "nl": "Nieuwe features: nieuwe opties in tafelzones",
+                    "fr": "Nouvelles fonctionnalités: nouvelles options dans les zones de table",
+                    "it": "Nuove funzionalità: nuove opzioni nelle zone tabella",
+                    "es": "Nuevas funciones: nuevas opciones en zonas de mesa",
+                    "pl": "Nowe funkcje: nowe opcje w strefach stołu",
+                    "zh-cn": "新功能：表区域中的新选项"
+            },
             "0.4.0": {
                 "en": "New features: new target devices table for enum functions, new JSON state for recent zone activations",
                 "de": "Neue Features: Neue Tabelle unterhalb '1. ZIELGERÄTE' für Aufzählungen (enums),  neuer JSON-State für die letzten Zonenaktivierungen",
@@ -343,6 +356,8 @@
                     "Bad.EG.Radio"
                 ],
                 "offAfter": "7000",
+                "neverOff": [],
+                "neverOffAll": false,
                 "executeAlways": false,
                 "executionJson": "[{\"active\":true,\"start\":\"06:00\",\"end\":\"09:00\",\"mon\":true,\"tue\":true,\"wed\":true,\"thu\":true,\"fri\":true,\"sat\":false,\"sun\":false,\"additionalConditions\":[],\"never\":[\"Feiertag heute\",\"Keiner anwesend\"]},{\"active\":true,\"start\":\"08:00\",\"end\":\"11:00\",\"mon\":true,\"tue\":true,\"wed\":true,\"thu\":true,\"fri\":true,\"sat\":false,\"sun\":false,\"additionalConditions\":[\"Feiertag heute\"],\"never\":[\"Keiner anwesend\"]},{\"active\":true,\"start\":\"08:00\",\"end\":\"11:00\",\"mon\":false,\"tue\":false,\"wed\":false,\"thu\":false,\"fri\":false,\"sat\":true,\"sun\":true,\"additionalConditions\":[],\"never\":[\"Feiertag heute\",\"Keiner anwesend\"]}]"
             },
@@ -359,6 +374,8 @@
                     "Flur.Light"
                 ],
                 "offAfter": "500",
+                "neverOff": [],
+                "neverOffAll": false,
                 "executeAlways": true,
                 "executionJson": ""
             },
@@ -373,6 +390,8 @@
                     "Lese-Ecke.Wandlicht"
                 ],
                 "offAfter": "10000",
+                "neverOff": [],
+                "neverOffAll": false,
                 "executeAlways": false,
                 "executionJson": "[{\"active\":true,\"start\":\"sunset+30\",\"end\":\"sunrise\",\"mon\":true,\"tue\":true,\"wed\":true,\"thu\":true,\"fri\":true,\"sat\":false,\"sun\":false,\"additionalConditions\":[\"Jemand anwesend\"],\"never\":[]}]"
             }

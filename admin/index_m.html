@@ -127,7 +127,7 @@
                                 <table class="table-values">
                                     <thead>
                                         <tr>
-                                            <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
+                                            <th style="width: 30px" class="header" data-name="active" data-type="checkbox"><i class="material-icons left">check_box</i></th>
                                             <th class="header translate" data-name="name">Device Name</th>
                                             <th class="header translate" data-name="enumFunction" data-type="select">Device Name</th>
                                             <th style="width: 40px;" data-buttons="stateSelectPopupOnState" class="header"></th>
@@ -173,7 +173,7 @@
                                 <table class="table-values">
                                     <thead>
                                         <tr>
-                                            <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
+                                            <th style="width: 30px" class="header" data-name="active" data-type="checkbox"><i class="material-icons left">check_box</i></th>
                                             <th class="header translate" data-name="name">Name</th>
                                             <th class="header translate" data-name="enumId" data-type="select">Enum Function Name</th>
                                             <th class="header translate mOptional" data-name="enumRooms" data-type="select multiple">Limit to rooms</th>
@@ -227,7 +227,7 @@
                                 <table class="table-values">
                                     <thead>
                                         <tr>
-                                            <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
+                                            <th style="width: 30px" class="header" data-name="active" data-type="checkbox"><i class="material-icons left">check_box</i></th>
                                             <th class="header translate" data-name="name">Name of condition</th>
                                             <th style="width: 40px;" data-buttons="stateSelectPopupConditionState" class="header"></th>
                                             <th class="header translate" data-name="conditionState">State of condition</th>
@@ -277,7 +277,7 @@
                                 <table class="table-values">
                                     <thead>
                                         <tr>
-                                            <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
+                                            <th style="width: 30px" class="header" data-name="active" data-type="checkbox"><i class="material-icons left">check_box</i></th>
                                             <th class="header translate" data-name="name">Name of motion sensor</th>
                                             <th style="width: 40px;" data-buttons="stateSelectPopupMotionState" class="header"></th>
                                             <th class="header translate" data-name="stateId">State of motion sensor</th>
@@ -322,7 +322,7 @@
                                 <table class="table-values">
                                     <thead>
                                         <tr>
-                                            <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
+                                            <th style="width: 30px" class="header" data-name="active" data-type="checkbox"><i class="material-icons left">check_box</i></th>
                                             <th class="header translate" data-name="name">Name</th>
                                             <th style="width: 40px;" data-buttons="stateSelectPopupStateId" class="header"></th>
                                             <th style="width: 30px" class="header" data-name="userState" data-type="checkbox">SC</th>
@@ -368,7 +368,7 @@
                                 <table class="table-values">
                                     <thead>
                                         <tr>
-                                            <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
+                                            <th style="width: 30px" class="header" data-name="active" data-type="checkbox"><i class="material-icons left">check_box</i></th>
                                             <th class="header translate" data-name="name">Name of trigger</th>
                                             <th style="width: 140px" class="header translate" data-name="time">Time</th>
                                             <th style="width: 40px;" data-buttons="selectAdditionalConditions" class="header"></th>
@@ -425,13 +425,17 @@
                                 <table class="table-values">
                                     <thead>
                                         <tr>
-                                            <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
+                                            <th style="width: 30px" class="header" data-name="active" data-type="checkbox"><i class="material-icons left">check_box</i></th>
                                             <th class="header translate" data-name="name">Name of zone</th>
                                             <th style="width: 40px;" data-buttons="selectTriggers" class="header"></th>
                                             <th class="header translate" data-name="triggers" data-type="select multiple">Trigger</th>
                                             <th style="width: 40px;" data-buttons="selectTargetsMenu" class="header"></th>
                                             <th class="header translate" data-name="targets" data-type="select multiple">Target devices</th>
-                                            <th style="width: 80px" class="mOptional header translate" data-name="offAfter" data-type="number">Off after x sec</th>
+                                            <th style="width: 50px" class="mOptional header translate" data-name="onAfter" data-type="number"><i class="material-icons">timelapse</i></th>
+                                            <th style="width: 50px" class="mOptional header translate" data-name="offAfter" data-type="number"><i class="material-icons">timer</i></th>
+                                            <th style="width: 40px;" data-buttons="selectNeverOff" class="header"></th>
+                                            <th class="mOptional header translate" data-name="neverOff" data-type="select multiple">Never switch off if...</th>
+                                            <th style="width: 30px" class="mOptional header" data-name="neverOffAll" data-type="checkbox"><i class="material-icons left">done_all</i></th>
                                             <th style="width: 100px" class="header translate" data-buttons="configureExecution">Execution</th>
                                             <th style="width: 30px" class="header translate" data-name="executeAlways" data-type="checkbox">Always</th>
                                             <!-- Start: Execution Options, being hidden through CSS -->
@@ -683,7 +687,7 @@
                             <table class="table-values">
                                 <thead>
                                     <tr>
-                                        <th style="width: 30px" class="header" data-name="active" data-type="checkbox">✓</th>
+                                        <th style="width: 30px" class="header" data-name="active" data-type="checkbox"><i class="material-icons left">check_box</i></th>
                                         <th style="width: 120px" class="header translate" data-name="start">Start</th>
                                         <th style="width: 120px" class="header translate" data-name="end">End</th>
                                         <th style="width: 35px" class="header translate" data-name="mon" data-type="checkbox">Mon</th>
@@ -697,7 +701,7 @@
                                         <th class="mOptional header translate" data-name="additionalConditions" data-type="select multiple">Additional conditions</th>
                                         <th style="width: 30px" class="mOptional header" data-name="additionalConditionsAll" data-type="checkbox"><i class="material-icons left">done_all</i></th>
                                         <th style="width: 40px;" data-buttons="selectNever" class="header"></th>
-                                        <th class="mOptional header translate" data-name="never" data-type="select multiple">Never switch if...</th>
+                                        <th class="mOptional header translate" data-name="never" data-type="select multiple">Never switch on if...</th>
                                         <th style="width: 30px" class="mOptional header" data-name="neverAll" data-type="checkbox"><i class="material-icons left">done_all</i></th>
                                         <th style="width: 160px" class="header" data-buttons="up down copy delete"></th>
                                     </tr>
