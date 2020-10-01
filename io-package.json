@@ -15,6 +15,7 @@
                     "es": "Nuevas funciones: nuevas opciones en zonas de mesa",
                     "pl": "Nowe funkcje: nowe opcje w strefach stołu",
                     "zh-cn": "新功能：表区域中的新选项"
+                }
             },
             "0.4.0": {
                 "en": "New features: new target devices table for enum functions, new JSON state for recent zone activations",
