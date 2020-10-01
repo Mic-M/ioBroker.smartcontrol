@@ -2,7 +2,7 @@ Here you enter other devices as triggers, such as wall switches, window sensors,
 
 | Column | Mandatory | Description |
 |----------|:------------:|-------|
-| ✓        |  Yes   | Enables/disables this table row. If not activated, this table row is ignored by the adapter. In the Adapter Options, under 'FURTHER OPTIONS > Input Validation', you can set that even disabled rows are checked for validity. |
+| ![image](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/img/check_box-24px.svg?raw=true) |  Yes   | Enables/disables this table row. If not activated, this table row is ignored by the adapter. In the Adapter Options, under 'FURTHER OPTIONS > Input Validation', you can set that even disabled rows are checked for validity. |
 | Name | Yes | Any name.|
 | SC | Yes | See **State**.|
 | State | Yes | An existing state as a trigger.<br><br>If you activate the SC option, the state will be created under `smartcontrol.x.userstates`, i.e. if you enter e.g. `Bath.Radio.on`, the state will be created as `smartcontrol.x.userstates.Bath.Radio.on`, which you then can use as trigger by setting the according **State value**. The state is created as type 'String', unless you enter `true` or `false` in 'State value', then it is created as 'boolean'. Use case: For example, you need a state to trigger, e.g. 'Home Cinema On', which is triggered by Alexa. This saves you from having to create states manually.

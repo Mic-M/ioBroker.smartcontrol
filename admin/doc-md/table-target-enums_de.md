@@ -4,7 +4,7 @@ Im Gegensatz zur oberen Tabelle kannst du hier sogenannte "Aufzählungen" (Enums
 
 | Spalte   |  Pflichtfeld |  Beschreibung |
 |----------|:------------:|-------|
-| ✓        |  Ja          | Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet. In den Adapter-Optionen, unter 'WEITERE OPTIONEN > Eingabe-Validierung' kannst du übrigens einstellen, dass auch deaktivierte Zeilen auf Gültigkeit geprüft werden. |
+| ![image](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/img/check_box-24px.svg?raw=true) |  Ja          | Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet. In den Adapter-Optionen, unter 'WEITERE OPTIONEN > Eingabe-Validierung' kannst du übrigens einstellen, dass auch deaktivierte Zeilen auf Gültigkeit geprüft werden. |
 | Name |    Ja   | Name deiner Wahl. Verbotene Zeichen: ``[ ] * , ; ' " ` < > \ ?`` |
 | Funktions-Name (Aufzählungen) |    Ja   | Wähle hier die entsprechende Funktion der Aufzählungen aus ([hier sind Details dazu beschrieben](https://www.iobroker.net/#de/documentation/admin/enums.md)). Sobald eine Zone auslöst, in der du unter 'Zielgeräte' diese selektiert hast, werden alle Datenpunkte geschaltet, denen diese selektierte "Funktion" zugeordnet ist. |
 | Limitiert auf Räume | Nein | Hier kannst du optional auf bestimmte "Räume" limitieren (`enum.rooms`), d.h. falls ein oder mehrere Räume hier selektiert werden, wird nur geschaltet, falls dem Zieldatenpunkt der gewählten Funktion auch einer dieser Räume zugeordnet ist. Lässt man es leer, werden keine Räume geprüft. |

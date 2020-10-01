@@ -2,7 +2,7 @@ Hier erfasst du andere Geräte als Auslöser, wie Wandschalter, das Betreten der
 
 | Spalte   |  Pflichtfeld |  Beschreibung |
 |----------|:------------:|-------|
-| ✓        |  Ja          | Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet. In den Adapter-Optionen, unter 'WEITERE OPTIONEN > Eingabe-Validierung' kannst du übrigens einstellen, dass auch deaktivierte Zeilen auf Gültigkeit geprüft werden. |
+| ![image](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/img/check_box-24px.svg?raw=true) |  Ja          | Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet. In den Adapter-Optionen, unter 'WEITERE OPTIONEN > Eingabe-Validierung' kannst du übrigens einstellen, dass auch deaktivierte Zeilen auf Gültigkeit geprüft werden. |
 | Name | Ja | Beliebiger Name.|
 | SC | Ja | Siehe **Datenpunkt**.|
 | Datenpunkt | Ja | Ein existierender Datenpunkt als Auslöser.<br><br>Falls du die Option SC aktivierst, wird der Datenpunkt unterhalb von `smartcontrol.x.userstates` angelegt, d.h. wenn du hier z.B. `Bad.Radio.An` einträgst, dann wird hierfür der Datenpunkt `smartcontrol.x.userstates.Bad.Radio.An` angelegt, mit dem du dann das ganze auslösen kannst, in dem du den Datenpunkt enstprechend **DP-Wert** setzt. Der Datenpunkt wird als Typ 'String' angelegt, außer es ist `true` oder `false` in DP-Wert, dann wird dieser als 'boolean' angelegt.<br>Anwendungsfall hierfür: Etwa brauchst du einen Datenpunkt zum auslösen, also z.B. 'Heimkino an', der z.B. von Alexa getriggert wird. Hiermit ersparst du dir also, dass du deswegen manuell noch Datenpunkte anlegen musst.|

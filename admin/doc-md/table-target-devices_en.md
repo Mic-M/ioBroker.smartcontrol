@@ -8,7 +8,7 @@ For each table row this adapter adds linked states to `smartcontrol.x.targetDevi
 
 | Column | Mandatory | Description |
 |----------|:------------:|-------|
-| ✓        |  Yes   | Enables/disables this table row. If not activated, this table row is ignored by the adapter. In the Adapter Options, under 'FURTHER OPTIONS > Input Validation', you can set that even disabled rows are checked for validity. |
+| ![image](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/img/check_box-24px.svg?raw=true) |  Yes   | Enables/disables this table row. If not activated, this table row is ignored by the adapter. In the Adapter Options, under 'FURTHER OPTIONS > Input Validation', you can set that even disabled rows are checked for validity. |
 | Device name | Yes   | Name of the device of your choice. Forbidden characters: ``[ ] * , ; ' " ` < > \ ?`` |
 | State to switch device on | Yes | States of the target device to switch on as soon as a trigger is triggered and the conditions in the zones are met. |
 | Value for 'on' | Yes | States value that is set in 'states to switch on'. You can use `true`, `false`, numbers like `144`, or strings like `Turn on radio`. All spaces and quotation marks (like `"`) at the beginning and end are automatically removed. <br><br>The value can be overwritten under "4. ZONES", "Target devices". |
