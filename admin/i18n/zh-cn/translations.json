@@ -73,6 +73,7 @@
     "dialog.selectSettings.explanation": "双击或F2，可以覆盖' 1。TARGET DEVICES '的<strong>'on'值</strong> 。",
     "log.verifyOptions.header": "您的配置有误，请按以下步骤修复：",
     "log.verifyOptions.info": "请注意，我们仅在此处检查是否存在至少一个活动表行以及是否在区域中定义了至少一个活动执行。保存这些选项后，将进行进一步的验证，这将重新启动适配器。因此，请确保检查ioBroker日志：任何其他错误将在此处显示。",
+    "new value": "新价值",
     "off": "关",
     "on": "上",
     "tabMain.Doc": "该适配器的说明：",

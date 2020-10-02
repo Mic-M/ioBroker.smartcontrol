@@ -73,6 +73,7 @@
     "dialog.selectSettings.explanation": "Dwukrotnym kliknięciem lub klawiszem F2 możesz nadpisać <strong>wartość dla „wł.”</strong> \"1. URZĄDZENIA DOCELOWE \".",
     "log.verifyOptions.header": "Twoja konfiguracja jest wadliwa, napraw w następujący sposób:",
     "log.verifyOptions.info": "Należy pamiętać, że sprawdzamy tutaj tylko, czy istnieje co najmniej jeden aktywny wiersz tabeli i czy co najmniej jedno aktywne wykonanie jest zdefiniowane w strefach. Dalsze weryfikacje zostaną przeprowadzone po zapisaniu tych opcji, co spowoduje ponowne uruchomienie adaptera. Dlatego sprawdź dziennik ioBroker: będą tam wyświetlane wszelkie dodatkowe błędy.",
+    "new value": "Nowa wartość",
     "off": "poza",
     "on": "na",
     "tabMain.Doc": "Instrukcje dotyczące tego adaptera:",

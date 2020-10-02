@@ -73,6 +73,7 @@
     "dialog.selectSettings.explanation": "Com um clique duplo ou F2 você pode sobrescrever o <strong>valor para 'on'</strong> de \"1. DISPOSITIVOS ALVO \".",
     "log.verifyOptions.header": "Sua configuração está com defeito, corrija o seguinte:",
     "log.verifyOptions.info": "Observe que apenas verificamos aqui se existe pelo menos uma linha ativa da tabela e se pelo menos uma execução ativa está definida nas zonas. Verificações adicionais ocorrerão após salvar essas opções, o que reiniciará o adaptador. Portanto, certifique-se de verificar o log do ioBroker: quaisquer erros adicionais serão mostrados lá.",
+    "new value": "novo valor",
     "off": "fora",
     "on": "em",
     "tabMain.Doc": "Instruções para este adaptador:",

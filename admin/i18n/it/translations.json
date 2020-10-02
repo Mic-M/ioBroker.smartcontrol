@@ -73,6 +73,7 @@
     "dialog.selectSettings.explanation": "Con un doppio clic o F2 è possibile sovrascrivere il <strong>valore per 'on'</strong> di \"1. TARGET DEVICES \".",
     "log.verifyOptions.header": "La tua configurazione è difettosa, correggi come segue:",
     "log.verifyOptions.info": "Si noti che qui controlliamo solo se esiste almeno una riga della tabella attiva e se almeno un'esecuzione attiva è definita in Zone. Dopo il salvataggio di queste opzioni avranno luogo ulteriori verifiche, che riavvieranno l'adattatore. Quindi assicurati di controllare il registro di ioBroker: eventuali errori aggiuntivi verranno visualizzati lì.",
+    "new value": "nuovo valore",
     "off": "spento",
     "on": "sopra",
     "tabMain.Doc": "Istruzioni per questo adattatore:",

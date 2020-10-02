@@ -1,10 +1,7 @@
 /* eslint-disable no-irregular-whitespace */
+/* eslint-disable-next-line no-undef */
 /* eslint-env jquery, browser */               // https://eslint.org/docs/user-guide/configuring#specifying-environments
 /* global getEnums, systemLang, socket, values2table, table2values, M, _, instance */  // for eslint
-
-
-// @ts-ignore
-// eslint-disable-next-line no-undef
 /**
  * List of some global constants
  *
@@ -18,7 +15,6 @@
  * _(string) - the provided translation key will be translated into ioBroker's admin language (words.js)
  * 
  */
-
 
 const adapterNamespace = `smartcontrol.${instance}`;
 
@@ -48,8 +44,6 @@ const enums = {
     functions: {}
 };
 
-
-
 /** More Globals, being set once load() is called */
 let g_settings; // To have globally the settings available.
 const g_zonesTargetsOverwrite = {}; // { 'Hallway': {'Hallway.Light':'new val' 'Hallway.Radio':'Radio XYZ'} }, {'Bath Light': '33%'} }
@@ -63,7 +57,6 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
     // Adapter Settings
     if (!settings) return;
     g_settings = settings;
-
 
     /**
      * Apply markdown for documentation through https://github.com/zerodevx/zero-md
@@ -100,8 +93,7 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
         // We add a slight delay, just in case
         setTimeout(() => {
             const el = document.querySelector('zero-md#' + mdId);
-            // @ts-ignore
-            el.render();                        
+            if(el) el.render();
         }, 100);
 
     }
@@ -138,18 +130,22 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
 
     // This handles if the save button is clickable or not.
     // From Adapter Creator.
-    $('.value').each(function () {
+    $('.value').each( () => {
         const $key = $(this);
         const id = $key.attr('id');
-        if ($key.attr('type') === 'checkbox') {
-            // do not call onChange direct, because onChange could expect some arguments
-            $key.prop('checked', settings[id])
-                .on('change', () => onChange());
+        if (!id) {
+            console.warn(`Attribute 'id' not found for $('.value')`);
         } else {
-            // do not call onChange direct, because onChange could expect some arguments
-            $key.val(settings[id])
-                .on('change', () => onChange())
-                .on('keyup', () => onChange());
+            if ($key.attr('type') === 'checkbox') {
+                // do not call onChange direct, because onChange could expect some arguments
+                $key.prop('checked', settings[id])
+                    .on('change', () => onChange());
+            } else {
+                // do not call onChange direct, because onChange could expect some arguments
+                $key.val(settings[id])
+                    .on('change', () => onChange())
+                    .on('keyup', () => onChange());
+            }
         }
     });    
 
@@ -168,6 +164,7 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
     const tTableIds = tableIds;
     tTableIds.push('tableZoneExecution'); // special dialog table
     for (const lpTableId of tableIds) {
+        // x@ts-ignore - Ignore "An argument for 'maxRaw' was not provided."
         values2table(lpTableId, optionTablesSettings[lpTableId], onChange, function(){val2tableOnReady(lpTableId);});
     }
 
@@ -243,7 +240,7 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
     onTabShow('#tabSchedules');
     // --
 
-    $('ul.tabs li a').on('click', function() { 
+    $('ul.tabs li a').on('click', () => { 
         onTabShow($(this).attr('href'));
     });
     function onTabShow(tabId){
@@ -283,11 +280,11 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
     function otherTriggersShowHideUserStates() {
 
         const jQueryStrCheckbox = `#tableTriggerDevices input[type="checkbox"][data-name="userState"]`;
-        $(jQueryStrCheckbox).each(function () {
+        $(jQueryStrCheckbox).each( () => {
             doOrNot($(this));
         });
         
-        $(jQueryStrCheckbox).on('change', function() {
+        $(jQueryStrCheckbox).on('change', () => {
             doOrNot($(this));
         });
 
@@ -349,7 +346,6 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
 
         // Fill table
         if(fill) values2table(targetTableId, optionTablesSettings[targetTableId], onChange, function(){val2tableOnReady(targetTableId);});
-   
         
     }
 
@@ -378,10 +374,9 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
             // * Important - we cannot use //$(jQueryName).on('xxx') here. See https://stackoverflow.com/a/41457428
             // *             It is not recognized if populateTable() is executed for that specific table.
             // *             So we use $(document).on(), which works well.
-            //$(jQueryName).on('focusin', function(){ $(this).data('old-val', $(this).val()); });
             $(document).on('focusin', jQueryName, function(){ $(this).data('old-val', $(this).val()); });
             //$(jQueryName).on('change', function(){
-            $(document).on('change',jQueryName,function(){
+            $(document).on('change',jQueryName, ()=> {
                 const previousValue = $(this).data('old-val').trim();
                 const newValue = $(this).val().trim();
                 if (previousValue != newValue && newValue.length > 0) {
@@ -662,6 +657,7 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
 
     // From ioBroker Adapter Creator:
     // Re-initialize all the Materialize labels on the page if you are dynamically adding inputs.
+    // @ts-ignore - Property 'updateTextFields' does not exist on type 'typeof M'.ts(2339)
     if (M) M.updateTextFields(); 
 
 
@@ -847,8 +843,6 @@ function applyTableFilter(id) {
     });
 }
 
-
-
 /**
  * From: selectID.js (node_modules/iobroker.admin/www/lib/js/)
  * Name "dialog-select-member" is important, because for that exist the CSS classes
@@ -985,7 +979,7 @@ function fancytreeLoad(fancytreeId) {
                 
                 // Some additional HTML/CSS
                 $('input.fancytree-edit-input').addClass('browser-default');
-                $('input.fancytree-edit-input').before(`<span>${data.node.key.split('.').pop()} - new value: {</span>`);
+                $('input.fancytree-edit-input').before(`<span>${data.node.key.split('.').pop()} - ${_('new value')}: {</span>`);
                 $('input.fancytree-edit-input').after(`<span>}</span>`);
 
                 const newVal = data.input.val();
@@ -1105,7 +1099,7 @@ function fancytreeLoad(fancytreeId) {
  * tableTargetEnums: Get lists of enum room and function names to set to drop down (multiple select) fields for selection
  * @param {string} enumType - 'rooms' for rooms, and 'functions' for functions
  * @param {function} callback - callback function
- * @return {function} callback with array of enum room names or enum function names, or null if nothing found
+ * @return {object} callback with array of enum room names or enum function names, or null if nothing found
  */
 function getTargetEnums(enumType, callback) {
 
@@ -1137,7 +1131,7 @@ function getTargetEnums(enumType, callback) {
                 return callback(null);
             }
         }
-    });    
+    });
 
 }
 

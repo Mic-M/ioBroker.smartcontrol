@@ -9,7 +9,7 @@
 
     <!-- Load ioBroker files. Dir '../../' is 'iobroker/node_modules/iobroker.admin/www'  -->
     <link rel="stylesheet" type="text/css" href="../../css/adapter.css" />
-    <script type="text/javascript" src="../../lib/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../../lib/js/jquery-3.2.1.min.js"></script> <!-- iobroker/node_modules/iobroker.admin/www/lib/js/ -->
     <script type="text/javascript" src="../../socket.io/socket.io.js"></script>
     <script type="text/javascript" src="../../js/translate.js"></script>        <!-- iobroker/node_modules/iobroker.admin/www/js/ -->
     <script type="text/javascript" src="../../lib/js/materialize.js"></script>  <!-- iobroker/node_modules/iobroker.admin/www/lib/js/ -->
@@ -129,7 +129,6 @@
                                         <tr>
                                             <th style="width: 30px" class="header" data-name="active" data-type="checkbox"><i class="material-icons left">check_box</i></th>
                                             <th class="header translate" data-name="name">Device Name</th>
-                                            <th class="header translate" data-name="enumFunction" data-type="select">Device Name</th>
                                             <th style="width: 40px;" data-buttons="stateSelectPopupOnState" class="header"></th>
                                             <th class="header translate" data-name="onState">State to switch device on</th>
                                             <th style="width: 120px" class="header translate" data-name="onValue">Value for 'on'</th>

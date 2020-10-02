@@ -90,6 +90,10 @@ This is just to provide you an overview of the adapter options.
 
 ## Changelog
 
+### 0.5.2
+* (Mic-M) Fix: Removed redundant column in Target Devices table
+* (Mic-M) Fix: Under the hood (admin/index_m.js, admin/tsconfig.json, admin/admin.d.ts)
+
 ### 0.5.1
 * (Mic-M) Fixed clearing timeout while adapter is stopping.
 

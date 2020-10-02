@@ -73,6 +73,7 @@
     "dialog.selectSettings.explanation": "Avec un double clic ou F2, vous pouvez écraser la <strong>valeur pour 'on'</strong> de \"1. TARGET DEVICES \".",
     "log.verifyOptions.header": "Votre configuration est défectueuse, veuillez corriger comme suit:",
     "log.verifyOptions.info": "Veuillez noter que nous vérifions ici uniquement si au moins une ligne de table active existe et si au moins une exécution active est définie dans Zones. D'autres vérifications auront lieu après l'enregistrement de ces options, ce qui redémarrera l'adaptateur. Par conséquent, assurez-vous de vérifier le journal ioBroker: toutes les erreurs supplémentaires y seront affichées.",
+    "new value": "nouvelle valeur",
     "off": "de",
     "on": "sur",
     "tabMain.Doc": "Instructions pour cet adaptateur:",

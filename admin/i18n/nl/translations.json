@@ -73,6 +73,7 @@
     "dialog.selectSettings.explanation": "Met een dubbele klik of F2 kunt u de waarde overschrijven <strong>voor 'aan'</strong> van \"1. DOELAPPARATUUR \".",
     "log.verifyOptions.header": "Uw configuratie is defect. Los dit als volgt op:",
     "log.verifyOptions.info": "Houd er rekening mee dat we hier alleen controleren of er minimaal één actieve tabelrij bestaat en of er minimaal één actieve uitvoering is gedefinieerd in Zones. Verdere verificaties zullen plaatsvinden na het opslaan van deze opties, waardoor de adapter opnieuw wordt opgestart. Controleer daarom het ioBroker-logboek: eventuele extra fouten worden daar weergegeven.",
+    "new value": "nieuwe waarde",
     "off": "uit",
     "on": "Aan",
     "tabMain.Doc": "Instructies voor deze adapter:",

@@ -73,6 +73,7 @@
     "dialog.selectSettings.explanation": "Con un doble clic o F2 puede sobrescribir el <strong>valor para 'on'</strong> de \"1. DISPOSITIVOS OBJETIVO \".",
     "log.verifyOptions.header": "Su configuración es defectuosa, corríjala de la siguiente manera:",
     "log.verifyOptions.info": "Tenga en cuenta que aquí solo verificamos si existe al menos una fila de tabla activa y si al menos una ejecución activa está definida en Zonas. Se realizarán más verificaciones después de guardar estas opciones, lo que reiniciará el adaptador. Por lo tanto, asegúrese de verificar el registro de ioBroker: allí se mostrarán los errores adicionales.",
+    "new value": "nuevo valor",
     "off": "apagado",
     "on": "en",
     "tabMain.Doc": "Instrucciones para este adaptador:",

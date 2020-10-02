@@ -13,6 +13,8 @@
         // this is necessary for the automatic typing of the adapter config
         "resolveJsonModule": true,
 
+        "noImplicitThis": false,                /* Raise error on 'this' expressions with an implied 'any' type. - https://github.com/Microsoft/TypeScript/issues/19639#issuecomment-590680337 */
+
         // Set this to false if you want to disable the very strict rules (not recommended)
         "strict": true,
         // Or enable some of those features for more fine-grained control
@@ -29,10 +31,19 @@
     },
     "include": [
         "**/*.js",
-        "**/*.d.ts"
+        "**/*.d.ts",
+		"../../iobroker.admin/www/lib/js/jquery-3.2.1.min.js",
+		"../../iobroker.admin/www/lib/js/socket.io.js",
+		"../../iobroker.admin/www/lib/js/materialize.js",
+		"../../iobroker.admin/www/js/adapter-settings.js",
+		"../../iobroker.admin/www/js/translate.js"
     ],
     "exclude": [
         "node_modules/**",
         "admin/**"
-    ]
+    ],
+
+	
 }
+
+
