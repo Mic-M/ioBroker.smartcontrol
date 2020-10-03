@@ -14,6 +14,6 @@ Double click or hit F2 on a selected target device to set individual values.<br>
  * **delay**: Delayed switch-on in seconds. This switches on the target device with a delay when the zone is activated. <br>*Example use case*: Switch on a power plug immediately, wait 30 seconds and then switch on the TV (e.g. because it does not react to IR commands before) and dim the light in the TV corner after 50 seconds.
 
 #### Please note
-This function has been extended with adapter version 0.5.3, in previous versions you could only set a new target value with **{** `new target value` **}**. Please change this occasionally to **{** `val:new target value` **}**, i.e. add the prefix `val:`. In newer adapter versions `val:` will be required for it to continue to work.
+This function was extended with adapter version 0.5.3, in the previous versions you could only set a new target value with e.g. **{** `Radio Chillout` **}**. This is still supported by the adapter. So if you only want to overwrite the target value you can simply enter **{** `Radio Chillout` **}** instead of **{** `val:Radio Chillout` **}**. But if you also want to set a **delay** you have to enter **{** `val:Radio Chillout, delay:20` **}**. Delay alone, i.e. **{** `delay:20` **}** works too, but then the target value will not be overwritten, of course.
 
 </details>
