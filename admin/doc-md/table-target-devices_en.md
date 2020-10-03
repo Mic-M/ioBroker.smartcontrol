@@ -15,4 +15,7 @@ For each table row this adapter adds linked states to `smartcontrol.x.targetDevi
 | Do not verify (on) | No | Before switching, it is always verified if the target device is already on according to "Value for 'on'". Activating this option disables this verification, and switching is always done. Use case: e.g. a button as a state. See [Github Issue #5](https://github.com/Mic-M/ioBroker.smartcontrol/issues/5). |
 | State to switch device off | Yes | states of the target device to switch off as soon as a timeout has been reached (e.g. no more motion and the motion sensor seconds have counted down to 0) or if the 'smartcontrol.x.targetDevices.xxx.[Device Name]` state has been changed. |
 | Value for 'off' | Yes | States value to be set in 'Switch off state'. You can use `true`, `false`, numbers like `144`, or strings like `turn radio on`. All spaces and quotation marks (like `"`) at the beginning and end are automatically removed.|
+| ![image](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/img/timelapse-24px.svg?raw=true)|  Nein   | **Delay for switching target device on (in seconds)** This allows you to set a delay: after this number of seconds the target device will actually be switched on.<br>Leave empty or set `0` to ignore this option. |
 | Do not verify (off) | No | See *Value for 'on'* above, bot for switching off, and not on. |
+
+

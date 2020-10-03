@@ -1157,7 +1157,7 @@ class SmartControl extends utils.Adapter {
 
                                     // Prepare delay
                                     const lpDelay    = (lpOverwriteObject.delay) ? lpOverwriteObject.delay : null;
-                                    if (this.x.helper.isNumber(lpDelay) && parseInt(lpDelay) > 0) {
+                                    if (this.x.helper.isNumber(lpDelay) && parseInt(lpDelay) >= 0) { // need also 0 so that user can de-activate
                                         finalObj.delay = parseInt(lpDelay);
                                     }
 
