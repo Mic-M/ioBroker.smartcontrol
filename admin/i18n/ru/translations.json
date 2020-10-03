@@ -76,6 +76,7 @@
     "new value": "новое значение",
     "off": "выключен",
     "on": "на",
+    "overwrite options": "параметры перезаписи",
     "tabMain.Doc": "Инструкция к этому адаптеру:",
     "tabMain.Welcome": "Добро пожаловать в адаптер Smart Control. Текущая ветка форума ioBroker",
     "tabOptions.extendedLogHeader": "Журнал расширенной информации",

@@ -76,6 +76,7 @@
     "new value": "novo valor",
     "off": "fora",
     "on": "em",
+    "overwrite options": "opções de sobrescrever",
     "tabMain.Doc": "Instruções para este adaptador:",
     "tabMain.Welcome": "Bem-vindo ao Adaptador Smart Control. Tópico atual do fórum ioBroker",
     "tabOptions.extendedLogHeader": "Registro de informações estendidas",

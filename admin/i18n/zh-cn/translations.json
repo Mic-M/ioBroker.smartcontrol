@@ -76,6 +76,7 @@
     "new value": "新价值",
     "off": "关",
     "on": "上",
+    "overwrite options": "覆盖选项",
     "tabMain.Doc": "该适配器的说明：",
     "tabMain.Welcome": "欢迎使用智能控制适配器。当前的ioBroker论坛线程",
     "tabOptions.extendedLogHeader": "扩展信息日志",

@@ -76,6 +76,7 @@
     "new value": "nuevo valor",
     "off": "apagado",
     "on": "en",
+    "overwrite options": "sobrescribir opciones",
     "tabMain.Doc": "Instrucciones para este adaptador:",
     "tabMain.Welcome": "Bienvenido al adaptador de control inteligente. Hilo actual del Foro ioBroker",
     "tabOptions.extendedLogHeader": "Registro de información extendido",

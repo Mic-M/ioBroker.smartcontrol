@@ -980,7 +980,7 @@ function fancytreeLoad(fancytreeId) {
                 
                 // Some additional HTML/CSS
                 $('input.fancytree-edit-input').addClass('browser-default');
-                $('input.fancytree-edit-input').before(`<span>${data.node.key.split('.').pop()} - ${_('new value')}: {</span>`);
+                $('input.fancytree-edit-input').before(`<span>${data.node.key.split('.').pop()} - ${_('overwrite options')}: {</span>`);
                 $('input.fancytree-edit-input').after(`<span>}</span>`);
 
                 const newVal = data.input.val();
