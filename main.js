@@ -52,6 +52,7 @@ class SmartControl extends utils.Adapter {
             // {object} timers    - All timer objects.
             timersZoneOn: {},    // for option "onAfter" in Zones table
             timersZoneOff: {},    // for option "offAfter" in Zones table
+            timersZoneDeviceOnDelay: {}, // for Zones devices, target overwrite delay
 
             // {object} schedules - All schedules (node-schedule)
             // NOTE: different level as in 'timers', key value holds the schedule object.
@@ -213,7 +214,7 @@ class SmartControl extends utils.Adapter {
                 const existingStatePath = lpState._id; // like: 'smartcontrol.0.userstates.Coffeemaker'
                 if ( statePathsUsed.indexOf(existingStatePath) == -1 ) {
                     // State is no longer used.
-                    await this.delObjectAsync(existingStatePath); // Delete state.                
+                    await this.delObjectAsync(existingStatePath); // Delete object and its state
                     this.log.debug(`State '${existingStatePath}' deleted, since trigger does no longer exist.'`);
                 }
             }
@@ -722,41 +723,24 @@ class SmartControl extends utils.Adapter {
             /**
              * Clear all timeouts
              */
+            
+            // Zone and zone device timers
             let timeoutCounter = 0;
 
-            // Zone on and Zone off timers
-            // TODO: merge the following two for loops
-            for (const timerName in this.x.timersZoneOn) {
-                // We need getTimeoutTimeLeft() for logging purposes only, but since we have the value, we are using it for firing clearTimeout condition as well.
-                const timeLeft = this.x.helper.getTimeoutTimeLeft(this.x.timersZoneOn[timerName]);
-                if (timeLeft > -1) {
-                    this.x.helper.logExtendedInfo('Clearing currently running zone timer: ' + timerName);
-                    clearTimeout(this.x.timersZoneOn[timerName]);
-                    this.x.timersZoneOn[timerName] = null;
-                    timeoutCounter++;
-                }
 
-            }
-            for (const timerName in this.x.timersZoneOff) {
-                // We need getTimeoutTimeLeft() for logging purposes only, but since we have the value, we are using it for firing clearTimeout condition as well.
-                const timeLeft = this.x.helper.getTimeoutTimeLeft(this.x.timersZoneOff[timerName]);
-                if (timeLeft > -1) {
-                    this.x.helper.logExtendedInfo('Clearing currently running zone timer: ' + timerName);
-                    clearTimeout(this.x.timersZoneOff[timerName]);
-                    this.x.timersZoneOff[timerName] = null;
-                    timeoutCounter++;
-                }
-
-            }
+            timeoutCounter += this._clearZoneTimeouts({
+                'timersZoneOn': 'zone on-timer',
+                'timersZoneOff': 'zone off-timer',
+                'timersZoneDeviceOnDelay': 'zone device on-timer',
+            });
 
             // Motion timers
             for (const triggerName in this.x.triggers) {
-                const timeLeft = this.x.helper.getTimeoutTimeLeft(this.x.triggers[triggerName]);
+                const timeLeft = this.x.helper.getTimeoutTimeLeft(this.x.triggers[triggerName].motionTimer);
                 if (timeLeft > -1) {
                     this.x.helper.logExtendedInfo('Clearing currently running motion timer: ' + triggerName);
-                    clearTimeout(this.x.triggers[triggerName]);
-                    clearTimeout(this.x.triggers[triggerName]);
-                    this.x.triggers[triggerName] = null;
+                    clearTimeout(this.x.triggers[triggerName].motionTimer);
+                    this.x.triggers[triggerName].motionTimer = null;
                     timeoutCounter++;
                 }
             }
@@ -785,6 +769,28 @@ class SmartControl extends utils.Adapter {
             this.x.helper.dumpError('Error while stopping adapter instance', error);
             callback(); // Callback must be called under any circumstances!
         }
+    }
+
+    /**
+     * Clear Timeouts
+     * @param {object} timerKeys - Like {'timersZoneOn': 'Zone on-timer', 'timersZoneOff': 'Zone off-timer'}
+     */
+    _clearZoneTimeouts(timerKeys) {
+        let timeoutCounter = 0;
+        for (const lpKey in timerKeys) {
+            const lpTimerTypeName = timerKeys[lpKey];
+            for (const timerName in this.x[lpKey]) {
+                // We need getTimeoutTimeLeft() for logging purposes only, but since we have the value, we are using it for firing clearTimeout condition as well.
+                const timeLeft = this.x.helper.getTimeoutTimeLeft(this.x[lpKey][timerName]);
+                if (timeLeft > -1) {
+                    this.x.helper.logExtendedInfo(`Clearing currently running ${lpTimerTypeName}: ${timerName}`);
+                    clearTimeout(this.x[lpKey][timerName]);
+                    this.x[lpKey][timerName] = null;
+                    timeoutCounter++;
+                }
+            }            
+        }
+        return timeoutCounter;
     }
 
 
@@ -1118,31 +1124,50 @@ class SmartControl extends utils.Adapter {
                                 // Like: "targetsOverwrite": { "Bath.Light": "true", "Hallway Light": "50"}
                                 const targetsOverwriteObject = this.config[functionConfigObj.tableId][i][lpFcnConfigCheckObj.id];
                                 if (this.x.helper.isLikeEmpty(targetsOverwriteObject)) continue; // nothing at this point
-                                    
+
                                 // loop thru the object to get the key name ("property")
                                 for (const lpProperty in targetsOverwriteObject) {
                                     const name = lpProperty; // like 'Bath.Light'
-                                    const lpStateVal        = targetsOverwriteObject[lpProperty];
-                                    const lpConfigTableName = functionConfigObj.tableName;
-                                    const lpStatePath = this.getOptionTableValue('tableTargetDevices', 'name', name, 'onState');
+                                    const lpOverwriteVal = targetsOverwriteObject[lpProperty]; // the new state value
+                                    const lpOverwriteObject = this.x.helper.convertStrToJson(lpOverwriteVal, ['val', 'delay']);
                                     
-                                    
-                                    if (!lpStatePath) {
-                                        // This is actually handled already by verifying table Target Devices, so no error here.    
-                                        continue;
-                                        // throw(`Unexpected Error - Unable to retrieve state path by name '${name}' from tableTargetDevices.`);
-                                    } 
+                                    // final object
+                                    const finalObj = {};
 
-                                    // Verify
-                                    const stateValueValidationResult = await this._asyncVerifyConfig_verifyStateValue(lpStatePath, lpStateVal, true, lpConfigTableName);
-
-                                    if (stateValueValidationResult.validationFailed) {
-                                        if (lpFcnConfigCheckObj.deactivateIfError) lpTable.table[i].active = false;
-                                        errors++; 
-                                        continue;
-                                    } else {
-                                        this.config[functionConfigObj.tableId][i][lpFcnConfigCheckObj.id][name] = stateValueValidationResult.newStateVal;
+                                    // Prep state value
+                                    const lpStateVal = (lpOverwriteObject.val) ? lpOverwriteObject.val : null;
+                                    if (lpStateVal !== null) {
+                                        const lpConfigTableName = functionConfigObj.tableName;
+                                        const lpStatePath = this.getOptionTableValue('tableTargetDevices', 'name', name, 'onState');                                    
+                                        if (!lpStatePath) {
+                                            continue; // This is actually handled already by verifying table Target Devices, so no error here.    
+                                            // throw(`Unexpected Error - Unable to retrieve state path by name '${name}' from tableTargetDevices.`);
+                                        } 
+                                        // Verify
+                                        const stateValueValidationResult = await this._asyncVerifyConfig_verifyStateValue(lpStatePath, lpStateVal, true, lpConfigTableName);
+                                        if (stateValueValidationResult.validationFailed) {
+                                            if (lpFcnConfigCheckObj.deactivateIfError) lpTable.table[i].active = false;
+                                            errors++; 
+                                            continue;
+                                        } else {
+                                            finalObj.val = stateValueValidationResult.newStateVal;
+                                            
+                                        }
                                     }
+
+                                    // Prepare delay
+                                    const lpDelay    = (lpOverwriteObject.delay) ? lpOverwriteObject.delay : null;
+                                    if (this.x.helper.isNumber(lpDelay) && parseInt(lpDelay) > 0) {
+                                        finalObj.delay = parseInt(lpDelay);
+                                    }
+
+                                    // Finalize
+                                    if(this.x.helper.isLikeEmpty(finalObj)) {
+                                        this.log.warn(`Verifying Targets Overwrite - failed for '${name}' - no keys found.`);
+                                    } else {
+                                        this.config[functionConfigObj.tableId][i][lpFcnConfigCheckObj.id][name] = finalObj;
+                                    }
+
                                 }
                             }
                         }

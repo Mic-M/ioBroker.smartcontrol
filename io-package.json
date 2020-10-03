@@ -1,8 +1,22 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "0.5.2",
+        "version": "0.5.3",
         "news": {
+            "0.5.3": {
+                "New features: new options in table zones": {
+                    "en": "New feature: ZONES - target devices: you can now assign a delay in seconds to wait until the device is being switched on",
+                    "de": "Neues Feature: ZONEN - Zielgeräte: Du kannst jetzt eine Verzögerung in Sekunden zuweisen, um zu warten, bis das Gerät eingeschaltet wird",
+                    "ru": "Новая функция: ЗОНЫ - целевые устройства: теперь вы можете назначить задержку в секундах, чтобы дождаться включения устройства.",
+                    "pt": "Novo recurso: ZONES - dispositivos alvo: agora você pode atribuir um atraso em segundos para esperar até que o dispositivo seja ligado",
+                    "nl": "Nieuwe functie: ZONES - doelapparaten: u kunt nu een vertraging in seconden toewijzen om te wachten tot het apparaat wordt ingeschakeld",
+                    "fr": "Nouvelle fonctionnalité: ZONES - équipements cibles: vous pouvez désormais attribuer un délai en secondes pour attendre la mise en marche de l'appareil",
+                    "it": "Nuova funzionalità: ZONE - dispositivi di destinazione: ora puoi assegnare un ritardo in secondi per attendere fino all'accensione del dispositivo",
+                    "es": "Nueva función: ZONAS - dispositivos de destino: ahora puede asignar un retraso en segundos para esperar hasta que el dispositivo se encienda",
+                    "pl": "Nowa funkcja: STREFY - urządzenia docelowe: możesz teraz przypisać opóźnienie w sekundach, aby poczekać, aż urządzenie zostanie włączone",
+                    "zh-cn": "新功能：ZONES-目标设备：您现在可以指定以秒为单位的延迟时间，直到设备启动为止"
+                }
+            },
             "0.5.0": {
                 "New features: new options in table zones": {
                     "en": "New features: new options in table zones",

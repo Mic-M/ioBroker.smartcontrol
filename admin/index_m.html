@@ -602,8 +602,10 @@
                             <label for="fancy-filter-input"></label>
                             <div id="matches"></div>
                         </div>
-                        <div class="row" id="fancy-explanation">
-                            <span class="translate">dialog.selectSettings.explanation</span>
+                        <div class="row" id="fancy-explanation"> <!-- will be hidden if editTargetVals is false -->
+                            <!-- Importing Markdown -->
+                            <zero-md id="md-tableZonesSelectTargets" manual-render src="doc-md/table-zones_select-targets_en.md"></zero-md>
+                            <!-- <span class="translate">dialog.selectSettings.explanation</span> -->
                         </div>
                         <!-- The Fancy Tree -->
                         <div class="row" id="fancytree-select-settings"></div>

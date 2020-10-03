@@ -90,6 +90,10 @@ This is just to provide you an overview of the adapter options.
 
 ## Changelog
 
+### 0.5.3
+* (Mic-M) New feature: ZONES - target devices: you can now assign a delay in seconds to wait until the device is being switched on
+* (Mic-M) Various fixes
+
 ### 0.5.2
 * (Mic-M) Fix: Removed redundant column in Target Devices table
 * (Mic-M) Fix: Under the hood (admin/index_m.js, admin/tsconfig.json, admin/admin.d.ts)

@@ -130,7 +130,7 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
 
     // This handles if the save button is clickable or not.
     // From Adapter Creator.
-    $('.value').each( () => {
+    $('.value').each(function() {
         const $key = $(this);
         const id = $key.attr('id');
         if (!id) {
@@ -240,7 +240,7 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
     onTabShow('#tabSchedules');
     // --
 
-    $('ul.tabs li a').on('click', () => { 
+    $('ul.tabs li a').on('click', function() { 
         onTabShow($(this).attr('href'));
     });
     function onTabShow(tabId){
@@ -280,11 +280,11 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
     function otherTriggersShowHideUserStates() {
 
         const jQueryStrCheckbox = `#tableTriggerDevices input[type="checkbox"][data-name="userState"]`;
-        $(jQueryStrCheckbox).each( () => {
+        $(jQueryStrCheckbox).each(function() {
             doOrNot($(this));
         });
         
-        $(jQueryStrCheckbox).on('change', () => {
+        $(jQueryStrCheckbox).on('change', function() {
             doOrNot($(this));
         });
 
@@ -352,6 +352,7 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
     
     const fieldChangeConfig = [
         {changedTableId:'tableTargetDevices', targetTableId:'tableZones', targetId:'targets'},
+        {changedTableId:'tableTargetEnums', targetTableId:'tableZones', targetId:'targets'},
         {changedTableId:'tableConditions', targetTableId:'tableTriggerTimes', targetId:'additionalConditions'},
         {changedTableId:'tableConditions', targetTableId:'tableTriggerTimes', targetId:'never'},
         {changedTableId:'tableConditions', targetTableId:'tableZones', targetId:'neverOff'},
@@ -376,7 +377,7 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
             // *             So we use $(document).on(), which works well.
             $(document).on('focusin', jQueryName, function(){ $(this).data('old-val', $(this).val()); });
             //$(jQueryName).on('change', function(){
-            $(document).on('change',jQueryName, ()=> {
+            $(document).on('change',jQueryName, function() {
                 const previousValue = $(this).data('old-val').trim();
                 const newValue = $(this).val().trim();
                 if (previousValue != newValue && newValue.length > 0) {
@@ -675,7 +676,7 @@ function save(callback) { /*eslint-disable-line no-unused-vars*/
      * (from Adapter Creator)
      */ 
     const obj = {};
-    $('.value').each(function () {
+    $('.value').each(function() {
         const $this = $(this);
         if ($this.attr('type') === 'checkbox') {
             obj[$this.attr('id')] = $this.prop('checked');
@@ -898,7 +899,7 @@ function initSelectId (cb) {
 function statePathPopupSelection(tableId, dataCommand, targetField) { 
     
     const queryResult = $(`#${tableId} a.values-buttons[data-command="${dataCommand}"]`);
-    queryResult.on('click', function () {
+    queryResult.on('click', function() {
         const id = $(this).data('index');
         initSelectId(function (sid) {
             sid.selectId('show', $(`#${tableId} .values-input[data-name="${targetField}"][data-index="${id}"]`).val(), function (statePath) {
@@ -998,7 +999,7 @@ function fancytreeLoad(fancytreeId) {
             close: function(event, data) {
                 const key = data.node.key; // key, like "Bath.Lights.Mirror Light"
                 const nodeTitle = key.split('.').pop(); // like 'Mirror Light'                
-                const newVal = data.node.title; // actually the new value user entered, which is in "close" event this here
+                const newVal = data.node.title; // the new value which the user entered
                 if (!newVal || newVal.length < 1) {
                     data.node.setTitle(nodeTitle);
                 } else if (newVal.startsWith(nodeTitle)) {

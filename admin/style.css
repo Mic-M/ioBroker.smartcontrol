@@ -133,8 +133,9 @@ code { padding: 2px 4px; font-size: 1.05em !important; color: #2696ef; backgroun
 #dialog-select-settings .fancytree-plain.fancytree-container.fancytree-treefocus span.fancytree-active span.fancytree-title {background-color: #cbe8f6; color:black; font-style: normal;}
 #dialog-select-settings .fancytree-plain.fancytree-container.fancytree-treefocus span.fancytree-selected span.fancytree-title {background-color: #2696ef; color:white; font-style: normal;}
 #dialog-select-settings span.fancytree-title {font-size:16px !important;}
-#dialog-select-settings #fancy-explanation {font-size:.9em; font-style: italic; color:#21448f}
-#dialog-select-settings .modal-content {padding-bottom: 0 !important; padding-right: 0 !important; height: calc(100% - 10px)!important }
+/* #dialog-select-settings #fancy-explanation {font-size:.9em; font-style: italic; color:#21448f} */
+#dialog-select-settings #fancytree-select-settings {display:inline !important}
+#dialog-select-settings .modal-content {padding-bottom: 0 !important; padding-right: 0 !important; height: calc(100% - 50px)!important }
 
 /* Dialog called once SAVE button clicked and verification failed */
 #dialog-save-verification div.error-section { font-size: 1.3em; }
