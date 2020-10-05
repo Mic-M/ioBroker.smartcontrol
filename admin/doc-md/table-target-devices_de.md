@@ -1,8 +1,8 @@
 Gib hier alle Zielgeräte ein, die Du schalten möchtest, sobald ein Auslöser aktiviert wird und die Bedingungen in den Zonen erfüllt sind.
 
 *Warum sind hier unterschiedliche Datenpunkte für das Ein- und Ausschalten?*
-Normalerweise sind diese gleich (Datenpunkt erwartet `true`/`false`) für das Ein-/Ausschalten, aber in bestimmten Fällen benötigen Benutzer einen anderen Datenpunkt und Datenpunkt-Wert, um ein Gerät ein- oder auszuschalten. Beispiel: fully-tablet-control.0.device.tablet_bathroom.commands.screenOn und fully-tablet-control.0.device.tablet_bathroom.commands.screenOff.
-Du kannst auch Datenpunkte hinzufügen, die nicht boolean (`true`/`false`), sondern String oder Zahl sind.
+Normalerweise sind diese gleich (Datenpunkt erwartet `true`/`false`) für das Ein-/Ausschalten, aber in bestimmten Fällen benötigen Benutzer einen anderen Datenpunkt und Datenpunkt-Wert, um ein Gerät ein- oder auszuschalten. Beispiel: `fully-tablet-control.0.device.tablet_bathroom.commands.screenOn` und `fully-tablet-control.0.device.tablet_bathroom.commands.screenOff`.
+<br>Du kannst auch Datenpunkte hinzufügen, die nicht boolean (`true`/`false`), sondern String oder Zahl sind.
 
 Für jede Tabellenzeile fügt dieser Adapter verknüpfte Datenpunkte zu `smartcontrol.x.targetDevices.xxx` hinzu. Wenn du diese Datenpunkte änderst, wird der ursprüngliche Ziel-Datenpunkt entsprechend geändert, und umgekehrt.
 

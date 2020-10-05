@@ -89,6 +89,9 @@
                         </div>
                         <!-- Importing Markdown -->
                         <zero-md id="md-start" manual-render src="doc-md/start_en.md"></zero-md>
+                        <div>
+                            <p style="margin-top: 25px"><span class="translate">Adapter Version</span>: <span id="adapter-version"></span></p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -101,11 +104,14 @@
                ██    ██   ██ ██████         ██    ██   ██ ██   ██  ██████  ███████    ██        ██████  ███████   ████   ██  ██████ ███████ ███████ 
             -->
             <div id="tabDevices" class="col s12 page">
+                <!-- *************************************************************
+                     * TABLE -Target devices: states   
+                     *************************************************************-->
                 <div class="row spaceTop3em">
                     <div class="col s12">
                         <ul class="collapsible">
                             <li>
-                                <div class="collapsible-header config-section"><h5 class="translate">Target devices</h5><i class="material-icons">help_outline</i>
+                                <div class="collapsible-header config-section"><h5 class="translate">Target devices: states</h5><i class="material-icons">help_outline</i>
                                 </div>
                                 <div class="collapsible-body">
                                     <!-- Importing Markdown -->
@@ -149,6 +155,9 @@
                     </div>
                 </div>
 
+                <!-- *************************************************************
+                     * TABLE -Targets: Enums
+                     *************************************************************-->                
                 <div class="row spaceTop3em">
                     <div class="col s12">
                         <ul class="collapsible">
@@ -191,7 +200,54 @@
                     </div>
                 </div>                        
 
-
+                <!-- *************************************************************
+                     * TABLE -Targets: URL
+                     *************************************************************-->                
+<!--
+                     <div class="row spaceTop3em">
+                        <div class="col s12">
+                            <ul class="collapsible">
+                                <li>
+                                    <div class="collapsible-header config-section"><h5 class="translate">Targets: URLs</h5><i class="material-icons">help_outline</i></div>
+                                    <div class="collapsible-body">
+-->
+                                        <!-- Importing Markdown -->
+<!--
+                                        <zero-md id="md-tableTargetURLs" manual-render src="doc-md/table-target-url_en.md"></zero-md>
+                                    </div>
+                                </li>
+                            </ul>
+                        -->
+                            <!-- Start Options Table -->
+<!--
+                            <div class="col s12" id="tableTargetURLs">
+                                <div class="row valign-wrapper" style="margin-bottom:5px">
+                                    <div class="col"><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></div>
+                                    <div class="table-filter input-field col s12 m6 l12">
+                                        <input type="text" placeholder="Filter" />
+                                        <button class="btn-floating waves-effect waves-light blue btn-small" title="Clear filter"><i class="material-icons">clear</i></button>
+                                    </div>
+                                </div>
+                                <div class="table-values-div">
+                                    <table class="table-values">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 30px" class="header" data-name="active" data-type="checkbox"><i class="material-icons left">check_box</i></th>
+                                                <th style="width: 300px" class="header translate" data-name="name">Name</th>
+                                                <th class="header" data-name="scStatePath"><span class="translate">State Path</span>: smartcontrol.0.targetURLs.xxx</th>
+                                                <th class="header translate" data-name="url">URL</th>
+                                                <th style="width: 160px" class="header" data-buttons="up down copy_smart delete"></th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>                        
+                        -->
+                            <!-- End Options Table -->
+<!--
+                        </div>
+                    </div>   
+-->
             </div>
 
             <!--

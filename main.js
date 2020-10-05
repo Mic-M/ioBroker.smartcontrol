@@ -48,6 +48,7 @@ class SmartControl extends utils.Adapter {
             Trigger:   require('./lib/trigger-class.js'), // Class for Triggers and Target devices handling
             mSuncalc:  require('suncalc2'),               // https://github.com/andiling/suncalc2
             mSchedule: require('node-schedule'),          // https://github.com/node-schedule/node-schedule
+            mGot:      require('got'),                    // https://github.com/sindresorhus/got || This is a 'request' replacement due to https://nodesource.com/blog/express-going-into-maintenance-mode#alternativestorequest
 
             // {object} timers    - All timer objects.
             timersZoneOn: {},    // for option "onAfter" in Zones table
@@ -232,10 +233,13 @@ class SmartControl extends utils.Adapter {
 
 
             /**
-             * Create smartcontrol.x.targetDevices.xxx states.
+             * Create States:
+             *  A - smartcontrol.x.targetDevices.xxx states.
+             *  B - smartcontrol.x.targetURLs.xxx states.
              */
             const statesToBeCreated = [];
             const statePaths = [];
+            // A - smartcontrol.x.targetDevices.xxx states.
             for (const lpRow of this.config.tableTargetDevices) {
                 if (!lpRow.active) continue;
                 if(/_enum-\d{1,3}$/.test(lpRow.name)) continue; // don't add enums
@@ -245,6 +249,39 @@ class SmartControl extends utils.Adapter {
                 statesToBeCreated.push({statePath:lpStatePath, commonObject:lpCommon});
                 statePaths.push(lpStatePath);
             }
+            // B - smartcontrol.x.targetURLs.xxx states.
+            for (const lpRow of this.config.tableTargetURLs) {
+                if (!lpRow.active) continue;
+
+                const lpBaseStatePath = lpRow.scStatePath; // ${this.namespace} already added in asyncVerifyConfig()
+
+                const statesToProcess = {
+                    // state   | common object to set
+                    'send':     { name: `Send '${lpRow.url}'`,        type: 'boolean', read: true, write: true,  role: 'button', def: false },
+                    'result':   { name: `Result from '${lpRow.url}'`, type: 'string',  read: true, write: false, role: 'state', def: '' }
+                };
+                for (const lpKeyName in statesToProcess) {
+                    const obj = await this.getObjectAsync(lpBaseStatePath + '.' + lpKeyName);
+                    if (obj) {
+                        // Object exists, so we just update the name in common.
+                        // https://discordapp.com/channels/743167951875604501/743171252377616476/762360203878072391
+                        await this.extendObjectAsync(lpBaseStatePath + '.' + lpKeyName, {common:{name:statesToProcess[lpKeyName].name}});
+                    } else {
+                        statesToBeCreated.push({
+                            statePath:lpBaseStatePath + '.' + lpKeyName, 
+                            commonObject:statesToProcess[lpKeyName]
+                        });
+                    }
+                    statePaths.push(lpBaseStatePath + '.' + lpKeyName,);                    
+
+                }
+                statesToBeCreated.push({
+                    statePath:lpBaseStatePath + '.result', 
+                    commonObject:{ name: `Result from '${lpRow.url}'`, type: 'string', read: true, write: false, role: 'state', def: '' }
+                });
+                statePaths.push(lpBaseStatePath + '.result');
+
+            }
 
             // Create all states
             const createStatesResult = await this.x.helper.asyncCreateStates(statesToBeCreated);
@@ -253,8 +290,9 @@ class SmartControl extends utils.Adapter {
             // Delete all states which are no longer used.
             const allTargetDevicesStates = await this.getStatesOfAsync('targetDevices');
             if (allTargetDevicesStates == undefined) throw (`getStatesOfAsync(): Could not get adapter instance state paths for 'targetDevices'.`);
-
-            for (const lpState of allTargetDevicesStates) {
+            const allTargetURLsStates = await this.getStatesOfAsync('targetURLs');
+            if (allTargetURLsStates == undefined) throw (`getStatesOfAsync(): Could not get adapter instance state paths for 'targetURLs'.`);
+            for (const lpState of allTargetDevicesStates.concat(allTargetURLsStates)) {
                 const statePath = lpState._id; // like: 'smartcontrol.0.targetDevices.Coffeemaker'
                 if ( statePaths.indexOf(statePath) == -1 ) {
                     // State is no longer used.
@@ -408,6 +446,13 @@ class SmartControl extends utils.Adapter {
                 if (lpRow.active) {
                     await this.subscribeForeignStatesAsync(lpRow.onState);
                     await this.subscribeForeignStatesAsync(lpRow.offState);
+                }
+            }
+            
+            // STATE SUBSCRIPTION: to all smartcontrol.x.targetURLs states
+            for (const lpRow of this.config.tableTargetURLs) {
+                if (lpRow.active) {
+                    await this.subscribeStatesAsync(lpRow.scStatePath + '.send');
                 }
             }
             
@@ -578,7 +623,7 @@ class SmartControl extends utils.Adapter {
              * State Change: smartcontrol.0.options.XXX.XXX.active
              */
             if (statePath.startsWith(`${this.namespace}.options.`) && statePath.endsWith('.active')) {
-                this.log.debug(`State Change: smartcontrol.0.options.XXX.XXX.active - Subscribed state '${statePath}' changed.`);
+                this.log.debug(`smartcontrol options.XXX.XXX.active - Subscribed state '${statePath}' changed.`);
 
                 // {name:'Hallway', index:2, table:'tableZones', field:'active', row:{.....} }
                 const optionObj = await this._asyncGetOptionForOptionStatePath(statePath);
@@ -608,7 +653,7 @@ class SmartControl extends utils.Adapter {
              * State Change: smartcontrol.0.options.TriggerMotion.xxx.duration and .briThreshold
              */
             if (statePath.startsWith(`${this.namespace}.options.TriggerMotion.`) && (statePath.endsWith('.duration') || (statePath.endsWith('.briThreshold') ))) {
-                this.log.debug(`State Change: smartcontrol.0.options.TriggerMotion<duration|briThreshold> - Subscribed state '${statePath}' changed.`);
+                this.log.debug(`smartcontrol options.TriggerMotion<duration|briThreshold> - Subscribed state '${statePath}' changed.`);
 
                 // {name:'Motion.Bathroom', index:2, table:'tableTriggerMotion', field:'active', row:{.....} }
                 const optionObj = await this._asyncGetOptionForOptionStatePath(statePath);
@@ -637,10 +682,10 @@ class SmartControl extends utils.Adapter {
 
 
             /**
-             * State Change: smartcontrol.0.targetDevices.xxx
+             * State Change: smartcontrol.x.targetDevices.xxx
              */                
             else if (statePath.startsWith(`${this.namespace}.targetDevices.`)) {
-                this.log.debug(`State Change: smartcontrol.0.targetDevices.xxx - Subscribed state '${statePath}' changed.`);
+                this.log.debug(`smartcontrol targetDevices - Subscribed state '${statePath}' changed.`);
 
                 let targetDevicesRow = {};
                 for (const lpRow of this.config.tableTargetDevices) {
@@ -659,6 +704,36 @@ class SmartControl extends utils.Adapter {
     
                 // confirm by ack:true
                 await this.setStateAsync(statePath, {val: stateObject.val, ack: true });
+
+            } 
+
+            /**
+             * State Change: smartcontrol.0.targetURLs.xxx
+             */                
+            else if (statePath.startsWith(`${this.namespace}.targetURLs.`)) {
+                this.log.debug(`smartcontrol targetURLs - Subscribed state '${statePath}' changed.`);
+
+                // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                // smartcontrol.0.targetURLs. was added in asyncVerifyConfig(), so no need to remove here
+                const tableTargetURLsPath = statePath.substring(0, statePath.length-5); // remove '.send'
+                const url = this.getOptionTableValue('tableTargetURLs', 'scStatePath', tableTargetURLsPath, 'url');
+
+                if (url) {
+                    // https://github.com/sindresorhus/got#promise
+                    (async () => {
+                        try {
+                            const response = await this.x.mGot(url);
+                            this.log.info(response.body);
+                            //=> '<!doctype html> ...'
+                        } catch (error) {
+                            this.log.error(error.response.body);
+                            //=> 'Internal server error ...'
+                        }
+                    })();
+                } else {
+                    this.log.error(`Could not get URL from Table 'Targets: URLs' - triggered state: ${statePath}`);
+                }
+                // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
             } 
 
@@ -947,6 +1022,9 @@ class SmartControl extends utils.Adapter {
                             // Special for tableTriggerDevices - userState
                             const isUserState = ((functionConfigObj.tableId == 'tableTriggerDevices') && lpTable.table[i].userState) ? true : false;
 
+                            // Special for tableTargetURLs - targetURLs
+                            const isTableTargetURLs = ((functionConfigObj.tableId == 'tableTargetURLs')) ? true : false;
+
                             // Config table: the string from config table row, like '0.userdata.0.abc.def', 'true', 'false', 'Play Music', etc.
                             let lpConfigString = lpTable.table[i][lpFcnConfigCheckObj.id];
 
@@ -967,6 +1045,13 @@ class SmartControl extends utils.Adapter {
                                     }
                                 }
 
+                                // Special treatment for tableTargetURLs - targetURLs
+                                if (isTableTargetURLs) {
+                                    if(!lpConfigString.startsWith(this.namespace + '.targetURLs.')) {
+                                        lpConfigString = this.namespace + '.targetURLs.' + lpConfigString;
+                                    }
+                                }
+
                                 if (!this.x.helper.isStateIdValid(lpConfigString)) {
                                     // State path is not valid
                                     this.log.warn(`[Config Table '${functionConfigObj.tableName}'] ${lpFcnConfigCheckObj.id} - State '${lpConfigString}' is not valid.`);
@@ -978,7 +1063,7 @@ class SmartControl extends utils.Adapter {
                                     continue;
                                 }
 
-                                if (!isUserState) {
+                                if (!isUserState && !isTableTargetURLs) {
                                     const lpStateObject = await this.getForeignObjectAsync(lpConfigString);
                                     if (!lpStateObject) {
                                         // State does not exist
@@ -1018,7 +1103,28 @@ class SmartControl extends utils.Adapter {
                                         this.config[functionConfigObj.tableId][i][lpFcnConfigCheckObj.id] = stateValueResult.newStateVal;
                                     }
                                 }
-                    
+
+                            // +++++++ VALIDATION TYPE: URL +++++++
+                            } else if (lpFcnConfigCheckObj.type == 'url') {
+                                const urlToCheck = lpTable.table[i][lpFcnConfigCheckObj.id];
+                                const checkResult = this.x.helper.validateURL(urlToCheck, true, true);
+                                if (checkResult == null) {
+                                    if (lpFcnConfigCheckObj.deactivateIfError) {
+                                        lpTable.table[i].active = false;
+                                        rowActiveStatus[i] = false;
+                                    }
+                                    this.log.warn(`[Config Table '${functionConfigObj.tableName}'] - URL '${urlToCheck}' is not a valid URL.`);
+                                    errors++;
+                                    continue;
+                                } else {
+                                    lpTable.table[i][lpFcnConfigCheckObj.id] = checkResult;
+                                    /*
+                                    if (urlToCheck !== checkResult) {
+                                        this.config[functionConfigObj.tableId][i][lpFcnConfigCheckObj.id] = checkResult;
+                                    }
+                                    */
+                                }                                
+                                
                             // +++++++ VALIDATION TYPE: a number +++++++
                             } else if (lpFcnConfigCheckObj.type == 'number') {
 
@@ -1392,7 +1498,7 @@ class SmartControl extends utils.Adapter {
                 const lpEnumFuncName = lpEnumRow.enumId;
                 const lpEnumRooms = lpEnumRow.enumRooms;
 
-                if (this.x.helper.isLikeEmpty(lpEnumFuncName)) continue;
+                if (this.x.helper.isLikeEmpty(lpEnumFuncName) || !lpEnumFuncName) continue;
 
                 let finalStates = [];
                 

@@ -3,7 +3,7 @@
   <summary style="font-size:1.3em; border:1px solid #ddd; background-color:#E0EBF3; color:black; padding:10px 0 10px 5px">Über diesen Adapter</summary> <!-- Header -->
   <!-- Markdown Collapsible Section - We must have an empty line below (per link above)  -->
 
-In unserer Heim-Automation haben wir ja diverse **Auslöser**, z.B.
+<br>In unserer Heim-Automation haben wir ja diverse **Auslöser**, z.B.
  * Bewegungsmelder im Flur löst aus, 
  * ein Wandschalter wird gedrückt, 
  * eine bestimmte Zeit tritt ein (etwa 30 Minuten nach Sonnenuntergang oder Mo-Fr um 7:00)
@@ -24,7 +24,7 @@ Ziel ist, hiermit viele JavaScripts und Blockly abzulösen und eine sehr anwende
   <summary style="font-size:1.3em; border:1px solid #ddd; background-color:#E0EBF3; color:black; padding:10px 0 10px 5px">Wie am besten starten?</summary> <!-- Header -->
   <!-- Markdown Collapsible Section - We must have an empty line below (per link above)  -->
 
-Du gehst einfach durch die einzelnen Options-Seiten (obige Reiter) wie folgt durch:
+<br>Du gehst einfach durch die einzelnen Options-Seiten (obige Reiter) wie folgt durch:
 
 | Reiter | Was machen |
 |--------|------------|

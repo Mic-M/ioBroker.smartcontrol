@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "0.5.4",
+        "version": "0.5.5-alpha.0",
         "news": {
             "0.5.3": {
                 "New features: new options in table zones": {
@@ -262,6 +262,14 @@
                 "noTargetOffCheck": false
             }
         ],
+        "tableTargetURLs": [
+            {
+              "active": false,
+              "name": "Bad.EG.URL",
+              "scStatePath": "Samsung-TV.Einschalten",
+              "url": "http://192.168.100.10:8580/?cmd=process"
+            }
+          ],        
         "tableTriggerTimes": [
             {
                 "active": true,

@@ -1,7 +1,7 @@
 /* eslint-disable no-irregular-whitespace */
 /* eslint-disable-next-line no-undef */
 /* eslint-env jquery, browser */               // https://eslint.org/docs/user-guide/configuring#specifying-environments
-/* global getEnums, systemLang, socket, values2table, table2values, M, _, instance */  // for eslint
+/* global getEnums, common, systemLang, socket, values2table, table2values, M, _, instance */  // for eslint
 /**
  * List of some global constants
  *
@@ -26,6 +26,7 @@ const adapterNamespace = `smartcontrol.${instance}`;
 const tableIds = [
     'tableTargetDevices', 
     'tableTargetEnums',
+    'tableTargetURLs',
     'tableConditions', 
     'tableTriggerMotion', 
     'tableTriggerDevices', 
@@ -38,11 +39,27 @@ for (const lpTableId of tableIds) {
     optionTablesSettings[lpTableId] = [];
 }
 
-// Enums
-const enums = {
-    rooms: {},
-    functions: {}
-};
+/**
+ * Enums
+ */
+const enums = {};
+getTargetEnums('rooms', (res)=> {
+    if(res) {
+        enums.rooms = res;
+    } else {
+        console.warn(`No room enumerations found, so you cannot select rooms in Targets > Enums`);
+    }
+});
+getTargetEnums('functions', (res)=>{
+    if(res) {
+        enums.functions = res;
+    } else {
+        console.warn(`No function enumerations found, so you cannot use Targets > Table 'Target Devices: Enums'.`);        
+    }
+});
+
+
+
 
 /** More Globals, being set once load() is called */
 let g_settings; // To have globally the settings available.
@@ -57,6 +74,9 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
     // Adapter Settings
     if (!settings) return;
     g_settings = settings;
+
+    const adapterVersion = common.version;
+    $('#tabMain span#adapter-version').html(adapterVersion);
 
     /**
      * Apply markdown for documentation through https://github.com/zerodevx/zero-md
@@ -101,22 +121,8 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
     /**
      * tableTargetEnums: set enum room and function names to drop down (multiple select) fields
      */
-    getTargetEnums('rooms', (res)=> {
-        if(res) {
-            enums.rooms = res;
-            $('#tableTargetEnums *[data-name="enumRooms"]').data('options', res.join(';'));
-        }
-    });
-    getTargetEnums('functions', (res)=>{
-        if(res) {
-            enums.functions = res;
-            $('#tableTargetEnums *[data-name="enumId"]').data('options', res.join(';'));
-        }
-    });
-
-
-
-
+    $('#tableTargetEnums *[data-name="enumRooms"]').data('options', enums.rooms.join(';'));
+    $('#tableTargetEnums *[data-name="enumId"]').data('options', enums.functions.join(';'));
 
     /**
      * Set tableZones>targetsOverwrite to global variable
@@ -182,6 +188,9 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
                 addCopyTableRowSmarter(tableId);
                 break;
             case 'tableTargetEnums':
+                addCopyTableRowSmarter(tableId);
+                break;
+            case 'tableTargetURLs':
                 addCopyTableRowSmarter(tableId);
                 break;
             case 'tableConditions':
@@ -270,7 +279,7 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
             case '#tabZones':
                 $('.collapsible').collapsible(); // https://materializecss.com/collapsible.html
                 populateTable(['tableTriggerMotion', 'tableTriggerDevices', 'tableTriggerTimes'], ['name', 'name', 'name'], 'tableZones', 'triggers');
-                populateTable(['tableTargetDevices', 'tableTargetEnums'], ['name', 'name'], 'tableZones', 'targets');
+                populateTable(['tableTargetDevices', 'tableTargetEnums', 'tableTargetURLs'], ['name', 'name', 'name'], 'tableZones', 'targets');
                 populateTable('tableConditions', 'name', 'tableZones', 'neverOff');
                 break;
 
@@ -353,6 +362,7 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
     const fieldChangeConfig = [
         {changedTableId:'tableTargetDevices', targetTableId:'tableZones', targetId:'targets'},
         {changedTableId:'tableTargetEnums', targetTableId:'tableZones', targetId:'targets'},
+        {changedTableId:'tableTargetURLs', targetTableId:'tableZones', targetId:'targets'},
         {changedTableId:'tableConditions', targetTableId:'tableTriggerTimes', targetId:'additionalConditions'},
         {changedTableId:'tableConditions', targetTableId:'tableTriggerTimes', targetId:'never'},
         {changedTableId:'tableConditions', targetTableId:'tableZones', targetId:'neverOff'},
@@ -711,7 +721,7 @@ function save(callback) { /*eslint-disable-line no-unused-vars*/
 
     // All tables
     const tablesToCheck = [
-        {tabName:'1. TARGET DEVICES', tableRows:obj.tableTargetDevices.concat(obj.tableTargetEnums)},
+        {tabName:'1. TARGET DEVICES', tableRows:obj.tableTargetDevices.concat(obj.tableTargetEnums, obj.tableTargetURLs)},
         {tabName:'3. TRIGGERS', tableRows:obj.tableTriggerMotion.concat(obj.tableTriggerDevices, obj.tableTriggerTimes)},
         {tabName:'4. ZONES', tableRows:obj.tableZones},
     ];
@@ -767,7 +777,8 @@ function save(callback) { /*eslint-disable-line no-unused-vars*/
         $('#dialog-save-verification').modal('open'); 
         return; // do not save
     }   
-
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    console.warn('SAVE: ' + JSON.stringify(obj.tableTargetEnums));
     // Finally, save settings by calling callback function and provide the settings object
     callback(obj);
 }

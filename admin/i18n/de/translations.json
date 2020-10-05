@@ -1,4 +1,6 @@
 {
+    "Target devices: states": "Zielgeräte: Datenpunkte",
+    "Adapter Version": "Adapter-Version",
     "Additional conditions": "Zusätzliche Bedingungen",
     "Always": "Immer",
     "Astro times 'night' and 'nightEnd'": "Astro-Zeiten 'night' und 'nightEnd'",
