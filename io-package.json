@@ -1,8 +1,22 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "0.5.5",
+        "version": "0.5.6",
         "news": {
+            "0.5.6": {
+                "Hotfix: loading admin settings for enums": {
+                    "en": "Hotfix: loading admin settings for enums",
+                    "de": "Hotfix: Laden der Administratoreinstellungen für Aufzählungen",
+                    "ru": "Исправление: загрузка настроек администратора для перечислений",
+                    "pt": "Hotfix: carregando configurações de administrador para enums",
+                    "nl": "Hotfix: admin-instellingen laden voor enums",
+                    "fr": "Hotfix: chargement des paramètres d'administration pour les énumérations",
+                    "it": "Hotfix: caricamento delle impostazioni di amministrazione per le enumerazioni",
+                    "es": "Revisión: carga de la configuración de administrador para enumeraciones",
+                    "pl": "Poprawka: ładowanie ustawień administratora dla wyliczeń",
+                    "zh-cn": "修补程序：加载枚举的管理员设置"
+                }
+            },
             "0.5.3": {
                 "New features: new options in table zones": {
                     "en": "New feature: ZONES - target devices: you can now assign a delay in seconds to wait until the device is being switched on",

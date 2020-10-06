@@ -43,22 +43,6 @@ for (const lpTableId of tableIds) {
  * Enums
  */
 const enums = {};
-getTargetEnums('rooms', (res)=> {
-    if(res) {
-        enums.rooms = res;
-    } else {
-        console.warn(`No room enumerations found, so you cannot select rooms in Targets > Enums`);
-    }
-});
-getTargetEnums('functions', (res)=>{
-    if(res) {
-        enums.functions = res;
-    } else {
-        console.warn(`No function enumerations found, so you cannot use Targets > Table 'Target Devices: Enums'.`);        
-    }
-});
-
-
 
 
 /** More Globals, being set once load() is called */
@@ -69,8 +53,35 @@ const g_zonesTargetsOverwrite = {}; // { 'Hallway': {'Hallway.Light':'new val' '
 /************************************************************************
  *** This is called by the admin adapter once the settings page loads ***
  ************************************************************************/
-function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
+function load (settings, onChange) { /*eslint-disable-line no-unused-vars*/
 
+    /**
+     * 06-October-2020
+     * Once load() is called, we need to get the enums, before we continue.
+     * Quickly implemented with callbacks and call load2() once completed.
+     * TODO: Do this more beautiful and with better performance, like with Promise.all() if supported by current browsers
+     */
+    getTargetEnums('rooms', (res)=> {
+        if(res) {
+            enums.rooms = res;
+        } else {
+            console.warn(`No room enumerations found, so you cannot select rooms in Targets > Enums`);
+        }
+        getTargetEnums('functions', (res)=>{
+            if(res) {
+                enums.functions = res;
+            } else {
+                console.warn(`No function enumerations found, so you cannot use Targets > Table 'Target Devices: Enums'.`);        
+            }
+            load2(settings, onChange);
+        });
+    });
+
+
+}
+
+
+function load2(settings, onChange) { 
     // Adapter Settings
     if (!settings) return;
     g_settings = settings;
@@ -121,8 +132,8 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
     /**
      * tableTargetEnums: set enum room and function names to drop down (multiple select) fields
      */
-    $('#tableTargetEnums *[data-name="enumRooms"]').data('options', enums.rooms.join(';'));
-    $('#tableTargetEnums *[data-name="enumId"]').data('options', enums.functions.join(';'));
+    if(enums.rooms) $('#tableTargetEnums *[data-name="enumRooms"]').data('options', enums.rooms.join(';'));
+    if(enums.functions) $('#tableTargetEnums *[data-name="enumId"]').data('options', enums.functions.join(';'));
 
     /**
      * Set tableZones>targetsOverwrite to global variable
@@ -261,8 +272,8 @@ function load(settings, onChange) { /*eslint-disable-line no-unused-vars*/
 
             case '#tabDevices':
                 $('.collapsible').collapsible(); // https://materializecss.com/collapsible.html
-                if(!isLikeEmpty(enums.rooms)) $('#tableTargetEnums *[data-name="enumRooms"]').data('options', enums.rooms.join(';'));
-                if(!isLikeEmpty(enums.functions)) $('#tableTargetEnums *[data-name="enumId"]').data('options', enums.functions.join(';'));
+                if(enums.rooms) $('#tableTargetEnums *[data-name="enumRooms"]').data('options', enums.rooms.join(';'));
+                if(enums.functions) $('#tableTargetEnums *[data-name="enumId"]').data('options', enums.functions.join(';'));
                 values2table('tableTargetEnums', optionTablesSettings['tableTargetEnums'], onChange, function(){val2tableOnReady('tableTargetEnums');});
                 break;
 

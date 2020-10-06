@@ -90,6 +90,9 @@ This is just to provide you an overview of the adapter options.
 
 ## Changelog
 
+### 0.5.6
+* (Mic-M) Hotfix: loading admin settings for enums
+
 ### 0.5.5
 * (Mic-M) Fixed error (reported by [Sentry](https://github.com/Mic-M/ioBroker.smartcontrol#notes)): `Cannot read property 'log' of undefined` in _asyncSetTargetDevices_processZone()
 * (Mic-M) Fixed issue: Tab TARGET DEVICES > Enumerations: functions and rooms selection were sometimes blank, and chosen item was sometimes deleted after saving and reopening admin options.
