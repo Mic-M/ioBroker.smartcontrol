@@ -1,8 +1,22 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "0.5.6",
+        "version": "0.5.7",
         "news": {
+            "0.5.7": {
+                "Various code fixes and improvements, potentially fix of issue #35 - to be tested, Enhancement for 'Target Devices': Add table to call URLs als target": {
+                    "en": "Various code fixes and improvements, potentially fix of issue #35 - to be tested, Enhancement for 'Target Devices': Add table to call URLs als target",
+                    "de": "Verschiedene Code-Korrekturen und Verbesserungen, möglicherweise Behebung von Problem Nr. 35 - zu testen, Verbesserung für 'Zielgeräte': Tabelle zum Aufrufen von URLs als Ziel hinzufügen",
+                    "ru": "Различные исправления и улучшения кода, потенциально исправление проблемы №35 - на стадии тестирования, Улучшение для «Целевых устройств»: добавление таблицы для вызова URL-адресов als target",
+                    "pt": "Várias correções e melhorias de código, possivelmente correção do problema nº 35 - a ser testado, Aprimoramento para 'Dispositivos de destino': Adicionar tabela para chamar URLs als target",
+                    "nl": "Diverse codefixes en verbeteringen, mogelijk oplossing van probleem # 35 - moet worden getest, Verbetering voor 'doelapparaten': tabel toevoegen om URL's als doel te bellen",
+                    "fr": "Divers correctifs et améliorations de code, potentiellement correctif du problème n ° 35 - à tester, amélioration pour les `` appareils cibles '': Ajouter un tableau pour appeler les URL comme cible",
+                    "it": "Varie correzioni e miglioramenti al codice, potenzialmente risoluzione del problema 35 - da testare, miglioramento per \"Dispositivi di destinazione\": Aggiungi tabella per chiamare gli URL come destinazione",
+                    "es": "Varias correcciones de código y mejoras, posible solución del problema n. ° 35: para ser probado, Mejora para 'Dispositivos de destino': Agregar tabla para llamar a las URL como destino",
+                    "pl": "Różne poprawki i ulepszenia kodu, potencjalne rozwiązanie problemu nr 35 - do przetestowania, Ulepszenie dla „urządzeń docelowych”: Dodaj tabelę, aby wywoływać adresy URL jako docelowe",
+                    "zh-cn": "各种代码修复和改进，潜在的问题＃35-待测试，“目标设备”的增强功能：将表添加到调用URL中"
+                }
+            },
             "0.5.6": {
                 "Hotfix: loading admin settings for enums": {
                     "en": "Hotfix: loading admin settings for enums",
@@ -278,12 +292,12 @@
         ],
         "tableTargetURLs": [
             {
-              "active": false,
-              "name": "Bad.EG.URL",
-              "scStatePath": "Samsung-TV.Einschalten",
-              "url": "http://192.168.100.10:8580/?cmd=process"
+                "active": false,
+                "name": "Samsung-TV.Einschalten",
+                "stateId": "",
+                "url": "http://192.168.100.10:8580/?cmd=process"
             }
-          ],        
+        ],
         "tableTriggerTimes": [
             {
                 "active": true,

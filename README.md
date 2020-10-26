@@ -90,6 +90,12 @@ This is just to provide you an overview of the adapter options.
 
 ## Changelog
 
+### 0.5.7
+* (Mic-M) Various code fixes and improvements
+* (Mic-M) Potentially fix of [issue #35](https://github.com/Mic-M/ioBroker.smartcontrol/issues/35) - to be tested
+* (Mic-M) Enhancement for 'Target Devices': Add table to call URLs als target (implementation of [issue #1](https://github.com/Mic-M/ioBroker.smartcontrol/issues/1))
+
+
 ### 0.5.6
 * (Mic-M) Hotfix: loading admin settings for enums
 

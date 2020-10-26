@@ -56,7 +56,7 @@
         <div class="row">
 
             <!-- +++++++++++++ DEFINE TABS MENU +++++++++++++ -->
-            <div class="col s12" style="padding-left:0;padding-right:0; margin-top: 0px; margin-bottom: 1px; background-color:#174475; box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);">
+            <div class="col s12" id="tab-area">
                 <ul class="tabs blue lighten-4">
                     <!-- see description: https://materializecss.com/grid.html -->
                     <li class="tab col m1"><a href="#tabMain">Start</a></li>
@@ -105,13 +105,13 @@
             -->
             <div id="tabDevices" class="col s12 page">
                 <!-- *************************************************************
-                     * TABLE -Target devices: states   
+                     * TABLE -Target devices: objects
                      *************************************************************-->
                 <div class="row spaceTop3em">
                     <div class="col s12">
                         <ul class="collapsible">
                             <li>
-                                <div class="collapsible-header config-section"><h5 class="translate">Target devices: states</h5><i class="material-icons">help_outline</i>
+                                <div class="collapsible-header config-section"><h5 class="translate">Target devices: objects</h5><i class="material-icons">help_outline</i>
                                 </div>
                                 <div class="collapsible-body">
                                     <!-- Importing Markdown -->
@@ -203,23 +203,18 @@
                 <!-- *************************************************************
                      * TABLE -Targets: URL
                      *************************************************************-->                
-<!--
                      <div class="row spaceTop3em">
                         <div class="col s12">
                             <ul class="collapsible">
                                 <li>
                                     <div class="collapsible-header config-section"><h5 class="translate">Targets: URLs</h5><i class="material-icons">help_outline</i></div>
                                     <div class="collapsible-body">
--->
                                         <!-- Importing Markdown -->
-<!--
                                         <zero-md id="md-tableTargetURLs" manual-render src="doc-md/table-target-url_en.md"></zero-md>
                                     </div>
                                 </li>
                             </ul>
-                        -->
                             <!-- Start Options Table -->
-<!--
                             <div class="col s12" id="tableTargetURLs">
                                 <div class="row valign-wrapper" style="margin-bottom:5px">
                                     <div class="col"><a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a></div>
@@ -234,7 +229,7 @@
                                             <tr>
                                                 <th style="width: 30px" class="header" data-name="active" data-type="checkbox"><i class="material-icons left">check_box</i></th>
                                                 <th style="width: 300px" class="header translate" data-name="name">Name</th>
-                                                <th class="header" data-name="scStatePath"><span class="translate">State Path</span>: smartcontrol.0.targetURLs.xxx</th>
+                                                <th class="header" data-name="scStatePath"><span class="translate">Object ID under</span> smartcontrol.0.targetURLs.</th>
                                                 <th class="header translate" data-name="url">URL</th>
                                                 <th style="width: 160px" class="header" data-buttons="up down copy_smart delete"></th>
                                             </tr>
@@ -242,12 +237,9 @@
                                     </table>
                                 </div>
                             </div>                        
-                        -->
                             <!-- End Options Table -->
-<!--
                         </div>
                     </div>   
--->
             </div>
 
             <!--

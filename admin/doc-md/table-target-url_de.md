@@ -1,14 +1,27 @@
-Im Gegensatz zur oberen Tabelle kannst du hier sogenannte "Aufzählungen" (Enums) nutzen - [Link zur Dokumentation: Aufzählungen](https://www.iobroker.net/#de/documentation/admin/enums.md).
-<br>Du kannst hier in jeder Zeile jeweils eine "Funktion" (`enum.functions`) zuordnen, und dies bei Bedarf auf bestimmte Räume (`enum.rooms`) limitieren. Diese werden dann alle geschaltet, sobald ein Auslöser aktiviert wird und die Bedingungen in den Zonen erfüllt sind.
-<br><strong>Bitte beachte</strong>, dass alle Datenpunkte, denen du die jeweilige Funktion zugeordnet hast, denselben Datentyp haben (also boolean - true/false, oder string), da `Wert für 'an'` und `Wert für 'aus'` für alle Datenpunkte gilt, denen die gewählte Funktion zugeordnet ist. Aber keine Sorge, der Adapter liefert im Log einen Fehler, falls deine Zuordnung nicht passt ;-)
+Hiermit kannst du als Ziel eine URL verwenden, z.B. `http://192.198.10.20/relay/0?turn=on`. Dies dient dazu, etwa Geräte per URL zu steuern.
+
+### Tabellen-Einstellungen:
+
 
 | Spalte   |  Pflichtfeld |  Beschreibung |
 |----------|:------------:|-------|
 | ![image](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/img/check_box-24px.svg?raw=true) |  Ja          | Aktiviert/Deaktiviert diese Tabellenzeile. Falls nicht aktiviert, wird diese Tabellenzeile vom Adapter nicht beachtet. In den Adapter-Optionen, unter 'WEITERE OPTIONEN > Eingabe-Validierung' kannst du übrigens einstellen, dass auch deaktivierte Zeilen auf Gültigkeit geprüft werden. |
 | Name |    Ja   | Name deiner Wahl. Verbotene Zeichen: ``[ ] * , ; ' " ` < > \ ?`` |
-| Funktions-Name (Aufzählungen) |    Ja   | Wähle hier die entsprechende Funktion der Aufzählungen aus ([hier sind Details dazu beschrieben](https://www.iobroker.net/#de/documentation/admin/enums.md)). Sobald eine Zone auslöst, in der du unter 'Zielgeräte' diese selektiert hast, werden alle Datenpunkte geschaltet, denen diese selektierte "Funktion" zugeordnet ist. |
-| Limitiert auf Räume | Nein | Hier kannst du optional auf bestimmte "Räume" limitieren (`enum.rooms`), d.h. falls ein oder mehrere Räume hier selektiert werden, wird nur geschaltet, falls dem Zieldatenpunkt der gewählten Funktion auch einer dieser Räume zugeordnet ist. Lässt man es leer, werden keine Räume geprüft. |
-| Wert für 'an' | Ja | Datenpunkt-Wert, der in 'Datenpunkt zum einschalten' gesetzt wird. Du kannst `true`, `false`, Nummern wie `144`, or Strings wie `Schalte Radio an` verwenden. Sämtliche Leerzeichen und Anführungszeichen (wie `"`) am Anfang und Ende werden automatisch entfernt. <br><br>Der Wert kann unter "4. ZONEN", "Zu schaltende Zielgeräte" überschrieben werden.|
-| Prüfung deakiv. (an) | Nein | Vor dem Schalten wird immer geprüft, ob das Zielgerät bereits an ist lt. "Wert für 'an'". Wenn du diese Option aktivierst, erfolgt keine Überprüfung und es wird immer geschaltet. Use Case: z.B. ein Button als Datenpunkt. Siehe [Github Issue #5](https://github.com/Mic-M/ioBroker.smartcontrol/issues/5).|
-| Wert für 'aus' | Ja | Datenpunkt-Wert, der in 'Datenpunkt zum ausschalten' gesetzt wird. Du kannst `true`, `false`, Nummern wie `144`, or Strings wie `Schalte Radio an` verwenden. Sämtliche Leerzeichen und Anführungszeichen (wie `"`) am Anfang und Ende werden automatisch entfernt.|
-| Prüfung deakiv. (aus) | Nein | Siehe *Prüfung deakiv. (an)* weiter oben, nur hier für das ausschalten des Gerätes.|
+| Objekt-ID unterhalb smartcontrol.0.targetURLs. | Ja | Objekt-ID-Bezeichnung für die Objekte, die unterhalb von `smartcontrol.0.targetURLs.` angelegt werden. Verbotene Zeichen: ``[ ] * , ; ' " ` < > \ ?`` <br>Wenn du hier z.B. `Wohnzimmer.TV.ein` einträgst, dann werden die Datenpunkte `smartcontrol.x.targetURLs.Wohnzimmer.TV.ein.call` und `smartcontrol.x.targetURLs.Wohnzimmer.TV.ein.response` angelegt. |
+| URL | Ja | Die entsprechende URL, die aufgerufen werden soll, z.B. `http://192.198.10.20/relay/0?turn=on`
+
+Unter "ZONEN" kannst du diese "Zielgeräte" dann entsprechend wählen.
+
+
+### Datenpunkte unterhalb smartcontrol.x.targetURLs.<definierter URL-Name>.:
+
+Für jede Tabellenzeile werden diese Datenpunkte angelegt:
+
+| Datenpunkt |  Erklärung |
+|------------|------------|
+| `smartcontrol.x.targetURLs.<definierter URL-Name>.call` | Sobald dieser Datenpunkt auf `true` gesetzt wird, wird die URL aufgerufen. |
+| `smartcontrol.x.targetURLs.<definierter URL-Name>.response` | In diesem Datenpunkt wird dann die Response, also die Antwort auf deinen URL-Aufruf, ausgegeben. |
+
+Unabhängig zu den sonstigen Einstellungen in diesem Adapter kannst du über die angelegten Datenpunkte die URLs dann entsprechend ausführen bzw. aufrufen, in dem du `.call` auf `true` setzt. 
+Das Ergebnis erscheint dann im Datenpunkt `.response`. Damit kannst du die URLs also beispielsweise auch über Blockly/Javascript aufrufen.
+
