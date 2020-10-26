@@ -90,6 +90,9 @@ This is just to provide you an overview of the adapter options.
 
 ## Changelog
 
+### 0.5.8
+* (Mic-M) Fixed admin options
+
 ### 0.5.7
 * (Mic-M) Various code fixes and improvements
 * (Mic-M) Potentially fix of [issue #35](https://github.com/Mic-M/ioBroker.smartcontrol/issues/35) - to be tested

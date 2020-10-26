@@ -1,8 +1,22 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "0.5.7",
+        "version": "0.5.8",
         "news": {
+            "0.5.8": {
+                "Correct/update admin options": {
+                    "en": "Correct/update admin options",
+                    "de": "Admin-Optionen korrigiert",
+                    "ru": "Исправить / обновить параметры администратора",
+                    "pt": "Corrigir / atualizar as opções do administrador",
+                    "nl": "Corrigeer / update admin-opties",
+                    "fr": "Corriger / mettre à jour les options d'administration",
+                    "it": "Correggi / aggiorna le opzioni di amministrazione",
+                    "es": "Corregir / actualizar las opciones de administración",
+                    "pl": "Popraw / zaktualizuj opcje administratora",
+                    "zh-cn": "更正/更新管理员选项"
+                }
+            },
             "0.5.7": {
                 "Various code fixes and improvements, potentially fix of issue #35 - to be tested, Enhancement for 'Target Devices': Add table to call URLs als target": {
                     "en": "Various code fixes and improvements, potentially fix of issue #35 - to be tested, Enhancement for 'Target Devices': Add table to call URLs als target",
