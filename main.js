@@ -259,9 +259,15 @@ class SmartControl extends utils.Adapter {
 
                 const statesToProcess = {
                     // state   | common object to set
-                    'call':     { name: `Call '${lpRow.url}'`,        type: 'boolean', read: true, write: true,  role: 'button', def: false },
-                    'response': { name: `Response from '${lpRow.url}'`, type: 'string',  read: true, write: false, role: 'state', def: '' }
+                    'call_on':     { name: `Call '${lpRow.urlOn}'`,        type: 'boolean', read: true, write: true,  role: 'button', def: false },
+                    'response_on': { name: `Response from '${lpRow.urlOn}'`, type: 'string',  read: true, write: false, role: 'state', def: '' },
                 };
+
+                if (lpRow.urlOff && !this.x.helper.isLikeEmpty(lpRow.urlOff)) {
+                    statesToProcess.call_off     = { name: `Call '${lpRow.urlOff}'`,        type: 'boolean', read: true, write: true,  role: 'button', def: false };
+                    statesToProcess.response_off = { name: `Response from '${lpRow.urlOff}'`, type: 'string',  read: true, write: false, role: 'state', def: '' };
+                }
+
                 for (const lpKeyName in statesToProcess) {
                     const obj = await this.getObjectAsync(lpBaseStatePath + '.' + lpKeyName);
                     if (obj) {
@@ -450,7 +456,10 @@ class SmartControl extends utils.Adapter {
             // STATE SUBSCRIPTION: to all smartcontrol.x.targetURLs states
             for (const lpRow of this.config.tableTargetURLs) {
                 if (lpRow.active) {
-                    await this.subscribeStatesAsync(lpRow.stateId + '.call');
+                    await this.subscribeStatesAsync(lpRow.stateId + '.call_on');
+                    if (lpRow.urlOff && !this.x.helper.isLikeEmpty(lpRow.urlOff)) {
+                        await this.subscribeStatesAsync(lpRow.stateId + '.call_off');
+                    }
                 }
             }
             
@@ -706,17 +715,26 @@ class SmartControl extends utils.Adapter {
             } 
 
             /**
-             * State Change: smartcontrol.0.targetURLs.xxx
+             * State Change: smartcontrol.0.targetURLs.xxx.call_on / smartcontrol.0.targetURLs.xxx.call_off
              */                
-            else if (statePath.startsWith(`${this.namespace}.targetURLs.`) && statePath.endsWith('.call') && stateObject.val === true) {
+            else if (statePath.startsWith(`${this.namespace}.targetURLs.`) && (statePath.endsWith('.call_on') || statePath.endsWith('.call_off')) && stateObject.val === true) {
 
                 this.log.debug(`smartcontrol targetURLs - Subscribed state '${statePath}' changed.`);
 
                 // Prefix 'smartcontrol.0.targetURLs.' was already added in asyncVerifyConfig() to name and 
                 // available as "stateId" is table rows
-                const stateMainObjectId = statePath.substring(0, statePath.length-5); // remove '.call'
+                let stateMainObjectId;
+                let what = ''; // on or off
+                if (statePath.endsWith('.call_on')) {
+                    what = 'On';
+                    stateMainObjectId = statePath.substring(0, statePath.length-8); // remove '.call_on'
+                } else {
+                    what = 'Off';
+                    stateMainObjectId = statePath.substring(0, statePath.length-9); // remove '.call_off'
+                }
+                
                 const name = this.getOptionTableValue('tableTargetURLs', 'stateId', stateMainObjectId, 'name');
-                const url  = this.getOptionTableValue('tableTargetURLs', 'stateId', stateMainObjectId, 'url');
+                const url  = this.getOptionTableValue('tableTargetURLs', 'stateId', stateMainObjectId, 'url' + what);
 
                 if (name && url) {
 
@@ -1105,6 +1123,11 @@ class SmartControl extends utils.Adapter {
                             // +++++++ VALIDATION TYPE: URL +++++++
                             } else if (lpFcnConfigCheckObj.type == 'url') {
                                 const urlToCheck = lpTable.table[i][lpFcnConfigCheckObj.id];
+
+                                if (this.x.helper.isLikeEmpty(urlToCheck) && lpFcnConfigCheckObj.optional ) {
+                                    continue; // Skip if empty and if is optional. 
+                                }
+
                                 const checkResult = this.x.helper.validateURL(urlToCheck, true, true);
                                 if (checkResult == null) {
                                     if (lpFcnConfigCheckObj.deactivateIfError) {
@@ -1116,11 +1139,6 @@ class SmartControl extends utils.Adapter {
                                     continue;
                                 } else {
                                     lpTable.table[i][lpFcnConfigCheckObj.id] = checkResult;
-                                    /*
-                                    if (urlToCheck !== checkResult) {
-                                        this.config[functionConfigObj.tableId][i][lpFcnConfigCheckObj.id] = checkResult;
-                                    }
-                                    */
                                 }                                
                             
                             // +++++++ VALIDATION TYPE: targetURL Name +++++++    
@@ -1646,15 +1664,23 @@ class SmartControl extends utils.Adapter {
                 const rowObj = {};
                 rowObj.active = true; // we checked this before
                 rowObj.name = lpURLRow.name;
-                rowObj.onState = lpURLRow.stateId + '.call';
-                rowObj.onValue = true;
-                rowObj.offValue = false;
                 rowObj.noTargetOnCheck = true;
-                rowObj.offState = lpURLRow.stateId + '.call';
                 rowObj.noTargetOffCheck = true;
                 rowObj.isTargetURL = true; // special property to identify tableTargetURLs items
-                targetDevicesResult.push(rowObj);
+                rowObj.onState = lpURLRow.stateId + '.call_on';
+                rowObj.onValue = true;
 
+                if (lpURLRow.urlOff && !this.x.helper.isLikeEmpty(lpURLRow.urlOff)) {
+                    // URL for switching off is available
+                    rowObj.offState = lpURLRow.stateId + '.call_off';
+                    rowObj.offValue = true;
+                } else {
+                    // No URL for switching off"
+                    rowObj.offState = lpURLRow.stateId + '.call_on'; // let's add this, but could be anything
+                    rowObj.offValue = false; // NOTE: false will not trigger anything per _asyncOnStateChange() since it will only recognize "true"
+                }
+
+                targetDevicesResult.push(rowObj);
             }
 
             if (this.x.helper.isLikeEmpty(targetDevicesResult)) {

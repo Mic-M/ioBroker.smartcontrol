@@ -1,8 +1,22 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "0.5.8",
+        "version": "0.5.9",
         "news": {
+            "0.5.9": {
+                "Enhancements: Target Devices - Target URLs: added separate URL field to switch device off, allow DNS name": {
+                    "en": "Enhancements: Target Devices - Target URLs: added separate URL field to switch device off, allow DNS name",
+                    "de": "Verbesserungen: Zielgeräte - Ziel-URLs: separates URL-Feld hinzugefügt, um das Gerät auszuschalten, DNS-Namen werden nun akzeptiert",
+                    "ru": "Улучшения: Целевые устройства - Целевые URL-адреса: добавлено отдельное поле URL-адреса для выключения устройства, разрешения DNS-имени",
+                    "pt": "Aprimoramentos: Dispositivos de destino - URLs de destino: adicionado campo de URL separado para desligar o dispositivo, permitir o nome DNS",
+                    "nl": "Verbeteringen: Doelapparaten - Doel-URL's: apart URL-veld toegevoegd om apparaat uit te schakelen, DNS-naam toestaan",
+                    "fr": "Améliorations: Appareils cibles - URL cibles: ajout d'un champ URL séparé pour éteindre l'appareil, autoriser le nom DNS",
+                    "it": "Miglioramenti: Dispositivi di destinazione - URL di destinazione: aggiunto un campo URL separato per spegnere il dispositivo, consentire il nome DNS",
+                    "es": "Mejoras: Dispositivos de destino - URL de destino: se agregó un campo de URL separado para apagar el dispositivo, permitir el nombre DNS",
+                    "pl": "Ulepszenia: Urządzenia docelowe - Docelowe adresy URL: dodano oddzielne pole adresu URL, aby wyłączyć urządzenie, zezwolić na nazwę DNS",
+                    "zh-cn": "增强功能：目标设备-目标URL：添加了单独的URL字段以关闭设备，允许DNS名称"
+                  }
+            },
             "0.5.8": {
                 "Correct/update admin options": {
                     "en": "Correct/update admin options",
@@ -309,7 +323,8 @@
                 "active": false,
                 "name": "Samsung-TV.Einschalten",
                 "stateId": "",
-                "url": "http://192.168.100.10:8580/?cmd=process"
+                "urlOn": "http://192.168.100.10:8580/?cmd=on",
+                "urlOff": "http://192.168.100.10:8580/?cmd=off"
             }
         ],
         "tableTriggerTimes": [

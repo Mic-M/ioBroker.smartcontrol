@@ -90,6 +90,10 @@ This is just to provide you an overview of the adapter options.
 
 ## Changelog
 
+### 0.5.9
+* (Mic-M) New feature: 'Target Devices' -> 'Target URLs': added separate URL field to switch device off
+* (Mic-M) Enhancement: 'Target Devices' -> 'Target URLs' : [Allow DNS name](https://forum.iobroker.net/post/510154)
+
 ### 0.5.8
 * (Mic-M) Fixed admin options
 
