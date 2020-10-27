@@ -22,9 +22,8 @@ Für jede Tabellenzeile werden diese Datenpunkte angelegt, dabei wird der Wert, 
 | `smartcontrol.x.targetURLs.<Name>.call_on` | Sobald dieser Datenpunkt auf `true` gesetzt wird, wird die URL aufgerufen. |
 | `smartcontrol.x.targetURLs.<Name>.response_on` | In diesem Datenpunkt wird dann die Response, also die Antwort auf deinen URL-Aufruf, ausgegeben. |
 
-Wenn du eine URL "zum Ausschalten" angelegt hast, dann werden ebenso die Datenpunkte `smartcontrol.x.targetURLs.<Name>.call_off` und `smartcontrol.x.targetURLs.<Name>.response_off`
+Wenn du eine URL "zum Ausschalten" angelegt hast, dann werden ebenso die Datenpunkte `smartcontrol.x.targetURLs.<Name>.call_off` und `smartcontrol.x.targetURLs.<Name>.response_off` angelegt.
 
 
-Unabhängig zu den sonstigen Einstellungen in diesem Adapter kannst du über die angelegten Datenpunkte die URLs dann entsprechend ausführen bzw. aufrufen, in dem du `.call_on` oder `.call_off` auf `true` setzt. 
-Das Ergebnis erscheint dann im Datenpunkt `.response`. Damit kannst du die URLs also beispielsweise auch über Blockly/Javascript aufrufen.
+Unabhängig zu den sonstigen Einstellungen in diesem Adapter kannst du über die angelegten Datenpunkte die URLs dann entsprechend ausführen bzw. aufrufen, in dem du `.call_on` oder `.call_off` auf `true` setzt. Das Antwort des Aufrufs erscheint dann im Datenpunkt `.response_on` bzw. `.response_off`. <br>Damit kannst du die URLs also beispielsweise auch über Blockly/Javascript aufrufen.
 
