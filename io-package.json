@@ -1,8 +1,22 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "0.5.9",
+        "version": "0.5.10",
         "news": {
+            "0.5.10": {
+                "Potential fix / workaround: for issue #35 to verify if schedule was called before at the same time": {
+                    "en": "Potential fix / workaround: for issue #35 to verify if schedule was called before at the same time",
+                    "de": "Mögliche Lösung / Problemumgehung: für issue #35 zur Überprüfung, ob Schedule mehrfach zur selben Zeit aufgerufen wird",
+                    "ru": "Возможное исправление / обходной путь: для проблемы №35 необходимо проверить, вызывалось ли расписание раньше в то же время",
+                    "pt": "Possível correção / solução alternativa: para o problema nº 35, para verificar se a programação foi chamada antes, ao mesmo tempo",
+                    "nl": "Mogelijke oplossing / tijdelijke oplossing: voor probleem # 35 om te controleren of het schema eerder op hetzelfde moment werd aangeroepen",
+                    "fr": "Solution potentielle / solution de contournement: pour le problème n ° 35, vérifier si la planification a été appelée auparavant au même moment",
+                    "it": "Potenziale soluzione / soluzione alternativa: per il problema # 35 per verificare se la pianificazione è stata chiamata prima contemporaneamente",
+                    "es": "Posible solución / solución alternativa: para el problema n. ° 35 para verificar si se llamó a la programación antes al mismo tiempo",
+                    "pl": "Potencjalna poprawka / obejście: problem nr 35 w celu sprawdzenia, czy harmonogram został wywołany wcześniej w tym samym czasie",
+                    "zh-cn": "潜在的修复程序/解决方法：针对问题35，验证是否在同一时间之前调用过计划"
+                }
+            },
             "0.5.9": {
                 "Enhancements: Target Devices - Target URLs: added separate URL field to switch device off, allow DNS name": {
                     "en": "Enhancements: Target Devices - Target URLs: added separate URL field to switch device off, allow DNS name",

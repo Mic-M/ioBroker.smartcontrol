@@ -90,6 +90,10 @@ This is just to provide you an overview of the adapter options.
 
 ## Changelog
 
+### 0.5.10
+* (Mic-M) Potential fix / workaround: for issue #35 to verify if schedule was called before at the same time
+
+
 ### 0.5.9
 * (Mic-M) **Breaking Change** New feature: 'Target Devices' -> 'Target URLs': added separate URL field to switch device off. This is breaking, since adapter admin config will have blank fields of 'Target URLs' once you update the adapter, and state ids will change as well. 
 * (Mic-M) Enhancement: 'Target Devices' -> 'Target URLs' : [Allow DNS name](https://forum.iobroker.net/post/510154)

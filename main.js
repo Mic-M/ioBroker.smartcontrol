@@ -82,6 +82,9 @@ class SmartControl extends utils.Adapter {
             // Zone Log - for smartcontrol.x.info.log.zoneActivations.json
             zonesLog: [],
 
+            // Workarounds / bug fixes
+            issue35_ts: {}, // timestamp of each schedule, so when it was executed, to fix https://github.com/Mic-M/ioBroker.smartcontrol/issues/35
+
         };
         
     }
@@ -548,17 +551,40 @@ class SmartControl extends utils.Adapter {
 
                         const triggerName = lpRow.name;
                         const trigger = this.x.triggers[triggerName]; // Trigger class instance
+                        this.log.debug(`--- Trigger [${triggerName}] was triggered per schedule (time: ${trigger.triggerTime}) ---`);
+
+                        /**
+                         * WORKAROUND - do not call callback multiple times - see https://github.com/Mic-M/ioBroker.smartcontrol/issues/35
+                         * TODO: This is a workaround for adapter issue #35, since it looks like node-schedule's scheduleJob method is being executed 2+ times the same time
+                         * TODO: Isolate if adapter code issue, node-schedule issue, or even ioBroker issue, or a combination somehow.
+                         * INFO: adapter code looks good so far, I cannot see any reason why this callback would be called multiple times 
+                         *       with a difference of like 2ms.
+                         */
+                        const delay = 30 * 1000; // if executed in less than 30 seconds - do not execute again!
+                        if ( (lpRow.name in this.x.issue35_ts) && this.x.issue35_ts[lpRow.name] > 0 ) {
+                            // We do already have a timestamp
+                            this.log.debug(`--- Trigger [${triggerName}] We have a former timestamp: ${this.x.issue35_ts[lpRow.name]}`);
+                        } else {
+                            // We don't have a timestamp, so set the current one.
+                            this.log.debug(`--- Trigger [${triggerName}] Former timestamp is undefined, so we set current time stamp.`);
+                            this.x.issue35_ts[lpRow.name] = Date.now(); // current timestamp
+                        }
+
+                        const currentTimeStamp = Date.now();
+                        if ( (this.x.issue35_ts[lpRow.name]+delay) >= currentTimeStamp) {
+                            this.x.helper.logExtendedInfo(`Trigger [${triggerName}] Adapter Issue #35 catch: do not execute scheduled trigger multiple times`);
+                            return;
+                        }
+                        /************************** End of workaround */
 
                         // First check if additional conditions are met or "never if"
                         let doContinue = await trigger.asyncAreScheduleConditionsMet(trigger.triggerTmAdditionCond, trigger.triggerTmAddCondAll);
                         if (doContinue) doContinue = await trigger.asyncAreScheduleConditionsMet(trigger.triggerTmNever, trigger.triggerTmNeverAll, true);
                         if(!doContinue) {
-                            this.x.helper.logExtendedInfo(`Execution table row ${triggerName} (time: ${trigger.triggerTime}) triggered, but condition(s) not met.`);
+                            this.x.helper.logExtendedInfo(`Trigger [${triggerName}] (time: ${trigger.triggerTime}) triggered, but condition(s) not met.`);
                             return;
                         }
-                        this.log.debug(`Execution table row ${triggerName} (time: ${trigger.triggerTime}) triggered.`);
                         trigger.asyncSetTargetDevices();
-                        
                     });
                     counter++;
 
