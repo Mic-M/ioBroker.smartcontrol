@@ -574,6 +574,8 @@ class SmartControl extends utils.Adapter {
                         if ( (this.x.issue35_ts[lpRow.name]+delay) >= currentTimeStamp) {
                             this.x.helper.logExtendedInfo(`Trigger [${triggerName}] Adapter Issue #35 catch: do not execute scheduled trigger multiple times`);
                             return;
+                        } else {
+                            this.x.helper.logExtendedInfo(`Trigger [${triggerName}] Adapter Issue #35: last execution was more than ${delay/1000}s ago, so we continue.`);
                         }
                         /************************** End of workaround */
 
