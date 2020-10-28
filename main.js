@@ -561,6 +561,7 @@ class SmartControl extends utils.Adapter {
                          *       with a difference of like 2ms.
                          */
                         const delay = 30 * 1000; // if executed in less than 30 seconds - do not execute again!
+                        let isNew = false;
                         if ( (lpRow.name in this.x.issue35_ts) && this.x.issue35_ts[lpRow.name] > 0 ) {
                             // We do already have a timestamp
                             this.log.debug(`--- Trigger [${triggerName}] We have a former timestamp: ${this.x.issue35_ts[lpRow.name]}`);
@@ -568,11 +569,14 @@ class SmartControl extends utils.Adapter {
                             // We don't have a timestamp, so set the current one.
                             this.log.debug(`--- Trigger [${triggerName}] Former timestamp is undefined, so we set current time stamp.`);
                             this.x.issue35_ts[lpRow.name] = Date.now(); // current timestamp
+                            isNew = true;
                         }
 
                         const currentTimeStamp = Date.now();
-                        if ( (this.x.issue35_ts[lpRow.name]+delay) >= currentTimeStamp) {
-                            this.x.helper.logExtendedInfo(`Trigger [${triggerName}] Adapter Issue #35 catch: do not execute scheduled trigger multiple times`);
+                        if (isNew) {
+                            this.x.helper.logExtendedInfo(`Trigger [${triggerName}] Adapter Issue #35: initialize trigger execution, since it was not called before.`);
+                        } else if ( (this.x.issue35_ts[lpRow.name]+delay) >= currentTimeStamp) {
+                            this.x.helper.logExtendedInfo(`Trigger [${triggerName}] Adapter Issue #35 catch: do not execute scheduled trigger ultiple times, last execution was ${currentTimeStamp-(this.x.issue35_ts[lpRow.name]+delay)} ms ago`);
                             return;
                         } else {
                             this.x.helper.logExtendedInfo(`Trigger [${triggerName}] Adapter Issue #35: last execution was more than ${delay/1000}s ago, so we continue.`);

@@ -90,6 +90,9 @@ This is just to provide you an overview of the adapter options.
 
 ## Changelog
 
+### 0.5.11
+* (Mic-M) Fix of 0.5.10
+
 ### 0.5.10
 * (Mic-M) Potential fix / workaround: for issue #35 to verify if schedule was called before at the same time
 

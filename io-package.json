@@ -1,8 +1,22 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "0.5.10",
+        "version": "0.5.11",
         "news": {
+            "0.5.11": {
+                "Fix of 0.5.11": {
+                    "en": "Fix of 0.5.11",
+                    "de": "Fix von 0.5.11",
+                    "ru": "Исправление 0.5.11",
+                    "pt": "Fix of 0.5.11",
+                    "nl": "Fix van 0.5.11",
+                    "fr": "Correction de 0.5.11",
+                    "it": "Correzione di 0.5.11",
+                    "es": "Corrección de 0.5.11",
+                    "pl": "Poprawka 0.5.11",
+                    "zh-cn": "修复0.5.11"
+                  }
+            },
             "0.5.10": {
                 "Potential fix / workaround: for issue #35 to verify if schedule was called before at the same time": {
                     "en": "Potential fix / workaround: for issue #35 to verify if schedule was called before at the same time",
