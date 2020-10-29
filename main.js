@@ -561,22 +561,23 @@ class SmartControl extends utils.Adapter {
                          *       with a difference of like 2ms.
                          */
                         const delay = 30 * 1000; // if executed in less than 30 seconds - do not execute again!
-                        let isNew = false;
+                        let tsFormer = 0;
                         if ( (lpRow.name in this.x.issue35_ts) && this.x.issue35_ts[lpRow.name] > 0 ) {
                             // We do already have a timestamp
-                            this.log.debug(`--- Trigger [${triggerName}] We have a former timestamp: ${this.x.issue35_ts[lpRow.name]}`);
+                            tsFormer = this.x.issue35_ts[lpRow.name];
+                            this.x.issue35_ts[lpRow.name] = Date.now(); // set current timestamp
+                            this.log.debug(`--- Trigger [${triggerName}] We have a former timestamp: ${tsFormer}`);
                         } else {
                             // We don't have a timestamp, so set the current one.
                             this.log.debug(`--- Trigger [${triggerName}] Former timestamp is undefined, so we set current time stamp.`);
                             this.x.issue35_ts[lpRow.name] = Date.now(); // current timestamp
-                            isNew = true;
                         }
 
                         const currentTimeStamp = Date.now();
-                        if (isNew) {
+                        if (tsFormer === 0) {
                             this.x.helper.logExtendedInfo(`Trigger [${triggerName}] Adapter Issue #35: initialize trigger execution, since it was not called before.`);
-                        } else if ( (this.x.issue35_ts[lpRow.name]+delay) >= currentTimeStamp) {
-                            this.x.helper.logExtendedInfo(`Trigger [${triggerName}] Adapter Issue #35 catch: do not execute scheduled trigger ultiple times, last execution was ${currentTimeStamp-(this.x.issue35_ts[lpRow.name]+delay)} ms ago`);
+                        } else if ( (tsFormer+delay) >= currentTimeStamp) {
+                            this.x.helper.logExtendedInfo(`Trigger [${triggerName}] Adapter Issue #35 catch: do not execute scheduled trigger multiple times, last execution was ${currentTimeStamp-(this.x.issue35_ts[lpRow.name]+delay)} ms ago`);
                             return;
                         } else {
                             this.x.helper.logExtendedInfo(`Trigger [${triggerName}] Adapter Issue #35: last execution was more than ${delay/1000}s ago, so we continue.`);
@@ -584,8 +585,8 @@ class SmartControl extends utils.Adapter {
                         /************************** End of workaround */
 
                         // First check if additional conditions are met or "never if"
-                        let doContinue = await trigger.asyncAreScheduleConditionsMet(trigger.triggerTmAdditionCond, trigger.triggerTmAddCondAll);
-                        if (doContinue) doContinue = await trigger.asyncAreScheduleConditionsMet(trigger.triggerTmNever, trigger.triggerTmNeverAll, true);
+                        let doContinue = await trigger.asyncAreScheduleConditionsMet('Trigger: Additional Conditions', trigger.triggerTmAdditionCond, trigger.triggerTmAddCondAll);
+                        if (doContinue) doContinue = await trigger.asyncAreScheduleConditionsMet('Trigger: "Never if" Conditions', trigger.triggerTmNever, trigger.triggerTmNeverAll, true);
                         if(!doContinue) {
                             this.x.helper.logExtendedInfo(`Trigger [${triggerName}] (time: ${trigger.triggerTime}) triggered, but condition(s) not met.`);
                             return;

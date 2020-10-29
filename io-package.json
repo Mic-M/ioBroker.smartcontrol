@@ -1,8 +1,22 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "0.5.11",
+        "version": "0.5.12",
         "news": {
+            "0.5.12": {
+                "Another fix of 0.5.10 and improvement of debug log": {
+                    "en": "Another fix of 0.5.10 and improvement of debug log",
+                    "de": "Ein weiterer Fix von 0.5.10 und Verbesserung des Debug-Logs",
+                    "ru": "Еще одно исправление 0.5.10 и улучшение журнала отладки",
+                    "pt": "Outra correção de 0.5.10 e melhoria do log de depuração",
+                    "nl": "Een andere oplossing van 0.5.10 en verbetering van het foutopsporingslogboek",
+                    "fr": "Un autre correctif de 0.5.10 et amélioration du journal de débogage",
+                    "it": "Un'altra correzione della 0.5.10 e miglioramento del registro di debug",
+                    "es": "Otra corrección de 0.5.10 y mejora del registro de depuración",
+                    "pl": "Kolejna poprawka w wersji 0.5.10 i ulepszenie dziennika debugowania",
+                    "zh-cn": "0.5.10的另一个修复程序和调试日志的改进"
+                  }
+            },
             "0.5.11": {
                 "Fix of 0.5.11": {
                     "en": "Fix of 0.5.11",

@@ -90,6 +90,9 @@ This is just to provide you an overview of the adapter options.
 
 ## Changelog
 
+### 0.5.12
+* (Mic-M) Another fix of 0.5.10 and improvement of debug log
+
 ### 0.5.11
 * (Mic-M) Fix of 0.5.10
 
