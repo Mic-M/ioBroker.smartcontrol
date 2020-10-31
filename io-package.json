@@ -1,8 +1,22 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "0.5.12",
+        "version": "0.5.13",
         "news": {
+            "0.5.13": {
+                "Issue #35 should be finally fixed, Enhancement: New state info.log.switchedTargetDevices.json for recently switched target devices": {
+                    "en": "Issue #35 should be finally fixed, Enhancement: New state info.log.switchedTargetDevices.json for recently switched target devices",
+                    "de": "Issue #5 sollte nun behoben sein; Erweiterung: Neuer Datenpunkt info.log.switchedTargetDevices.json für zuletzt geschaltene Zielgeräte",
+                    "ru": "Проблема № 35 должна быть окончательно исправлена. Улучшение: новое состояние info.log.switchedTargetDevices.json для недавно переключенных целевых устройств.",
+                    "pt": "O problema nº 35 deve ser finalmente corrigido, Aprimoramento: Novo estado info.log.switchedTargetDevices.json para dispositivos alvo recentemente trocados",
+                    "nl": "Probleem # 35 moet eindelijk worden opgelost, Verbetering: nieuwe status info.log.switchedTargetDevices.json voor recentelijk geschakelde doelapparaten",
+                    "fr": "Le problème n ° 35 devrait être finalement résolu, amélioration: nouvel état info.log.switchedTargetDevices.json pour les appareils cibles récemment commutés",
+                    "it": "Il problema # 35 dovrebbe essere finalmente risolto, Miglioramento: Nuovo stato info.log.switchedTargetDevices.json per i dispositivi di destinazione cambiati di recente",
+                    "es": "El problema n. ° 35 debería resolverse finalmente, Mejora: nuevo estado info.log.switchedTargetDevices.json para dispositivos de destino recientemente cambiados",
+                    "pl": "Problem nr 35 powinien zostać ostatecznie naprawiony, Ulepszenie: nowy stan info.log.switchedTargetDevices.json dla niedawno przełączonych urządzeń docelowych",
+                    "zh-cn": "问题＃35应该最终得到解决，增强功能：最近切换的目标设备的新状态info.log.switchedTargetDevices.json"
+                }
+            },
             "0.5.12": {
                 "Another fix of 0.5.10 and improvement of debug log": {
                     "en": "Another fix of 0.5.10 and improvement of debug log",
@@ -15,7 +29,7 @@
                     "es": "Otra corrección de 0.5.10 y mejora del registro de depuración",
                     "pl": "Kolejna poprawka w wersji 0.5.10 i ulepszenie dziennika debugowania",
                     "zh-cn": "0.5.10的另一个修复程序和调试日志的改进"
-                  }
+                }
             },
             "0.5.11": {
                 "Fix of 0.5.11": {
@@ -29,7 +43,7 @@
                     "es": "Corrección de 0.5.11",
                     "pl": "Poprawka 0.5.11",
                     "zh-cn": "修复0.5.11"
-                  }
+                }
             },
             "0.5.10": {
                 "Potential fix / workaround: for issue #35 to verify if schedule was called before at the same time": {
@@ -44,162 +58,6 @@
                     "pl": "Potencjalna poprawka / obejście: problem nr 35 w celu sprawdzenia, czy harmonogram został wywołany wcześniej w tym samym czasie",
                     "zh-cn": "潜在的修复程序/解决方法：针对问题35，验证是否在同一时间之前调用过计划"
                 }
-            },
-            "0.5.9": {
-                "Enhancements: Target Devices - Target URLs: added separate URL field to switch device off, allow DNS name": {
-                    "en": "Enhancements: Target Devices - Target URLs: added separate URL field to switch device off, allow DNS name",
-                    "de": "Verbesserungen: Zielgeräte - Ziel-URLs: separates URL-Feld hinzugefügt, um das Gerät auszuschalten, DNS-Namen werden nun akzeptiert",
-                    "ru": "Улучшения: Целевые устройства - Целевые URL-адреса: добавлено отдельное поле URL-адреса для выключения устройства, разрешения DNS-имени",
-                    "pt": "Aprimoramentos: Dispositivos de destino - URLs de destino: adicionado campo de URL separado para desligar o dispositivo, permitir o nome DNS",
-                    "nl": "Verbeteringen: Doelapparaten - Doel-URL's: apart URL-veld toegevoegd om apparaat uit te schakelen, DNS-naam toestaan",
-                    "fr": "Améliorations: Appareils cibles - URL cibles: ajout d'un champ URL séparé pour éteindre l'appareil, autoriser le nom DNS",
-                    "it": "Miglioramenti: Dispositivi di destinazione - URL di destinazione: aggiunto un campo URL separato per spegnere il dispositivo, consentire il nome DNS",
-                    "es": "Mejoras: Dispositivos de destino - URL de destino: se agregó un campo de URL separado para apagar el dispositivo, permitir el nombre DNS",
-                    "pl": "Ulepszenia: Urządzenia docelowe - Docelowe adresy URL: dodano oddzielne pole adresu URL, aby wyłączyć urządzenie, zezwolić na nazwę DNS",
-                    "zh-cn": "增强功能：目标设备-目标URL：添加了单独的URL字段以关闭设备，允许DNS名称"
-                  }
-            },
-            "0.5.8": {
-                "Correct/update admin options": {
-                    "en": "Correct/update admin options",
-                    "de": "Admin-Optionen korrigiert",
-                    "ru": "Исправить / обновить параметры администратора",
-                    "pt": "Corrigir / atualizar as opções do administrador",
-                    "nl": "Corrigeer / update admin-opties",
-                    "fr": "Corriger / mettre à jour les options d'administration",
-                    "it": "Correggi / aggiorna le opzioni di amministrazione",
-                    "es": "Corregir / actualizar las opciones de administración",
-                    "pl": "Popraw / zaktualizuj opcje administratora",
-                    "zh-cn": "更正/更新管理员选项"
-                }
-            },
-            "0.5.7": {
-                "Various code fixes and improvements, potentially fix of issue #35 - to be tested, Enhancement for 'Target Devices': Add table to call URLs als target": {
-                    "en": "Various code fixes and improvements, potentially fix of issue #35 - to be tested, Enhancement for 'Target Devices': Add table to call URLs als target",
-                    "de": "Verschiedene Code-Korrekturen und Verbesserungen, möglicherweise Behebung von Problem Nr. 35 - zu testen, Verbesserung für 'Zielgeräte': Tabelle zum Aufrufen von URLs als Ziel hinzufügen",
-                    "ru": "Различные исправления и улучшения кода, потенциально исправление проблемы №35 - на стадии тестирования, Улучшение для «Целевых устройств»: добавление таблицы для вызова URL-адресов als target",
-                    "pt": "Várias correções e melhorias de código, possivelmente correção do problema nº 35 - a ser testado, Aprimoramento para 'Dispositivos de destino': Adicionar tabela para chamar URLs als target",
-                    "nl": "Diverse codefixes en verbeteringen, mogelijk oplossing van probleem # 35 - moet worden getest, Verbetering voor 'doelapparaten': tabel toevoegen om URL's als doel te bellen",
-                    "fr": "Divers correctifs et améliorations de code, potentiellement correctif du problème n ° 35 - à tester, amélioration pour les `` appareils cibles '': Ajouter un tableau pour appeler les URL comme cible",
-                    "it": "Varie correzioni e miglioramenti al codice, potenzialmente risoluzione del problema 35 - da testare, miglioramento per \"Dispositivi di destinazione\": Aggiungi tabella per chiamare gli URL come destinazione",
-                    "es": "Varias correcciones de código y mejoras, posible solución del problema n. ° 35: para ser probado, Mejora para 'Dispositivos de destino': Agregar tabla para llamar a las URL como destino",
-                    "pl": "Różne poprawki i ulepszenia kodu, potencjalne rozwiązanie problemu nr 35 - do przetestowania, Ulepszenie dla „urządzeń docelowych”: Dodaj tabelę, aby wywoływać adresy URL jako docelowe",
-                    "zh-cn": "各种代码修复和改进，潜在的问题＃35-待测试，“目标设备”的增强功能：将表添加到调用URL中"
-                }
-            },
-            "0.5.6": {
-                "Hotfix: loading admin settings for enums": {
-                    "en": "Hotfix: loading admin settings for enums",
-                    "de": "Hotfix: Laden der Administratoreinstellungen für Aufzählungen",
-                    "ru": "Исправление: загрузка настроек администратора для перечислений",
-                    "pt": "Hotfix: carregando configurações de administrador para enums",
-                    "nl": "Hotfix: admin-instellingen laden voor enums",
-                    "fr": "Hotfix: chargement des paramètres d'administration pour les énumérations",
-                    "it": "Hotfix: caricamento delle impostazioni di amministrazione per le enumerazioni",
-                    "es": "Revisión: carga de la configuración de administrador para enumeraciones",
-                    "pl": "Poprawka: ładowanie ustawień administratora dla wyliczeń",
-                    "zh-cn": "修补程序：加载枚举的管理员设置"
-                }
-            },
-            "0.5.3": {
-                "New features: new options in table zones": {
-                    "en": "New feature: ZONES - target devices: you can now assign a delay in seconds to wait until the device is being switched on",
-                    "de": "Neues Feature: ZONEN - Zielgeräte: Du kannst jetzt eine Verzögerung in Sekunden zuweisen, um zu warten, bis das Gerät eingeschaltet wird",
-                    "ru": "Новая функция: ЗОНЫ - целевые устройства: теперь вы можете назначить задержку в секундах, чтобы дождаться включения устройства.",
-                    "pt": "Novo recurso: ZONES - dispositivos alvo: agora você pode atribuir um atraso em segundos para esperar até que o dispositivo seja ligado",
-                    "nl": "Nieuwe functie: ZONES - doelapparaten: u kunt nu een vertraging in seconden toewijzen om te wachten tot het apparaat wordt ingeschakeld",
-                    "fr": "Nouvelle fonctionnalité: ZONES - équipements cibles: vous pouvez désormais attribuer un délai en secondes pour attendre la mise en marche de l'appareil",
-                    "it": "Nuova funzionalità: ZONE - dispositivi di destinazione: ora puoi assegnare un ritardo in secondi per attendere fino all'accensione del dispositivo",
-                    "es": "Nueva función: ZONAS - dispositivos de destino: ahora puede asignar un retraso en segundos para esperar hasta que el dispositivo se encienda",
-                    "pl": "Nowa funkcja: STREFY - urządzenia docelowe: możesz teraz przypisać opóźnienie w sekundach, aby poczekać, aż urządzenie zostanie włączone",
-                    "zh-cn": "新功能：ZONES-目标设备：您现在可以指定以秒为单位的延迟时间，直到设备启动为止"
-                }
-            },
-            "0.5.0": {
-                "New features: new options in table zones": {
-                    "en": "New features: new options in table zones",
-                    "de": "Neue Features: Neue Optionen in Zonen",
-                    "ru": "Новые возможности: новые параметры в зонах стола",
-                    "pt": "Novos recursos: novas opções em zonas de mesa",
-                    "nl": "Nieuwe features: nieuwe opties in tafelzones",
-                    "fr": "Nouvelles fonctionnalités: nouvelles options dans les zones de table",
-                    "it": "Nuove funzionalità: nuove opzioni nelle zone tabella",
-                    "es": "Nuevas funciones: nuevas opciones en zonas de mesa",
-                    "pl": "Nowe funkcje: nowe opcje w strefach stołu",
-                    "zh-cn": "新功能：表区域中的新选项"
-                }
-            },
-            "0.4.0": {
-                "en": "New features: new target devices table for enum functions, new JSON state for recent zone activations",
-                "de": "Neue Features: Neue Tabelle unterhalb '1. ZIELGERÄTE' für Aufzählungen (enums),  neuer JSON-State für die letzten Zonenaktivierungen",
-                "ru": "Новые возможности: новая таблица целевых устройств для функций перечисления, новое новое состояние JSON для недавних активаций зоны",
-                "pt": "Novos recursos: nova tabela de dispositivos de destino para funções enum, novo novo estado JSON para ativações de zona recentes",
-                "nl": "Nieuwe functies: nieuwe tabel met doelapparaten voor opsommingsfuncties, nieuwe nieuwe JSON-status voor recente zone-activeringen",
-                "fr": "Nouvelles fonctionnalités: nouveau tableau des appareils cibles pour les fonctions d'énumération, nouvel état JSON pour les activations de zone récentes",
-                "it": "Nuove funzionalità: nuova tabella dei dispositivi di destinazione per le funzioni enum, nuovo nuovo stato JSON per le recenti attivazioni di zona",
-                "es": "Nuevas funciones: nueva tabla de dispositivos de destino para funciones de enumeración, nuevo estado JSON nuevo para activaciones de zona recientes",
-                "pl": "Nowe funkcje: nowa tabela urządzeń docelowych dla funkcji wyliczania, nowy stan JSON dla ostatnich aktywacji stref",
-                "zh-cn": "新功能：用于枚举功能的新目标设备表，用于最近区域激活的新JSON状态"
-            },
-            "0.3.10": {
-                "en": "Fixed io-package.json",
-                "de": "io-package.json behoben",
-                "ru": "Исправлен io-package.json",
-                "pt": "Io-package.json corrigido",
-                "nl": "Io-package.json opgelost",
-                "fr": "Correction de io-package.json",
-                "it": "Risolto il problema con io-package.json",
-                "es": "Io-package.json fijo",
-                "pl": "Naprawiono io-package.json",
-                "zh-cn": "修复了io-package.json"
-            },
-            "0.3.8": {
-                "en": "Updated readme since adapter is now in latest repository, updated translations, fixed/improved admin/index_m.js ",
-                "de": "Readme aktualisiert, da Adapter nun im Latest repository, aktualisierte Übersetzungen, verbesserte admin/index_m.js",
-                "ru": "Обновлен файл readme, так как адаптер теперь находится в последнем репозитории, обновлены переводы, исправлен / улучшен admin / index_m.js",
-                "pt": "Leia-me atualizado, pois o adaptador está agora no repositório mais recente, traduções atualizadas, admin / index_m.js corrigido / aprimorado",
-                "nl": "Bijgewerkte readme omdat adapter nu in de nieuwste repository is, bijgewerkte vertalingen, vaste / verbeterde admin / index_m.js",
-                "fr": "Lisez-moi mis à jour puisque l'adaptateur est maintenant dans le dernier référentiel, traductions mises à jour, admin / index_m.js corrigé / amélioré",
-                "it": "Readme aggiornato poiché l'adattatore è ora nell'ultimo repository, traduzioni aggiornate, admin / index_m.js corretto / migliorato",
-                "es": "Léame actualizado ya que el adaptador ahora está en el último repositorio, traducciones actualizadas, admin / index_m.js corregido / mejorado",
-                "pl": "Zaktualizowany plik readme, ponieważ adapter znajduje się teraz w najnowszym repozytorium, zaktualizowane tłumaczenia, naprawiony / ulepszony admin / index_m.js",
-                "zh-cn": "由于适配器现在位于最新的存储库中，因此更新了自述文件，更新了翻译，已修复/改进了admin / index_m.js"
-            },
-            "0.3.7": {
-                "en": "mini update under the hood",
-                "de": "Mini-Update unter der Haube",
-                "ru": "мини-обновление под капотом",
-                "pt": "mini atualização sob o capô",
-                "nl": "mini-update onder de motorkap",
-                "fr": "mini mise à jour sous le capot",
-                "it": "mini aggiornamento sotto il cofano",
-                "es": "mini actualización bajo el capó",
-                "pl": "mini aktualizacja pod maską",
-                "zh-cn": "引擎盖下的迷你更新"
-            },
-            "0.3.6": {
-                "en": "Minor translation update and Compact Mode test successfully completed.",
-                "de": "Kleine Übersetzungsaktualisierung und Compact-Mode-Test erfolgreich abgeschlossen.",
-                "ru": "Незначительное обновление перевода и тест в компактном режиме успешно завершены.",
-                "pt": "A atualização da tradução secundária e o teste do modo compacto foram concluídos com êxito.",
-                "nl": "Kleine vertaalupdate en Compact Mode-test met succes voltooid.",
-                "fr": "Mise à jour mineure de la traduction et test du mode compact terminé avec succès.",
-                "it": "Aggiornamento della traduzione minore e test della modalità compatta completati con successo.",
-                "es": "Actualización de traducción menor y prueba de modo compacto completada con éxito.",
-                "pl": "Niewielka aktualizacja tłumaczenia i test trybu kompaktowego zakończone pomyślnie.",
-                "zh-cn": "小型翻译更新和紧凑模式测试成功完成。"
-            },
-            "0.3.5": {
-                "en": "Internationalization (i18n) only – added all required 10 languages, and provide documentation in English and German plus support for embedded other translations (like Russian, Spanish, etc.) within the admin configuration.",
-                "de": "Nur Internationalisierung (i18n) - alle erforderlichen 10 Sprachen hinzugefügt Dokumentation in Englisch und Deutsch, sowie Unterstützung für eingebettete andere Übersetzungen (wie Russisch, Spanisch usw.) in der Admin-Konfiguration.",
-                "ru": "Только интернационализация (i18n) - добавлены все необходимые 10 языков и предоставлена документация на английском и немецком языках, а также поддержка встроенных других переводов (например, русский, испанский и т. Д.) В конфигурации администратора.",
-                "pt": "Internacionalização (i18n) apenas - adicionado todos os 10 idiomas necessários e fornece documentação em inglês e alemão, além de suporte para outras traduções embutidas (como russo, espanhol, etc.) dentro da configuração administrativa.",
-                "nl": "Alleen internationalisatie (i18n) - alle vereiste 10 talen toegevoegd, en documentatie in het Engels en Duits plus ondersteuning voor ingebedde andere vertalingen (zoals Russisch, Spaans, enz.) In de admin-configuratie.",
-                "fr": "Internationalisation (i18n) uniquement - ajout des 10 langues requises et fourniture de la documentation en anglais et en allemand, ainsi que prise en charge d'autres traductions intégrées (comme le russe, l'espagnol, etc.) dans la configuration d'administration.",
-                "it": "Solo internazionalizzazione (i18n): sono state aggiunte tutte le 10 lingue richieste e fornisce documentazione in inglese e tedesco oltre al supporto per altre traduzioni incorporate (come russo, spagnolo, ecc.) Nella configurazione dell'amministratore.",
-                "es": "Solo internacionalización (i18n): se agregaron los 10 idiomas requeridos y proporcionar documentación en inglés y alemán, además de soporte para otras traducciones integradas (como ruso, español, etc.) dentro de la configuración del administrador.",
-                "pl": "Tylko internacjonalizacja (i18n) - dodano wszystkie wymagane 10 języków i dostarczono dokumentację w języku angielskim i niemieckim oraz obsługę innych wbudowanych tłumaczeń (takich jak rosyjski, hiszpański itp.) W konfiguracji administratora.",
-                "zh-cn": "仅国际化（i18n）–添加了所有必需的10种语言，并提供了英语和德语文档，并在管理配置中支持嵌入式其他翻译（如俄语，西班牙语等）。"
             }
         },
         "title": "Smart Control",
@@ -276,7 +134,7 @@
         "extendedInfoLog": true,
         "fancy-filter-input": "",
         "executeZoneAlways": false,
-        "jsonZoneActivationMaxEntries": "100",
+        "jsonMaxEntries": "100",
         "validateDeactivatedRows": false,
         "tableTriggerMotion": [
             {

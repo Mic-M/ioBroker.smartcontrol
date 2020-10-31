@@ -90,6 +90,12 @@ This is just to provide you an overview of the adapter options.
 
 ## Changelog
 
+### 0.5.13
+* (Mic-M) Issue #35 should be finally fixed.
+* (Mic-M) Enhancement: New state `info.log.switchedTargetDevices.json` for recently switched target devices
+* (Mic-M) Code improvements
+
+
 ### 0.5.12
 * (Mic-M) Another fix of 0.5.10 and improvement of debug log
 

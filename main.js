@@ -79,8 +79,8 @@ class SmartControl extends utils.Adapter {
             // Zones Status - currently switched on/off, like {'Bathroom': true, 'Couch':false}- initialized in _asyncOnReady() with false
             zonesIsOn: {},
 
-            // Zone Log - for smartcontrol.x.info.log.zoneActivations.json
-            zonesLog: [],
+            // Logs of smartcontrol.x.info.log.xxxxxx.json
+            jsonLogs: {},
 
             // Workarounds / bug fixes
             issue35_ts: {}, // timestamp of each schedule, so when it was executed, to fix https://github.com/Mic-M/ioBroker.smartcontrol/issues/35
@@ -151,22 +151,31 @@ class SmartControl extends utils.Adapter {
             }
 
             /**
-             * Create state smartcontrol.x.info.log.zoneActivations.json
+             * Create objects:
+             *  - smartcontrol.x.info.log.zoneActivations.json
+             *  - smartcontrol.x.info.log.switchedTargetDevices.json
              */
-            await this.x.helper.asyncCreateStates({ 
-                statePath: `${this.namespace}.info.log.zoneActivations.json`, 
-                commonObject: {name:'JSON of recent zone activations', type:'string', read:true, write:false, role:'json', def:'' }
-            });
-            // Note: above will not overwrite existing states and values. 
-            // Now get state value and set into global variable
-            const state = await this.getStateAsync(`info.log.zoneActivations.json`);
-            if (state && state.val && typeof state.val == 'string') {
-                this.x.zonesLog = JSON.parse(state.val);
-            } else {
-                this.log.debug(`State value of 'info.log.zoneActivations.json' is empty.`);
+            const toCreate = [
+                {id:'zoneActivations',       name:'JSON of recent zone activations'},
+                {id:'switchedTargetDevices', name: 'JSON of recent switched target devices'}
+            ];
+
+            for (const lpObj of toCreate) {
+
+                await this.x.helper.asyncCreateStates({ 
+                    statePath: `${this.namespace}.info.log.${lpObj.id}.json`, 
+                    commonObject: {name:lpObj.name, type:'string', read:true, write:false, role:'json', def:'' }
+                });
+                // Note: above will not overwrite existing states and values. 
+                // Now get state value and set into global variable
+                const lpState = await this.getStateAsync(`info.log.${lpObj.id}.json`);
+                if (lpState && lpState.val && typeof lpState.val == 'string') {
+                    this.x.jsonLogs[lpObj.id] = JSON.parse(lpState.val);
+                } else {
+                    this.log.debug(`State value of 'info.log.${lpObj.id}.json' is empty.`);
+                }                
+
             }
-
-
 
             /**
              * Create smartcontrol.x.userstates states
