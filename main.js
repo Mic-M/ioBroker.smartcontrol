@@ -53,6 +53,7 @@ class SmartControl extends utils.Adapter {
             // {object} timers    - All timer objects.
             timersZoneOn: {},    // for option "onAfter" in Zones table
             timersZoneOff: {},    // for option "offAfter" in Zones table
+            timersMimicMotionTrigger: {}, // for "motion linked trigger", to turn off after x sec if no motion
             timersZoneDeviceOnDelay: {}, // for Zones devices, target overwrite delay
 
             // {object} schedules - All schedules (node-schedule)
@@ -482,7 +483,7 @@ class SmartControl extends utils.Adapter {
             // STATE SUBSCRIPTION: to all 'smartcontrol.x.options.x.x.active'
             await this.subscribeStatesAsync('options.*.active');            
 
-            // STATE SUBSCRIPTION: to all trigger states
+            // STATE SUBSCRIPTION: to Triggers: Motion and Devices
             // @ts-ignore -> https://github.com/microsoft/TypeScript/issues/36769
             for (const lpRow of this.config.tableTriggerMotion.concat(this.config.tableTriggerDevices)) {
                 if (lpRow.active) {
@@ -490,17 +491,6 @@ class SmartControl extends utils.Adapter {
                     await this.subscribeForeignStatesAsync(statePath); // Info: we already validated in asyncVerifyConfig() if state exists
                 }
             }
-
-            // STATE SUBSCRIPTION: to all tableTargetDevices state changes - "off" states only
-            /*
-             sc.logExtendedInfo('Subscribing to all target device off states...');
-            for (const lpRow of this.config.tableTargetDevices) {
-                if (lpRow.active) {
-                    const statePath = lpRow.offState; // like 'smartcontrol.0.Test.light.Bathroom' 
-                    await this.subscribeForeignStatesAsync(statePath); // Info: we already validated in asyncVerifyConfig() if state exists
-                }
-            }
-            */
 
             /**
              * Schedule all trigger times
@@ -652,6 +642,8 @@ class SmartControl extends utils.Adapter {
 
         try {
 
+            let stateChangeCounter = 0;
+
             if (!stateObject) {
                 // this.log.debug(`Subscribed state '${statePath}' was deleted.`);
                 return;
@@ -662,7 +654,8 @@ class SmartControl extends utils.Adapter {
             // Check acknowledge (ack)
             const ackPassingResult = await this.x.helper.isAckPassing(statePath, stateObject);
             if ( ! ackPassingResult.passing ) {
-                this.log.debug(`State Change: IGNORED – state '${statePath}' change: ack '${stateObject.ack}' - ${ackPassingResult.msg}`);
+                if (!statePath.startsWith(this.namespace)) // no log needed for smartcontrol.x states
+                    this.log.debug(`State Change: IGNORED – state '${statePath}' change: ack '${stateObject.ack}' - ${ackPassingResult.msg}`);
                 return;
             } else {
                 this.log.debug(`State Change: ACCEPTED – state '${statePath}' change: ack '${stateObject.ack}' - ${ackPassingResult.msg}`);
@@ -672,6 +665,7 @@ class SmartControl extends utils.Adapter {
              * State Change: smartcontrol.0.options.XXX.XXX.active
              */
             if (statePath.startsWith(`${this.namespace}.options.`) && statePath.endsWith('.active')) {
+                stateChangeCounter++;
                 this.log.debug(`smartcontrol options.XXX.XXX.active - Subscribed state '${statePath}' changed.`);
 
                 // {name:'Hallway', index:2, table:'tableZones', field:'active', row:{.....} }
@@ -702,6 +696,7 @@ class SmartControl extends utils.Adapter {
              * State Change: smartcontrol.0.options.TriggerMotion.xxx.duration and .briThreshold
              */
             if (statePath.startsWith(`${this.namespace}.options.TriggerMotion.`) && (statePath.endsWith('.duration') || (statePath.endsWith('.briThreshold') ))) {
+                stateChangeCounter++;
                 this.log.debug(`smartcontrol options.TriggerMotion<duration|briThreshold> - Subscribed state '${statePath}' changed.`);
 
                 // {name:'Motion.Bathroom', index:2, table:'tableTriggerMotion', field:'active', row:{.....} }
@@ -733,7 +728,8 @@ class SmartControl extends utils.Adapter {
             /**
              * State Change: smartcontrol.x.targetDevices.xxx
              */                
-            else if (statePath.startsWith(`${this.namespace}.targetDevices.`)) {
+            if (statePath.startsWith(`${this.namespace}.targetDevices.`)) {
+                stateChangeCounter++;
                 this.log.debug(`smartcontrol targetDevices - Subscribed state '${statePath}' changed.`);
 
                 let targetDevicesRow = {};
@@ -759,8 +755,8 @@ class SmartControl extends utils.Adapter {
             /**
              * State Change: smartcontrol.0.targetURLs.xxx.call_on / smartcontrol.0.targetURLs.xxx.call_off
              */                
-            else if (statePath.startsWith(`${this.namespace}.targetURLs.`) && (statePath.endsWith('.call_on') || statePath.endsWith('.call_off')) && stateObject.val === true) {
-
+            if (statePath.startsWith(`${this.namespace}.targetURLs.`) && (statePath.endsWith('.call_on') || statePath.endsWith('.call_off')) && stateObject.val === true) {
+                stateChangeCounter++;
                 this.log.debug(`smartcontrol targetURLs - Subscribed state '${statePath}' changed.`);
 
                 // Prefix 'smartcontrol.0.targetURLs.' was already added in asyncVerifyConfig() to name and 
@@ -808,10 +804,11 @@ class SmartControl extends utils.Adapter {
             /**
              * State Change: tableTargetDevices: on/off states
              */
-            else if (
+            if (
                 (this.getOptionTableValue('tableTargetDevices', 'onState', statePath, 'name') != undefined)
                 || (this.getOptionTableValue('tableTargetDevices', 'offState', statePath, 'name') != undefined)
             ) {                    
+                stateChangeCounter++;
                 this.log.debug(`State Change: tableTargetDevices: on/off states - Subscribed state '${statePath}' changed.`);
                 for (const lpRow of this.config.tableTargetDevices) {
                     if (!lpRow.active) continue;  
@@ -831,10 +828,11 @@ class SmartControl extends utils.Adapter {
             /**
              * State Change: Trigger of tableTriggerMotion or tableTriggerDevices
              */                    
-            else if (
+            if (
                 (this.getOptionTableValue('tableTriggerMotion', 'stateId', statePath, 'name') != undefined)
                 || (this.getOptionTableValue('tableTriggerDevices', 'stateId', statePath, 'name') != undefined)
             ) {
+                stateChangeCounter++;
                 this.log.debug(`State Change: Trigger of tableTriggerMotion or tableTriggerDevices - Subscribed state '${statePath}' changed.`);
                 this.asyncDoOnTriggerActivated(statePath, stateObject);
             }
@@ -842,11 +840,11 @@ class SmartControl extends utils.Adapter {
             /**
              * State Change: Everything else
              */
-            else {
+            if (stateChangeCounter == 0) {
                 this.log.debug(`State '${statePath}' is subscribed and currently changed, but no action defined in this function to proceed with this state change, which is most likely fine!`);
+            } else {
+                this.log.debug(`State change '${statePath}': ${stateChangeCounter} state change actions identified.`);
             }
-
-
 
         } catch (error) {
             this.x.helper.dumpError('[_asyncOnStateChange]', error);
@@ -874,6 +872,7 @@ class SmartControl extends utils.Adapter {
             timeoutCounter += this._clearZoneTimeouts({
                 'timersZoneOn': 'zone on-timer',
                 'timersZoneOff': 'zone off-timer',
+                'timersMimicMotionTrigger': 'zone off-timer for linked trigger',
                 'timersZoneDeviceOnDelay': 'zone device on-timer',
             });
 
@@ -1768,79 +1767,102 @@ class SmartControl extends utils.Adapter {
             }
 
             // Loop through all trigger names
+            // We may have 2 trigger class instances for "motion linked devices"
             for (const lpTriggerName of triggerNames) {
-  
+
+                const triggers = [];
                 if (!this.x.triggers[lpTriggerName]) {
                     this.log.debug(`Trigger '${lpTriggerName}': not not found for ${statePath}. This is likely caused by user (invalid configuration).`);
                     continue;
                 }
-                const trigger = this.x.triggers[lpTriggerName];
+                this.x.triggers[lpTriggerName].mimicMotion = false;
+                triggers.push(this.x.triggers[lpTriggerName]);
 
-                /**
-                 * Motion sensor changed to false (no motion).
-                 * In this case, we will not switch any target devices, but set a timer to turn targets off.
-                 */
-                if (trigger.triggerIsMotion && stateObject.val===false && !this.x.helper.isLikeEmpty(trigger.motionDuration) && (parseInt(trigger.motionDuration) > 0)) {
-
-                    // We start timer to switch devices off
-                    if (!trigger.zoneNames || !trigger.zoneTargetNames) {
-                        this.x.helper.logExtendedInfo(`Motion sensor ${lpTriggerName} changed to false, but no zone name or zone target names found which were switched on before.`);
-                    } else {
-                        for (const lpZoneName of trigger.zoneNames) {
-                            trigger.asyncSetZoneTimer_motion(lpZoneName);
+                // Now let's add "motion linked trigger"
+                for (const lpMotionRow of this.config.tableTriggerMotion) {
+                    if (lpMotionRow.active && !this.x.helper.isLikeEmpty(lpMotionRow.motionLinkedTrigger)) {
+                        for (const lpLinkedTriggerName of lpMotionRow.motionLinkedTrigger) {
+                            if (lpLinkedTriggerName == lpTriggerName) {
+                                // Trigger is linked to a motion trigger, so we mimic motion
+                                this.x.triggers[lpMotionRow.name].mimicMotion = true;
+                                this.x.triggers[lpMotionRow.name].mimicMotionTriggerName = lpTriggerName;
+                                triggers.push(this.x.triggers[lpMotionRow.name]);
+                            }
                         }
                     }
-                    continue; // Motion sensor to false - so we can go out here.
+                }  
 
-                }
+                // Finally, go through both triggers
+                for (const trigger of triggers) {
 
-                /**
-                 * Motion sensor changed to true.
-                 * Clear motion timer
-                 */
-                if (trigger.triggerIsMotion && stateObject.val===true) {
-                    clearTimeout(trigger.motionTimer);
-                    trigger.motionTimer = null;
-                }
+                    /**
+                     * If motion sensor changed to false (no motion).
+                     * In this case, we will not switch any target devices, but set a timer to turn targets off.
+                     */
+                    if (!trigger.mimicMotion && trigger.triggerIsMotion && stateObject.val===false && !this.x.helper.isLikeEmpty(trigger.motionDuration) && (parseInt(trigger.motionDuration) > 0)) {
 
-                /**
-                 * Verify if state value that was set matches with the config
-                 */
-                // Check for >=, <=, >, <, !=/<>  and number, so like '>= 3', '<7'
-                let comparatorSuccess = false;
-                if (trigger.triggerTableId == 'tableTriggerDevices' && (typeof trigger.triggerStateVal == 'string') ) {
-                    const res = this.x.helper.isNumComparatorMatching(stateObject.val, trigger.triggerStateVal);
-                    if (res.isComparator && res.result) {
-                        comparatorSuccess = true;
-                    } else if (res.isComparator && !res.result) {
-                        this.log.debug(`Trigger '${lpTriggerName}' activated, but not meeting 'comparator' condition (trigger state val: '${trigger.triggerStateVal}'), therefore, we disregard the activation.`);
-                        continue; // We go out since we have a comparator, but not matching
+                        // We start timer to switch devices off
+                        if (!trigger.zoneNames || !trigger.zoneTargetNames) {
+                            this.x.helper.logExtendedInfo(`Motion sensor ${lpTriggerName} changed to false, but no zone name or zone target names found which were switched on before.`);
+                        } else {
+                            for (const lpZoneName of trigger.zoneNames) {
+                                trigger.asyncSetZoneTimer_motion(lpZoneName);
+                            }
+                        }
+                        continue; // Motion sensor to false - so we can go out here.
+
                     }
 
+                    /**
+                     * Motion sensor changed to true. We also handle motion linked trigger here
+                     * Clear motion timer
+                     */
+                    if (trigger.mimicMotion || (trigger.triggerIsMotion && stateObject.val===true)) {
+                        clearTimeout(trigger.motionTimer);
+                        trigger.motionTimer = null;
+                    }
+
+                    /**
+                     * Verify if state value that was set matches with the config
+                     */
+                    // Check for >=, <=, >, <, !=/<>  and number, so like '>= 3', '<7'
+                    let comparatorSuccess = false;
+                    if (trigger.triggerTableId == 'tableTriggerDevices' && (typeof trigger.triggerStateVal == 'string') ) {
+                        const res = this.x.helper.isNumComparatorMatching(stateObject.val, trigger.triggerStateVal);
+                        if (res.isComparator && res.result) {
+                            comparatorSuccess = true;
+                        } else if (res.isComparator && !res.result) {
+                            this.log.debug(`Trigger '${lpTriggerName}' activated, but not meeting 'comparator' condition (trigger state val: '${trigger.triggerStateVal}'), therefore, we disregard the activation.`);
+                            continue; // We go out since we have a comparator, but not matching
+                        }
+
+                    }
+                    // Compare state value with config
+                    if (!comparatorSuccess && trigger.triggerStateVal != undefined && trigger.triggerStateVal != stateObject.val ) {
+                        this.log.debug(`Trigger '${lpTriggerName}' activated, but not meeting conditions (triggerStateVal '${trigger.triggerStateVal}' != stateObject.val '${stateObject.val}' ), therefore, we disregard the activation.`);
+                        continue; // Go out since no match
+                    }
+                    
+                    /**
+                     * Do not switch more often than x seconds
+                     */
+                    let threshold = parseInt(this.config.limitTriggerInterval); // in seconds
+                    if(!threshold || !this.x.helper.isNumber(threshold) || threshold < 1) threshold = 1;
+                    const formerTs = this.x.onStateChangeTriggers[trigger.triggerName];
+                    const currTs = Date.now();
+                    this.x.onStateChangeTriggers[trigger.triggerName] = currTs;
+                    if (formerTs && ( (formerTs + (threshold*1000)) > currTs)) {
+                        this.x.helper.logExtendedInfo(`Trigger '${trigger.triggerName}' was already activated ${Math.round(((currTs-formerTs) / 1000) * 100) / 100} seconds ago and is ignored. Must be at least ${threshold} seconds.`);
+                        continue;
+                    }
+        
+                    /**
+                     * All conditions passed -> set all target devices
+                     */
+                    trigger.asyncSetTargetDevices();
+
+                    
                 }
-                // Compare state value with config
-                if (!comparatorSuccess && trigger.triggerStateVal != undefined && trigger.triggerStateVal != stateObject.val ) {
-                    this.log.debug(`Trigger '${lpTriggerName}' activated, but not meeting conditions (triggerStateVal '${trigger.triggerStateVal}' != stateObject.val '${stateObject.val}' ), therefore, we disregard the activation.`);
-                    continue; // Go out since no match
-                }
-                
-                /**
-                 * Do not switch more often than x seconds
-                 */
-                let threshold = parseInt(this.config.limitTriggerInterval); // in seconds
-                if(!threshold || !this.x.helper.isNumber(threshold) || threshold < 1) threshold = 1;
-                const formerTs = this.x.onStateChangeTriggers[trigger.triggerName];
-                const currTs = Date.now();
-                this.x.onStateChangeTriggers[trigger.triggerName] = currTs;
-                if (formerTs && ( (formerTs + (threshold*1000)) > currTs)) {
-                    this.x.helper.logExtendedInfo(`Trigger '${trigger.triggerName}' was already activated ${Math.round(((currTs-formerTs) / 1000) * 100) / 100} seconds ago and is ignored. Must be at least ${threshold} seconds.`);
-                    continue;
-                }
-    
-                /**
-                 * All conditions passed -> set all target devices
-                 */
-                trigger.asyncSetTargetDevices();
 
             }
 

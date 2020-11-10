@@ -213,7 +213,8 @@ function load2(settings, onChange) {
             case 'tableTriggerMotion':
                 statePathPopupSelection(tableId,'stateSelectPopupMotionState', 'stateId');
                 statePathPopupSelection(tableId,'stateSelectPopupBriState', 'briStateId');          
-                updateTableButtonIcons(tableId, [{dataButton:'stateSelectPopupMotionState', icon:'search'},{dataButton:'stateSelectPopupBriState', icon:'search'}]);
+                dialogSelectSettings({tableId:'tableTriggerMotion', triggerDataCmd:'motionSelectLinkedTrigger', targetField:'motionLinkedTrigger', dialogTitle:_('Select linked triggers') });
+                updateTableButtonIcons(tableId, [{dataButton:'stateSelectPopupMotionState', icon:'search'},{dataButton:'stateSelectPopupBriState', icon:'search'}, {dataButton:'motionSelectLinkedTrigger', icon:'pageview'}]);
                 addCopyTableRowSmarter(tableId);        
                 break;
 
@@ -285,6 +286,7 @@ function load2(settings, onChange) {
                 $('.collapsible').collapsible(); // https://materializecss.com/collapsible.html
                 populateTable('tableConditions', 'name', 'tableTriggerTimes', 'additionalConditions');
                 populateTable('tableConditions', 'name', 'tableTriggerTimes', 'never');
+                populateTable(['tableTriggerDevices'], ['name'], 'tableTriggerMotion', 'motionLinkedTrigger');
                 break;
 
             case '#tabZones':
@@ -318,10 +320,6 @@ function load2(settings, onChange) {
                 $stateField.prev('div.userstates').remove(); // just in case
                 $stateField.addClass('input-userstates');
                 $stateField.before(`<div class="translate userstates">${_('State under')} ${adapterNamespace}.userstates. (${_('will be generated automatically')})</div>`);
-                //$stateField.before(`<div class="translate userstates">State under ${adapterNamespace}.userstates. (will be generated automatically)</div>`);
-                //$stateField.before(`<div class="userstates">${translateWord('Additional conditions', systemLang)}</div>`);
-                //$stateField.before(`<div class="userstates">${_(`Astro times 'night' and 'nightEnd'`)}</div>`);
-
             } else {
                 //unchecked
                 $stateField.removeClass('input-userstates');
@@ -379,7 +377,9 @@ function load2(settings, onChange) {
         {changedTableId:'tableConditions', targetTableId:'tableZones', targetId:'neverOff'},
         {changedTableId:'tableTriggerMotion',  targetTableId:'tableZones', targetId:'triggers'},
         {changedTableId:'tableTriggerDevices', targetTableId:'tableZones', targetId:'triggers'},
+        {changedTableId:'tableTriggerDevices', targetTableId:'tableTriggerMotion', targetId:'motionLinkedTrigger'},
         {changedTableId:'tableTriggerTimes',   targetTableId:'tableZones', targetId:'triggers'},
+        {changedTableId:'tableTriggerTimes',   targetTableId:'tableTriggerMotion', targetId:'motionLinkedTrigger'},
     ];
     onTableRowNameChanges(fieldChangeConfig);
     /**

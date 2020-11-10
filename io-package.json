@@ -1,8 +1,22 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "0.5.13",
+        "version": "0.6.0",
         "news": {
+            "0.6.0": {
+                "1. Several code improvements / fixes; 2. Enhancement: New 'Linked devices' options for tab '3. TRIGGER', motion sensors.": {
+                    "en": "1. Several code improvements / fixes; 2. Enhancement: New 'Linked devices' options for tab '3. TRIGGER' -> motion sensors.",
+                    "de": "1. Mehrere Codeverbesserungen/-korrekturen; 2. Erweiterung: Neue Optionen für verknüpfte Geräte für '3. TRIGGER' -> Bewegungsmelder.",
+                    "ru": "1. Несколько улучшений / исправлений кода; 2. Улучшение: новые параметры «Связанные устройства» для вкладки «3. ТРИГГЕР, датчики движения.",
+                    "pt": "1. Várias melhorias / correções de código; 2. Aprimoramento: Novas opções de 'Dispositivos vinculados' para a guia '3. TRIGGER ', sensores de movimento.",
+                    "nl": "1. Diverse codeverbeteringen / fixes; 2. Verbetering: nieuwe opties voor 'Gekoppelde apparaten' voor tabblad '3. TRIGGER ', bewegingssensoren.",
+                    "fr": "1. Plusieurs améliorations / corrections de code; 2. Amélioration: Nouvelles options «Appareils liés» pour l'onglet «3. TRIGGER ', capteurs de mouvement.",
+                    "it": "1. Diversi miglioramenti / correzioni al codice; 2. Miglioramento: nuove opzioni \"Dispositivi collegati\" per la scheda \"3. TRIGGER ', sensori di movimento.",
+                    "es": "1. Varias mejoras / correcciones de código; 2. Mejora: Nuevas opciones de 'Dispositivos vinculados' para la pestaña '3. TRIGGER ', sensores de movimiento.",
+                    "pl": "1. Kilka ulepszeń / poprawek kodu; 2. Ulepszenie: Nowe opcje „Połączonych urządzeń” na karcie „3. TRIGGER ”, czujniki ruchu.",
+                    "zh-cn": "1.若干代码改进/修复； 2.增强功能：选项卡'3新增了“链接的设备”选项。 TRIGGER'，运动传感器。"
+                }
+            },
             "0.5.13": {
                 "Issue #35 should be finally fixed, Enhancement: New state info.log.switchedTargetDevices.json for recently switched target devices": {
                     "en": "Issue #35 should be finally fixed, Enhancement: New state info.log.switchedTargetDevices.json for recently switched target devices",
@@ -145,7 +159,10 @@
                 "duration": "10",
                 "notIfManual": false,
                 "briStateId": "smartcontrol.0.Test.brightness.Bathroom_bri",
-                "briThreshold": "100"
+                "briThreshold": "100",
+                "motionLinkedTrigger": [],
+                "motionLinkedDuration": "",
+                "ignoreMotionOn": false
             },
             {
                 "active": true,
@@ -155,7 +172,10 @@
                 "duration": "120",
                 "notIfManual": false,
                 "briStateId": "smartcontrol.0.Test.brightness.Hallway1_bri",
-                "briThreshold": "70"
+                "briThreshold": "70",
+                "motionLinkedTrigger": [],
+                "motionLinkedDuration": "",
+                "ignoreMotionOn": false
             },
             {
                 "active": true,
@@ -165,7 +185,10 @@
                 "duration": "120",
                 "notIfManual": false,
                 "briStateId": "smartcontrol.0.Test.brightness.Hallway2_bri",
-                "briThreshold": "60"
+                "briThreshold": "60",
+                "motionLinkedTrigger": [],
+                "motionLinkedDuration": "",
+                "ignoreMotionOn": false
             }
         ],
         "tableTriggerDevices": [
