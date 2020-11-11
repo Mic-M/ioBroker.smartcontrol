@@ -16,7 +16,7 @@
 
 ([Click here](#introduction) to jump to Introduction section)
 
-This adapter would not exist without the valuable input from the ioBroker community related to UI, feature requests, testing and bug reportsm etc. Many thanks to everyone who contributed!
+This adapter would not exist without the awesome and valuable input from the ioBroker community related to UI, feature requests, testing and bug reports, etc. Many thanks to everyone who contributed!
 
 This as a summary of very positive feedback from the community I want to share with you 😊 (blush) (from oldest to newest, and in German):
 
