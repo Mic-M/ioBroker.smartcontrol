@@ -16,7 +16,7 @@
 
 This adapter would not exist without the valuable input from the ioBroker community related to UI, feature requests, testing and bug reportsm etc. Many thanks to everyone who contributed!
 
-This as a summary of very positive feedback from the community I want to share with you 😊 :blush: (from oldest to newest, and in German):
+This as a summary of very positive feedback from the community I want to share with you 😊 (blush) (from oldest to newest, and in German):
 
 * *Ein toller Adapter und Entwicklungsarbeit!* [source](https://forum.iobroker.net/post/461724)
 * *Ich finde das Hilfssystem einfach Genial.👍* [source](https://forum.iobroker.net/post/463066)
