@@ -1,8 +1,22 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "0.6.0",
+        "version": "1.0.0",
         "news": {
+            "1.0.0": {
+                "No changes - just prepared versioning to add adapter to stable repository per Adapter development documentation": {
+                    "en": "No changes - just prepared versioning to add adapter to stable repository per Adapter development documentation",
+                    "de": "Keine Änderungen - nur vorbereitete Versionierung zum Hinzufügen des Adapters zum stabilen Repository gemäß der Adapter-Entwicklungs-Dokumentation",
+                    "ru": "Без изменений - просто подготовлено управление версиями для добавления адаптера в стабильный репозиторий согласно документации по разработке адаптера.",
+                    "pt": "Sem alterações - apenas controle de versão preparado para adicionar adaptador ao repositório estável de acordo com a documentação de desenvolvimento do adaptador",
+                    "nl": "Geen wijzigingen - alleen versiebeheer voorbereid om adapter toe te voegen aan stabiele repository per ontwikkelingsdocumentatie voor adapter",
+                    "fr": "Aucun changement - juste préparé la gestion des versions pour ajouter l'adaptateur au référentiel stable conformément à la documentation de développement de l'adaptateur",
+                    "it": "Nessuna modifica: solo il controllo delle versioni preparato per aggiungere l'adattatore al repository stabile secondo la documentazione di sviluppo dell'adattatore",
+                    "es": "Sin cambios: solo versiones preparadas para agregar el adaptador al repositorio estable según la documentación de desarrollo del adaptador",
+                    "pl": "Bez zmian - po prostu przygotowałem wersję w celu dodania adaptera do stabilnego repozytorium zgodnie z dokumentacją rozwoju adaptera",
+                    "zh-cn": "无需更改-只需准备版本，即可根据适配器开发文档将适配器添加到稳定的存储库中"
+                }
+            },
             "0.6.0": {
                 "1. Several code improvements / fixes; 2. Enhancement: New 'Linked devices' options for tab '3. TRIGGER', motion sensors.": {
                     "en": "1. Several code improvements / fixes; 2. Enhancement: New 'Linked devices' options for tab '3. TRIGGER' -> motion sensors.",

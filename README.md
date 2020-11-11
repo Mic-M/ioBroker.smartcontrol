@@ -14,7 +14,7 @@
 
 ## Smart Control Adapter for ioBroker
 
-([Click here](#introduction) to jump to Introduction section)
+*[click here to jump to Introduction section below](#introduction)*
 
 This adapter would not exist without the awesome and valuable input from the ioBroker community related to UI, feature requests, testing and bug reports, etc. Many thanks to everyone who contributed!
 
@@ -28,7 +28,7 @@ This as a summary of very positive feedback from the community I want to share w
 * *super, du hast echt klasse Ideen und setzt diese sehr Userfreundlich um!* [source](https://forum.iobroker.net/post/476117)
 * *Die Geschwindigkeit mit der Du den Adapter nach vorne treibst ist echt erschreckend, so schlimm und schnell das man manches Mal mit dem testen nicht hinterher kommt 👍 RESPEKTABEL* [source](https://forum.iobroker.net/post/477204)
 * *ich bin auch recht begeistert von dem Adapter, schöne Arbeit. Hab jetzt schon längere Zeit immer mal wieder verschiedene Systeme getestet, FHEM, Nodered und jetzt seit kurzem Iobroker. So schnell hab ich meine Lichtsteuerung über Bewegungsmelder noch nie hinbekommen.* [source](https://forum.iobroker.net/post/482899)
-* super sache die du da gebaut hast 🙂* [source](https://forum.iobroker.net/post/485306)
+* *super sache die du da gebaut hast 🙂* [source](https://forum.iobroker.net/post/485306)
 * *der Adapter ist bei mir im Einsatz und läuft sehr gut. Danke für Deine Arbeit.* [source](https://forum.iobroker.net/post/485463)
 * *ich finde es nahezu unfassbar mit welcher Hingabe und Geschwindigkeit Du hier den Adapter nach vorne bringst. RESPEKT<br>Bis jetzt konnte ich tatsächlich alles was ich so an Blockly´s hatte in den Adapter migrieren, echt toll.<br>Ich würde mir wünschen, wenn der Adapter so weit fertig ist, das Du Dir dein ein oder anderen Adapter vornimmst, "forkst" und diesen dann ebenfalls so usernah weiterentwickelst 🙄* [source](https://forum.iobroker.net/post/488090)
 * *erstmal Hut ab. Der Adapter ist echt gut gelungen und es lassen sich nach einer gewissen Einarbeitungszeit in die Adapterlogik sehr viele meiner Skripte damit adaptieren. (...) Trotzdem nochmal dickes Lob, viele Dinge laufen damit seit einiger Zeit reibungslos und übersichtlicher als via Skript. 👍* [source](https://forum.iobroker.net/post/492035)
@@ -117,6 +117,9 @@ This is just to provide you an overview of the adapter options.
 * Adapter icon made by [freepik](https://www.flaticon.com/authors/freepik) from [flaticon.com](https://www.flaticon.com/).</sup></sub>
 
 ## Changelog
+
+### 1.0.0 
+* (Mic-M) No changes - just prepared versioning to add adapter to stable repository per adapter development documentation, [Versioning section](https://github.com/ioBroker/ioBroker.docs/blob/master/docs/en/dev/adapterdev.md).
 
 ### 0.6.0
 * (Mic-M) Several code improvements / fixes
