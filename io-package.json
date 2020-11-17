@@ -1,8 +1,22 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "1.0.0",
+        "version": "1.1.0",
         "news": {
+            "1.1.0": {
+                "Improvement: if multiple motion sensors assigned to zone, zone will not switch off if any other motion sensor assigned to same zone is still motion=true": {
+                  "en": "Improvement: if multiple motion sensors assigned to zone, zone will not switch off if any other motion sensor assigned to same zone is still motion=true",
+                  "de": "Verbesserung: Wenn der Zone mehrere Bewegungsmelder zugewiesen sind, wird die Zone nicht ausgeschaltet, wenn ein anderer Bewegungsmelder, der derselben Zone zugewiesen ist, noch Bewegung=true ist",
+                  "ru": "Исправлено: если несколько датчиков движения назначены зоне, зона не будет отключаться, если любой другой датчик движения, назначенный той же зоне, все еще движется = true",
+                  "pt": "Correção: se vários sensores de movimento atribuídos à zona, a zona não desligará se qualquer outro sensor de movimento atribuído à mesma zona ainda for movimento = verdadeiro",
+                  "nl": "Oplossing: als er meerdere bewegingssensoren zijn toegewezen aan een zone, wordt de zone niet uitgeschakeld als een andere bewegingssensor die aan dezelfde zone is toegewezen nog steeds beweging = waar is",
+                  "fr": "Correction: si plusieurs capteurs de mouvement affectés à la zone, la zone ne s'éteindra pas si un autre capteur de mouvement affecté à la même zone est toujours en mouvement = vrai",
+                  "it": "Risolto: se più sensori di movimento sono assegnati alla zona, la zona non si spegne se qualsiasi altro sensore di movimento assegnato alla stessa zona è ancora motion = true",
+                  "es": "Solución: si se asignan varios sensores de movimiento a la zona, la zona no se apagará si cualquier otro sensor de movimiento asignado a la misma zona sigue siendo movimiento = verdadero",
+                  "pl": "Poprawka: jeśli wiele czujników ruchu jest przypisanych do strefy, strefa nie wyłączy się, jeśli jakikolwiek inny czujnik ruchu przypisany do tej samej strefy jest nadal ruch = prawda",
+                  "zh-cn": "修复：如果分配给区域的多个运动传感器，如果分配给同一区域的任何其他运动传感器仍然是motion = true，则区域将不会关闭"
+                }
+            },
             "1.0.0": {
                 "No changes - just prepared versioning to add adapter to stable repository per Adapter development documentation": {
                     "en": "No changes - just prepared versioning to add adapter to stable repository per Adapter development documentation",
