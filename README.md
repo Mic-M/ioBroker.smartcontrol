@@ -10,7 +10,7 @@
 
 [![NPM](https://nodei.co/npm/iobroker.smartcontrol.png?downloads=true)](https://nodei.co/npm/iobroker.smartcontrol/)
 
-**Tests:**: ![Test and Release](https://github.com/Mic-M/ioBroker.smartcontrol/workflows/Test%20and%20Release/badge.svg)
+**Tests:** ![Test and Release](https://github.com/Mic-M/ioBroker.smartcontrol/workflows/Test%20and%20Release/badge.svg)
 
 ## Smart Control Adapter for ioBroker
 

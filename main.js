@@ -546,11 +546,19 @@ class SmartControl extends utils.Adapter {
                         cron = `${date.getMinutes()} ${date.getHours()} * * *`;
                     }
 
+                    // Cancel schedule first. See issue https://github.com/Mic-M/ioBroker.smartcontrol/issues/43
+                    this.x.schedules[lpRow.name].cancel();
+                    this.x.schedules[lpRow.name] = null; // just in case.
                     this.x.schedules[lpRow.name] = this.x.mSchedule.scheduleJob(cron, async () => {
 
                         const triggerName = lpRow.name;
                         const trigger = this.x.triggers[triggerName]; // Trigger class instance
                         this.log.debug(`--- Trigger [${triggerName}] was triggered per schedule (time: ${trigger.triggerTime}) ---`);
+
+                        /*******************
+                         * NOTE - 18 Nov 2020: This workaround below is most likely no longer needed due to "Cancel schedule first" section above. 
+                         *                     Requires testing.
+                         *******************/
 
                         /**
                          * WORKAROUND - do not call callback multiple times - see https://github.com/Mic-M/ioBroker.smartcontrol/issues/35
