@@ -1,8 +1,22 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "1.1.0",
+        "version": "1.1.1",
         "news": {
+            "1.1.1": {
+                "Fix: Most likely finally fixes issue #43 as well as workaround for issue #35": {
+                  "en": "Fix: Most likely finally fixes issue #43 as well as workaround for issue #35",
+                  "de": "Fix: Behebt höchstwahrscheinlich endlich Issue 43 sowie Workaround für Issue 35",
+                  "ru": "Исправление: Скорее всего, наконец, исправлена проблема № 43, а также решение проблемы № 35.",
+                  "pt": "Correção: provavelmente, finalmente corrige o problema nº 43, bem como uma solução alternativa para o problema nº 35",
+                  "nl": "Oplossing: lost waarschijnlijk eindelijk probleem # 43 op, evenals een tijdelijke oplossing voor probleem # 35",
+                  "fr": "Correctif: corrige très probablement finalement le problème n ° 43 ainsi que la solution de contournement pour le problème n ° 35",
+                  "it": "Correzione: molto probabilmente risolve finalmente il problema # 43 e la soluzione alternativa per il problema # 35",
+                  "es": "Solución: lo más probable es que finalmente solucione el problema # 43, así como una solución para el problema # 35",
+                  "pl": "Poprawka: najprawdopodobniej ostatecznie rozwiązuje problem nr 43, a także obejście problemu nr 35",
+                  "zh-cn": "修复：最有可能最终解决了问题43和问题35的解决方法"
+                }
+            },
             "1.1.0": {
                 "Improvement: if multiple motion sensors assigned to zone, zone will not switch off if any other motion sensor assigned to same zone is still motion=true": {
                   "en": "Improvement: if multiple motion sensors assigned to zone, zone will not switch off if any other motion sensor assigned to same zone is still motion=true",
@@ -43,62 +57,6 @@
                     "es": "1. Varias mejoras / correcciones de código; 2. Mejora: Nuevas opciones de 'Dispositivos vinculados' para la pestaña '3. TRIGGER ', sensores de movimiento.",
                     "pl": "1. Kilka ulepszeń / poprawek kodu; 2. Ulepszenie: Nowe opcje „Połączonych urządzeń” na karcie „3. TRIGGER ”, czujniki ruchu.",
                     "zh-cn": "1.若干代码改进/修复； 2.增强功能：选项卡'3新增了“链接的设备”选项。 TRIGGER'，运动传感器。"
-                }
-            },
-            "0.5.13": {
-                "Issue #35 should be finally fixed, Enhancement: New state info.log.switchedTargetDevices.json for recently switched target devices": {
-                    "en": "Issue #35 should be finally fixed, Enhancement: New state info.log.switchedTargetDevices.json for recently switched target devices",
-                    "de": "Issue #5 sollte nun behoben sein; Erweiterung: Neuer Datenpunkt info.log.switchedTargetDevices.json für zuletzt geschaltene Zielgeräte",
-                    "ru": "Проблема № 35 должна быть окончательно исправлена. Улучшение: новое состояние info.log.switchedTargetDevices.json для недавно переключенных целевых устройств.",
-                    "pt": "O problema nº 35 deve ser finalmente corrigido, Aprimoramento: Novo estado info.log.switchedTargetDevices.json para dispositivos alvo recentemente trocados",
-                    "nl": "Probleem # 35 moet eindelijk worden opgelost, Verbetering: nieuwe status info.log.switchedTargetDevices.json voor recentelijk geschakelde doelapparaten",
-                    "fr": "Le problème n ° 35 devrait être finalement résolu, amélioration: nouvel état info.log.switchedTargetDevices.json pour les appareils cibles récemment commutés",
-                    "it": "Il problema # 35 dovrebbe essere finalmente risolto, Miglioramento: Nuovo stato info.log.switchedTargetDevices.json per i dispositivi di destinazione cambiati di recente",
-                    "es": "El problema n. ° 35 debería resolverse finalmente, Mejora: nuevo estado info.log.switchedTargetDevices.json para dispositivos de destino recientemente cambiados",
-                    "pl": "Problem nr 35 powinien zostać ostatecznie naprawiony, Ulepszenie: nowy stan info.log.switchedTargetDevices.json dla niedawno przełączonych urządzeń docelowych",
-                    "zh-cn": "问题＃35应该最终得到解决，增强功能：最近切换的目标设备的新状态info.log.switchedTargetDevices.json"
-                }
-            },
-            "0.5.12": {
-                "Another fix of 0.5.10 and improvement of debug log": {
-                    "en": "Another fix of 0.5.10 and improvement of debug log",
-                    "de": "Ein weiterer Fix von 0.5.10 und Verbesserung des Debug-Logs",
-                    "ru": "Еще одно исправление 0.5.10 и улучшение журнала отладки",
-                    "pt": "Outra correção de 0.5.10 e melhoria do log de depuração",
-                    "nl": "Een andere oplossing van 0.5.10 en verbetering van het foutopsporingslogboek",
-                    "fr": "Un autre correctif de 0.5.10 et amélioration du journal de débogage",
-                    "it": "Un'altra correzione della 0.5.10 e miglioramento del registro di debug",
-                    "es": "Otra corrección de 0.5.10 y mejora del registro de depuración",
-                    "pl": "Kolejna poprawka w wersji 0.5.10 i ulepszenie dziennika debugowania",
-                    "zh-cn": "0.5.10的另一个修复程序和调试日志的改进"
-                }
-            },
-            "0.5.11": {
-                "Fix of 0.5.11": {
-                    "en": "Fix of 0.5.11",
-                    "de": "Fix von 0.5.11",
-                    "ru": "Исправление 0.5.11",
-                    "pt": "Fix of 0.5.11",
-                    "nl": "Fix van 0.5.11",
-                    "fr": "Correction de 0.5.11",
-                    "it": "Correzione di 0.5.11",
-                    "es": "Corrección de 0.5.11",
-                    "pl": "Poprawka 0.5.11",
-                    "zh-cn": "修复0.5.11"
-                }
-            },
-            "0.5.10": {
-                "Potential fix / workaround: for issue #35 to verify if schedule was called before at the same time": {
-                    "en": "Potential fix / workaround: for issue #35 to verify if schedule was called before at the same time",
-                    "de": "Mögliche Lösung / Problemumgehung: für issue #35 zur Überprüfung, ob Schedule mehrfach zur selben Zeit aufgerufen wird",
-                    "ru": "Возможное исправление / обходной путь: для проблемы №35 необходимо проверить, вызывалось ли расписание раньше в то же время",
-                    "pt": "Possível correção / solução alternativa: para o problema nº 35, para verificar se a programação foi chamada antes, ao mesmo tempo",
-                    "nl": "Mogelijke oplossing / tijdelijke oplossing: voor probleem # 35 om te controleren of het schema eerder op hetzelfde moment werd aangeroepen",
-                    "fr": "Solution potentielle / solution de contournement: pour le problème n ° 35, vérifier si la planification a été appelée auparavant au même moment",
-                    "it": "Potenziale soluzione / soluzione alternativa: per il problema # 35 per verificare se la pianificazione è stata chiamata prima contemporaneamente",
-                    "es": "Posible solución / solución alternativa: para el problema n. ° 35 para verificar si se llamó a la programación antes al mismo tiempo",
-                    "pl": "Potencjalna poprawka / obejście: problem nr 35 w celu sprawdzenia, czy harmonogram został wywołany wcześniej w tym samym czasie",
-                    "zh-cn": "潜在的修复程序/解决方法：针对问题35，验证是否在同一时间之前调用过计划"
                 }
             }
         },

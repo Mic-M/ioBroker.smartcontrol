@@ -114,6 +114,10 @@ This is just to provide you an overview of the adapter options.
 
 ## Changelog
 
+### 1.1.1 
+* (Mic-M) Fix: Most likely finally fixes [issue #43](https://github.com/Mic-M/ioBroker.smartcontrol/issues/43) as well as workaround for [issue #35](https://github.com/Mic-M/ioBroker.smartcontrol/issues/35) (scheduleJob() of node-schedule module: now applying 'cancel' method prior to reschedule every midnight)
+* (Mic-M) Update adapter documentation
+
 ### 1.1.0 
 * (Mic-M) Improvement: if multiple motion sensors assigned to zone, zone will not switch off if any other motion sensor assigned to same zone is still motion=true (addresses [issue #45](https://github.com/Mic-M/ioBroker.smartcontrol/issues/45))
 * (Mic-M) Internal: align testing with latest adapter creator (remove travis and use github test only)
