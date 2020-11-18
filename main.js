@@ -547,8 +547,10 @@ class SmartControl extends utils.Adapter {
                     }
 
                     // Cancel schedule first. See issue https://github.com/Mic-M/ioBroker.smartcontrol/issues/43
-                    this.x.schedules[lpRow.name].cancel();
-                    this.x.schedules[lpRow.name] = null; // just in case.
+                    if(this.x.schedules[lpRow.name] !== undefined) {
+                        this.x.schedules[lpRow.name].cancel();
+                        this.x.schedules[lpRow.name] = null; // just in case.
+                    }
                     this.x.schedules[lpRow.name] = this.x.mSchedule.scheduleJob(cron, async () => {
 
                         const triggerName = lpRow.name;
@@ -607,7 +609,7 @@ class SmartControl extends utils.Adapter {
             return counter;
 
         } catch (error) {
-            this.x.mSchedule.dumpError('[_asyncOnReady_asyncScheduleTriggerTimes]', error);
+            this.x.helper.dumpError('[_asyncOnReady_asyncScheduleTriggerTimes]', error);
             return 0;
         }    
 
