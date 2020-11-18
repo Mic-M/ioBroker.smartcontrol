@@ -547,7 +547,7 @@ class SmartControl extends utils.Adapter {
                     }
 
                     // Cancel schedule first. See issue https://github.com/Mic-M/ioBroker.smartcontrol/issues/43
-                    if(this.x.schedules[lpRow.name] !== undefined) {
+                    if(this.x.schedules[lpRow.name] !== undefined && this.x.schedules[lpRow.name] !== null) {
                         this.x.schedules[lpRow.name].cancel();
                         this.x.schedules[lpRow.name] = null; // just in case.
                     }
@@ -559,7 +559,6 @@ class SmartControl extends utils.Adapter {
 
                         /*******************
                          * NOTE - 18 Nov 2020: This workaround below is most likely no longer needed due to "Cancel schedule first" section above. 
-                         *                     Requires testing.
                          *******************/
 
                         /**
@@ -569,6 +568,7 @@ class SmartControl extends utils.Adapter {
                          * INFO: adapter code looks good so far, I cannot see any reason why this callback would be called multiple times 
                          *       with a difference of like 2ms.
                          */
+                        /*
                         const delay = 30 * 1000; // if executed in less than 30 seconds - do not execute again!
                         let tsFormer = 0;
                         if ( (lpRow.name in this.x.issue35_ts) && this.x.issue35_ts[lpRow.name] > 0 ) {
@@ -591,6 +591,7 @@ class SmartControl extends utils.Adapter {
                         } else {
                             this.x.helper.logExtendedInfo(`Trigger [${triggerName}] Adapter Issue #35: last execution was more than ${delay/1000}s ago, so we continue.`);
                         }
+                        */
                         /************************** End of workaround */
 
                         // First check if additional conditions are met or "never if"
