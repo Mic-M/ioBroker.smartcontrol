@@ -114,6 +114,11 @@ This is just to provide you an overview of the adapter options.
 
 ## Changelog
 
+### Latest Development Version (not yet published on npm)
+* (Mic-M) Fix: [#60 - Linked triggers of motion sensors issue](https://github.com/Mic-M/ioBroker.smartcontrol/issues/60)
+* (Mic-M) Several code improvements
+
+
 ### 1.1.1 
 * (Mic-M) Fix: Most likely finally fixes [issue #43](https://github.com/Mic-M/ioBroker.smartcontrol/issues/43) as well as workaround for [issue #35](https://github.com/Mic-M/ioBroker.smartcontrol/issues/35) (scheduleJob() of node-schedule module: now applying 'cancel' method prior to reschedule every midnight)
 * (Mic-M) Update adapter documentation

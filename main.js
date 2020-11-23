@@ -77,7 +77,8 @@ class SmartControl extends utils.Adapter {
             // Instances of Trigger class with trigger name as key name, and the class instance as value
             triggers: {},
 
-            // Zones Status - currently switched on/off, like {'Bathroom': true, 'Couch':false}- initialized in _asyncOnReady() with false
+            // Zones Status - currently switched on/off, e.g.: {'Bathroom First Floor': true, 'Dining Area':false}
+            // Initialized in _asyncOnReady() with false.
             zonesIsOn: {},
 
             // Logs of smartcontrol.x.info.log.xxxxxx.json
@@ -821,20 +822,75 @@ class SmartControl extends utils.Adapter {
             ) {                    
                 stateChangeCounter++;
                 this.log.debug(`State Change: tableTargetDevices: on/off states - Subscribed state '${statePath}' changed.`);
-                for (const lpRow of this.config.tableTargetDevices) {
-                    if (!lpRow.active) continue;  
-                    if (lpRow.onState != statePath && lpRow.onState != statePath) continue;
+                for (const lpTargetDeviceRow of this.config.tableTargetDevices) {
+                    if (!lpTargetDeviceRow.active) continue;  
+                    if (lpTargetDeviceRow.onState != statePath || lpTargetDeviceRow.offState != statePath) continue;
     
-                    if (lpRow.onState == statePath && lpRow.onValue == stateObject.val) {
-                        await this.setStateAsync(`targetDevices.${lpRow.name}`, {val: true, ack: true });
-                        this.log.debug(`State '${statePath}' changed to '${stateObject.val}' -> '${this.namespace}.targetDevices.${lpRow.name}' set to true.`);
-                    } else if (lpRow.offState == statePath && lpRow.offValue == stateObject.val) {
-                        await this.setStateAsync(`targetDevices.${lpRow.name}`, {val: false, ack: true });
-                        this.log.debug(`State '${statePath}' changed to '${stateObject.val}' -> '${this.namespace}.targetDevices.${lpRow.name}' set to false.`);
+                    if (lpTargetDeviceRow.onState == statePath && lpTargetDeviceRow.onValue == stateObject.val) {
+
+                        // Set "linked" state.
+                        await this.setStateAsync(`targetDevices.${lpTargetDeviceRow.name}`, {val: true, ack: true });
+                        this.log.debug(`State '${statePath}' changed to '${stateObject.val}' -> '${this.namespace}.targetDevices.${lpTargetDeviceRow.name}' set to true.`);
+
+                    } else if (lpTargetDeviceRow.offState == statePath && lpTargetDeviceRow.offValue == stateObject.val) {
+
+                        /**
+                         * First: Set "is Zone on" status to false if - with this new state change - all targets of the zone will be off.
+                         */
+                        for (const lpZoneRow of this.config.tableZones) {
+                            if (!lpZoneRow.active) continue;
+                            if (!lpZoneRow.targets.includes(lpTargetDeviceRow.name)) continue;
+                            let counter = 0;
+
+                            for (const lpZoneTargetName of lpZoneRow.targets) {
+                                
+                                if (!lpZoneRow.active) continue;
+                                
+                                if (lpTargetDeviceRow.name == lpZoneTargetName) {
+                                    // No need to re-check current state value
+                                    counter++;
+                                    continue;
+                                } else {
+                                    const configOffStateId  = this.getOptionTableValue('tableTargetDevices', 'name', lpZoneTargetName, 'offState');
+                                    const configOffStateVal = this.getOptionTableValue('tableTargetDevices', 'name', lpZoneTargetName, 'offValue');
+                                    const actualStateVal    = await this.x.helper.asyncGetForeignStateValue(configOffStateId);
+                                    if (actualStateVal === configOffStateVal) counter++;
+                                }
+                            }
+                            if (counter === lpZoneRow.targets.length) {
+                                
+                                // Set "is Zone on" status to false since all target devices do have the 'off' state now.
+                                this.x.zonesIsOn[lpZoneRow.name] = false;
+                                
+                                // Cancel timers
+                                // NOTE: We cannot cancel trigger timer 'motionTimer' since it may also trigger other zones.
+                                // TODO: We should address motion timers as well.
+                                const timerObjIds = ['timersZoneOff', 'timersMimicMotionTrigger'];
+                                let timerCounter = 0;
+                                for (const lpTimerObjId of timerObjIds) {
+                                    const lpTimeLeft = this.x.helper.getTimeoutTimeLeft(this.x[lpTimerObjId][lpZoneRow.name]);
+                                    if (lpTimeLeft > -1) {
+                                        clearTimeout(this.x[lpTimerObjId][lpZoneRow.name]);
+                                        this.x[lpTimerObjId][lpZoneRow.name] = null;
+                                        timerCounter++;
+                                    }
+                                }                                
+                                if (timerCounter > 0) {
+                                    this.log.debug(`All targets of zone switched off. Therefore, ${timerCounter} running timers canceled..`);
+                                } else {
+                                    this.log.debug(`All targets of zone switched off, but no active timers to cancel.`);
+                                }
+                            }
+                        }
+
+                        /**
+                         * Second: Set "linked" state.
+                         */
+                        await this.setStateAsync(`targetDevices.${lpTargetDeviceRow.name}`, {val: false, ack: true });
+                        this.log.debug(`State '${statePath}' changed to '${stateObject.val}' -> '${this.namespace}.targetDevices.${lpTargetDeviceRow.name}' set to false.`);
                     }
                 }
             }
-
 
             /**
              * State Change: Trigger of tableTriggerMotion or tableTriggerDevices
@@ -1863,8 +1919,14 @@ class SmartControl extends utils.Adapter {
                     const currTs = Date.now();
                     this.x.onStateChangeTriggers[trigger.triggerName] = currTs;
                     if (formerTs && ( (formerTs + (threshold*1000)) > currTs)) {
-                        this.x.helper.logExtendedInfo(`Trigger '${trigger.triggerName}' was already activated ${Math.round(((currTs-formerTs) / 1000) * 100) / 100} seconds ago and is ignored. Must be at least ${threshold} seconds.`);
-                        continue;
+                        if (trigger.triggerIsMotion && stateObject.val===true && this.getOptionTableValue('tableTriggerMotion', 'name', trigger.triggerName, 'ignoreMotionOn')) {
+                            // Do switch anyway, because of motionLinkedTrigger may have triggered right before.
+                            // Scenario: Wall switch switched on, and motion is detected like 0.3s after. E.g. Xiaomi Aquara detect motion just every 2min.
+                        } else {
+                            // do not switch
+                            this.x.helper.logExtendedInfo(`Trigger '${trigger.triggerName}' was already activated ${Math.round(((currTs-formerTs) / 1000) * 100) / 100} seconds ago and is ignored. Must be at least ${threshold} seconds.`);
+                            continue;
+                        }
                     }
         
                     /**

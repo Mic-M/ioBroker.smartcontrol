@@ -788,7 +788,6 @@ function save(callback) { /*eslint-disable-line no-unused-vars*/
         $('#dialog-save-verification').modal('open'); 
         return; // do not save
     }   
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!
     console.warn('SAVE: ' + JSON.stringify(obj.tableTargetEnums));
     // Finally, save settings by calling callback function and provide the settings object
     callback(obj);
