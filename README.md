@@ -80,7 +80,7 @@ Also, you can read most of these instructions here as well:
 * [**Zones**](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/table-zones_en.md) - for German [click here (Deutsch)](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/table-zones_de.md)
 * [**Execution Settings**](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/table-execution_en.md) - for German [click here (Deutsch)](https://github.com/Mic-M/ioBroker.smartcontrol/blob/master/admin/doc-md/table-execution_de.md)
 
-## Screenshots of adapter options
+## Screenshots of adapter options (17-Sep-2020)
 
 Please note that these screenshots are a snapshot and do not reflect the latest adapter options.
 This is just to provide you an overview of the adapter options. 
