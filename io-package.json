@@ -3,7 +3,7 @@
         "name": "smartcontrol",
         "version": "1.2.0",
         "news": {
-            "1.2.1": {
+            "1.2.0": {
                 "Fix: issue #60 - Linked triggers of motion sensors issue; Several code improvements; Issues #35 and #43 confirmed as resolved, therefore all workaround code removed": {
                     "en": "Fix: issue #60 - Linked triggers of motion sensors issue; Several code improvements; Issues #35 and #43 confirmed as resolved, therefore all workaround code removed",
                     "de": "Fix: Issue #60 - Problem mit verknüpften Auslösern von Bewegungssensoren; Mehrere Codeverbesserungen; Issues #35 und #43 wurden als behoben bestätigt, daher wurde der gesamte Workaround-Code entfernt",
