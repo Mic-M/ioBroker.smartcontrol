@@ -1,8 +1,22 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "1.1.1",
+        "version": "1.2.0",
         "news": {
+            "1.2.1": {
+                "Fix: issue #60 - Linked triggers of motion sensors issue; Several code improvements; Issues #35 and #43 confirmed as resolved, therefore all workaround code removed": {
+                    "en": "Fix: issue #60 - Linked triggers of motion sensors issue; Several code improvements; Issues #35 and #43 confirmed as resolved, therefore all workaround code removed",
+                    "de": "Fix: Issue #60 - Problem mit verknüpften Auslösern von Bewegungssensoren; Mehrere Codeverbesserungen; Issues #35 und #43 wurden als behoben bestätigt, daher wurde der gesamte Workaround-Code entfernt",
+                    "ru": "Исправлено: проблема №60 - проблема связанных триггеров датчиков движения; Несколько улучшений кода; Проблемы №35 и №43 подтверждены как решенные, поэтому весь код обходного решения удален.",
+                    "pt": "Correção: problema nº 60 - Problemas vinculados aos sensores de movimento; Várias melhorias de código; Os problemas nº 35 e nº 43 foram confirmados como resolvidos, portanto, todo o código de solução alternativa foi removido",
+                    "nl": "Oplossing: probleem # 60 - Probleem met gekoppelde triggers van bewegingssensoren; Diverse codeverbeteringen; Problemen # 35 en # 43 bevestigd als opgelost, daarom is alle tijdelijke code verwijderd",
+                    "fr": "Correction: problème n ° 60 - Problème lié aux déclencheurs liés aux capteurs de mouvement; Plusieurs améliorations de code; Problèmes n ° 35 et n ° 43 confirmés comme résolus, par conséquent tout le code de solution de contournement a été supprimé",
+                    "it": "Correzione: problema # 60 - Problemi relativi ai trigger collegati dei sensori di movimento; Diversi miglioramenti al codice; I problemi # 35 e # 43 sono stati confermati come risolti, quindi tutto il codice della soluzione alternativa è stato rimosso",
+                    "es": "Solución: problema n. ° 60: problemas relacionados con los activadores de los sensores de movimiento; Varias mejoras de código; Los problemas n. ° 35 y n. ° 43 se confirmaron como resueltos, por lo tanto, se eliminó todo el código de solución.",
+                    "pl": "Poprawka: problem # 60 - Problem z połączonymi wyzwalaczami czujników ruchu; Kilka ulepszeń kodu; Potwierdzono, że problemy 35 i 43 zostały rozwiązane, w związku z czym usunięto cały kod obejścia",
+                    "zh-cn": "修复：问题60-运动传感器的链接触发器问题；几处代码改进；问题＃35和＃43确认已解决，因此删除了所有解决方法代码"
+                }
+            },
             "1.1.1": {
                 "Fix: Most likely finally fixes issue #43 as well as workaround for issue #35": {
                   "en": "Fix: Most likely finally fixes issue #43 as well as workaround for issue #35",
