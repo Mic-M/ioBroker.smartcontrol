@@ -1,8 +1,22 @@
 {
     "common": {
         "name": "smartcontrol",
-        "version": "1.2.0",
+        "version": "1.2.1",
         "news": {
+            "1.2.1": {
+                "Enhancement: Now, all adapter config validations take place while saving the adapter configuration, and all identified errors are shown in a dialog. Addresses issue #61": {
+                  "en": "Enhancement: Now, all adapter config validations take place while saving the adapter configuration, and all identified errors are shown in a dialog. Addresses issue #61",
+                  "de": "Erweiterung: Jetzt finden alle Überprüfungen der Adapterkonfiguration statt, während die Adapterkonfiguration gespeichert wird, und alle identifizierten Fehler werden in einem Dialogfeld angezeigt. Behebt das Problem Nr. 61",
+                  "ru": "Улучшение: теперь все проверки конфигурации адаптера происходят при сохранении конфигурации адаптера, и все выявленные ошибки отображаются в диалоговом окне. Решает проблему №61.",
+                  "pt": "Aprimoramento: agora, todas as validações de configuração do adaptador ocorrem ao salvar a configuração do adaptador e todos os erros identificados são mostrados em um diálogo. Resolve o problema # 61",
+                  "nl": "Verbetering: nu vinden alle adapterconfiguratie-validaties plaats tijdens het opslaan van de adapterconfiguratie en worden alle geïdentificeerde fouten in een dialoogvenster weergegeven. Lost probleem # 61 op",
+                  "fr": "Amélioration: Désormais, toutes les validations de configuration de l'adaptateur ont lieu lors de l'enregistrement de la configuration de l'adaptateur, et toutes les erreurs identifiées sont affichées dans une boîte de dialogue. Résolution du problème n ° 61",
+                  "it": "Miglioramento: ora, tutte le convalide della configurazione dell'adattatore vengono eseguite durante il salvataggio della configurazione dell'adattatore e tutti gli errori identificati vengono visualizzati in una finestra di dialogo. Risolve il problema # 61",
+                  "es": "Mejora: ahora, todas las validaciones de la configuración del adaptador tienen lugar mientras se guarda la configuración del adaptador, y todos los errores identificados se muestran en un cuadro de diálogo. Aborda el problema # 61",
+                  "pl": "Ulepszenie: teraz wszystkie sprawdzanie poprawności konfiguracji adaptera mają miejsce podczas zapisywania konfiguracji adaptera, a wszystkie zidentyfikowane błędy są wyświetlane w oknie dialogowym. Rozwiązuje problem nr 61",
+                  "zh-cn": "增强功能：现在，所有适配器配置验证都在保存适配器配置的同时进行，并且所有已识别的错误均显示在对话框中。解决了问题61"
+                }
+              },
             "1.2.0": {
                 "Fix: issue #60 - Linked triggers of motion sensors issue; Several code improvements; Issues #35 and #43 confirmed as resolved, therefore all workaround code removed": {
                     "en": "Fix: issue #60 - Linked triggers of motion sensors issue; Several code improvements; Issues #35 and #43 confirmed as resolved, therefore all workaround code removed",
@@ -129,6 +143,7 @@
         "connectionType": "local",
         "dataSource": "poll",
         "materialize": true,
+        "messagebox": true,
         "dependencies": [
             {
                 "js-controller": ">=1.4.2"

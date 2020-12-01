@@ -31,6 +31,7 @@ class SmartControl extends utils.Adapter {
 
         this.on('ready',        this._asyncOnReady.bind(this));
         this.on('stateChange',  this._asyncOnStateChange.bind(this));
+        this.on('message',      this._asyncOnMessage.bind(this));
         this.on('unload',       this._onUnload.bind(this));
 
 
@@ -233,10 +234,18 @@ class SmartControl extends utils.Adapter {
             /**
              * Validate Adapter Admin Configuration
              */
-            if (await this._asyncVerifyConfig(this.x.constants.configTableValidation)) {
+            const configVerificationResult = await this._asyncVerifyConfig(this.config);
+            if (configVerificationResult.passed) {
+                this.config = configVerificationResult.obj;
                 this.log.info('Adapter admin configuration successfully validated...');
             } else {
-                // Error(s) occurred. We already logged error message(s) by the function, so no more log needed here
+                // Error(s) occurred.
+                this.log.error(`[User Error (Anwenderfehler)] - ${configVerificationResult.issues.length} error(s) found in adapter configuration. You must fix these issue(s) to use this adapter.`);
+                let counter = 0;
+                for (const lpMsg of configVerificationResult.issues) {
+                    counter++;
+                    this.log.warn(`Issue #${counter}: ${lpMsg}`);
+                }
                 this.setState('info.connection', false, true); // change to yellow
                 return; // Go out.
             }
@@ -515,6 +524,48 @@ class SmartControl extends utils.Adapter {
         }
 
     }
+
+
+    /**
+     * Get messages from Adapter Configuration UI
+     * Using this method requires "common.message" property to be set to true in io-package.json
+     * @param {ioBroker.Message} obj
+     */
+    async _asyncOnMessage(obj) {
+
+        try {
+
+            if (typeof obj !== 'object') throw (`Verify input object: object is not defined.`);
+            if (!obj.message)            throw (`Verify input object: object.message is not defined.`);
+            if (!obj.callback)           throw (`Verify input object: object.callback is not defined.`);
+
+            /**********************************
+             * Verify the configuration from admin/index_m.html, once user hits the save button.
+             *********************************/
+            if (obj.command == 'verifyConfig') {
+                
+                this.log.debug(`[_asyncOnMessage] command 'Verify Adapter Configuration' received from admin/index_m.html. Verifying the configuration and sending the result back to index_m.html...`);
+
+                // Verify and send the result back to admin/index_m.html
+                const configVerificationResult = await this._asyncVerifyConfig(obj.message);                    
+                this.sendTo(obj.from, obj.command, configVerificationResult, obj.callback);
+                // Some log
+                if (configVerificationResult.passed) {
+                    this.log.debug(`[_asyncOnMessage] Configuration successfully verified, no issues found.`);
+                } else {
+                    this.log.debug(`[_asyncOnMessage] Configuration verification failed, ${configVerificationResult.issues.length} issue(s) found.`);
+                }
+
+            } else {
+                throw (`[_asyncOnMessage] sendTo() received object, but command '${obj.command}' is not defined in this method.`);    
+            }
+
+        } catch (error) {
+            this.x.helper.dumpError('[_asyncOnMessage()]', error);
+        }
+    }
+    
+
 
     /**
      * Schedule all trigger times of Trigger Times table
@@ -1045,18 +1096,20 @@ class SmartControl extends utils.Adapter {
 
     /**
      * Verify adapter configuration table
-     * @param {array} functionConfigArray    Array of what to check
-     * @return {Promise<boolean>}   passed   Returns true if no issues, and false if error(s).
+     * @param {object} configObject - configuration object, typically this.config
+     * @return {Promise<{passed:boolean, obj:object, issues:array}>} passed: true if successful, false if not. obj: the altered configObject. issues: array of all issue string messages
      */
-    async _asyncVerifyConfig(functionConfigArray) {
+    async _asyncVerifyConfig(configObject) {
 
         try {
             
             let errors = 0;
             let validTriggerCounter = 0;
+            let validTargetDevicesCounter = 0;
+            const issues = [];
 
             // FIRST: Check the config array
-            for (const functionConfigObj of functionConfigArray) {
+            for (const functionConfigObj of this.x.constants.configTableValidation) {
 
                 /**
                  * Prepare the table(s). Typically we only have one table to check, however, 'tableZoneExecution' requires
@@ -1065,11 +1118,11 @@ class SmartControl extends utils.Adapter {
                 const tablesToCheck = []; // Array holding all tables to check. Will be just one element, except to 'tableZoneExecution'
                 if (!(functionConfigObj.tableId == 'tableZoneExecution')) {
                     // settings of adapter config table, like of 'tableTargetDevices'
-                    tablesToCheck.push({table:this.config[functionConfigObj.tableId]}); 
+                    tablesToCheck.push({table: configObject[functionConfigObj.tableId]}); 
                 } else {
                     
                     let counter = 0;
-                    for (const lpZoneRow of this.config.tableZones) {
+                    for (const lpZoneRow of configObject.tableZones) {
                         if (lpZoneRow.active) {
                             const tbl = (this.x.helper.isLikeEmpty(lpZoneRow.executionJson)) ? [] : JSON.parse(lpZoneRow.executionJson);
                             tablesToCheck.push({zoneTableRowNo:counter, executeAlways:lpZoneRow.executeAlways, table:tbl}); 
@@ -1086,7 +1139,7 @@ class SmartControl extends utils.Adapter {
 
                     // For Zone Table Execution only: set "better" table name for log
                     if(lpTable.zoneTableRowNo != undefined) {
-                        functionConfigObj.tableName = `Zone: ${this.config.tableZones[lpTable.zoneTableRowNo].name}, Execution`;
+                        functionConfigObj.tableName = `Zone: ${configObject.tableZones[lpTable.zoneTableRowNo].name}, Execution`;
                     }
 
                     // Active status of each row; We simply push true or false in loop, same index as table rows (lpTable.table)
@@ -1094,7 +1147,7 @@ class SmartControl extends utils.Adapter {
                 
                     if (this.x.helper.isLikeEmpty(lpTable.table)) {
                         if(functionConfigObj.tableMustHaveActiveRows) {
-                            this.log.warn('[Config Table \'' + functionConfigObj.tableName + '\'] No rows defined.');
+                            issues.push('[Config Table \'' + functionConfigObj.tableName + '\'] No rows defined.');
                             errors++;
                         }
                         continue;
@@ -1102,7 +1155,7 @@ class SmartControl extends utils.Adapter {
                 
                     for (let i = 0; i < lpTable.table.length; i++) {
 
-                        if (!lpTable.table[i].active && !this.config.validateDeactivatedRows) continue;
+                        if (!lpTable.table[i].active && !configObject.validateDeactivatedRows) continue;
 
                         // Returns all object keys starting with 'check_' as array, like ['check_1','check_2']. Or empty array, if not found.
                         const lpCriteriaToCheck = (Object.keys(functionConfigObj).filter(str => str.includes('check_'))); 
@@ -1138,7 +1191,7 @@ class SmartControl extends utils.Adapter {
 
                                 if (!this.x.helper.isStateIdValid(lpConfigString)) {
                                     // State path is not valid
-                                    this.log.warn(`[Config Table '${functionConfigObj.tableName}'] ${lpFcnConfigCheckObj.id} - State '${lpConfigString}' is not valid.`);
+                                    issues.push(`[Config Table '${functionConfigObj.tableName}'] ${lpFcnConfigCheckObj.id} - State '${lpConfigString}' is not valid.`);
                                     if (lpFcnConfigCheckObj.deactivateIfError) {
                                         lpTable.table[i].active = false;
                                         rowActiveStatus[i] = false;
@@ -1151,7 +1204,7 @@ class SmartControl extends utils.Adapter {
                                     const lpStateObject = await this.getForeignObjectAsync(lpConfigString);
                                     if (!lpStateObject) {
                                         // State does not exist
-                                        this.log.warn(`[Config Table '${functionConfigObj.tableName}'] State '${lpConfigString}' does not exist.`);
+                                        issues.push(`[Config Table '${functionConfigObj.tableName}'] State '${lpConfigString}' does not exist.`);
                                         if (lpFcnConfigCheckObj.deactivateIfError) {
                                             lpTable.table[i].active = false;
                                             rowActiveStatus[i] = false;
@@ -1180,11 +1233,12 @@ class SmartControl extends utils.Adapter {
                                         lpTable.table[i].active = false;
                                         rowActiveStatus[i] = false;
                                     }
+                                    issues.push(stateValueResult.issue);
                                     errors++; 
                                     continue;
                                 } else {
                                     if ('newStateVal' in stateValueResult) {
-                                        this.config[functionConfigObj.tableId][i][lpFcnConfigCheckObj.id] = stateValueResult.newStateVal;
+                                        configObject[functionConfigObj.tableId][i][lpFcnConfigCheckObj.id] = stateValueResult.newStateVal;
                                     }
                                 }
 
@@ -1202,7 +1256,7 @@ class SmartControl extends utils.Adapter {
                                         lpTable.table[i].active = false;
                                         rowActiveStatus[i] = false;
                                     }
-                                    this.log.warn(`[Config Table '${functionConfigObj.tableName}'] - URL '${urlToCheck}' is not a valid URL.`);
+                                    issues.push(`[Config Table '${functionConfigObj.tableName}'] - URL '${urlToCheck}' is not a valid URL.`);
                                     errors++;
                                     continue;
                                 } else {
@@ -1215,7 +1269,7 @@ class SmartControl extends utils.Adapter {
                                 const finalStateId = this.namespace + '.targetURLs.' + lpConfigString.trim();
 
                                 if (! this.x.helper.isStateIdValid(finalStateId)) {
-                                    this.log.warn(`[Config Table ${functionConfigObj.tableName}] Field ${lpFcnConfigCheckObj.id}, content '${lpConfigString}' contains invalid characters.'.`);
+                                    issues.push(`[Config Table ${functionConfigObj.tableName}] Field ${lpFcnConfigCheckObj.id}, content '${lpConfigString}' contains invalid characters.'.`);
                                     if (lpFcnConfigCheckObj.deactivateIfError) lpTable.table[i].active = false;
                                     errors++; 
                                     continue;
@@ -1236,14 +1290,14 @@ class SmartControl extends utils.Adapter {
                                 }
 
                                 if(! this.x.helper.isNumber(lpNumberToCheck) ) {
-                                    this.log.warn(`[Config Table ${functionConfigObj.tableName}] Field ${lpFcnConfigCheckObj.id} is expecting a number, but you set '${lpConfigString}'.`);
+                                    issues.push(`[Config Table ${functionConfigObj.tableName}] Field ${lpFcnConfigCheckObj.id} is expecting a number, but you set '${lpConfigString}'.`);
                                     if (lpFcnConfigCheckObj.deactivateIfError) lpTable.table[i].active = false;
                                     errors++; 
                                     continue;
                                 // check for lower limit, if 'numberLowerLimit' set in functionConfigObj object
                                 } else if (! this.x.helper.isLikeEmpty(lpFcnConfigCheckObj.numberLowerLimit)) {
                                     if(parseInt(lpNumberToCheck) < lpFcnConfigCheckObj.numberLowerLimit) {
-                                        this.log.warn('[Config Table \'' + functionConfigObj.tableName + '\'] Number in field "' + lpFcnConfigCheckObj.id + '" is smaller than ' + lpFcnConfigCheckObj.numberLowerLimit + ', which does not make sense.');
+                                        issues.push('[Config Table \'' + functionConfigObj.tableName + '\'] Number in field "' + lpFcnConfigCheckObj.id + '" is smaller than ' + lpFcnConfigCheckObj.numberLowerLimit + ', which does not make sense.');
                                         if (lpFcnConfigCheckObj.deactivateIfError) {
                                             lpTable.table[i].active = false;
                                         }
@@ -1253,7 +1307,7 @@ class SmartControl extends utils.Adapter {
                                 // check for upper limit, if 'numberUpperLimit' set in functionConfigObj object
                                 } else if (! this.x.helper.isLikeEmpty(lpFcnConfigCheckObj.numberUpperLimit)) { 
                                     if(parseInt(lpNumberToCheck) < lpFcnConfigCheckObj.numberUpperLimit) {
-                                        this.log.warn('[Config Table \'' + functionConfigObj.tableName + '\'] Number in field "' + lpFcnConfigCheckObj.id + '" is greater than ' + lpFcnConfigCheckObj.numberUpperLimit  + ', which does not make sense.');
+                                        issues.push('[Config Table \'' + functionConfigObj.tableName + '\'] Number in field "' + lpFcnConfigCheckObj.id + '" is greater than ' + lpFcnConfigCheckObj.numberUpperLimit  + ', which does not make sense.');
                                         if (lpFcnConfigCheckObj.deactivateIfError) lpTable.table[i].active = false;
                                         errors++;
                                         continue;
@@ -1295,7 +1349,7 @@ class SmartControl extends utils.Adapter {
                                 }
 
                                 if (this.x.helper.isLikeEmpty(lpToCheck) &&  !lpFcnConfigCheckObj.optional) {
-                                    this.log.warn('[Config Table \'' + functionConfigObj.tableName + '\'] Field "' + lpFcnConfigCheckObj.id + '" is empty.');
+                                    issues.push('[Config Table \'' + functionConfigObj.tableName + '\'] Field "' + lpFcnConfigCheckObj.id + '" is empty or contains forbidden chars.');
                                     if (lpFcnConfigCheckObj.deactivateIfError) lpTable.table[i].active = false;
                                     errors++; 
                                     continue;
@@ -1316,7 +1370,7 @@ class SmartControl extends utils.Adapter {
                                     isValidTime = true;
                                 }
                                 if (!isValidTime) {
-                                    this.log.warn(`[Config Table '${functionConfigObj.tableName}'] No valid time in field '${lpFcnConfigCheckObj.id}': '${lpConfigString}'`);
+                                    issues.push(`[Config Table '${functionConfigObj.tableName}'] No valid time in field '${lpFcnConfigCheckObj.id}': '${lpConfigString}'`);
                                     if (lpFcnConfigCheckObj.deactivateIfError) lpTable.table[i].active = false;
                                     errors++; 
                                     continue;
@@ -1328,7 +1382,7 @@ class SmartControl extends utils.Adapter {
                             } else if (lpFcnConfigCheckObj.type == 'overwrite') {
 
                                 // Like: "targetsOverwrite": { "Bath.Light": "true", "Hallway Light": "50"}
-                                const targetsOverwriteObject = this.config[functionConfigObj.tableId][i][lpFcnConfigCheckObj.id];
+                                const targetsOverwriteObject = configObject[functionConfigObj.tableId][i][lpFcnConfigCheckObj.id];
                                 if (this.x.helper.isLikeEmpty(targetsOverwriteObject)) continue; // nothing at this point
 
                                 // loop thru the object to get the key name ("property")
@@ -1353,6 +1407,7 @@ class SmartControl extends utils.Adapter {
                                         const stateValueValidationResult = await this._asyncVerifyConfig_verifyStateValue(lpStatePath, lpStateVal, true, lpConfigTableName);
                                         if (stateValueValidationResult.validationFailed) {
                                             if (lpFcnConfigCheckObj.deactivateIfError) lpTable.table[i].active = false;
+                                            issues.push(stateValueValidationResult.issue);
                                             errors++; 
                                             continue;
                                         } else {
@@ -1370,14 +1425,17 @@ class SmartControl extends utils.Adapter {
                                     // Finalize
                                     if(this.x.helper.isLikeEmpty(finalObj)) {
                                         this.log.warn(`Verifying Targets Overwrite - failed for '${name}' - no keys found.`);
+                                        errors++;
+                                        continue;
                                     } else {
-                                        this.config[functionConfigObj.tableId][i][lpFcnConfigCheckObj.id][name] = finalObj;
+                                        configObject[functionConfigObj.tableId][i][lpFcnConfigCheckObj.id][name] = finalObj;
                                     }
 
                                 }
                             }
                         }
                         if(functionConfigObj.isTriggerTable) validTriggerCounter++;
+                        if(functionConfigObj.isTargetTable)  validTargetDevicesCounter++;
 
                     }
                     let activeRowCounter = 0;
@@ -1386,23 +1444,27 @@ class SmartControl extends utils.Adapter {
                     }
 
                     if (activeRowCounter == 0  && functionConfigObj.tableMustHaveActiveRows && !functionConfigObj.isTriggerTable) {
-                        this.log.warn(`[Config Table '${functionConfigObj.tableName}'] No active rows defined (certain rows may have been deactivated due to errors, see previous logs for details).`);
+                        issues.push(`[Config Table '${functionConfigObj.tableName}'] No active rows defined (certain rows may have been deactivated due to errors, see previous logs for details).`);
                         errors++;
                     } 
 
-                    // We altered table variable, so set into adapter config
+                    // We altered table variable, so set into config object
                     if (!(functionConfigObj.tableId == 'tableZoneExecution')) {
-                        this.config[functionConfigObj.tableId] = lpTable.table;
+                        configObject[functionConfigObj.tableId] = lpTable.table;
                     } else {
                         // @ts-ignore - Type 'undefined' cannot be used as an index type
-                        this.config.tableZones[lpTable.zoneTableRowNo].executionJson = JSON.stringify(lpTable.table);
+                        configObject.tableZones[lpTable.zoneTableRowNo].executionJson = JSON.stringify(lpTable.table);
                     }
 
                 }
 
             }
             if (validTriggerCounter == 0) {
-                this.log.warn('No active and valid trigger defined in any trigger table.');
+                issues.push(`Tab [3. TRIGGERS] You need to define at least 1 trigger: you either have no triggers defined, or your triggers(s) did not pass the input validation.`);
+                errors++;                    
+            }
+            if (validTargetDevicesCounter == 0) {
+                issues.push(`Tab '1. TARGET DEVICES': You need to define at least 1 target: you either have no targets defined, or your target(s) did not pass the input validation.`);
                 errors++;                    
             }
 
@@ -1413,11 +1475,11 @@ class SmartControl extends utils.Adapter {
             const uniqueCheckObjects = [
                 // name: for logging only, column: the table to check, rows: the adapter config table rows
                 // @ts-ignore -> https://github.com/microsoft/TypeScript/issues/36769
-                { name:'Trigger Tables: Names',        column:'name',          rows:this.config.tableTriggerMotion.concat(this.config.tableTriggerDevices, this.config.tableTriggerTimes) },
-                { name:'Target device table: Names',                column:'name',    rows:this.config.tableTargetDevices },
-                { name:'Zones table: Names',                    column:'name',      rows:this.config.tableZones },
-                { name:'Conditions table: Names',                   column:'name', rows:this.config.tableConditions },
-                // { name:'Trigger Tables Motion/Other: State Paths',  column:'stateId',       rows:this.config.tableTriggerMotion.concat(this.config.tableTriggerDevices) },
+                { name:'Trigger Tables: Names',        column:'name',          rows:configObject.tableTriggerMotion.concat(configObject.tableTriggerDevices, configObject.tableTriggerTimes) },
+                { name:'Target device table: Names',                column:'name',    rows:configObject.tableTargetDevices },
+                { name:'Zones table: Names',                    column:'name',      rows:configObject.tableZones },
+                { name:'Conditions table: Names',                   column:'name', rows:configObject.tableConditions },
+                // { name:'Trigger Tables Motion/Other: State Paths',  column:'stateId',       rows:configObject.tableTriggerMotion.concat(configObject.tableTriggerDevices) },
             ];
             for (const lpCheckObj of uniqueCheckObjects) {
                 if (!this.x.helper.isLikeEmpty(lpCheckObj.rows)) {
@@ -1428,7 +1490,7 @@ class SmartControl extends utils.Adapter {
                         }
                     }
                     if ( !this.x.helper.isArrayUnique(allValues) ) {
-                        this.log.error(`${lpCheckObj.name} must be unique. You cannot use same string more than once here.`);
+                        issues.push(`${lpCheckObj.name} must be unique. You cannot use same string more than once here.`);
                         errors++;
                     }
                 }
@@ -1437,15 +1499,14 @@ class SmartControl extends utils.Adapter {
 
             // FINALIZE
             if (errors == 0) {
-                return true;
+                return {passed:true, obj:configObject, issues:[]};
             } else {
-                this.log.error(`[User Error (Anwenderfehler)] - ${errors} error(s) found in adapter configuration --> Please check the previous warn log for details and then correct your configuration accordingly. You must fix these issue(s) to use this adapter.`);
-                return false;
+                return {passed:false, obj:configObject, issues:this.x.helper.uniqueArray(issues)};
             }
 
         } catch (error) {
             this.x.helper.dumpError('[asyncVerifyConfig()]', error);
-            return false;
+            return {passed:false, obj:configObject, issues:[`Error in [asyncVerifyConfig()]: ${error}`]};
         }
     }
 
@@ -1457,7 +1518,7 @@ class SmartControl extends utils.Adapter {
      * @param {*} stateVal
      * @param {boolean} isOptional 
      * @param {string} configTableName -- name of config table, for log only
-     * @return {Promise<object>}   {validationFailed:false, newStateVal:'xyz'}
+     * @return {Promise<object>}   {validationFailed:false, newStateVal:'xyz', issue:''}
      */
     async _asyncVerifyConfig_verifyStateValue(statePath, stateVal, isOptional, configTableName) {
 
@@ -1479,8 +1540,7 @@ class SmartControl extends utils.Adapter {
             
             if (!lpStateObject) {
                 // State does not exist
-                this.log.warn(`[Config Table '${configTableName}'] State '${statePath}' does not exist.`);
-                return {validationFailed:true};
+                return {validationFailed:true, issue:`[Config Table '${configTableName}'] State '${statePath}' does not exist.`};
             } else {
                 // State exists
                 // Verify State Type (like boolean, switch, number)
@@ -1488,8 +1548,7 @@ class SmartControl extends utils.Adapter {
 
                 if (stateType == 'boolean' || stateType == 'switch') {
                     if (stateVal != 'true' && stateVal != 'false') {
-                        this.log.warn(`[Config Table '${configTableName}'] State '${statePath}' is expecting boolean (true/false), but you set '${stateVal}'.`);
-                        return {validationFailed:true};
+                        return {validationFailed:true, issue:`[Config Table '${configTableName}'] State '${statePath}' is expecting boolean (true/false), but you set '${stateVal}'.`};
                     } else {
                         if (stateVal == 'true') stateVal = true;
                         if (stateVal == 'false') stateVal = false;
@@ -1503,8 +1562,7 @@ class SmartControl extends utils.Adapter {
                     } else if (this.x.helper.isNumber(stateVal)) {
                         return {validationFailed:false, newStateVal:parseFloat(stateVal)};
                     } else {
-                        this.log.warn(`[Config Table ${configTableName}] State ${statePath} is expecting a number, but you set '${stateVal}'.`);
-                        return {validationFailed:true};
+                        return {validationFailed:true, issue:`[Config Table ${configTableName}] State ${statePath} is expecting a number, but you set '${stateVal}'.`};
                     }
                 } else if (this.x.helper.isLikeEmpty(stateVal)) {
                     // Let's convert an "like empty" value to an empty string, just to make sure....
@@ -1515,8 +1573,7 @@ class SmartControl extends utils.Adapter {
                 }
             }            
         } catch (error) {
-            this.x.helper.dumpError('[verifyStateValue()]', error);
-            return {validationFailed:true};
+            return {validationFailed:true, issue:this.x.helper.dumpError('[verifyStateValue()]', error, true)};
         }
 
     }

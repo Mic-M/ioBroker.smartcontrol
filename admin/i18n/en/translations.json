@@ -81,7 +81,6 @@
     "Wed": "Wed",
     "Zones": "Zones",
     "log.verifyOptions.header": "Your configuration is faulty, please fix as follows:",
-    "log.verifyOptions.info": "Please note that we only checks here whether at least one active table row exists and if at least one active execution is defined in Zones. Further verifications will take place after saving of these options, which will restart the adapter. Therefore please make sure to check the ioBroker log: any additional errors will be shown there.",
     "new value": "new value",
     "off": "off",
     "on": "on",

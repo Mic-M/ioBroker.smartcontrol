@@ -1,7 +1,7 @@
 /* eslint-disable no-irregular-whitespace */
 /* eslint-disable-next-line no-undef */
 /* eslint-env jquery, browser */               // https://eslint.org/docs/user-guide/configuring#specifying-environments
-/* global getEnums, common, systemLang, socket, values2table, table2values, M, _, instance */  // for eslint
+/* global sendTo, getEnums, common, systemLang, socket, values2table, table2values, M, _, instance */  // for eslint
 /**
  * List of some global constants
  *
@@ -690,107 +690,137 @@ function load2(settings, onChange) {
  * Save Options - Called by the admin adapter when the user clicks save
  * @param {function} callback(settingsObject) - callback function containing the settings object to be saved.
  */
-function save(callback) { /*eslint-disable-line no-unused-vars*/
+async function save(callback) { /*eslint-disable-line no-unused-vars*/
 
-    /**
-     * Select elements with class=value and build settings object
-     * (from Adapter Creator)
-     */ 
-    const obj = {};
-    $('.value').each(function() {
-        const $this = $(this);
-        if ($this.attr('type') === 'checkbox') {
-            obj[$this.attr('id')] = $this.prop('checked');
-        } else {
-            obj[$this.attr('id')] = $this.val();
-        }
-    });
-
-    // Set Option Table values
-    for (const tableId of tableIds) {
-        obj[tableId] = table2values(tableId);      
-    }
-
-    // Set g_zonesTargetsOverwrite
-    // ! Must be after setting the Option Table Values
-    for (let i = 0; i < obj['tableZones'].length; i++) {
-
-        // get g_zonesTargetsOverwrite value for zone row
-        const overwriteObject = g_zonesTargetsOverwrite[obj['tableZones'][i]['name']]; // Like {'Hallway.Light':'new val' 'Hallway.Radio':'Radio XYZ'}
-        if (overwriteObject && !isLikeEmpty(overwriteObject)) {
-            obj['tableZones'][i]['targetsOverwrite'] = overwriteObject;
-        } else {
-            delete obj['tableZones'][i]['targetsOverwrite'];
-        }
-
-    }
-
-    /**
-     * Verify Tables
-     */
-    const errors = [];
-
-    // All tables
-    const tablesToCheck = [
-        {tabName:'1. TARGET DEVICES', tableRows:obj.tableTargetDevices.concat(obj.tableTargetEnums, obj.tableTargetURLs)},
-        {tabName:'3. TRIGGERS', tableRows:obj.tableTriggerMotion.concat(obj.tableTriggerDevices, obj.tableTriggerTimes)},
-        {tabName:'4. ZONES', tableRows:obj.tableZones},
-    ];
-    for (const lpCheckObj of tablesToCheck) {
-        let activeRows = 0;
-        let rowCounter = 0;
-        const tabName = lpCheckObj.tabName;
-        const tableRows = lpCheckObj.tableRows;
-        for (const lpTableRow of tableRows) {
-            rowCounter++;
-            if (lpTableRow.active) activeRows++;
-        }
-        if (rowCounter == 0 || activeRows == 0) {
-            errors.push(`<strong>Tab "${tabName}"</strong> - Total number of rows: ${rowCounter}, active rows: ${activeRows}. At least one active row is required.`);
-        }
-    }
-
-    // Verify Execution for Table Zones
-    for (const lpZonesRow of obj.tableZones) {
-        if (lpZonesRow.active) {
-            const executeAlways = lpZonesRow.executeAlways;
-            const executionArr = (lpZonesRow.executionJson) ? JSON.parse(lpZonesRow.executionJson) : [];
-            if(!executeAlways && isLikeEmpty(executionArr)) {
-                errors.push(`<strong>Tab "4. ZONES"</strong> - Zone '${lpZonesRow.name}': no execution is defined.`);
-            } else if (! executeAlways) {
-                let countValid = 0;
-                for (const lpExecRow of executionArr) {
-                    if(
-                        lpExecRow.active
-                        && (lpExecRow.start && lpExecRow.start.trim().length > 0)
-                        && (lpExecRow.end && lpExecRow.end.trim().length > 0)
-                        && (lpExecRow.mon || lpExecRow.tue || lpExecRow.wed || lpExecRow.thu || lpExecRow.fri || lpExecRow.sat || lpExecRow.sun)
-                    ) {
-                        countValid++;
-                    }
-                }
-                if (countValid == 0) {
-                    errors.push(`<strong>Tab "4. ZONES"</strong> - Zone '${lpZonesRow.name}': Invalid or no execution defined.`);
-                }
+    try {
+        
+        /**
+         * Select elements with class=value and build settings object
+         * (from Adapter Creator)
+         */ 
+        let obj = {};
+        $('.value').each(function() {
+            const $this = $(this);
+            if ($this.attr('type') === 'checkbox') {
+                obj[$this.attr('id')] = $this.prop('checked');
+            } else {
+                obj[$this.attr('id')] = $this.val();
             }
+        });
+
+        // Set Option Table values
+        for (const tableId of tableIds) {
+            obj[tableId] = table2values(tableId);      
         }
+
+        // Set g_zonesTargetsOverwrite
+        // ! Must be after setting the Option Table Values
+        for (let i = 0; i < obj['tableZones'].length; i++) {
+
+            // get g_zonesTargetsOverwrite value for zone row
+            const overwriteObject = g_zonesTargetsOverwrite[obj['tableZones'][i]['name']]; // Like {'Hallway.Light':'new val' 'Hallway.Radio':'Radio XYZ'}
+            if (overwriteObject && !isLikeEmpty(overwriteObject)) {
+                obj['tableZones'][i]['targetsOverwrite'] = overwriteObject;
+            } else {
+                delete obj['tableZones'][i]['targetsOverwrite'];
+            }
+
+        }
+
+        /*****************************
+         * Input Validation
+         * We use sendTo() to use adapter's node.js code for validation.
+         *****************************/
+
+        let verifyConfigResultObj = undefined;
+        let errors = [];
+
+        // Adapter must be alive
+        const aliveStateObj = await getStateAsync(`system.adapter.${adapterNamespace}.alive`);
+        if (aliveStateObj == null) throw(`'getStateAsync(${adapterNamespace}.alive)' returned error.`);
+        if (aliveStateObj && aliveStateObj.val) {
+            // Adapter is alive, so verify the config.
+            verifyConfigResultObj = await sendToAsync('verifyConfig', obj);
+            if (verifyConfigResultObj == null) throw(`'sendToAsync('verifyConfig', obj)' returned null`);
+            if (verifyConfigResultObj.passed) {
+                console.debug(`Verifying Config: successfully passed.`);
+                // Low priority (nice to have) enhancement idea: we may want to also update configuration by refreshing all tabs / tables.
+                // set the altered object
+                // obj = objResult.obj;
+            } else {
+                errors = verifyConfigResultObj.issues;
+                console.warn(`Verifying Config: failed!`);
+            }
+
+        } else {
+            // Adapter is NOT alive
+            errors = [`Adapter instance ${adapterNamespace} is not running, so we cannot verify the configuration and cannot save your changes. Please turn the adapter instance on. Hint: To not lose your changes, keep this browser window/tab open, open ioBroker in a new browser window/tab, turn the adapter instance on, and try again to save the changes.`];
+        }
+
+        if(errors.length === 0) {
+            // Finally, save settings by calling callback function and provide the settings object
+            callback(obj);
+        } else {
+            // Errors occurred, so do not save settings but provide dialog with the errors
+            let errorHtml = '<ol>\n';
+            for (const errorEntry of errors) {
+                errorHtml += `<li>${errorEntry}</li>`;
+            }
+            errorHtml += '\n</ol>';
+            // open error dialog
+            $('#dialog-save-verification #save-errors').html(errorHtml);
+            $('#dialog-save-verification').modal();
+            $('#dialog-save-verification').modal('open'); 
+        }
+
+    } catch (error) {
+        console.error(`[save()] - ${error}`);
+        return;
     }
 
 
-    if (errors.length > 0) {
-        let errorHtml = '<ol>\n';
-        for (const errorEntry of errors) {
-            errorHtml += `<li>${errorEntry}</li>`;
-        }
-        errorHtml += '\n</ol>';
-        $('#dialog-save-verification #save-errors').html(errorHtml);
-        $('#dialog-save-verification').modal();
-        $('#dialog-save-verification').modal('open'); 
-        return; // do not save
-    }   
-    console.warn('SAVE: ' + JSON.stringify(obj.tableTargetEnums));
-    // Finally, save settings by calling callback function and provide the settings object
-    callback(obj);
+}
+
+
+/**
+ * Promise Wrapping:
+ * async sendTo 
+ * Mic - 25-Nov-2020
+ * @param {string} cmd - Command
+ * @param {object} obj - Object
+ * @return {Promise<object|null>}
+ */
+function sendToAsync(cmd, obj) {
+    return new Promise((resolve, reject) => {
+        sendTo(adapterNamespace, cmd, obj, (result) => {
+            if (result.error) {
+                console.error('sendToAsync(): ' + result.error);
+                reject(null);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+/**
+ * Promise Wrapping:
+ * async getState
+ * Mic - 01-Dec-2020
+ * @param {string} id - state id
+ * @return {Promise<object|null>} state object, or null if error
+ */
+function getStateAsync(id) {
+    return new Promise((resolve, reject) => {
+        socket.emit('getState', id, (err, stateObj) => {
+            if (err) {
+                console.error('getStateAsync(): ' + err);
+                reject(null);
+            } else {
+                resolve(stateObj);
+            }
+        });
+    });
 }
 
 
