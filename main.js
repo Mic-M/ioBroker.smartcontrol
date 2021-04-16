@@ -796,7 +796,7 @@ class SmartControl extends utils.Adapter {
                 
                 const name = this.getOptionTableValue('tableTargetURLs', 'stateId', stateMainObjectId, 'name');
                 const url  = this.getOptionTableValue('tableTargetURLs', 'stateId', stateMainObjectId, 'url' + what);
-                const response =  ".response_"+ what.toLowerCase();
+                const response_obj =  ".response_"+ what.toLowerCase();
                 if (name && url) {
 
                     try {
@@ -807,15 +807,15 @@ class SmartControl extends utils.Adapter {
                         // Set response to state smartcontrol.x.targetURLs.xxxxxxx.response
 
                         if (this.x.helper.isLikeEmpty(response.body)) {
-                            this.setState(stateMainObjectId + response, {val: '(no response text provided)', ack: true }); // no async needed here
+                            this.setState(stateMainObjectId + response_obj, {val: '(no response text provided)', ack: true }); // no async needed here
                             this.log.info(`No 'response.body' as URL call response for name: '${name}', URL: '${url}'`);
                         } else {
                             const responseVal = (typeof response.body === 'string') ? response.body : JSON.stringify(response.body);
-                            this.setState(stateMainObjectId + response, {val: responseVal, ack: true }); // no async needed here
+                            this.setState(stateMainObjectId + response_obj, {val: responseVal, ack: true }); // no async needed here
                             this.log.debug(`URL call response: [${responseVal}]`);
                         }
                     } catch (error) {
-                        this.setState(stateMainObjectId + response, {val: 'Error: ' + error.response.body, ack: true }); // no async needed here
+                        this.setState(stateMainObjectId + response_obj, {val: 'Error: ' + error.response.body, ack: true }); // no async needed here
                         this.x.helper.dumpError(`Error calling target URL - name: '${name}', URL: '${url}'`);
                         this.x.helper.dumpError('Message: ', error.response.body);
                     }
